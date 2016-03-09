@@ -13,6 +13,7 @@ import java.sql.ResultSet;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -70,7 +71,7 @@ public class CommentDao implements IDao<Comment>{
             PreparedStatement ps = connection.prepareStatement(requete);
             ps.setInt(1, id);
             ps.executeUpdate();
-            System.out.println("Personne supprimé");
+            System.out.println("Commentaire supprimé");
         } catch (SQLException ex) {
             System.out.println("erreur lors de la suppression " + ex.getMessage());
         }
@@ -78,7 +79,24 @@ public class CommentDao implements IDao<Comment>{
 
     @Override
     public List<Comment> findAll() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+         List<Comment> listeCommentaire = new ArrayList<>();
+        String req = "select * from comment";
+        try {
+            pst = connection.prepareStatement(req);
+            ResultSet resultat = pst.executeQuery(req);
+            
+            while (resultat.next()) {
+                Comment c = new Comment();
+                c.setId(resultat.getInt(1));
+                c.setBody(resultat.getString(3));
+                c.setCreated_at((Date)resultat.getDate(6));
+               listeCommentaire.add(c);
+            }
+            return listeCommentaire;
+        } catch (SQLException ex) {
+            System.out.println("erreur Recherche all " + ex.getMessage());
+        return listeCommentaire;
+        }
     }
 
     @Override

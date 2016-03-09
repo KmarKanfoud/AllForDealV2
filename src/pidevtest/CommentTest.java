@@ -30,7 +30,7 @@ public class CommentTest {
         //DateFormat dateFormat = new SimpleDateFormat("yyy/MM/dd HH:mm:ss");
         // Date date = new Date();
         //System.out.println(dateFormat.format(date));
-        Date date = new java.sql.Date(System.currentTimeMillis());
+        Date date = java.sql.Date.valueOf(LocalDate.now());
         Comment c1 = new Comment("Bonsoir", date);
         Comment c2=  new Comment("AllForDeal", date);
         CommentDao pdao = new CommentDao();
@@ -38,7 +38,10 @@ public class CommentTest {
        // pdao.add(c2);
        // c2.setBody("sahar");
        // pdao.update(c2);
-         pdao.removeById(12);
+        // pdao.removeById(12);
+         List<Comment>cm = new ArrayList();
+        cm = pdao.findAll();
+        System.out.println(cm);
     }
 
 }

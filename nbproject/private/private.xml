@@ -3,7 +3,16 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
+<<<<<<< HEAD
             <file>file:/C:/Users/Super/Documents/PiDevJavaV2/src/GUI/FrameEnvoyerReclamation.java</file>
+=======
+<<<<<<< HEAD
+            <file>file:/C:/Users/esprit/Documents/NetBeansProjects/Java/AllForDealV2/src/GUI/FrameAjouterProduit.java</file>
+            <file>file:/C:/Users/esprit/Documents/NetBeansProjects/Java/AllForDealV2/src/dao/ZoneDao.java</file>
+            <file>file:/C:/Users/esprit/Documents/NetBeansProjects/Java/AllForDealV2/src/entite/Zone.java</file>
+=======
+<<<<<<< HEAD
+>>>>>>> 19ec672ca2ff32c5073e0f12b5271076c229a1bf
             <file>file:/C:/Users/Super/Documents/PiDevJavaV2/src/GUI/FrameAjouterService.java</file>
             <file>file:/C:/Users/Super/Documents/PiDevJavaV2/src/GUI/FrameModifierService.java</file>
             <file>file:/C:/Users/Super/Documents/PiDevJavaV2/src/GUI/FrameAfficherService.java</file>
@@ -15,6 +24,14 @@
             <file>file:/C:/Users/Super/Documents/PiDevJavaV2/src/dao/PanierDao.java</file>
             <file>file:/C:/Users/Super/Documents/PiDevJavaV2/src/pidevtest/ReclamationTest.java</file>
             <file>file:/C:/Users/Super/Documents/PiDevJavaV2/src/GUI/FrameAjouterCommentaire.java</file>
+<<<<<<< HEAD
+=======
+=======
+            <file>file:/C:/Users/SaharS/Documents/NetBeansProjects/AllForDealV2/src/GUI/FrameAjouterService.java</file>
+            <file>file:/C:/Users/SaharS/Documents/NetBeansProjects/AllForDealV2/src/GUI/FrameAjouterCommentaire.java</file>
+>>>>>>> 191ff6741b4656c50a30c72a2ec6c511f568ecc0
+>>>>>>> 278059b025f8117769c5de72750fa5f38d731521
+>>>>>>> 19ec672ca2ff32c5073e0f12b5271076c229a1bf
         </group>
     </open-files>
 </project-private>

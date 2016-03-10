@@ -13,6 +13,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import javax.swing.JOptionPane;
 import java.sql.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -24,6 +26,8 @@ public class FrameAjouterService extends javax.swing.JFrame  {
      private Connection conn=null;
     private PreparedStatement pst=null;
     ResultSet rs=null;
+    ServiceDao pdao = new ServiceDao();
+    
    
 
     /**
@@ -31,7 +35,11 @@ public class FrameAjouterService extends javax.swing.JFrame  {
      */
     public FrameAjouterService() {
        // Fillcombo();
+       
         initComponents();
+         loadAllVille();
+        
+        //this.setResizable(false);
     }
 
     /**
@@ -56,12 +64,17 @@ public class FrameAjouterService extends javax.swing.JFrame  {
         btnAjoutS = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblService = new javax.swing.JTable();
+        lerror = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setSize(new java.awt.Dimension(569, 400));
+        setMaximumSize(new java.awt.Dimension(700, 700));
+        setMinimumSize(new java.awt.Dimension(700, 600));
+        setPreferredSize(new java.awt.Dimension(600, 600));
+        setSize(new java.awt.Dimension(550, 600));
         getContentPane().setLayout(null);
 
         jPanel1.setBackground(new java.awt.Color(255, 153, 153));
+        jPanel1.setFocusable(false);
 
         jLabel1.setText("Nom Service :");
 
@@ -87,7 +100,6 @@ public class FrameAjouterService extends javax.swing.JFrame  {
 
         cbCat.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Maison", "jardinage", "annimaux", "" }));
 
-        cbZone.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "1", "2", "3", "4", "5" }));
         cbZone.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cbZoneActionPerformed(evt);
@@ -99,6 +111,7 @@ public class FrameAjouterService extends javax.swing.JFrame  {
         btnAjoutS.setBackground(new java.awt.Color(255, 204, 204));
         btnAjoutS.setIcon(new javax.swing.ImageIcon("C:\\Users\\Super\\Downloads\\Ajout.png")); // NOI18N
         btnAjoutS.setText("Ajouter Service");
+        btnAjoutS.setAlignmentX(10.1F);
         btnAjoutS.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnAjoutSActionPerformed(evt);
@@ -119,7 +132,7 @@ public class FrameAjouterService extends javax.swing.JFrame  {
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addContainerGap()
@@ -127,28 +140,25 @@ public class FrameAjouterService extends javax.swing.JFrame  {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(20, 20, 20)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(72, 72, 72)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(cbZone, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(cbCat, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                             .addComponent(jLabel5)
                             .addComponent(jLabel1)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(70, 70, 70)
-                                .addComponent(tfNomS, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(jLabel2)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(72, 72, 72)
-                                .addComponent(tfDescription, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jLabel3))))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 49, Short.MAX_VALUE)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel3)))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(btnAjoutS, javax.swing.GroupLayout.PREFERRED_SIZE, 179, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addGap(90, 90, 90)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(cbZone, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(cbCat, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(tfDescription, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(tfNomS, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 19, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lerror, javax.swing.GroupLayout.PREFERRED_SIZE, 337, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(btnAjoutS, javax.swing.GroupLayout.PREFERRED_SIZE, 179, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -170,25 +180,30 @@ public class FrameAjouterService extends javax.swing.JFrame  {
                         .addGap(2, 2, 2)
                         .addComponent(cbCat, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(11, 11, 11)
-                        .addComponent(jLabel4)
-                        .addGap(16, 16, 16)
-                        .addComponent(cbZone, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jLabel4))
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(60, 60, 60)
+                .addGap(16, 16, 16)
+                .addComponent(cbZone, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(lerror, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnAjoutS, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(109, Short.MAX_VALUE))
+                .addContainerGap(117, Short.MAX_VALUE))
         );
 
         getContentPane().add(jPanel1);
-        jPanel1.setBounds(0, 0, 700, 490);
+        jPanel1.setBounds(0, 0, 670, 490);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnAjoutSActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAjoutSActionPerformed
         // TODO add your handling code here:
+        lerror.setText(" ");
+        
           Service s = new Service();
           Date date = new java.sql.Date(System.currentTimeMillis());
+          if(! tfNomS.getText().trim().equals("")){
         s.setNomService(tfNomS.getText());
         s.setDescription(tfDescription.getText());
         s.setType(cbCat.getSelectedItem().toString());
@@ -199,7 +214,8 @@ public class FrameAjouterService extends javax.swing.JFrame  {
         pdao.add(s);
         DefaultTableModel model=(DefaultTableModel) tblService.getModel();
 model.addRow(new Object[]{tfNomS.getText(),tfDescription.getText(),cbCat.getSelectedItem().toString(),s.getDateAjout(),s.getEtat()});
-        
+       }else{
+          lerror.setText(" Veuiller enter le nom de votre service SVP !");} 
     }//GEN-LAST:event_btnAjoutSActionPerformed
 
     private void cbZoneActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbZoneActionPerformed
@@ -265,7 +281,20 @@ model.addRow(new Object[]{tfNomS.getText(),tfDescription.getText(),cbCat.getSele
 //    }
 //    }
   
-
+private void loadAllVille() {
+         try {
+            ResultSet res = pdao.getAllVille();
+           
+            while (res.next()) {
+             
+              cbZone.addItem(res.getString(1));
+              // System.out.println(res.getString(1));
+                
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(FrameAjouterService.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAjoutS;
     private javax.swing.JComboBox cbCat;
@@ -277,6 +306,7 @@ model.addRow(new Object[]{tfNomS.getText(),tfDescription.getText(),cbCat.getSele
     private javax.swing.JLabel jLabel5;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JLabel lerror;
     private javax.swing.JTable tblService;
     private javax.swing.JTextField tfDescription;
     private javax.swing.JTextField tfNomS;

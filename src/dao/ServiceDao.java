@@ -89,6 +89,7 @@ public class ServiceDao implements IDao<Service> {
             System.out.println("erreur lors de la suppression " + ex.getMessage());
         } 
     }
+    
 
     @Override
     public List<Service> findAll() {
@@ -100,6 +101,19 @@ public class ServiceDao implements IDao<Service> {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
+    public ResultSet getAllVille() {
+       
+        try {
+            pst = connection.prepareStatement("SELECT nom FROM zone;");
+            ResultSet allAdmin = pst.executeQuery();
+            return allAdmin;
+            
+           
+        } catch (SQLException ex) {
+            Logger.getLogger(ServiceDao.class.getName()).log(Level.SEVERE, null, ex);
+        }
+         return null;
+    }
  
     
 }

@@ -43,26 +43,42 @@ public class FrameModifierService extends javax.swing.JFrame {
         btnModifierS = new javax.swing.JButton();
         jLabel6 = new javax.swing.JLabel();
         cbEtat = new javax.swing.JComboBox();
+        jPanel1 = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        getContentPane().setLayout(null);
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        jLabel1.setForeground(new java.awt.Color(255, 0, 0));
+        jLabel1.setForeground(new java.awt.Color(255, 51, 102));
         jLabel1.setText("Modifier Service");
+        getContentPane().add(jLabel1);
+        jLabel1.setBounds(126, 49, 145, 22);
 
         jLabel2.setText("Nom du Service : ");
+        getContentPane().add(jLabel2);
+        jLabel2.setBounds(63, 140, 84, 14);
 
         jLabel3.setText("Description : ");
+        getContentPane().add(jLabel3);
+        jLabel3.setBounds(63, 194, 63, 14);
 
         jLabel4.setText("Catégorie :");
+        getContentPane().add(jLabel4);
+        jLabel4.setBounds(63, 249, 54, 14);
 
         jLabel5.setText("Gouvernorat :");
+        getContentPane().add(jLabel5);
+        jLabel5.setBounds(63, 289, 68, 14);
 
         tfNomService.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 tfNomServiceActionPerformed(evt);
             }
         });
+        getContentPane().add(tfNomService);
+        tfNomService.setBounds(236, 137, 71, 20);
+        getContentPane().add(tfDescription);
+        tfDescription.setBounds(236, 191, 71, 20);
 
         cbCat.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Maison", "jardinage", "annimaux", "" }));
         cbCat.addActionListener(new java.awt.event.ActionListener() {
@@ -70,6 +86,8 @@ public class FrameModifierService extends javax.swing.JFrame {
                 cbCatActionPerformed(evt);
             }
         });
+        getContentPane().add(cbCat);
+        cbCat.setBounds(236, 249, 71, 14);
 
         cbZone.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "1", "2", "3", "4" }));
         cbZone.addActionListener(new java.awt.event.ActionListener() {
@@ -77,6 +95,8 @@ public class FrameModifierService extends javax.swing.JFrame {
                 cbZoneActionPerformed(evt);
             }
         });
+        getContentPane().add(cbZone);
+        cbZone.setBounds(236, 286, 71, 20);
 
         btnModifierS.setIcon(new javax.swing.ImageIcon("C:\\Users\\Super\\Downloads\\1285845671_configuration_edit.png")); // NOI18N
         btnModifierS.setText("Modifier");
@@ -85,69 +105,32 @@ public class FrameModifierService extends javax.swing.JFrame {
                 btnModifierSActionPerformed(evt);
             }
         });
+        getContentPane().add(btnModifierS);
+        btnModifierS.setBounds(131, 362, 123, 57);
 
         jLabel6.setText("Etat :");
+        getContentPane().add(jLabel6);
+        jLabel6.setBounds(63, 327, 27, 14);
 
         cbEtat.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "enCour", "Réalisé" }));
+        getContentPane().add(cbEtat);
+        cbEtat.setBounds(236, 324, 71, 20);
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(63, 63, 63)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel3)
-                            .addComponent(jLabel2)
-                            .addComponent(jLabel4)
-                            .addComponent(jLabel5)
-                            .addComponent(jLabel6))
-                        .addGap(89, 89, 89)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(cbCat, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(tfDescription)
-                            .addComponent(tfNomService)
-                            .addComponent(cbZone, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(cbEtat, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(126, 126, 126)
-                        .addComponent(jLabel1))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(131, 131, 131)
-                        .addComponent(btnModifierS)))
-                .addContainerGap(108, Short.MAX_VALUE))
+        jPanel1.setBackground(new java.awt.Color(255, 153, 153));
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 376, Short.MAX_VALUE)
         );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(49, 49, 49)
-                .addComponent(jLabel1)
-                .addGap(46, 46, 46)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2)
-                    .addComponent(tfNomService, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(34, 34, 34)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel3)
-                    .addComponent(tfDescription, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(38, 38, 38)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel4)
-                    .addComponent(cbCat, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(23, 23, 23)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel5)
-                    .addComponent(cbZone, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel6)
-                    .addComponent(cbEtat, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addComponent(btnModifierS)
-                .addContainerGap(22, Short.MAX_VALUE))
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 454, Short.MAX_VALUE)
         );
+
+        getContentPane().add(jPanel1);
+        jPanel1.setBounds(0, 0, 376, 454);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -225,6 +208,7 @@ public class FrameModifierService extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
+    private javax.swing.JPanel jPanel1;
     private javax.swing.JTextField tfDescription;
     private javax.swing.JTextField tfNomService;
     // End of variables declaration//GEN-END:variables

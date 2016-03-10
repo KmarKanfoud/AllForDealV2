@@ -5,17 +5,36 @@
  */
 package GUI;
 
+import com.mysql.jdbc.MySQLConnection;
+import java.sql.Connection;
+import java.sql.*;
+import javax.swing.*;
+
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+import net.proteanit.sql.DbUtils;
+
+
 /**
  *
  * @author Super
  */
 public class FrameAfficherService extends javax.swing.JFrame {
 
+    private Connection conn = null;
+    private PreparedStatement pst = null;
+    ResultSet rs = null;
+
     /**
      * Creates new form FrameAfficherService
      */
     public FrameAfficherService() {
         initComponents();
+      afficher();
+//        conn=MySQLConnect.ConnectDb();
+//        conn=javaconnect.ConnecrDB();
     }
 
     /**
@@ -27,43 +46,82 @@ public class FrameAfficherService extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        ltitre = new javax.swing.JLabel();
+        jPanel1 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        tblService = new javax.swing.JTable();
+        btnSupprimer = new javax.swing.JButton();
+        btnModifier = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        getContentPane().setLayout(null);
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        ltitre.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
+        ltitre.setForeground(new java.awt.Color(255, 51, 102));
+        ltitre.setText("Les service:");
+        ltitre.setToolTipText("");
+        getContentPane().add(ltitre);
+        ltitre.setBounds(296, 59, 140, 45);
+
+        jPanel1.setBackground(new java.awt.Color(255, 153, 153));
+
+        tblService.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+                "nom Service", "Description", "Catégorie", "Date d'ajout", "Etat"
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(tblService);
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(85, 85, 85)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 375, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(124, Short.MAX_VALUE))
+        btnSupprimer.setIcon(new javax.swing.ImageIcon("C:\\Users\\Super\\Downloads\\deleteicone.png")); // NOI18N
+        btnSupprimer.setText("Supprimer");
+        btnSupprimer.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSupprimerActionPerformed(evt);
+            }
+        });
+
+        btnModifier.setIcon(new javax.swing.ImageIcon("C:\\Users\\Super\\Downloads\\modificone.png")); // NOI18N
+        btnModifier.setText("Modifier");
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap(63, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 682, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(45, 45, 45))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addGap(131, 131, 131)
+                .addComponent(btnModifier, javax.swing.GroupLayout.PREFERRED_SIZE, 199, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(127, 127, 127)
+                .addComponent(btnSupprimer, javax.swing.GroupLayout.PREFERRED_SIZE, 198, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(93, Short.MAX_VALUE)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 275, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(79, 79, 79))
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap(117, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 325, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(30, 30, 30)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnSupprimer)
+                    .addComponent(btnModifier))
+                .addContainerGap())
         );
+
+        getContentPane().add(jPanel1);
+        jPanel1.setBounds(0, 0, 790, 540);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnSupprimerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSupprimerActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnSupprimerActionPerformed
 
     /**
      * @param args the command line arguments
@@ -100,8 +158,24 @@ public class FrameAfficherService extends javax.swing.JFrame {
         });
     }
 
+    private void afficher() {
+
+        try {
+            String sql = "select * from service";
+            pst = conn.prepareStatement(sql);
+            rs = pst.executeQuery();
+              DefaultTableModel model=(DefaultTableModel) tblService.getModel();
+            tblService.setModel(DbUtils.resultSetToTableModel(rs));
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e);
+        }
+    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnModifier;
+    private javax.swing.JButton btnSupprimer;
+    private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
+    private javax.swing.JLabel ltitre;
+    private javax.swing.JTable tblService;
     // End of variables declaration//GEN-END:variables
 }

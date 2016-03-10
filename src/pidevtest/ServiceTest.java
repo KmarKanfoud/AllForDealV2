@@ -28,7 +28,10 @@ public class ServiceTest {
         Service s2 = new Service(7, "testGIt", "git", "git", "git", date);
         ServiceDao pdao = new ServiceDao();
         //pdao.add(s1);
-        pdao.add(s2);
+        //pdao.add(s2);
+       // s2.setNomService("Maison");
+       // pdao.update(s2);
+        pdao.removeById(6);
 
     }
 }

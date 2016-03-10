@@ -6,9 +6,9 @@
 package GUI;
 
 //import com.mysql.jdbc.MySQLConnection;
-import java.sql.Connection;
+//import java.sql.Connection;
 import java.sql.*;
-import javax.swing.*;
+//import javax.swing.*;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;

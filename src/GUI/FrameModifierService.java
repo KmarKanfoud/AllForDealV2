@@ -19,7 +19,7 @@ public class FrameModifierService extends javax.swing.JFrame {
      * Creates new form FrameModifierService
      */
     public FrameModifierService() {
-        initComponents();
+        initComponents();// initialiser l'interface
     }
 
     /**

@@ -17,7 +17,6 @@ import java.util.Set;
  * @author SaharS
  */
 public class FrameAccueil extends javax.swing.JFrame {
-    
 
     /**
      * Creates new form FrameAccueil
@@ -52,6 +51,8 @@ public class FrameAccueil extends javax.swing.JFrame {
         TFDescription = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
         EnvoyerReclamationBtn = new javax.swing.JButton();
+        erreur1 = new javax.swing.JLabel();
+        erreur2 = new javax.swing.JLabel();
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
@@ -233,14 +234,22 @@ public class FrameAccueil extends javax.swing.JFrame {
                 .addContainerGap(56, Short.MAX_VALUE))
         );
 
+        erreur1.setForeground(new java.awt.Color(255, 0, 0));
+
+        erreur2.setForeground(new java.awt.Color(255, 0, 0));
+
         javax.swing.GroupLayout ReclamationPanelLayout = new javax.swing.GroupLayout(ReclamationPanel);
         ReclamationPanel.setLayout(ReclamationPanelLayout);
         ReclamationPanelLayout.setHorizontalGroup(
             ReclamationPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(ReclamationPanelLayout.createSequentialGroup()
-                .addGap(71, 71, 71)
+                .addContainerGap()
                 .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(44, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(ReclamationPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(erreur1)
+                    .addComponent(erreur2))
+                .addContainerGap(101, Short.MAX_VALUE))
         );
         ReclamationPanelLayout.setVerticalGroup(
             ReclamationPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -248,6 +257,12 @@ public class FrameAccueil extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(21, 21, 21))
+            .addGroup(ReclamationPanelLayout.createSequentialGroup()
+                .addGap(40, 40, 40)
+                .addComponent(erreur1)
+                .addGap(98, 98, 98)
+                .addComponent(erreur2)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         Service.addTab("Réclamation", ReclamationPanel);
@@ -273,14 +288,23 @@ public class FrameAccueil extends javax.swing.JFrame {
 
     private void EnvoyerReclamationBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EnvoyerReclamationBtnActionPerformed
         Reclamation r = new Reclamation();
-        r.setSujet(TFSujet.getText());
-        r.setDescription(TFDescription.getText());
-        Date date = new java.sql.Date(System.currentTimeMillis());
-        r.setDate(date);
-        ReclamationDao pdao = new ReclamationDao();
-        pdao.add(r);
-        TFSujet.setText("");
-        TFDescription.setText("");
+        erreur1.setText(" ");
+       // erreur2.setText(" ");
+        if (!TFSujet.getText().equals("") || TFDescription.getText().equals(" ")) {
+            r.setSujet(TFSujet.getText());
+            r.setDescription(TFDescription.getText());
+            Date date = new java.sql.Date(System.currentTimeMillis());
+            r.setDate(date);
+            ReclamationDao pdao = new ReclamationDao();
+            pdao.add(r);
+            TFSujet.setText("");
+            TFDescription.setText("");
+        } else {
+            erreur1.setText("Veuiller introduire votre sujet");
+          //  erreur2.setText("Veuiller introduire votre description de réclamation");
+        }
+
+
     }//GEN-LAST:event_EnvoyerReclamationBtnActionPerformed
 
     private void TFSujetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TFSujetActionPerformed
@@ -307,13 +331,12 @@ public class FrameAccueil extends javax.swing.JFrame {
      * @param args the command line arguments
      */
     public static void main(String args[]) {
-        
-         Toolkit tk = Toolkit.getDefaultToolkit();
-    Dimension screenSize = tk.getScreenSize();
-    int screenHeight = screenSize.height;
-    int screenWidth = screenSize.width;
-         
-          
+
+        Toolkit tk = Toolkit.getDefaultToolkit();
+        Dimension screenSize = tk.getScreenSize();
+        int screenHeight = screenSize.height;
+        int screenWidth = screenSize.width;
+
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
@@ -340,12 +363,12 @@ public class FrameAccueil extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-              FrameAccueil fa=  new FrameAccueil();
+                FrameAccueil fa = new FrameAccueil();
                 fa.setVisible(true);
                 fa.setResizable(false);
-                
+
                 fa.setSize(screenWidth / 2, screenHeight / 2);
-                fa. setLocation(screenWidth / 4, screenHeight / 4);
+                fa.setLocation(screenWidth / 4, screenHeight / 4);
             }
         });
     }
@@ -362,6 +385,8 @@ public class FrameAccueil extends javax.swing.JFrame {
     private javax.swing.JPanel ServicePanel;
     private javax.swing.JTextField TFDescription;
     private javax.swing.JTextField TFSujet;
+    private javax.swing.JLabel erreur1;
+    private javax.swing.JLabel erreur2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel10;

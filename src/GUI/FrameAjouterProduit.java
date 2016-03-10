@@ -5,7 +5,7 @@
  */
 package GUI;
 
-import com.mysql.jdbc.jdbc2.optional.MysqlConnectionPoolDataSource;
+//import com.mysql.jdbc.jdbc2.optional.MysqlConnectionPoolDataSource;
 import dao.ProduitDao;
 import dao.ZoneDao;
 import entite.Produit;

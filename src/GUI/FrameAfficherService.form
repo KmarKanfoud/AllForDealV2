@@ -111,9 +111,6 @@
         </Container>
         <Component class="javax.swing.JButton" name="btnSupprimer">
           <Properties>
-            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="2" name="C:\Users\Super\Downloads\deleteicone.png"/>
-            </Property>
             <Property name="text" type="java.lang.String" value="Supprimer"/>
           </Properties>
           <Events>
@@ -122,9 +119,6 @@
         </Component>
         <Component class="javax.swing.JButton" name="btnModifier">
           <Properties>
-            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="2" name="C:\Users\Super\Downloads\modificone.png"/>
-            </Property>
             <Property name="text" type="java.lang.String" value="Modifier"/>
           </Properties>
         </Component>

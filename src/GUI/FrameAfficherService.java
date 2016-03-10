@@ -5,7 +5,7 @@
  */
 package GUI;
 
-import com.mysql.jdbc.MySQLConnection;
+//import com.mysql.jdbc.MySQLConnection;
 import java.sql.Connection;
 import java.sql.*;
 import javax.swing.*;
@@ -14,7 +14,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
-import net.proteanit.sql.DbUtils;
+//import net.proteanit.sql.DbUtils;
 
 
 /**
@@ -32,7 +32,7 @@ public class FrameAfficherService extends javax.swing.JFrame {
      */
     public FrameAfficherService() {
         initComponents();
-      afficher();
+     // afficher();
 //        conn=MySQLConnect.ConnectDb();
 //        conn=javaconnect.ConnecrDB();
     }
@@ -158,18 +158,18 @@ public class FrameAfficherService extends javax.swing.JFrame {
         });
     }
 
-    private void afficher() {
-
-        try {
-            String sql = "select * from service";
-            pst = conn.prepareStatement(sql);
-            rs = pst.executeQuery();
-              DefaultTableModel model=(DefaultTableModel) tblService.getModel();
-            tblService.setModel(DbUtils.resultSetToTableModel(rs));
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, e);
-        }
-    }
+//    private void afficher() {
+//
+//        try {
+//            String sql = "select * from service";
+//            pst = conn.prepareStatement(sql);
+//            rs = pst.executeQuery();
+//              DefaultTableModel model=(DefaultTableModel) tblService.getModel();
+//            tblService.setModel(DbUtils.resultSetToTableModel(rs));
+//        } catch (Exception e) {
+//            JOptionPane.showMessageDialog(null, e);
+//        }
+//    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnModifier;
     private javax.swing.JButton btnSupprimer;

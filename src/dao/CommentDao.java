@@ -103,5 +103,30 @@ public class CommentDao implements IDao<Comment>{
     public Comment findById(int id) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
+     public List<Comment> DisplayAllCommentaireByProduit(int num) {
+
+        List<Comment> commentaires = new ArrayList<>();
+
+        String requete = "select * from comment where produit_id=" + num;
+        try {
+            
+             PreparedStatement ps = connection.prepareStatement(requete);
+            
+            ResultSet resultat = ps.executeQuery(requete);
+
+            while (resultat.next()) {
+                Comment c = new Comment();
+                  c.setId(resultat.getInt(1));
+                c.setBody(resultat.getString(3));
+                c.setCreated_at((Date) resultat.getDate(6));
+                commentaires.add(c);
+            }
+            return commentaires;
+        } catch (SQLException ex) {
+            
+            System.out.println("erreur lors du chargement des commentaires " + ex.getMessage());
+            return null;
+        }
+    }
     
 }

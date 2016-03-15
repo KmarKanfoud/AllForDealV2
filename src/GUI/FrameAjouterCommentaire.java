@@ -54,12 +54,11 @@ public class FrameAjouterCommentaire extends javax.swing.JFrame {
         );
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setBackground(new java.awt.Color(51, 122, 183));
-
-        jPanel1.setBackground(new java.awt.Color(51, 122, 183));
 
         jLabel1.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
         jLabel1.setText("Ajouter votre commentaire");
+
+        TFComment.setSelectionColor(new java.awt.Color(240, 240, 240));
 
         Commenter.setFont(new java.awt.Font("Arial", 0, 11)); // NOI18N
         Commenter.setText("Commenter");

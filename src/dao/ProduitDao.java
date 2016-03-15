@@ -147,7 +147,33 @@ public class ProduitDao implements IDao<Produit> {
     public Produit findById(int id) {
         return null;
     }
-//test
+
+     public ResultSet getAllVille() {
+       
+        try {
+            pst = connection.prepareStatement("SELECT nom FROM zone;");
+            ResultSet allAdmin = pst.executeQuery();
+            return allAdmin;
+            
+           
+        } catch (SQLException ex) {
+            Logger.getLogger(ProduitDao.class.getName()).log(Level.SEVERE, null, ex);
+        }
+         return null;
+    }
+     public ResultSet getCollections() {
+       
+        try {
+            pst = connection.prepareStatement("SELECT name FROM classification__collection;");
+            ResultSet allAdmin = pst.executeQuery();
+            return allAdmin;
+            
+           
+        } catch (SQLException ex) {
+            Logger.getLogger(ProduitDao.class.getName()).log(Level.SEVERE, null, ex);
+        }
+         return null;
+    }
 
   
 

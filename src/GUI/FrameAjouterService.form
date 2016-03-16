@@ -195,9 +195,6 @@
             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="cc" green="cc" red="ff" type="rgb"/>
             </Property>
-            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="2" name="C:\Users\Super\Downloads\Ajout.png"/>
-            </Property>
             <Property name="text" type="java.lang.String" value="Ajouter Service"/>
             <Property name="alignmentX" type="float" value="10.1"/>
           </Properties>

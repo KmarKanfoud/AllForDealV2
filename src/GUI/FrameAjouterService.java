@@ -109,7 +109,6 @@ public class FrameAjouterService extends javax.swing.JFrame  {
         jLabel4.setText("Gouvernorat :");
 
         btnAjoutS.setBackground(new java.awt.Color(255, 204, 204));
-        btnAjoutS.setIcon(new javax.swing.ImageIcon("C:\\Users\\Super\\Downloads\\Ajout.png")); // NOI18N
         btnAjoutS.setText("Ajouter Service");
         btnAjoutS.setAlignmentX(10.1F);
         btnAjoutS.addActionListener(new java.awt.event.ActionListener() {

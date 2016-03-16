@@ -38,6 +38,8 @@ public class FrameAjouterService extends javax.swing.JFrame  {
        
         initComponents();
          loadAllVille();
+         loadAllCategorie();
+         
         
         //this.setResizable(false);
     }
@@ -98,7 +100,11 @@ public class FrameAjouterService extends javax.swing.JFrame  {
 
         jLabel3.setText("Catégorie :");
 
-        cbCat.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Maison", "jardinage", "annimaux", "" }));
+        cbCat.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbCatActionPerformed(evt);
+            }
+        });
 
         cbZone.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -109,7 +115,6 @@ public class FrameAjouterService extends javax.swing.JFrame  {
         jLabel4.setText("Gouvernorat :");
 
         btnAjoutS.setBackground(new java.awt.Color(255, 204, 204));
-        btnAjoutS.setIcon(new javax.swing.ImageIcon("C:\\Users\\Super\\Downloads\\Ajout.png")); // NOI18N
         btnAjoutS.setText("Ajouter Service");
         btnAjoutS.setAlignmentX(10.1F);
         btnAjoutS.addActionListener(new java.awt.event.ActionListener() {
@@ -230,6 +235,10 @@ model.addRow(new Object[]{tfNomS.getText(),tfDescription.getText(),cbCat.getSele
         // TODO add your handling code here:
     }//GEN-LAST:event_tfDescriptionActionPerformed
 
+    private void cbCatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbCatActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cbCatActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -293,6 +302,20 @@ private void loadAllVille() {
             }
         } catch (SQLException ex) {
             Logger.getLogger(FrameAjouterService.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+   private void loadAllCategorie() {
+        try {
+            ResultSet res = pdao.getCategorie();
+
+            while (res.next()) {
+
+                cbCat.addItem(res.getString(1));
+              // System.out.println(res.getString(1));
+
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(FrameAjouterProduit.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables

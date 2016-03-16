@@ -57,7 +57,7 @@ public class CommentDao implements IDao<Comment>{
         try {
             pst = connection.prepareStatement(req);
             pst.setString(1, c.getBody());
-            pst.setInt(2,2);
+            pst.setInt(2,c.getId());
             pst.executeUpdate();
         } catch (SQLException ex) {
             Logger.getLogger(CommentDao.class.getName()).log(Level.SEVERE, null, ex);

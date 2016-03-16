@@ -11,22 +11,48 @@ import java.awt.Dimension;
 import java.awt.Toolkit;
 import java.util.Date;
 import javax.swing.table.DefaultTableModel;
+import GUI.FrameListCommentaire;
+import static GUI.FrameListCommentaire.ListComment;
+import javax.swing.JTextField;
 
 /**
  *
  * @author SaharS
  */
-public class FrameAjouterCommentaire extends javax.swing.JFrame {
- Toolkit tk = Toolkit.getDefaultToolkit();
-        Dimension screenSize = tk.getScreenSize();
-        int screenHeight = screenSize.height;
-        int screenWidth = screenSize.width;
+public class FrameModifierCommentaire extends javax.swing.JFrame {
+
+    Comment c;
+
+    Toolkit tk = Toolkit.getDefaultToolkit();
+    Dimension screenSize = tk.getScreenSize();
+    int screenHeight = screenSize.height;
+    int screenWidth = screenSize.width;
+    CommentDao commentDAO = new CommentDao();
+
+    public Comment getC() {
+        return c;
+    }
+
+    public JTextField getTFComment() {
+        return TFComment;
+
+    }
+
+    public void setC(Comment c) {
+        this.c = c;
+    }
+
+    public void setTFComment(JTextField TFComment) {
+        this.TFComment = TFComment;
+    }
+
     /**
      * Creates new form FrameAjouterCommentaire
      */
-    public FrameAjouterCommentaire() {
+
+    public FrameModifierCommentaire() {
         initComponents();
-           
+
     }
 
     /**
@@ -42,7 +68,7 @@ public class FrameAjouterCommentaire extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         TFComment = new javax.swing.JTextField();
-        Commenter = new javax.swing.JButton();
+        Modifier = new javax.swing.JButton();
         CommAjoute = new javax.swing.JLabel();
 
         javax.swing.GroupLayout jDialog1Layout = new javax.swing.GroupLayout(jDialog1.getContentPane());
@@ -59,15 +85,15 @@ public class FrameAjouterCommentaire extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jLabel1.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
-        jLabel1.setText("Ajouter votre commentaire");
+        jLabel1.setText("Modifier votre commentaire");
 
         TFComment.setSelectionColor(new java.awt.Color(240, 240, 240));
 
-        Commenter.setFont(new java.awt.Font("Arial", 0, 11)); // NOI18N
-        Commenter.setText("Commenter");
-        Commenter.addActionListener(new java.awt.event.ActionListener() {
+        Modifier.setFont(new java.awt.Font("Arial", 0, 11)); // NOI18N
+        Modifier.setText("Modifier");
+        Modifier.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                CommenterActionPerformed(evt);
+                ModifierActionPerformed(evt);
             }
         });
 
@@ -84,7 +110,7 @@ public class FrameAjouterCommentaire extends javax.swing.JFrame {
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(CommAjoute, javax.swing.GroupLayout.PREFERRED_SIZE, 389, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
-                                .addComponent(Commenter, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addComponent(Modifier, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(25, 25, 25))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel1)
@@ -96,7 +122,7 @@ public class FrameAjouterCommentaire extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(Commenter, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(Modifier, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(36, 36, 36)
                         .addComponent(jLabel1)
@@ -123,26 +149,25 @@ public class FrameAjouterCommentaire extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void CommenterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CommenterActionPerformed
-        Comment c = new Comment();
-        c.setBody(TFComment.getText());
-        Date date = new java.sql.Date(System.currentTimeMillis());
-        c.setCreated_at(date);
-        CommentDao pdao = new CommentDao();
-        pdao.add(c);
+    private void ModifierActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ModifierActionPerformed
+        
+        String body;
+         CommentDao dao = new CommentDao();
+        body = TFComment.getText();
+        c.setBody(body);
+        System.out.println(c);
+        dao.update(c);
 
-        // DefaultTableModel model = (DefaultTableModel) tbCommentaire.getModel();
-        // model.addRow(new Object[]{TFComment.getText()});
-         CommAjoute.setText(String.valueOf(TFComment.getText()));
-        TFComment.setText("");
-          FrameListCommentaire f = new FrameListCommentaire();
-       f.setVisible(true);
-       f.setVisible(true);
+        this.setVisible(false);
+
+        FrameListCommentaire f = new FrameListCommentaire();
+        f.setVisible(true);
+        f.setVisible(true);
         f.setResizable(false);
         f.setSize(screenWidth / 2, screenHeight / 2);
         f.setLocation(screenWidth / 4, screenHeight / 4);
 
-    }//GEN-LAST:event_CommenterActionPerformed
+    }//GEN-LAST:event_ModifierActionPerformed
 
     /**
      * @param args the command line arguments
@@ -166,21 +191,24 @@ public class FrameAjouterCommentaire extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(FrameAjouterCommentaire.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FrameModifierCommentaire.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(FrameAjouterCommentaire.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FrameModifierCommentaire.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(FrameAjouterCommentaire.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FrameModifierCommentaire.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(FrameAjouterCommentaire.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FrameModifierCommentaire.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                FrameAjouterCommentaire fa = new FrameAjouterCommentaire();
+                FrameModifierCommentaire fa = new FrameModifierCommentaire();
+                fa.TFComment.setText("sahar");
                 fa.setVisible(true);
                 fa.setResizable(false);
                 fa.setSize(screenWidth / 2, screenHeight / 2);
@@ -191,7 +219,7 @@ public class FrameAjouterCommentaire extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel CommAjoute;
-    private javax.swing.JButton Commenter;
+    private javax.swing.JButton Modifier;
     private javax.swing.JTextField TFComment;
     private javax.swing.JDialog jDialog1;
     private javax.swing.JLabel jLabel1;

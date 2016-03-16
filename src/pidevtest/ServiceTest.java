@@ -6,6 +6,7 @@
 package pidevtest;
 
 import dao.ServiceDao;
+import entite.Service;
 
 import entite.Service;
 import java.util.ArrayList;
@@ -31,7 +32,10 @@ public class ServiceTest {
         //pdao.add(s2);
        // s2.setNomService("Maison");
        // pdao.update(s2);
-        pdao.removeById(6);
+        //pdao.removeById(6);
+          List<Service>LS = new ArrayList();
+        LS = pdao.findAll();
+        System.out.println(LS);
 
     }
 }

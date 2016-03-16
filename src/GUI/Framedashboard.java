@@ -66,6 +66,7 @@ public class Framedashboard extends javax.swing.JFrame {
         jScrollPane2 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
         btnSup = new javax.swing.JButton();
+        btnsave = new javax.swing.JButton();
         jTabbedPane2 = new javax.swing.JTabbedPane();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -113,7 +114,7 @@ public class Framedashboard extends javax.swing.JFrame {
 
         cbrole.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Role_Admin", "Role_User" }));
 
-        btnModifier.setText("Enregistrer");
+        btnModifier.setText("Selectionner");
         btnModifier.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnModifierActionPerformed(evt);
@@ -131,12 +132,24 @@ public class Framedashboard extends javax.swing.JFrame {
         jLabel10.setText("Bonus :");
 
         jTable1.setModel(new UserModel());
+        jTable1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTable1MouseClicked(evt);
+            }
+        });
         jScrollPane2.setViewportView(jTable1);
 
         btnSup.setText("Supprimer");
         btnSup.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnSupActionPerformed(evt);
+            }
+        });
+
+        btnsave.setText("Enregistrer");
+        btnsave.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnsaveActionPerformed(evt);
             }
         });
 
@@ -148,12 +161,15 @@ public class Framedashboard extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(btnModifier, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(21, 21, 21)
+                        .addComponent(btnsave)
                         .addGap(18, 18, 18)
                         .addComponent(btnSup)
                         .addGap(18, 18, 18)
                         .addComponent(jToggleButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(470, Short.MAX_VALUE))
+                        .addGap(18, 18, 18)
+                        .addComponent(btnModifier, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel2)
@@ -177,7 +193,7 @@ public class Framedashboard extends javax.swing.JFrame {
                             .addComponent(cbrole, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(chbenabled)
                             .addComponent(tfbonus))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 50, Short.MAX_VALUE)
                         .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 507, javax.swing.GroupLayout.PREFERRED_SIZE))))
         );
         jPanel1Layout.setVerticalGroup(
@@ -224,14 +240,15 @@ public class Framedashboard extends javax.swing.JFrame {
                             .addComponent(jLabel10))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(chbenabled)
-                        .addGap(33, 33, 33))
+                        .addGap(33, 33, 33)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jToggleButton4)
+                            .addComponent(btnSup)
+                            .addComponent(btnModifier)
+                            .addComponent(btnsave)))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnModifier)
-                    .addComponent(jToggleButton4)
-                    .addComponent(btnSup))
+                        .addGap(0, 51, Short.MAX_VALUE)))
                 .addContainerGap())
         );
 
@@ -320,6 +337,31 @@ public class Framedashboard extends javax.swing.JFrame {
             }
     }//GEN-LAST:event_btnSupActionPerformed
 
+    private void btnsaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnsaveActionPerformed
+       User u =new User();
+       UserDao udao=new UserDao();
+       
+       
+    }//GEN-LAST:event_btnsaveActionPerformed
+
+    private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
+       UserDao udao=new UserDao();
+      User u=new User();
+      int i= jTable1.getSelectedRow();
+                      
+       int s=(int) jTable1.getModel().getValueAt(i, 0);
+       u=udao.findById(s);
+       tfusername.setText(u.getUsername());
+       tfemail.setText(u.getEmail());
+       tfmdp.setText(u.getPassword());
+       //tfemail.setText(u.getEmail());
+       tffirstname.setText(u.getFirstname());
+       tflastname.setText(u.getLastname());
+       tfphone.setText(u.getPhone());
+       //tfemail.setText(u.getEmail());
+       tfbonus.setText(u.getEmail());// TODO add your handling code here:
+    }//GEN-LAST:event_jTable1MouseClicked
+
     /**
      * @param args the command line arguments
      */
@@ -359,6 +401,7 @@ public class Framedashboard extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JToggleButton btnModifier;
     private javax.swing.JButton btnSup;
+    private javax.swing.JButton btnsave;
     private javax.swing.JComboBox cboxgender;
     private javax.swing.JComboBox cbrole;
     private javax.swing.JCheckBox chbenabled;

@@ -6,6 +6,7 @@
 package GUI;
 
 import dao.ServiceDao;
+import dao.ZoneDao;
 import entite.Service;
 import java.sql.Connection;
 import java.sql.Date;
@@ -21,27 +22,25 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author Super
  */
-public class FrameAjouterService extends javax.swing.JFrame  {
-    
-     private Connection conn=null;
-    private PreparedStatement pst=null;
-    ResultSet rs=null;
+public class FrameAjouterService extends javax.swing.JFrame {
+
+    private Connection conn = null;
+    private PreparedStatement pst = null;
+    ResultSet rs = null;
+    ResultSet rsId = null;
     ServiceDao pdao = new ServiceDao();
-    
-   
+    ZoneDao zoneDAO = new ZoneDao();
 
     /**
      * Creates new form FrameAjouterService
      */
     public FrameAjouterService() {
-       // Fillcombo();
-       
+        // Fillcombo();
+
         initComponents();
-         loadAllVille();
-         loadAllCategorie();
-         
-        
-        //this.setResizable(false);
+        loadAllVille();
+        loadAllCategorie();
+
     }
 
     /**
@@ -154,11 +153,11 @@ public class FrameAjouterService extends javax.swing.JFrame  {
                         .addComponent(btnAjoutS, javax.swing.GroupLayout.PREFERRED_SIZE, 179, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addGap(90, 90, 90)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(cbZone, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(cbCat, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(tfDescription, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(tfNomS, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(cbCat, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(tfDescription)
+                            .addComponent(tfNomS, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(cbZone, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 19, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(lerror, javax.swing.GroupLayout.PREFERRED_SIZE, 337, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -205,26 +204,37 @@ public class FrameAjouterService extends javax.swing.JFrame  {
     private void btnAjoutSActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAjoutSActionPerformed
         // TODO add your handling code here:
         lerror.setText(" ");
-        
-          Service s = new Service();
-          Date date = new java.sql.Date(System.currentTimeMillis());
-          if(! tfNomS.getText().trim().equals("")){
-        s.setNomService(tfNomS.getText());
-        s.setDescription(tfDescription.getText());
-        s.setType(cbCat.getSelectedItem().toString());
-        //s.setZone((int) cbZone.getSelectedItem());
-      s.setDateAjout(date);
-      s.setEtat("EnCours");
-        ServiceDao pdao = new ServiceDao();
-        pdao.add(s);
-        DefaultTableModel model=(DefaultTableModel) tblService.getModel();
-model.addRow(new Object[]{tfNomS.getText(),tfDescription.getText(),cbCat.getSelectedItem().toString(),s.getDateAjout(),s.getEtat()});
-       }else{
-          lerror.setText(" Veuiller enter le nom de votre service SVP !");} 
+
+        Service s = new Service();
+        Date date = new java.sql.Date(System.currentTimeMillis());
+        if (!tfNomS.getText().trim().equals("")) {
+            s.setNomService(tfNomS.getText());
+            try {
+                rsId = zoneDAO.getZoneByName(cbZone.getSelectedItem().toString());
+                while (rsId.next()) {
+                    s.setZone(rsId.getInt(1));
+
+                }//this.setResizable(false);
+            } catch (SQLException ex) {
+                Logger.getLogger(FrameAjouterService.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
+            s.setDescription(tfDescription.getText());
+            s.setType(cbCat.getSelectedItem().toString());
+            //s.setZone((int) cbZone.getSelectedItem());
+            s.setDateAjout(date);
+            s.setEtat("EnCours");
+            ServiceDao pdao = new ServiceDao();
+            pdao.add(s);
+            DefaultTableModel model = (DefaultTableModel) tblService.getModel();
+            model.addRow(new Object[]{tfNomS.getText(), tfDescription.getText(), cbCat.getSelectedItem().toString(), s.getDateAjout(), s.getEtat()});
+        } else {
+            lerror.setText(" Veuiller enter le nom de votre service SVP !");
+        }
     }//GEN-LAST:event_btnAjoutSActionPerformed
 
     private void cbZoneActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbZoneActionPerformed
-      
+
     }//GEN-LAST:event_cbZoneActionPerformed
 
     private void tfNomSActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfNomSActionPerformed
@@ -289,29 +299,29 @@ model.addRow(new Object[]{tfNomS.getText(),tfDescription.getText(),cbCat.getSele
 //    JOptionPane.showMessageDialog(null, e);
 //    }
 //    }
-  
-private void loadAllVille() {
-         try {
+    private void loadAllVille() {
+        try {
             ResultSet res = pdao.getAllVille();
-           
+
             while (res.next()) {
-             
-              cbZone.addItem(res.getString(1));
-              // System.out.println(res.getString(1));
-                
+
+                cbZone.addItem(res.getString(1));
+                // System.out.println(res.getString(1));
+
             }
         } catch (SQLException ex) {
             Logger.getLogger(FrameAjouterService.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-   private void loadAllCategorie() {
+
+    private void loadAllCategorie() {
         try {
             ResultSet res = pdao.getCategorie();
 
             while (res.next()) {
 
                 cbCat.addItem(res.getString(1));
-              // System.out.println(res.getString(1));
+                // System.out.println(res.getString(1));
 
             }
         } catch (SQLException ex) {

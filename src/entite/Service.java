@@ -5,8 +5,14 @@
  */
 package entite;
 
+import GUI.FrameAjouterService;
+import dao.ZoneDao;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.Date;
 import java.util.Objects;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -14,6 +20,8 @@ import java.util.Objects;
  */
 public class Service {
 
+    ZoneDao zoneDAO = new ZoneDao();
+    ResultSet rsName = null;
     private int id;
     private String nomService;
     private String description;
@@ -21,6 +29,7 @@ public class Service {
     private String etat;
     private Date dateAjout;
     private int zone;
+    private String zoneName;
 
     public Service() {
     }
@@ -43,9 +52,6 @@ public class Service {
         this.etat = etat;
         this.dateAjout = dateAjout;
     }
-
-    
-    
 
     public int getId() {
         return id;
@@ -99,11 +105,23 @@ public class Service {
         return zone;
     }
 
+    public String getZoneName() {
+        try {
+            rsName = zoneDAO.getZoneById(zone);
+            while (rsName.next()) {
+                zoneName = rsName.getNString(1);
+
+            }//this.setResizable(false);
+        } catch (SQLException ex) {
+            Logger.getLogger(FrameAjouterService.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return zoneName;
+
+    }
+
     public void setZone(int zone) {
         this.zone = zone;
     }
-
- 
 
     @Override
     public int hashCode() {
@@ -148,7 +166,5 @@ public class Service {
     public String toString() {
         return "Service{" + "id=" + id + ", nomService=" + nomService + ", description=" + description + ", type=" + type + ", etat=" + etat + ", dateAjout=" + dateAjout + ", zone=" + zone + '}';
     }
-    
-    
-    
+
 }

@@ -24,12 +24,14 @@ public class FrameModifierCommentaire extends javax.swing.JFrame {
     Dimension screenSize = tk.getScreenSize();
     int screenHeight = screenSize.height;
     int screenWidth = screenSize.width;
-
+    CommentDao commentDAO = new CommentDao();
     /**
      * Creates new form FrameAjouterCommentaire
      */
-    public FrameModifierCommentaire() {
+    
+    public FrameModifierCommentaire(int id) {
         initComponents();
+       
 
     }
 
@@ -129,19 +131,19 @@ public class FrameModifierCommentaire extends javax.swing.JFrame {
 
     private void ModifierActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ModifierActionPerformed
         int ligneSelectionne;
-        ligneSelectionne = FrameListCommentaire.ListComment.getSelectedRow();
-        Object l = FrameListCommentaire.ListComment.getValueAt(ligneSelectionne, 0);
+        ligneSelectionne = ListComment.getSelectedRow();
+        Object l = ListComment.getValueAt(ligneSelectionne, 0);
         CommentDao dao = new CommentDao();
 
         Comment c = new Comment();
         c.setId((int) ListComment.getValueAt(ligneSelectionne, 0));
         c.setBody((String) ListComment.getValueAt(ligneSelectionne, 1));
-        c.setCreated_at((Date) ListComment.getValueAt(ligneSelectionne, 2));
-      //  c.setBody(TFComment.getText());
+        //c.setCreated_at((Date) ListComment.getValueAt(ligneSelectionne, 2));
+        //  c.setBody(TFComment.getText());
         // Date date = new java.sql.Date(System.currentTimeMillis());
         //  c.setCreated_at(date);
-        dao.update(c);
-       // CommAjoute.setText(String.valueOf(TFComment.getText()));
+        // dao.update(c);
+        // CommAjoute.setText(String.valueOf(TFComment.getText()));
         // TFComment.setText("");
 
         FrameListCommentaire f = new FrameListCommentaire();
@@ -191,7 +193,8 @@ public class FrameModifierCommentaire extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                FrameModifierCommentaire fa = new FrameModifierCommentaire();
+                FrameModifierCommentaire fa = new FrameModifierCommentaire(18);
+                fa.TFComment.setText("sahar");
                 fa.setVisible(true);
                 fa.setResizable(false);
                 fa.setSize(screenWidth / 2, screenHeight / 2);

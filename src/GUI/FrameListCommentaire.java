@@ -154,7 +154,7 @@ public class FrameListCommentaire extends javax.swing.JFrame {
     private void BtnModifierActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnModifierActionPerformed
         int ligneSelectionne = ListComment.getSelectedRow();
         Object l = ListComment.getValueAt(ligneSelectionne, 0);
-        FrameModifierCommentaire frameModifier = new FrameModifierCommentaire();
+        FrameModifierCommentaire frameModifier = new FrameModifierCommentaire((int)l);
         //CommentDao dao = new CommentDao();
        // Comment c = new Comment();
         

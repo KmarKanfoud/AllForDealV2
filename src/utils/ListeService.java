@@ -26,7 +26,7 @@ public class ListeService extends AbstractTableModel {
 //        l = pdao.findAllByUser(1); // userID
         l = pdao.findAll(); // ALL
     }
-
+// test git 
     @Override
     public int getRowCount() {
         return l.size();

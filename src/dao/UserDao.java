@@ -31,8 +31,8 @@ public class UserDao implements Idao.IDao<User>{
      }
     @Override
     public void add(User t) {
-        String req = "insert into fos_user_user(username, username_canonical, email, email_canonical, enabled, password, gender, phone, firstname, lastname, roles, created_at)"
-               +"values (?,?,?,?,?,?,?,?,?,?,?,?)";
+        String req = "insert into fos_user_user(username, username_canonical, email, email_canonical, enabled, password, gender, phone, firstname, lastname, roles, created_at,adress )"
+               +"values (?,?,?,?,?,?,?,?,?,?,?,?,?)";
         try {
             pst = connection.prepareStatement(req);
 
@@ -44,12 +44,12 @@ public class UserDao implements Idao.IDao<User>{
             pst.setString(6, t.getPassword());
          
             pst.setString(7, t.getGender());
-            pst.setInt(8, t.getPhone());
+            pst.setString(8, t.getPhone());
             pst.setString(9, t.getFirstname());
             pst.setString(10, t.getLastname());
             pst.setString(11, t.getRoles());
             pst.setDate(12, (Date) t.getCreated_at());
-            
+            pst.setString(13, t.getAdress());
            
            
             pst.executeUpdate();
@@ -60,7 +60,7 @@ public class UserDao implements Idao.IDao<User>{
 
     @Override
     public void update(User t) {
-        String req = "update fos_user_user set username=? , username_canonical=?, email=? , email_canonical=? , enabled= ?, password=? , gender=? , phone=?, firstname=?, lastname=? , roles=? , updated_at=? where id=?";
+        String req = "update fos_user_user set username=? , username_canonical=?, email=? , email_canonical=? , enabled= ?, password=? , gender=? , phone=?, firstname=?, lastname=? , roles=? , updated_at=? ,bonus=? , adress=? where id=?";
         try {
 
             pst = connection.prepareStatement(req);
@@ -74,12 +74,14 @@ public class UserDao implements Idao.IDao<User>{
             pst.setString(6, t.getPassword());
          
             pst.setString(7, t.getGender());
-            pst.setInt(8, t.getPhone());
+            pst.setString(8, t.getPhone());
             pst.setString(9, t.getFirstname());
             pst.setString(10, t.getLastname());
             pst.setString(11, t.getRoles());
             pst.setDate(12, (Date) t.getUpdated_at());
-            pst.setInt(13, t.getId());
+            pst.setInt(13, t.getBonus());
+            pst.setString(14, t.getAdress());
+            pst.setInt(15, t.getId());
             pst.executeUpdate();
         } catch (SQLException ex) {
             Logger.getLogger(UserDao.class.getName()).log(Level.SEVERE, null, ex);
@@ -102,17 +104,22 @@ public class UserDao implements Idao.IDao<User>{
     @Override
     public List<User> findAll() {
         List<User> listeUser = new ArrayList<>();
-        String req = "select id ,username , email, created_at from fos_user_user ";
+        String req = "select id ,username ,password , email, created_at,Bonus,roles ,enabled from fos_user_user ";
         try {
+            
             pst = connection.prepareStatement(req);
             ResultSet resultat = pst.executeQuery(req);
-            User p = new User();
+           
             while (resultat.next()) {
-
+                User p = new User();
                 p.setId(resultat.getInt(1));
                 p.setUsername(resultat.getString(2));
-                p.setEmail(resultat.getString(3));
-                p.setCreated_at(resultat.getDate(4));
+                p.setPassword(resultat.getString(3));
+                p.setEmail(resultat.getString(4));
+                p.setCreated_at(resultat.getDate(5));
+                p.setBonus(resultat.getInt(6));
+                p.setRoles(resultat.getString(7));
+                p.setEnabled(resultat.getInt(8));
                 listeUser.add(p);
             }
             return listeUser;
@@ -125,7 +132,7 @@ public class UserDao implements Idao.IDao<User>{
     @Override
     public User findById(int id) {
         User p = new User();
-        String requete = "select id ,username , email, created_at from Personne where id=?";
+        String requete = "select id ,username , email, created_at,password,gender,firstname, lastname, roles,enabled,bonus,phone from fos_user_user  where id=?";
         try {
             PreparedStatement ps = connection.prepareStatement(requete);
             ps.setInt(1, id);
@@ -134,7 +141,16 @@ public class UserDao implements Idao.IDao<User>{
                 p.setId(resultat.getInt(1));
                 p.setUsername(resultat.getString(2));
                 p.setEmail(resultat.getString(3));
-                 p.setCreated_at(resultat.getDate(4));
+                p.setCreated_at(resultat.getDate(4));
+                p.setPassword(resultat.getString(5));
+                p.setGender(resultat.getString(6));
+                p.setFirstname(resultat.getString(7));
+                p.setLastname(resultat.getString(8));
+                p.setRoles(resultat.getString(9));
+                p.setEnabled(resultat.getInt(10));
+                p.setBonus(resultat.getInt(11));
+                p.setPhone(resultat.getString(12));
+                
             }
             return p;
 
@@ -143,10 +159,27 @@ public class UserDao implements Idao.IDao<User>{
             return null;
         }
     }
-//    public List<User> findByLogin( String Login, String mdp ){
-//        String req="select username , password from fos_user_user";
-//       // List<User>
-//    }
+    public User findByLogin( String login, String mdp ){
+         User u = new User();
+        String req="select username , password ,roles from fos_user_user where username=? and password=? ";
+        try {
+            PreparedStatement ps = connection.prepareStatement(req);
+             ps.setString(1, login);
+             ps.setString(2, mdp);
+             ResultSet resultat = ps.executeQuery();
+             while (resultat.next()){
+                 u.setUsername(resultat.getString(1));
+                 u.setPassword(resultat.getString(2));
+                 u.setRoles(resultat.getString(3));
+             }
+             return u;
+        }
+      
+        catch (SQLException ex) {
+             Logger.getLogger(UserDao.class.getName()).log(Level.SEVERE, null, ex);
+            return null;
+        }
+    }
 
    
     

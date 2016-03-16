@@ -4,6 +4,7 @@
  * and open the template in the editor.
  */
 package GUI;
+import utils.* ;
 
 /**
  *
@@ -29,22 +30,16 @@ public class FrameAfficherServiceAll extends javax.swing.JFrame {
 
         jPanel1 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        tblService = new javax.swing.JTable();
         jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jPanel1.setBackground(new java.awt.Color(255, 153, 153));
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-
-            },
-            new String [] {
-                "Nom service", "Description", "Catégorie", "Date d'ajout", "Etat"
-            }
-        ));
-        jScrollPane1.setViewportView(jTable1);
+        tblService.setModel(new ListeService()
+        );
+        jScrollPane1.setViewportView(tblService);
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 51, 102));
@@ -127,6 +122,6 @@ public class FrameAfficherServiceAll extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
+    private javax.swing.JTable tblService;
     // End of variables declaration//GEN-END:variables
 }

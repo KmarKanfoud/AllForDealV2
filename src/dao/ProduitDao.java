@@ -143,9 +143,45 @@ public class ProduitDao implements IDao<Produit> {
 
     }
 
-    @Override
-    public Produit findById(int id) {
-        return null;
+    
+    public List<Produit> DisplayById(int id) {
+      List<Produit> listeProduit = new ArrayList<>();
+       
+     
+       String requete ="select * from produit where id="+id;
+       
+        
+        try {
+           PreparedStatement ps = connection.prepareStatement(requete);
+          
+            ResultSet resultat =ps.executeQuery(requete);
+            while (resultat.next()){
+                
+                  Produit p = new Produit();
+
+                p.setId(resultat.getInt(1));
+                //p.setZone(resultat.getInt(2));
+                p.setUser(resultat.getInt(3));
+                p.setCategorie(resultat.getString(5));
+                p.setQuantite(resultat.getInt(6));
+                p.setPtbonus(resultat.getInt(7));
+                p.setNomP(resultat.getString(8));
+                p.setDescription(resultat.getString(9));
+                p.setPrix(resultat.getInt(10));
+                p.setPrix1(resultat.getInt(11));
+                p.setPrix2(resultat.getInt(12));
+                p.setTva(resultat.getInt(13));
+                p.setReduction(resultat.getInt(14));
+                listeProduit.add(p);
+            }
+            return listeProduit;
+        } catch (SQLException ex) {
+            Logger.getLogger(ProduitDao.class.getName()).log(Level.SEVERE, null, ex);
+            return null;
+        }
+      
+       
+       
     }
 
      public ResultSet getAllVille() {
@@ -173,6 +209,11 @@ public class ProduitDao implements IDao<Produit> {
             Logger.getLogger(ProduitDao.class.getName()).log(Level.SEVERE, null, ex);
         }
          return null;
+    }
+
+    @Override
+    public Produit findById(int id) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
   

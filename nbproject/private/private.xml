@@ -3,9 +3,10 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/SaharS/Documents/NetBeansProjects/AllForDealV2/src/dao/CommentDao.java</file>
-            <file>file:/C:/Users/SaharS/Documents/NetBeansProjects/AllForDealV2/src/utils/CommentModel.java</file>
-            <file>file:/C:/Users/SaharS/Documents/NetBeansProjects/AllForDealV2/src/utils/CommentPModel.java</file>
+            <file>file:/C:/Users/esprit/Documents/NetBeansProjects/Java/AllForDealV2/src/entite/Produit.java</file>
+            <file>file:/C:/Users/esprit/Documents/NetBeansProjects/Java/AllForDealV2/src/GUI/FrameListerProduits.java</file>
+            <file>file:/C:/Users/esprit/Documents/NetBeansProjects/Java/AllForDealV2/src/GUI/FrameListCommentaireP.java</file>
+            <file>file:/C:/Users/esprit/Documents/NetBeansProjects/Java/AllForDealV2/src/GUI/FrameDetailsProduit.java</file>
         </group>
     </open-files>
 </project-private>

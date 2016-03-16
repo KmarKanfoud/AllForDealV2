@@ -6,29 +6,32 @@
 package GUI;
 
 import dao.CommentDao;
+import entite.Comment;
 import java.awt.Dimension;
 import java.awt.Toolkit;
+import java.util.Date;
 import java.util.List;
+import java.util.Set;
 import javax.swing.JOptionPane;
 import utils.CommentModel;
-
-
 
 /**
  *
  * @author SaharS
  */
-public class FrameListComment extends javax.swing.JFrame {
- Toolkit tk = Toolkit.getDefaultToolkit();
-        Dimension screenSize = tk.getScreenSize();
-        int screenHeight = screenSize.height;
-        int screenWidth = screenSize.width;
+public class FrameListCommentaire extends javax.swing.JFrame {
+
+    Toolkit tk = Toolkit.getDefaultToolkit();
+    Dimension screenSize = tk.getScreenSize();
+    int screenHeight = screenSize.height;
+    int screenWidth = screenSize.width;
+
     /**
      * Creates new form ListComment
      */
-    public FrameListComment() {
+    public FrameListCommentaire() {
         initComponents();
-        
+
     }
 
     /**
@@ -124,27 +127,47 @@ public class FrameListComment extends javax.swing.JFrame {
 
     private void BtnSupprimerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnSupprimerActionPerformed
         int ligneSelectionne = ListComment.getSelectedRow();
-         Object l=ListComment.getValueAt(ligneSelectionne, 0);
+        Object l = ListComment.getValueAt(ligneSelectionne, 0);
 
-        CommentDao comm=new CommentDao();
-        comm. removeById((int)l);
-        JOptionPane.showMessageDialog(null,"Deleted Succefully!");
-       ListComment.setModel(new CommentModel() );
+        CommentDao comm = new CommentDao();
+        //JOptionPane.showMessageDialog(null,"Vous allez supprimer ce commentaire!");
+        int i = JOptionPane.showConfirmDialog(null, "La suppression est irréversible. Êtes-vous sûr de vouloir continuer?",
+                "Veuillez confirmer votre choix",
+                JOptionPane.YES_NO_OPTION);
 
-        jScrollPane1.setViewportView(ListComment);
+        if (i == 0) {
+            comm.removeById((int) l);
+            ListComment.setModel(new CommentModel());
+            jScrollPane1.setViewportView(ListComment);
+        }
     }//GEN-LAST:event_BtnSupprimerActionPerformed
 
     private void BtnAjouterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnAjouterActionPerformed
-       FrameAjouterCommentaire frame=new FrameAjouterCommentaire();
+        FrameAjouterCommentaire frame = new FrameAjouterCommentaire();
         frame.setVisible(true);
         frame.setResizable(false);
         frame.setSize(screenWidth / 2, screenHeight / 2);
         frame.setLocation(screenWidth / 4, screenHeight / 4);
-     
+
     }//GEN-LAST:event_BtnAjouterActionPerformed
 
     private void BtnModifierActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnModifierActionPerformed
-        // TODO add your handling code here:
+        int ligneSelectionne = ListComment.getSelectedRow();
+        Object l = ListComment.getValueAt(ligneSelectionne, 0);
+        FrameModifierCommentaire frameModifier = new FrameModifierCommentaire();
+        //CommentDao dao = new CommentDao();
+       // Comment c = new Comment();
+        
+   
+
+        
+        
+        
+        
+        frameModifier.setVisible(true);
+        frameModifier.setResizable(false);
+        frameModifier.setSize(screenWidth / 2, screenHeight / 2);
+        frameModifier.setLocation(screenWidth / 4, screenHeight / 4);
     }//GEN-LAST:event_BtnModifierActionPerformed
 
     /**
@@ -164,14 +187,18 @@ public class FrameListComment extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(FrameListComment.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FrameListCommentaire.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(FrameListComment.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FrameListCommentaire.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(FrameListComment.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FrameListCommentaire.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(FrameListComment.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FrameListCommentaire.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
         //</editor-fold>
@@ -180,12 +207,13 @@ public class FrameListComment extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             Toolkit tk = Toolkit.getDefaultToolkit();
-        Dimension screenSize = tk.getScreenSize();
-        int screenHeight = screenSize.height;
-        int screenWidth = screenSize.width;
+            Dimension screenSize = tk.getScreenSize();
+            int screenHeight = screenSize.height;
+            int screenWidth = screenSize.width;
+
             public void run() {
-                
-                  FrameListComment fl = new FrameListComment();
+
+                FrameListCommentaire fl = new FrameListCommentaire();
                 fl.setVisible(true);
                 fl.setResizable(false);
 
@@ -199,7 +227,7 @@ public class FrameListComment extends javax.swing.JFrame {
     private javax.swing.JButton BtnAjouter;
     private javax.swing.JButton BtnModifier;
     private javax.swing.JButton BtnSupprimer;
-    private javax.swing.JTable ListComment;
+    public static javax.swing.JTable ListComment;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     // End of variables declaration//GEN-END:variables

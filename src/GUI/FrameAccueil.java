@@ -6,7 +6,9 @@
 package GUI;
 
 import dao.ReclamationDao;
+import dao.UserDao;
 import entite.Reclamation;
+import entite.User;
 import java.awt.Dimension;
 import java.awt.Toolkit;
 import java.util.Date;
@@ -21,8 +23,26 @@ public class FrameAccueil extends javax.swing.JFrame {
     /**
      * Creates new form FrameAccueil
      */
+    private int id;
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+    public FrameAccueil(int id) {
+        initComponents();
+        this.id=id;
+        User u=new User();
+        UserDao udao=new UserDao();
+        u=udao.findById(id);
+        
+    }
     public FrameAccueil() {
         initComponents();
+        
     }
 
     /**
@@ -53,6 +73,23 @@ public class FrameAccueil extends javax.swing.JFrame {
         EnvoyerReclamationBtn = new javax.swing.JButton();
         erreur1 = new javax.swing.JLabel();
         erreur2 = new javax.swing.JLabel();
+        jPanel1 = new javax.swing.JPanel();
+        lUserName = new javax.swing.JLabel();
+        lEmail = new javax.swing.JLabel();
+        lGender = new javax.swing.JLabel();
+        lAdress = new javax.swing.JLabel();
+        lBunus = new javax.swing.JLabel();
+        lNom = new javax.swing.JLabel();
+        lPrenom = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
+        jLabel7 = new javax.swing.JLabel();
+        jLabel8 = new javax.swing.JLabel();
+        jLabel9 = new javax.swing.JLabel();
+        lcreation = new javax.swing.JLabel();
+        jLabel10 = new javax.swing.JLabel();
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
@@ -109,14 +146,14 @@ public class FrameAccueil extends javax.swing.JFrame {
             .addGroup(ProduitLabelLayout.createSequentialGroup()
                 .addGap(52, 52, 52)
                 .addComponent(jPanel9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(52, Short.MAX_VALUE))
+                .addContainerGap(151, Short.MAX_VALUE))
         );
         ProduitLabelLayout.setVerticalGroup(
             ProduitLabelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(ProduitLabelLayout.createSequentialGroup()
                 .addGap(115, 115, 115)
                 .addComponent(jPanel9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(116, Short.MAX_VALUE))
+                .addContainerGap(183, Short.MAX_VALUE))
         );
 
         Service.addTab("Produit", ProduitLabel);
@@ -163,14 +200,14 @@ public class FrameAccueil extends javax.swing.JFrame {
             .addGroup(ServicePanelLayout.createSequentialGroup()
                 .addGap(48, 48, 48)
                 .addComponent(jPanel10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(48, Short.MAX_VALUE))
+                .addContainerGap(147, Short.MAX_VALUE))
         );
         ServicePanelLayout.setVerticalGroup(
             ServicePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(ServicePanelLayout.createSequentialGroup()
                 .addGap(110, 110, 110)
                 .addComponent(jPanel10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(125, Short.MAX_VALUE))
+                .addContainerGap(192, Short.MAX_VALUE))
         );
 
         Service.addTab("Service", ServicePanel);
@@ -249,7 +286,7 @@ public class FrameAccueil extends javax.swing.JFrame {
                 .addGroup(ReclamationPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(erreur1)
                     .addComponent(erreur2))
-                .addContainerGap(101, Short.MAX_VALUE))
+                .addContainerGap(200, Short.MAX_VALUE))
         );
         ReclamationPanelLayout.setVerticalGroup(
             ReclamationPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -267,6 +304,125 @@ public class FrameAccueil extends javax.swing.JFrame {
 
         Service.addTab("Réclamation", ReclamationPanel);
 
+        jPanel1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jPanel1MouseClicked(evt);
+            }
+        });
+
+        lUserName.setText("-");
+
+        lEmail.setText("-");
+
+        lGender.setText("-");
+
+        lAdress.setText("-");
+
+        lBunus.setText("-");
+
+        lNom.setText("-");
+
+        lPrenom.setText("-");
+
+        jLabel1.setText("UserName :");
+
+        jLabel2.setText("Email :");
+
+        jLabel5.setText("Genre");
+
+        jLabel6.setText("Addresse :");
+
+        jLabel7.setText("Bonus :");
+
+        jLabel8.setText("Nom :");
+
+        jLabel9.setText("Prenom :");
+
+        lcreation.setText("-");
+
+        jLabel10.setText("Création de Compte :");
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(29, 29, 29)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jLabel10)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(lcreation))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jLabel9)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(lPrenom))
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
+                        .addComponent(jLabel8)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(lNom))
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
+                        .addComponent(jLabel7)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(lBunus))
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
+                        .addComponent(jLabel6)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(lAdress))
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
+                        .addComponent(jLabel5)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(lGender))
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
+                        .addComponent(jLabel2)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 150, Short.MAX_VALUE)
+                        .addComponent(lEmail))
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
+                        .addComponent(jLabel1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(lUserName)))
+                .addContainerGap(374, Short.MAX_VALUE))
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(38, 38, 38)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lUserName)
+                    .addComponent(jLabel1))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lEmail)
+                    .addComponent(jLabel2))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lGender)
+                    .addComponent(jLabel5))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lAdress)
+                    .addComponent(jLabel6))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lBunus)
+                    .addComponent(jLabel7))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lNom)
+                    .addComponent(jLabel8))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lPrenom)
+                    .addComponent(jLabel9))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lcreation)
+                    .addComponent(jLabel10))
+                .addContainerGap(132, Short.MAX_VALUE))
+        );
+
+        Service.addTab("Profile", jPanel1);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -283,7 +439,7 @@ public class FrameAccueil extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
-        setBounds(0, 0, 530, 419);
+        setBounds(0, 0, 629, 486);
     }// </editor-fold>//GEN-END:initComponents
 
     private void EnvoyerReclamationBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EnvoyerReclamationBtnActionPerformed
@@ -326,6 +482,21 @@ public class FrameAccueil extends javax.swing.JFrame {
     private void ProposerServiceBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ProposerServiceBtnActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_ProposerServiceBtnActionPerformed
+
+    private void jPanel1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel1MouseClicked
+         User u=new User();
+        UserDao udao=new UserDao();
+        u=udao.findById(id);
+        lUserName.setText(u.getUsername());
+        lEmail.setText(u.getEmail());
+        lGender.setText(u.getGender());
+        lAdress.setText(u.getAdress());
+        lBunus.setText(""+u.getBonus());
+        lNom.setText(u.getLastname());
+        lPrenom.setText(u.getFirstname());
+        lcreation.setText(""+u.getCreated_at());
+        
+    }//GEN-LAST:event_jPanel1MouseClicked
 
     /**
      * @param args the command line arguments
@@ -387,11 +558,28 @@ public class FrameAccueil extends javax.swing.JFrame {
     private javax.swing.JTextField TFSujet;
     private javax.swing.JLabel erreur1;
     private javax.swing.JLabel erreur2;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
+    private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel10;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel6;
     private javax.swing.JPanel jPanel9;
+    private javax.swing.JLabel lAdress;
+    private javax.swing.JLabel lBunus;
+    private javax.swing.JLabel lEmail;
+    private javax.swing.JLabel lGender;
+    private javax.swing.JLabel lNom;
+    private javax.swing.JLabel lPrenom;
+    private javax.swing.JLabel lUserName;
+    private javax.swing.JLabel lcreation;
     // End of variables declaration//GEN-END:variables
 }

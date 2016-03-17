@@ -118,6 +118,11 @@ public class Framedashboard extends javax.swing.JFrame {
         cbrole.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "ROLE_ADMIN", "ROLE_USER", "ROLE_FOURNISSEUR", " " }));
 
         jToggleButton4.setText("Annuler");
+        jToggleButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jToggleButton4ActionPerformed(evt);
+            }
+        });
 
         tfbonus.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -397,6 +402,18 @@ public class Framedashboard extends javax.swing.JFrame {
        //tfemail.setText(u.getEmail());
        tfbonus.setText(""+(u.getBonus()));// TODO add your handling code here:
     }//GEN-LAST:event_jTable1MouseClicked
+
+    private void jToggleButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButton4ActionPerformed
+       tfusername.setText("");
+       tfemail.setText("");
+       tfmdp.setText("");
+       //tfemail.setText(u.getEmail());
+       tffirstname.setText("");
+       tflastname.setText("");
+       tfphone.setText("");
+       //tfemail.setText(u.getEmail());
+       tfbonus.setText(""); // TODO add your handling code here:
+    }//GEN-LAST:event_jToggleButton4ActionPerformed
 
     /**
      * @param args the command line arguments

@@ -37,9 +37,10 @@ public class ProduitTest {
 //      pdao.update(p2);
        
    //    pdao.removeById(1);
-      List<Produit>LP = new ArrayList();
-        LP = pdao.findAll();
+     List<Produit>LP = new ArrayList();
+        LP = pdao.DisplayById(7);
         System.out.println(LP);
+  ;
        
     }
     

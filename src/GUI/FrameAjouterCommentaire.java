@@ -17,7 +17,10 @@ import javax.swing.table.DefaultTableModel;
  * @author SaharS
  */
 public class FrameAjouterCommentaire extends javax.swing.JFrame {
-
+ Toolkit tk = Toolkit.getDefaultToolkit();
+        Dimension screenSize = tk.getScreenSize();
+        int screenHeight = screenSize.height;
+        int screenWidth = screenSize.width;
     /**
      * Creates new form FrameAjouterCommentaire
      */
@@ -54,12 +57,11 @@ public class FrameAjouterCommentaire extends javax.swing.JFrame {
         );
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setBackground(new java.awt.Color(51, 122, 183));
-
-        jPanel1.setBackground(new java.awt.Color(51, 122, 183));
 
         jLabel1.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
         jLabel1.setText("Ajouter votre commentaire");
+
+        TFComment.setSelectionColor(new java.awt.Color(240, 240, 240));
 
         Commenter.setFont(new java.awt.Font("Arial", 0, 11)); // NOI18N
         Commenter.setText("Commenter");
@@ -133,6 +135,12 @@ public class FrameAjouterCommentaire extends javax.swing.JFrame {
         // model.addRow(new Object[]{TFComment.getText()});
          CommAjoute.setText(String.valueOf(TFComment.getText()));
         TFComment.setText("");
+          FrameListCommentaire f = new FrameListCommentaire();
+       f.setVisible(true);
+       f.setVisible(true);
+        f.setResizable(false);
+        f.setSize(screenWidth / 2, screenHeight / 2);
+        f.setLocation(screenWidth / 4, screenHeight / 4);
 
     }//GEN-LAST:event_CommenterActionPerformed
 

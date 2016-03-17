@@ -74,11 +74,11 @@
                       </Group>
                       <Group type="102" alignment="1" attributes="0">
                           <EmptySpace min="-2" pref="90" max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="cbZone" alignment="1" min="-2" pref="97" max="-2" attributes="0"/>
-                              <Component id="cbCat" alignment="1" min="-2" pref="97" max="-2" attributes="0"/>
-                              <Component id="tfDescription" alignment="1" min="-2" pref="97" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                              <Component id="cbCat" alignment="0" max="32767" attributes="0"/>
+                              <Component id="tfDescription" alignment="0" max="32767" attributes="0"/>
                               <Component id="tfNomS" alignment="1" min="-2" pref="99" max="-2" attributes="0"/>
+                              <Component id="cbZone" alignment="0" max="32767" attributes="0"/>
                           </Group>
                       </Group>
                   </Group>
@@ -166,14 +166,12 @@
         <Component class="javax.swing.JComboBox" name="cbCat">
           <Properties>
             <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-              <StringArray count="4">
-                <StringItem index="0" value="Maison"/>
-                <StringItem index="1" value="jardinage"/>
-                <StringItem index="2" value="annimaux"/>
-                <StringItem index="3" value=""/>
-              </StringArray>
+              <StringArray count="0"/>
             </Property>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="cbCatActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JComboBox" name="cbZone">
           <Properties>
@@ -194,9 +192,6 @@
           <Properties>
             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="cc" green="cc" red="ff" type="rgb"/>
-            </Property>
-            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="2" name="C:\Users\Super\Downloads\Ajout.png"/>
             </Property>
             <Property name="text" type="java.lang.String" value="Ajouter Service"/>
             <Property name="alignmentX" type="float" value="10.1"/>

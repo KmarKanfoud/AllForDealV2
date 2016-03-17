@@ -13,6 +13,7 @@ import java.util.Date;
 import javax.swing.table.DefaultTableModel;
 import GUI.FrameListCommentaire;
 import static GUI.FrameListCommentaire.ListComment;
+import javax.swing.JTextField;
 
 /**
  *
@@ -20,14 +21,35 @@ import static GUI.FrameListCommentaire.ListComment;
  */
 public class FrameModifierCommentaire extends javax.swing.JFrame {
 
+    Comment c;
+
     Toolkit tk = Toolkit.getDefaultToolkit();
     Dimension screenSize = tk.getScreenSize();
     int screenHeight = screenSize.height;
     int screenWidth = screenSize.width;
+    CommentDao commentDAO = new CommentDao();
+
+    public Comment getC() {
+        return c;
+    }
+
+    public JTextField getTFComment() {
+        return TFComment;
+
+    }
+
+    public void setC(Comment c) {
+        this.c = c;
+    }
+
+    public void setTFComment(JTextField TFComment) {
+        this.TFComment = TFComment;
+    }
 
     /**
      * Creates new form FrameAjouterCommentaire
      */
+
     public FrameModifierCommentaire() {
         initComponents();
 
@@ -128,21 +150,15 @@ public class FrameModifierCommentaire extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void ModifierActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ModifierActionPerformed
-        int ligneSelectionne;
-        ligneSelectionne = FrameListCommentaire.ListComment.getSelectedRow();
-        Object l = FrameListCommentaire.ListComment.getValueAt(ligneSelectionne, 0);
-        CommentDao dao = new CommentDao();
-
-        Comment c = new Comment();
-        c.setId((int) ListComment.getValueAt(ligneSelectionne, 0));
-        c.setBody((String) ListComment.getValueAt(ligneSelectionne, 1));
-        c.setCreated_at((Date) ListComment.getValueAt(ligneSelectionne, 2));
-      //  c.setBody(TFComment.getText());
-        // Date date = new java.sql.Date(System.currentTimeMillis());
-        //  c.setCreated_at(date);
+        
+        String body;
+         CommentDao dao = new CommentDao();
+        body = TFComment.getText();
+        c.setBody(body);
+        System.out.println(c);
         dao.update(c);
-       // CommAjoute.setText(String.valueOf(TFComment.getText()));
-        // TFComment.setText("");
+
+        this.setVisible(false);
 
         FrameListCommentaire f = new FrameListCommentaire();
         f.setVisible(true);
@@ -192,6 +208,7 @@ public class FrameModifierCommentaire extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 FrameModifierCommentaire fa = new FrameModifierCommentaire();
+                fa.TFComment.setText("sahar");
                 fa.setVisible(true);
                 fa.setResizable(false);
                 fa.setSize(screenWidth / 2, screenHeight / 2);

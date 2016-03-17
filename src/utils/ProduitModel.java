@@ -19,15 +19,12 @@ import javax.swing.table.AbstractTableModel;
 public class ProduitModel extends AbstractTableModel{
 List<Produit> l;
 
-String [] colonnes={"id","nom","Categorie","Quantité","Description","Zone","Ajouté le","TVA","Réduction"};
+String [] colonnes={"id","nom","Categorie","Quantité","Description","prix","point Bonus","Zone","Ajouté le","TVA","Réduction"};
     public ProduitModel() {
        ProduitDao pdao = new ProduitDao();
        l = pdao.findAll();
     }
 
-    
-    
-    
     @Override
     public int getRowCount() {
 return l.size();    }
@@ -36,8 +33,7 @@ return l.size();    }
     public int getColumnCount() {
  return colonnes.length;  
     }
-
-    @Override
+@Override
     public Object getValueAt(int rowIndex, int columnIndex) {
 switch (columnIndex){
     case 0: return l.get(rowIndex).getId();
@@ -45,10 +41,12 @@ switch (columnIndex){
     case 2: return l.get(rowIndex).getCategorie();
     case 3: return l.get(rowIndex).getQuantite();
     case 4: return l.get(rowIndex).getDescription();
-    case 5: return l.get(rowIndex).getZone();
-    case 6: return l.get(rowIndex).getDateAjout();
-    case 7: return l.get(rowIndex).getTva();
-    case 8: return l.get(rowIndex).getReduction();
+    case 5: return l.get(rowIndex).getPrix();
+    case 6: return l.get(rowIndex).getPtbonus();
+    case 7: return l.get(rowIndex).getZone();
+    case 8: return l.get(rowIndex).getDateAjout();
+    case 9: return l.get(rowIndex).getTva();
+    case 10: return l.get(rowIndex).getReduction();
     default: return null;
     }
     }

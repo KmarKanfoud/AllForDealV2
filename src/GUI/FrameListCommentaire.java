@@ -154,20 +154,25 @@ public class FrameListCommentaire extends javax.swing.JFrame {
     private void BtnModifierActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnModifierActionPerformed
         int ligneSelectionne = ListComment.getSelectedRow();
         Object l = ListComment.getValueAt(ligneSelectionne, 0);
-        FrameModifierCommentaire frameModifier = new FrameModifierCommentaire();
-        //CommentDao dao = new CommentDao();
-       // Comment c = new Comment();
+        //FrameModifierCommentaire frameModifier = new FrameModifierCommentaire();
+        CommentDao dao = new CommentDao();
+        Comment c = new Comment();
+        c.setId(ligneSelectionne);
+         c.setBody((String)ListComment.getValueAt(ligneSelectionne,1));
         
-   
+        
+        
+       c.setId((int)ListComment.getValueAt(ligneSelectionne,0));
+     FrameModifierCommentaire frame=new FrameModifierCommentaire();
+                     frame.setVisible(true);
+                     frame.setC(c);
+                     frame.getTFComment().setText((String)ListComment.getValueAt(ligneSelectionne,1));                  
+                     System.out.println(c);
 
-        
-        
-        
-        
-        frameModifier.setVisible(true);
-        frameModifier.setResizable(false);
-        frameModifier.setSize(screenWidth / 2, screenHeight / 2);
-        frameModifier.setLocation(screenWidth / 4, screenHeight / 4);
+        //frame.setVisible(true);
+        frame.setResizable(false);
+        frame.setSize(screenWidth / 2, screenHeight / 2);
+        frame.setLocation(screenWidth / 4, screenHeight / 4);
     }//GEN-LAST:event_BtnModifierActionPerformed
 
     /**

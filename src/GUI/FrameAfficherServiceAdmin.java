@@ -70,9 +70,9 @@ public class FrameAfficherServiceAdmin extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jPanel1.setBackground(new java.awt.Color(255, 153, 153));
+        jPanel1.setBackground(new java.awt.Color(255, 255, 255));
 
-        tblService.setBackground(Color.MAGENTA);
+        //tblService.setBackground(Color.MAGENTA);
         tblService.setModel(new ListeService());
         tblService.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -241,11 +241,12 @@ public class FrameAfficherServiceAdmin extends javax.swing.JFrame {
             s.setEtat(cbEtat.getSelectedItem().toString());
             ServiceDao pdao = new ServiceDao();
             pdao.update(s);
-            jScrollPane1.setViewportView(tblService);
+            //jScrollPane1.setViewportView(tblService);
 
         } else {
             lMsg.setText(" Veuiller enter le nom de votre service SVP !");
         }
+        tblService.setModel(new ListeService()); // Act tab apres modif
     }//GEN-LAST:event_btnModifierActionPerformed
 
     private void bntSupprimerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bntSupprimerActionPerformed

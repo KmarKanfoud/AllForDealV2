@@ -8,6 +8,7 @@ package GUI;
 import dao.UserDao;
 import entite.User;
 import java.time.LocalDate;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -365,7 +366,7 @@ public class LoginForm extends javax.swing.JFrame {
         }
         try{
             
-        u.setPhone(Integer.parseInt(tfphone.getText()));
+        u.setPhone(tfphone.getText());
         }
         catch(NumberFormatException ex ){
             lerror.setText("num de tel existe");
@@ -382,7 +383,8 @@ public class LoginForm extends javax.swing.JFrame {
         java.sql.Date d = java.sql.Date.valueOf(LocalDate.now());
         u.setCreated_at(d);
             
-     udao.add(u);        // TODO add your handling code here:
+     udao.add(u); 
+        JOptionPane.showMessageDialog(null,"Vous etes Inscrit avec succés");// TODO add your handling code here:
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void btloginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btloginActionPerformed
@@ -393,10 +395,18 @@ public class LoginForm extends javax.swing.JFrame {
          u = udao.findByLogin(l, m);
         try{
             
-        if((u.getUsername().equals(l)==true)&&(u.getPassword().equals(m)==true)){
+        if((u.getUsername().equals(l)==true)&&(u.getPassword().equals(m)==true)&&(u.getEnabled()==1)){
             
             lerror.setText("Connecté");
-            
+            if(u.getRoles().equals("ROLE_ADMIN"))
+            {
+                Framedashboard fd=new Framedashboard();
+                fd.setVisible(true);
+            }
+            else{
+            FrameAccueil fa=new FrameAccueil(u.getId());
+            fa.setVisible(true);
+            }
         }
         }
         catch(NullPointerException ex){

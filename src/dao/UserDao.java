@@ -161,7 +161,7 @@ public class UserDao implements Idao.IDao<User>{
     }
     public User findByLogin( String login, String mdp ){
          User u = new User();
-        String req="select username , password ,roles from fos_user_user where username=? and password=? ";
+        String req="select username , password ,roles,id,enabled from fos_user_user where username=? and password=? ";
         try {
             PreparedStatement ps = connection.prepareStatement(req);
              ps.setString(1, login);
@@ -171,6 +171,8 @@ public class UserDao implements Idao.IDao<User>{
                  u.setUsername(resultat.getString(1));
                  u.setPassword(resultat.getString(2));
                  u.setRoles(resultat.getString(3));
+                 u.setId(resultat.getInt(4));
+                 u.setEnabled(resultat.getInt(5));
              }
              return u;
         }

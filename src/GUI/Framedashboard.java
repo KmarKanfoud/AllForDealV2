@@ -16,6 +16,7 @@ import java.util.List;
 import javax.swing.JCheckBox;
 import GUI.UserModel;
 import javax.swing.JOptionPane;
+import javax.swing.SingleSelectionModel;
 
 /**
  *
@@ -59,14 +60,16 @@ public class Framedashboard extends javax.swing.JFrame {
         jLabel9 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         cbrole = new javax.swing.JComboBox();
-        btnModifier = new javax.swing.JToggleButton();
         jToggleButton4 = new javax.swing.JToggleButton();
         tfbonus = new javax.swing.JTextField();
         jLabel10 = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
         btnSup = new javax.swing.JButton();
-        btnsave = new javax.swing.JButton();
+        btnupdate = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        taadress = new javax.swing.JTextArea();
         jTabbedPane2 = new javax.swing.JTabbedPane();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -112,14 +115,7 @@ public class Framedashboard extends javax.swing.JFrame {
 
         jLabel7.setText("Role");
 
-        cbrole.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Role_Admin", "Role_User" }));
-
-        btnModifier.setText("Selectionner");
-        btnModifier.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnModifierActionPerformed(evt);
-            }
-        });
+        cbrole.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "ROLE_ADMIN", "ROLE_USER", "ROLE_FOURNISSEUR", " " }));
 
         jToggleButton4.setText("Annuler");
 
@@ -146,12 +142,19 @@ public class Framedashboard extends javax.swing.JFrame {
             }
         });
 
-        btnsave.setText("Enregistrer");
-        btnsave.addActionListener(new java.awt.event.ActionListener() {
+        btnupdate.setText("Modifier");
+        btnupdate.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnsaveActionPerformed(evt);
+                btnupdateActionPerformed(evt);
             }
         });
+
+        jLabel1.setText("Adresse");
+
+        taadress.setColumns(20);
+        taadress.setRows(5);
+        taadress.setPreferredSize(new java.awt.Dimension(130, 94));
+        jScrollPane1.setViewportView(taadress);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -162,38 +165,44 @@ public class Framedashboard extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(21, 21, 21)
-                        .addComponent(btnsave)
+                        .addComponent(btnupdate)
                         .addGap(18, 18, 18)
                         .addComponent(btnSup)
                         .addGap(18, 18, 18)
                         .addComponent(jToggleButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(btnModifier, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel2)
-                            .addComponent(jLabel3)
-                            .addComponent(jLabel4)
-                            .addComponent(jLabel5)
-                            .addComponent(jLabel8)
-                            .addComponent(jLabel6)
-                            .addComponent(jLabel9)
-                            .addComponent(jLabel7)
-                            .addComponent(jLabel10))
-                        .addGap(18, 18, 18)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(tfemail, javax.swing.GroupLayout.DEFAULT_SIZE, 100, Short.MAX_VALUE)
-                            .addComponent(tfusername, javax.swing.GroupLayout.DEFAULT_SIZE, 100, Short.MAX_VALUE)
-                            .addComponent(tfmdp, javax.swing.GroupLayout.DEFAULT_SIZE, 100, Short.MAX_VALUE)
-                            .addComponent(cboxgender, 0, 100, Short.MAX_VALUE)
-                            .addComponent(tflastname, javax.swing.GroupLayout.DEFAULT_SIZE, 100, Short.MAX_VALUE)
-                            .addComponent(tffirstname, javax.swing.GroupLayout.DEFAULT_SIZE, 100, Short.MAX_VALUE)
-                            .addComponent(tfphone, javax.swing.GroupLayout.DEFAULT_SIZE, 100, Short.MAX_VALUE)
-                            .addComponent(cbrole, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(chbenabled)
-                            .addComponent(tfbonus))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 50, Short.MAX_VALUE)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel2)
+                                    .addComponent(jLabel3)
+                                    .addComponent(jLabel4)
+                                    .addComponent(jLabel5)
+                                    .addComponent(jLabel8)
+                                    .addComponent(jLabel6)
+                                    .addComponent(jLabel9)
+                                    .addComponent(jLabel7)
+                                    .addComponent(jLabel10)
+                                    .addComponent(jLabel1))
+                                .addGap(18, 18, 18)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                        .addComponent(tfemail)
+                                        .addComponent(tfusername)
+                                        .addComponent(tfmdp)
+                                        .addComponent(cboxgender, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(tflastname)
+                                        .addComponent(tffirstname)
+                                        .addComponent(tfphone)
+                                        .addComponent(tfbonus)
+                                        .addComponent(cbrole, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED, 31, Short.MAX_VALUE))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                                .addGap(0, 0, Short.MAX_VALUE)
+                                .addComponent(chbenabled)
+                                .addGap(96, 96, 96)))
                         .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 507, javax.swing.GroupLayout.PREFERRED_SIZE))))
         );
         jPanel1Layout.setVerticalGroup(
@@ -238,17 +247,23 @@ public class Framedashboard extends javax.swing.JFrame {
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(tfbonus, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel10))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(chbenabled)
-                        .addGap(33, 33, 33)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(jLabel1)
+                                .addGap(33, 132, Short.MAX_VALUE))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(chbenabled)
+                                .addGap(18, 18, 18)))
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jToggleButton4)
                             .addComponent(btnSup)
-                            .addComponent(btnModifier)
-                            .addComponent(btnsave)))
+                            .addComponent(btnupdate)))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 51, Short.MAX_VALUE)))
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
 
@@ -286,35 +301,6 @@ public class Framedashboard extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_chbenabledStateChanged
 
-    private void btnModifierActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModifierActionPerformed
-      UserDao udao=new UserDao();
-      User u=new User();
-      try{
-           int i= jTable1.getSelectedRow();
-                      
-       int s=(int) jTable1.getModel().getValueAt(i, 0);
-       u=udao.findById(s);
-       tfusername.setText(u.getUsername());
-       tfemail.setText(u.getEmail());
-       tfmdp.setText(u.getPassword());
-       //tfemail.setText(u.getEmail());
-       tffirstname.setText(u.getFirstname());
-       tflastname.setText(u.getLastname());
-       tfphone.setText(u.getPhone());
-       //tfemail.setText(u.getEmail());
-       tfbonus.setText(u.getEmail());
-      // tfemail.setText(u.getEmail());
-     //  tfemail.setText(u.getEmail());
-     //  tfemail.setText(u.getEmail());
-     //  tfemail.setText(u.getEmail());
-      }
-      catch (ArrayIndexOutOfBoundsException exp)
-            {
-                JOptionPane.showMessageDialog(null, "Veuillez selectionner un Utilisateur à Modifier");
-            }  
-        
-    }//GEN-LAST:event_btnModifierActionPerformed
-
     private void tfbonusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfbonusActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_tfbonusActionPerformed
@@ -337,12 +323,62 @@ public class Framedashboard extends javax.swing.JFrame {
             }
     }//GEN-LAST:event_btnSupActionPerformed
 
-    private void btnsaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnsaveActionPerformed
+    private void btnupdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnupdateActionPerformed
        User u =new User();
        UserDao udao=new UserDao();
+       int i= jTable1.getSelectedRow();
+                      
+       int s=(int) jTable1.getModel().getValueAt(i, 0);
+       u.setId(s);
+       u.setUsername(tfusername.getText());
+        u.setUsernameCanonical(tfusername.getText());
+        u.setEmail(tfemail.getText());
+        u.setEmailCanonical(tfemail.getText());
+       
+        u.setPassword(tfmdp.getText());
+      
+       if(chbenabled.isSelected())
+        u.setEnabled(1);
+       else{
+           u.setEnabled(0);
+       }
+        if(cboxgender.getSelectedIndex()==0){
+             u.setGender("m");
+        }
+        else {
+            u.setGender("f");
+        }
+        
+            
+        u.setPhone(tfphone.getText());
+      
+        u.setLastname(tflastname.getText());
+        u.setFirstname(tffirstname.getText());
+        
+        if(cbrole.getSelectedIndex()==0){
+            u.setRoles("ROLE_ADMIN");
+        }
+        if(cbrole.getSelectedIndex()==1) {
+            u.setRoles("ROLE_USER");
+        }
+        else{
+            u.setRoles("ROLE_FOURNISSEUR");
+        }
+        try{
+        u.setBonus(Integer.parseInt(tfbonus.getText()));
+        }
+        catch(NumberFormatException ex ){
+            System.out.println("erreur"+ex);
+        }
+        java.sql.Date d = java.sql.Date.valueOf(LocalDate.now());
+        u.setUpdated_at(d);
+        u.setAdress(taadress.getText());
+        udao.update(u);
+         jTable1.setModel(new UserModel());
+                    // TODO add your handling code here:
        
        
-    }//GEN-LAST:event_btnsaveActionPerformed
+    }//GEN-LAST:event_btnupdateActionPerformed
 
     private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
        UserDao udao=new UserDao();
@@ -359,7 +395,7 @@ public class Framedashboard extends javax.swing.JFrame {
        tflastname.setText(u.getLastname());
        tfphone.setText(u.getPhone());
        //tfemail.setText(u.getEmail());
-       tfbonus.setText(u.getEmail());// TODO add your handling code here:
+       tfbonus.setText(""+(u.getBonus()));// TODO add your handling code here:
     }//GEN-LAST:event_jTable1MouseClicked
 
     /**
@@ -399,12 +435,12 @@ public class Framedashboard extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JToggleButton btnModifier;
     private javax.swing.JButton btnSup;
-    private javax.swing.JButton btnsave;
+    private javax.swing.JButton btnupdate;
     private javax.swing.JComboBox cboxgender;
     private javax.swing.JComboBox cbrole;
     private javax.swing.JCheckBox chbenabled;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -415,11 +451,13 @@ public class Framedashboard extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTabbedPane jTabbedPane2;
     private javax.swing.JTable jTable1;
     private javax.swing.JToggleButton jToggleButton4;
+    private javax.swing.JTextArea taadress;
     private javax.swing.JTextField tfbonus;
     private javax.swing.JTextField tfemail;
     private javax.swing.JTextField tffirstname;

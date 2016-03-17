@@ -6,6 +6,7 @@
 package entite;
 
 import java.util.Date;
+import java.util.Objects;
 
 /*
  *
@@ -25,17 +26,19 @@ public class User {
     private Date lastLogin;
     private int locked;
     private String gender;
-    private int phone;
+    private String phone;
     private String firstname;
     private String lastname;
     private String roles;
     private Date created_at;
     private Date updated_at;
+    private int bonus;
+    private String adress;
 
     public User() {
     }
 
-    public User( String username, String usernameCanonical, String email, String emailCanonical, int enabled, String password, String gender, int phone, String firstname, String lastname, String roles, Date created_at ) {
+    public User( String username, String usernameCanonical, String email, String emailCanonical, int enabled, String password, String gender, String phone, String firstname, String lastname, String roles, Date created_at ,int bonus,String adress) {
         
         this.username = username;
         this.usernameCanonical = usernameCanonical;
@@ -52,6 +55,8 @@ public class User {
         this.lastname = lastname;
         this.roles = roles;
         this.created_at = created_at;
+        this.bonus=bonus;
+        this.adress=adress;
        
     }
 
@@ -155,11 +160,11 @@ public class User {
         this.gender = gender;
     }
 
-    public int getPhone() {
+    public String getPhone() {
         return phone;
     }
 
-    public void setPhone(int phone) {
+    public void setPhone(String phone) {
         this.phone = phone;
     }
 
@@ -202,6 +207,59 @@ public class User {
     public void setUpdated_at(Date updated_at) {
         this.updated_at = updated_at;
     }
+
+    public int getBonus() {
+        return bonus;
+    }
+
+    public void setBonus(int bonus) {
+        this.bonus = bonus;
+    }
+
+    public String getAdress() {
+        return adress;
+    }
+
+    public void setAdress(String adress) {
+        this.adress = adress;
+    }
+    
+
+    @Override
+    public int hashCode() {
+        int hash = 5;
+        hash = 53 * hash + this.id;
+        hash = 53 * hash + Objects.hashCode(this.username);
+        hash = 53 * hash + Objects.hashCode(this.email);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final User other = (User) obj;
+        if (this.id != other.id) {
+            return false;
+        }
+        if (!Objects.equals(this.username, other.username)) {
+            return false;
+        }
+        if (!Objects.equals(this.email, other.email)) {
+            return false;
+        }
+        return true;
+    }
+
+    @Override
+    public String toString() {
+        return "User{" + "id=" + id + ", username=" + username + ", usernameCanonical=" + usernameCanonical + ", email=" + email + ", emailCanonical=" + emailCanonical + ", enabled=" + enabled + ", password=" + password + ", plainPassword=" + plainPassword + ", lastLogin=" + lastLogin + ", locked=" + locked + ", gender=" + gender + ", phone=" + phone + ", firstname=" + firstname + ", lastname=" + lastname + ", roles=" + roles + ", created_at=" + created_at + ", updated_at=" + updated_at + ", bonus=" + bonus + '}';
+    }
+    
     
 
     

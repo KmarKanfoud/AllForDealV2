@@ -36,11 +36,7 @@
     <Container class="javax.swing.JPanel" name="jPanel1">
       <Properties>
         <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-<<<<<<< HEAD
           <Color blue="ff" green="ff" red="ff" type="rgb"/>
-=======
-          <Color blue="99" green="99" red="ff" type="rgb"/>
->>>>>>> cd70652dca84e422710151a7a533f11b1dff46c5
         </Property>
       </Properties>
 
@@ -50,7 +46,6 @@
               <Group type="102" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
-<<<<<<< HEAD
                       <Component id="labelId" alignment="0" min="-2" max="-2" attributes="0"/>
                       <Group type="102" alignment="0" attributes="0">
                           <Group type="103" groupAlignment="0" attributes="0">
@@ -75,16 +70,10 @@
                       <Group type="102" alignment="1" attributes="0">
                           <Component id="jScrollPane1" min="-2" pref="505" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
-=======
-                      <Group type="102" alignment="0" attributes="0">
-                          <Component id="jLabel6" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
->>>>>>> cd70652dca84e422710151a7a533f11b1dff46c5
                       </Group>
                       <Group type="102" attributes="0">
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Group type="102" attributes="0">
-<<<<<<< HEAD
                                   <Component id="btnModifier" min="-2" max="-2" attributes="0"/>
                                   <EmptySpace min="-2" pref="44" max="-2" attributes="0"/>
                                   <Component id="lMsg" min="-2" pref="150" max="-2" attributes="0"/>
@@ -97,46 +86,6 @@
                               </Group>
                           </Group>
                           <EmptySpace min="34" pref="50" max="32767" attributes="0"/>
-=======
-                                  <Group type="103" groupAlignment="0" attributes="0">
-                                      <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
-                                      <Component id="jLabel3" alignment="0" min="-2" max="-2" attributes="0"/>
-                                      <Component id="jLabel4" alignment="0" min="-2" max="-2" attributes="0"/>
-                                  </Group>
-                                  <EmptySpace min="-2" pref="35" max="-2" attributes="0"/>
-                                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                      <Component id="cbCat" max="32767" attributes="0"/>
-                                      <Component id="cbEtat" alignment="0" max="32767" attributes="0"/>
-                                      <Component id="tfNomService" alignment="0" max="32767" attributes="0"/>
-                                      <Component id="tfDescription" alignment="0" min="-2" pref="156" max="-2" attributes="0"/>
-                                  </Group>
-                              </Group>
-                              <Component id="labelId" alignment="0" min="-2" max="-2" attributes="0"/>
-                          </Group>
-                          <EmptySpace pref="35" max="32767" attributes="0"/>
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Group type="102" alignment="1" attributes="0">
-                                  <Component id="jScrollPane1" min="-2" pref="505" max="-2" attributes="0"/>
-                                  <EmptySpace max="-2" attributes="0"/>
-                              </Group>
-                              <Group type="102" attributes="0">
-                                  <Group type="103" groupAlignment="0" attributes="0">
-                                      <Group type="102" attributes="0">
-                                          <Component id="btnModifier" min="-2" max="-2" attributes="0"/>
-                                          <EmptySpace min="-2" pref="44" max="-2" attributes="0"/>
-                                          <Component id="lMsg" min="-2" pref="150" max="-2" attributes="0"/>
-                                          <EmptySpace min="-2" pref="55" max="-2" attributes="0"/>
-                                          <Component id="bntSupprimer" min="-2" max="-2" attributes="0"/>
-                                      </Group>
-                                      <Group type="102" attributes="0">
-                                          <EmptySpace min="-2" pref="70" max="-2" attributes="0"/>
-                                          <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
-                                      </Group>
-                                  </Group>
-                                  <EmptySpace min="34" pref="50" max="32767" attributes="0"/>
-                              </Group>
-                          </Group>
->>>>>>> cd70652dca84e422710151a7a533f11b1dff46c5
                       </Group>
                   </Group>
               </Group>
@@ -178,16 +127,12 @@
                               <Component id="jLabel6" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="cbEtat" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
-<<<<<<< HEAD
                           <EmptySpace min="-2" pref="34" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
                               <Component id="jLabel5" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="cbZone" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
-=======
-                          <EmptySpace min="-2" pref="57" max="-2" attributes="0"/>
->>>>>>> cd70652dca84e422710151a7a533f11b1dff46c5
                           <Group type="103" groupAlignment="3" attributes="0">
                               <Component id="btnModifier" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="bntSupprimer" alignment="3" max="32767" attributes="0"/>
@@ -195,11 +140,7 @@
                       </Group>
                       <Component id="lMsg" min="-2" pref="57" max="-2" attributes="0"/>
                   </Group>
-<<<<<<< HEAD
                   <EmptySpace pref="76" max="32767" attributes="0"/>
-=======
-                  <EmptySpace pref="79" max="32767" attributes="0"/>
->>>>>>> cd70652dca84e422710151a7a533f11b1dff46c5
               </Group>
           </Group>
         </DimensionLayout>
@@ -250,11 +191,7 @@
               </Events>
               <AuxValues>
                 <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new javax.swing.JTable()"/>
-<<<<<<< HEAD
                 <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="//tblService.setBackground(Color.MAGENTA);"/>
-=======
-                <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="tblService.setBackground(Color.MAGENTA);"/>
->>>>>>> cd70652dca84e422710151a7a533f11b1dff46c5
               </AuxValues>
             </Component>
           </SubComponents>
@@ -343,7 +280,6 @@
             <Property name="text" type="java.lang.String" value="ID"/>
           </Properties>
         </Component>
-<<<<<<< HEAD
         <Component class="javax.swing.JLabel" name="jLabel5">
           <Properties>
             <Property name="text" type="java.lang.String" value="Zone :"/>
@@ -356,8 +292,6 @@
             </Property>
           </Properties>
         </Component>
-=======
->>>>>>> cd70652dca84e422710151a7a533f11b1dff46c5
       </SubComponents>
     </Container>
   </SubComponents>

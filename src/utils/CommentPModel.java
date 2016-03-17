@@ -8,6 +8,7 @@ package utils;
 import dao.CommentDao;
 import entite.Comment;
 import java.util.List;
+import GUI.*;
 import javax.swing.table.AbstractTableModel;
 
 /**
@@ -21,7 +22,8 @@ public class CommentPModel extends AbstractTableModel {
 
     public CommentPModel() {
         CommentDao pdao = new CommentDao();
-        com = pdao.DisplayAllCommentaireByProduit(1);
+        //com = pdao.DisplayAllCommentaireByProduit(1);
+        com = pdao.DisplayAllCommentaireByProduit(FrameGestionProduitAdmin.getProd_id());
     }
 
     @Override

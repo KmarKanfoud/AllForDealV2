@@ -5,6 +5,7 @@
  */
 package dao;
 
+import GUI.FrameGestionProduitAdmin;
 import Idao.IDao;
 import entite.Comment;
 import java.sql.Connection;
@@ -36,13 +37,14 @@ public class CommentDao implements IDao<Comment>{
     @Override
     public void add(Comment c) {
         
-         String req = "insert into comment (body,created_at) values (?,?)";
+         String req = "insert into comment (body,created_at,produit_id) values (?,?,?)";
         try {
             pst = connection.prepareStatement(req);
            
              //pst.setInt(1, c.getId());
              pst.setString(1, c.getBody());
              pst.setDate(2, (Date) c.getCreated_at());
+             pst.setInt(3,FrameGestionProduitAdmin.getProd_id());
              pst.executeUpdate();
             
         } catch (SQLException ex) {

@@ -37,41 +37,13 @@ public class ProduitDao implements IDao<Produit> {
 
     @Override
     public void add(Produit p) {
-        String req = "insert into produit (id,categorie,quantite,ptbonus,nomP,description,prix,prix1,prix2,tva, reduction, dateAjout) values (?,?,?,?,?,?,?,?,?,?,?,?)";
+        String req = "insert into produit (id,zone_id,categorie,quantite,ptbonus,nomP,description,prix,prix1,prix2,tva, reduction, dateAjout) values (?,?,?,?,?,?,?,?,?,?,?,?,?)";
         try {
             pst = connection.prepareStatement(req);
 
             pst.setString(1, p.getId() + "");
-          //  pst.setString(2, p.getZone() + "");
+           pst.setInt(2, p.getZone());
           //  pst.setString(2, p.getUser() + "");
-            pst.setString(2, p.getCategorie());
-            pst.setString(3, p.getQuantite() + "");
-            pst.setString(4, p.getPtbonus() + "");
-            pst.setString(5, p.getNomP());
-            pst.setString(6, p.getDescription());
-            pst.setString(7, p.getPrix() + "");
-            pst.setString(8, p.getPrix1() + "");
-            pst.setString(9, p.getPrix2() + "");
-            pst.setString(10, p.getTva() + "");
-            pst.setString(11, p.getReduction() + "");
-            // pst.setString(14, p.getDateAjout() + "");
-            pst.setDate(12, (java.sql.Date) p.getDateAjout());
-
-            pst.executeUpdate();
-        } catch (SQLException ex) {
-            Logger.getLogger(ProduitDao.class.getName()).log(Level.SEVERE, null, ex);
-        }
-
-    }
-
-    @Override
-    public void update(Produit p) {
-        String req = "update produit set  zone_id=? , user_id=?, categorie=?,quantite=? ,ptbonus=?,nomP=?,description=?,prix=?,prix1=?,prix2=?,tva=?,reduction=? where id=?";
-
-        try {
-            pst = connection.prepareStatement(req);
-            pst.setString(1, p.getZone() + "");
-            pst.setString(2, p.getUser() + "");
             pst.setString(3, p.getCategorie());
             pst.setString(4, p.getQuantite() + "");
             pst.setString(5, p.getPtbonus() + "");
@@ -82,8 +54,38 @@ public class ProduitDao implements IDao<Produit> {
             pst.setString(10, p.getPrix2() + "");
             pst.setString(11, p.getTva() + "");
             pst.setString(12, p.getReduction() + "");
-            pst.setString(13, p.getDateAjout() + "");
-            pst.setInt(14, p.getId());
+           
+            pst.setDate(13, (java.sql.Date) p.getDateAjout());
+
+            pst.executeUpdate();
+        } catch (SQLException ex) {
+            Logger.getLogger(ProduitDao.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+    }
+
+    @Override
+    public void update(Produit p) {
+        String req = "update produit set  zone_id=? , categorie=?,quantite=? ,ptbonus=?,nomP=?,description=?,prix=?,prix1=?,prix2=?,tva=?,reduction=?,dateAjout=? where id=?";
+
+        try {
+            pst = connection.prepareStatement(req);
+            pst.setInt(1, p.getZone());
+           // pst.setString(2, p.getUser() + "");
+            pst.setString(2, p.getCategorie());
+            pst.setString(3, p.getQuantite() + "");
+            pst.setString(4, p.getPtbonus() + "");
+            pst.setString(5, p.getNomP());
+            pst.setString(6, p.getDescription());
+            pst.setString(7, p.getPrix() + "");
+            pst.setString(8, p.getPrix1() + "");
+            pst.setString(9, p.getPrix2() + "");
+            pst.setString(10, p.getTva() + "");
+            pst.setString(11, p.getReduction() + "");
+            pst.setString(12, p.getDateAjout() + "");
+            pst.setInt(13, p.getId());
+            
+            System.out.println(p.getId());
             pst.executeUpdate();
         } catch (SQLException ex) {
             Logger.getLogger(ProduitDao.class.getName()).log(Level.SEVERE, null, ex);
@@ -119,7 +121,7 @@ public class ProduitDao implements IDao<Produit> {
                 Produit p = new Produit();
 
                 p.setId(resultat.getInt(1));
-                //p.setZone(resultat.getInt(2));
+                p.setZone(resultat.getInt(2));
                 p.setUser(resultat.getInt(3));
                 p.setCategorie(resultat.getString(5));
                 p.setQuantite(resultat.getInt(6));

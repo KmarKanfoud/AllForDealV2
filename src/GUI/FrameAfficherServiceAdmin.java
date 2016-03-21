@@ -6,6 +6,7 @@
 package GUI;
 
 import dao.ServiceDao;
+import dao.ZoneDao;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.logging.Level;
@@ -24,7 +25,9 @@ import javax.swing.JOptionPane;
  */
 public class FrameAfficherServiceAdmin extends javax.swing.JFrame {
 
+    ResultSet rsNom = null;
     ServiceDao pdao = new ServiceDao();
+    ZoneDao zoneDAO = new ZoneDao();
 
     /**
      * Creates new form FrameAfficherServiceUser
@@ -33,6 +36,7 @@ public class FrameAfficherServiceAdmin extends javax.swing.JFrame {
         initComponents();
 
         loadAllCategorie();
+        loadAllVille();
         labelId.setVisible(false);
     }
 
@@ -61,12 +65,14 @@ public class FrameAfficherServiceAdmin extends javax.swing.JFrame {
         cbCat = new javax.swing.JComboBox();
         cbEtat = new javax.swing.JComboBox();
         labelId = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
+        cbZone = new javax.swing.JComboBox();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jPanel1.setBackground(new java.awt.Color(255, 153, 153));
+        jPanel1.setBackground(new java.awt.Color(255, 255, 255));
 
-        tblService.setBackground(Color.MAGENTA);
+        //tblService.setBackground(Color.MAGENTA);
         tblService.setModel(new ListeService());
         tblService.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -113,6 +119,8 @@ public class FrameAfficherServiceAdmin extends javax.swing.JFrame {
 
         labelId.setText("ID");
 
+        jLabel5.setText("Zone :");
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -120,40 +128,38 @@ public class FrameAfficherServiceAdmin extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(labelId)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel6)
-                        .addGap(0, 0, Short.MAX_VALUE))
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel2)
+                            .addComponent(jLabel3)
+                            .addComponent(jLabel4)
+                            .addComponent(jLabel6)
+                            .addComponent(jLabel5))
+                        .addGap(35, 35, 35)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(cbCat, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(cbEtat, 0, 156, Short.MAX_VALUE)
+                            .addComponent(tfNomService)
+                            .addComponent(tfDescription)
+                            .addComponent(cbZone, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 35, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 505, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap())
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel2)
-                                    .addComponent(jLabel3)
-                                    .addComponent(jLabel4))
-                                .addGap(35, 35, 35)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(cbCat, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(cbEtat, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(tfNomService)
-                                    .addComponent(tfDescription, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addComponent(labelId))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 35, Short.MAX_VALUE)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 505, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addContainerGap())
+                                .addComponent(btnModifier)
+                                .addGap(44, 44, 44)
+                                .addComponent(lMsg, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(55, 55, 55)
+                                .addComponent(bntSupprimer))
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(jPanel1Layout.createSequentialGroup()
-                                        .addComponent(btnModifier)
-                                        .addGap(44, 44, 44)
-                                        .addComponent(lMsg, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(55, 55, 55)
-                                        .addComponent(bntSupprimer))
-                                    .addGroup(jPanel1Layout.createSequentialGroup()
-                                        .addGap(70, 70, 70)
-                                        .addComponent(jLabel1)))
-                                .addGap(34, 50, Short.MAX_VALUE))))))
+                                .addGap(70, 70, 70)
+                                .addComponent(jLabel1)))
+                        .addGap(34, 50, Short.MAX_VALUE))))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -185,12 +191,16 @@ public class FrameAfficherServiceAdmin extends javax.swing.JFrame {
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel6)
                             .addComponent(cbEtat, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(57, 57, 57)
+                        .addGap(34, 34, 34)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel5)
+                            .addComponent(cbZone, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(btnModifier)
                             .addComponent(bntSupprimer, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                     .addComponent(lMsg, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(79, Short.MAX_VALUE))
+                .addContainerGap(76, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -213,23 +223,30 @@ public class FrameAfficherServiceAdmin extends javax.swing.JFrame {
 
         Service s = new Service();
         Date date = new java.sql.Date(System.currentTimeMillis());
-        System.out.println("test");
         if (!tfNomService.getText().trim().equals("")) {
-            System.out.println("test if");
             s.setId(Integer.parseInt(labelId.getText()));
             s.setNomService(tfNomService.getText());
             s.setDescription(tfDescription.getText());
             s.setType(cbCat.getSelectedItem().toString());
-            //s.setZone((int) cbZone.getSelectedItem());
+            try {
+                rsNom = zoneDAO.getZoneByName(cbZone.getSelectedItem().toString());
+                while (rsNom.next()) {
+                    s.setZone(rsNom.getInt(1));
+                    System.out.println(rsNom.getInt(1));
+                }//this.setResizable(false);
+            } catch (SQLException ex) {
+                Logger.getLogger(FrameAjouterService.class.getName()).log(Level.SEVERE, null, ex);
+            }
             s.setDateAjout(date);
             s.setEtat(cbEtat.getSelectedItem().toString());
             ServiceDao pdao = new ServiceDao();
             pdao.update(s);
-            jScrollPane1.setViewportView(tblService);
+            //jScrollPane1.setViewportView(tblService);
 
         } else {
             lMsg.setText(" Veuiller enter le nom de votre service SVP !");
         }
+        tblService.setModel(new ListeService()); // Act tab apres modif
     }//GEN-LAST:event_btnModifierActionPerformed
 
     private void bntSupprimerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bntSupprimerActionPerformed
@@ -280,6 +297,9 @@ public class FrameAfficherServiceAdmin extends javax.swing.JFrame {
         tfDescription.setText(model.getValueAt(i, 2).toString());
 
         cbCat.setSelectedItem(tblService.getValueAt(i, 3));
+        cbZone.setSelectedItem(model.getValueAt(i, 5).toString());
+
+
     }//GEN-LAST:event_tblServiceMouseClicked
 
     /**
@@ -324,28 +344,14 @@ public class FrameAfficherServiceAdmin extends javax.swing.JFrame {
 
             while (res.next()) {
 
-                cbCat.addItem(res.getString(1));
-              // System.out.println(res.getString(1));
+                cbZone.addItem(res.getString(1));
+                // System.out.println(res.getString(1));
 
             }
         } catch (SQLException ex) {
-            Logger.getLogger(FrameAjouterService.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(FrameAfficherServiceAdmin.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-//private void loadAllVille() {
-//         try {
-//            ResultSet res = pdao.getAllVille();
-//           
-//            while (res.next()) {
-//             
-//              cbZone.addItem(res.getString(1));
-//              // System.out.println(res.getString(1));
-//                
-//            }
-//        } catch (SQLException ex) {
-//            Logger.getLogger(FrameAfficherServiceAdmin.class.getName()).log(Level.SEVERE, null, ex);
-//        }
-//    }
 
     private void loadAllCategorie() {
         try {
@@ -366,10 +372,12 @@ public class FrameAfficherServiceAdmin extends javax.swing.JFrame {
     private javax.swing.JButton btnModifier;
     private javax.swing.JComboBox cbCat;
     private javax.swing.JComboBox cbEtat;
+    private javax.swing.JComboBox cbZone;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;

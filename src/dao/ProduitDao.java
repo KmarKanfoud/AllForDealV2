@@ -50,8 +50,13 @@ public class ProduitDao implements IDao<Produit> {
             pst = connection.prepareStatement(req);
 
             pst.setString(1, p.getId() + "");
+<<<<<<< HEAD
               pst.setInt(2, p.getZone());
             //  pst.setString(2, p.getUser() + "");
+=======
+           pst.setInt(2, p.getZone());
+          //  pst.setString(2, p.getUser() + "");
+>>>>>>> fd296e35628c0eb395eebd9e865912a3be413070
             pst.setString(3, p.getCategorie());
             pst.setString(4, p.getQuantite() + "");
             pst.setString(5, p.getPtbonus() + "");
@@ -74,6 +79,7 @@ public class ProduitDao implements IDao<Produit> {
 
     @Override
     public void update(Produit p) {
+<<<<<<< HEAD
         String req = "update produit set  zone_id=? ,  categorie=?,quantite=? ,nomP=?,description=?,prix=?,prix1=?,prix2=?,tva=?,reduction=?,rating=?, where id=?";
 
         try {
@@ -93,6 +99,28 @@ public class ProduitDao implements IDao<Produit> {
             pst.setString(10, p.getReduction() + "");
             pst.setInt(11, p.getRating());
          
+=======
+        String req = "update produit set  zone_id=? , categorie=?,quantite=? ,ptbonus=?,nomP=?,description=?,prix=?,prix1=?,prix2=?,tva=?,reduction=?,dateAjout=? where id=?";
+
+        try {
+            pst = connection.prepareStatement(req);
+            pst.setInt(1, p.getZone());
+           // pst.setString(2, p.getUser() + "");
+            pst.setString(2, p.getCategorie());
+            pst.setString(3, p.getQuantite() + "");
+            pst.setString(4, p.getPtbonus() + "");
+            pst.setString(5, p.getNomP());
+            pst.setString(6, p.getDescription());
+            pst.setString(7, p.getPrix() + "");
+            pst.setString(8, p.getPrix1() + "");
+            pst.setString(9, p.getPrix2() + "");
+            pst.setString(10, p.getTva() + "");
+            pst.setString(11, p.getReduction() + "");
+            pst.setString(12, p.getDateAjout() + "");
+            pst.setInt(13, p.getId());
+            
+            System.out.println(p.getId());
+>>>>>>> fd296e35628c0eb395eebd9e865912a3be413070
             pst.executeUpdate();
         } catch (SQLException ex) {
             Logger.getLogger(ProduitDao.class.getName()).log(Level.SEVERE, null, ex);
@@ -128,7 +156,7 @@ public class ProduitDao implements IDao<Produit> {
                 Produit p = new Produit();
 
                 p.setId(resultat.getInt(1));
-                //p.setZone(resultat.getInt(2));
+                p.setZone(resultat.getInt(2));
                 p.setUser(resultat.getInt(3));
                 p.setCategorie(resultat.getString(5));
                 p.setQuantite(resultat.getInt(6));

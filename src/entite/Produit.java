@@ -5,16 +5,30 @@
  */
 package entite;
 
+import GUI.FrameGestionProduitAdmin;
+import dao.ZoneDao;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.Date;
 import java.util.List;
 import java.util.Objects;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
  * @author esprit
  */
 public class Produit {
+<<<<<<< HEAD
 
+=======
+    ZoneDao zoneDAO =new ZoneDao();
+    ResultSet rsName=null;
+    private String zoneName;
+    
+    
+>>>>>>> fd296e35628c0eb395eebd9e865912a3be413070
     private int id;
     private int zone;
     private int user;
@@ -203,6 +217,26 @@ public class Produit {
         return "Produit{" + "id=" + id + ", zone=" + zone + ", user=" + user + ", media=" + media + ", categorie=" + categorie + ", quantite=" + quantite + ", ptbonus=" + ptbonus + ", nomP=" + nomP + ", description=" + description + ", prix=" + prix + ", prix1=" + prix1 + ", prix2=" + prix2 + ", tva=" + tva + ", reduction=" + reduction + ", dateAjout=" + dateAjout + '}';
     }
 
+<<<<<<< HEAD
+=======
+  public String getZoneName() {
+        try {
+            rsName = zoneDAO.getZoneById(zone);
+            while (rsName.next()) {
+                zoneName = rsName.getNString(1);
+
+            }//this.setResizable(false);
+        } catch (SQLException ex) {
+            Logger.getLogger(FrameGestionProduitAdmin.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return zoneName;
+
+    }
+
+    
+    
+    
+>>>>>>> fd296e35628c0eb395eebd9e865912a3be413070
     @Override
     public int hashCode() {
         int hash = 5;

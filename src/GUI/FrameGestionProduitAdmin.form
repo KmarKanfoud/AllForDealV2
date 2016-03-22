@@ -88,7 +88,6 @@
                                                           <Component id="tfTVA" alignment="1" min="-2" pref="84" max="-2" attributes="0"/>
                                                           <Component id="tfReduction" alignment="1" min="-2" pref="84" max="-2" attributes="0"/>
                                                           <Component id="tfQuantite" alignment="1" min="-2" pref="84" max="-2" attributes="0"/>
-                                                          <Component id="tfPointBonus" alignment="1" min="-2" pref="84" max="-2" attributes="0"/>
                                                           <Component id="cbZone" alignment="1" min="-2" pref="84" max="-2" attributes="0"/>
                                                       </Group>
                                                   </Group>
@@ -107,10 +106,23 @@
                                       <EmptySpace min="-2" pref="33" max="-2" attributes="0"/>
                                   </Group>
                               </Group>
+<<<<<<< HEAD
                               <Component id="jScrollPane3" pref="543" max="32767" attributes="0"/>
+=======
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Component id="jScrollPane3" pref="547" max="32767" attributes="0"/>
+                                  <Group type="102" alignment="0" attributes="0">
+                                      <EmptySpace min="-2" pref="16" max="-2" attributes="0"/>
+                                      <Component id="btnModifier1" min="-2" max="-2" attributes="0"/>
+                                      <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                                  </Group>
+                              </Group>
+>>>>>>> fd296e35628c0eb395eebd9e865912a3be413070
                           </Group>
                           <Group type="102" attributes="0">
-                              <EmptySpace min="-2" pref="315" max="-2" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Component id="labelId" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace min="-2" pref="265" max="-2" attributes="0"/>
                               <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
                               <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                           </Group>
@@ -122,9 +134,18 @@
             <DimensionLayout dim="1">
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" attributes="0">
-                      <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
-                      <Component id="jLabel1" max="32767" attributes="0"/>
-                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Group type="102" attributes="0">
+                              <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
+                              <Component id="jLabel1" pref="33" max="32767" attributes="0"/>
+                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                          </Group>
+                          <Group type="102" alignment="0" attributes="0">
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Component id="labelId" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace max="32767" attributes="0"/>
+                          </Group>
+                      </Group>
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Component id="jScrollPane3" min="-2" pref="354" max="-2" attributes="0"/>
                           <Group type="102" attributes="0">
@@ -166,20 +187,22 @@
                                   <Component id="jLabel7" alignment="3" min="-2" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="3" attributes="0">
-                                  <Component id="tfPointBonus" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="jLabel9" alignment="3" min="-2" max="-2" attributes="0"/>
-                              </Group>
+                              <Component id="jLabel9" min="-2" max="-2" attributes="0"/>
                               <EmptySpace type="separate" max="-2" attributes="0"/>
                               <Component id="jLabel10" min="-2" max="-2" attributes="0"/>
                               <EmptySpace type="separate" max="-2" attributes="0"/>
                               <Component id="jScrollPane2" min="-2" max="-2" attributes="0"/>
                           </Group>
                       </Group>
+<<<<<<< HEAD
                       <EmptySpace max="32767" attributes="0"/>
+=======
+                      <EmptySpace pref="41" max="32767" attributes="0"/>
+>>>>>>> fd296e35628c0eb395eebd9e865912a3be413070
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="btnSupprimer" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="btnConsulter" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="btnModifier1" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace min="-2" pref="19" max="-2" attributes="0"/>
                   </Group>
@@ -188,9 +211,6 @@
           </Layout>
           <SubComponents>
             <Component class="javax.swing.JTextField" name="tfNomProduit">
-              <Properties>
-                <Property name="editable" type="boolean" value="false"/>
-              </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="tfNomProduitActionPerformed"/>
               </Events>
@@ -201,9 +221,6 @@
               </Properties>
             </Component>
             <Component class="javax.swing.JTextField" name="tfPrix">
-              <Properties>
-                <Property name="editable" type="boolean" value="false"/>
-              </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="tfPrixActionPerformed"/>
                 <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="tfPrixKeyTyped"/>
@@ -221,6 +238,7 @@
             </Component>
             <Component class="javax.swing.JComboBox" name="cbCategorie">
               <Properties>
+                <Property name="editable" type="boolean" value="true"/>
                 <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
                   <StringArray count="0"/>
                 </Property>
@@ -232,18 +250,12 @@
               </Properties>
             </Component>
             <Component class="javax.swing.JTextField" name="tfTVA">
-              <Properties>
-                <Property name="editable" type="boolean" value="false"/>
-              </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="tfTVAActionPerformed"/>
                 <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="tfTVAKeyTyped"/>
               </Events>
             </Component>
             <Component class="javax.swing.JTextField" name="tfReduction">
-              <Properties>
-                <Property name="editable" type="boolean" value="false"/>
-              </Properties>
               <Events>
                 <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="tfReductionKeyTyped"/>
               </Events>
@@ -254,9 +266,6 @@
               </Properties>
             </Component>
             <Component class="javax.swing.JTextField" name="tfQuantite">
-              <Properties>
-                <Property name="editable" type="boolean" value="false"/>
-              </Properties>
               <Events>
                 <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="tfQuantiteKeyTyped"/>
               </Events>
@@ -268,6 +277,7 @@
             </Component>
             <Component class="javax.swing.JComboBox" name="cbZone">
               <Properties>
+                <Property name="editable" type="boolean" value="true"/>
                 <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
                   <StringArray count="0"/>
                 </Property>
@@ -282,15 +292,6 @@
               <Properties>
                 <Property name="text" type="java.lang.String" value="Point Bonus"/>
               </Properties>
-            </Component>
-            <Component class="javax.swing.JTextField" name="tfPointBonus">
-              <Properties>
-                <Property name="editable" type="boolean" value="false"/>
-              </Properties>
-              <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="tfPointBonusActionPerformed"/>
-                <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="tfPointBonusKeyTyped"/>
-              </Events>
             </Component>
             <Container class="javax.swing.JScrollPane" name="jScrollPane2">
               <AuxValues>
@@ -361,6 +362,19 @@
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnSupprimerActionPerformed"/>
               </Events>
             </Component>
+            <Component class="javax.swing.JLabel" name="labelId">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="ID"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JButton" name="btnModifier1">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Modifier"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnModifier1ActionPerformed"/>
+              </Events>
+            </Component>
           </SubComponents>
         </Container>
         <Container class="javax.swing.JPanel" name="DetailsProduit">
@@ -380,43 +394,69 @@
           <Layout>
             <DimensionLayout dim="0">
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" alignment="1" attributes="0">
+                  <Group type="102" alignment="0" attributes="0">
                       <EmptySpace min="-2" pref="58" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="1" attributes="0">
-                          <Component id="jLabel18" alignment="1" min="-2" max="-2" attributes="0"/>
-                          <Component id="jLabel16" alignment="1" min="-2" max="-2" attributes="0"/>
-                          <Component id="jLabel15" alignment="1" min="-2" max="-2" attributes="0"/>
-                          <Component id="jLabel17" alignment="1" min="-2" max="-2" attributes="0"/>
-                          <Component id="jLabel11" alignment="1" min="-2" max="-2" attributes="0"/>
-                          <Component id="jLabel13" alignment="1" min="-2" max="-2" attributes="0"/>
-                          <Component id="jLabel12" alignment="1" min="-2" max="-2" attributes="0"/>
-                          <Component id="jLabel14" alignment="1" min="-2" max="-2" attributes="0"/>
-                      </Group>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Group type="103" alignment="1" groupAlignment="0" attributes="0">
-                              <Component id="tfPrix1" alignment="1" min="-2" pref="84" max="-2" attributes="0"/>
-                              <Component id="cbZone1" alignment="1" min="-2" pref="84" max="-2" attributes="0"/>
-                              <Group type="102" alignment="0" attributes="0">
-                                  <EmptySpace min="-2" pref="47" max="-2" attributes="0"/>
-                                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                      <Component id="cbCategorie1" alignment="1" pref="84" max="32767" attributes="0"/>
-                                      <Component id="tfNomProduit1" alignment="1" max="32767" attributes="0"/>
+                          <Component id="LAlerte" min="-2" pref="376" max="-2" attributes="0"/>
+                          <Group type="102" attributes="0">
+                              <Group type="103" groupAlignment="1" attributes="0">
+                                  <Component id="jLabel18" alignment="1" min="-2" max="-2" attributes="0"/>
+                                  <Component id="jLabel16" alignment="1" min="-2" max="-2" attributes="0"/>
+                                  <Component id="jLabel15" alignment="1" min="-2" max="-2" attributes="0"/>
+                                  <Component id="jLabel17" alignment="1" min="-2" max="-2" attributes="0"/>
+                                  <Component id="jLabel11" alignment="1" min="-2" max="-2" attributes="0"/>
+                                  <Component id="jLabel13" alignment="1" min="-2" max="-2" attributes="0"/>
+                                  <Component id="jLabel12" alignment="1" min="-2" max="-2" attributes="0"/>
+                                  <Component id="jLabel14" alignment="1" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Group type="103" alignment="1" groupAlignment="0" attributes="0">
+                                      <Component id="tfPrix1" alignment="1" min="-2" pref="84" max="-2" attributes="0"/>
+                                      <Component id="cbZone1" alignment="1" min="-2" pref="84" max="-2" attributes="0"/>
+                                      <Group type="102" alignment="0" attributes="0">
+                                          <EmptySpace min="-2" pref="47" max="-2" attributes="0"/>
+                                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                              <Component id="cbCategorie1" alignment="1" pref="84" max="32767" attributes="0"/>
+                                              <Component id="tfNomProduit1" alignment="1" max="32767" attributes="0"/>
+                                          </Group>
+                                      </Group>
+                                  </Group>
+                                  <Group type="102" alignment="1" attributes="0">
+                                      <EmptySpace min="-2" pref="47" max="-2" attributes="0"/>
+                                      <Group type="103" groupAlignment="0" attributes="0">
+                                          <Component id="btnEffacer" min="-2" max="-2" attributes="0"/>
+                                          <Group type="103" groupAlignment="0" attributes="0">
+                                              <Component id="tfTVA1" alignment="1" min="-2" pref="84" max="-2" attributes="0"/>
+                                              <Component id="tfReduction1" alignment="1" min="-2" pref="84" max="-2" attributes="0"/>
+                                              <Component id="tfQuantite1" alignment="1" min="-2" pref="84" max="-2" attributes="0"/>
+                                              <Component id="tfPointBonus1" alignment="1" min="-2" pref="84" max="-2" attributes="0"/>
+                                          </Group>
+                                      </Group>
                                   </Group>
                               </Group>
-                          </Group>
-                          <Group type="102" alignment="1" attributes="0">
-                              <EmptySpace min="-2" pref="47" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="btnEffacer" min="-2" max="-2" attributes="0"/>
-                                  <Group type="103" groupAlignment="0" attributes="0">
-                                      <Component id="tfTVA1" alignment="1" min="-2" pref="84" max="-2" attributes="0"/>
-                                      <Component id="tfReduction1" alignment="1" min="-2" pref="84" max="-2" attributes="0"/>
-                                      <Component id="tfQuantite1" alignment="1" min="-2" pref="84" max="-2" attributes="0"/>
-                                      <Component id="tfPointBonus1" alignment="1" min="-2" pref="84" max="-2" attributes="0"/>
+                                  <Group type="102" alignment="0" attributes="0">
+                                      <EmptySpace min="-2" pref="28" max="-2" attributes="0"/>
+                                      <Component id="jLabel19" min="-2" max="-2" attributes="0"/>
+                                  </Group>
+                                  <Group type="103" alignment="0" groupAlignment="1" max="-2" attributes="0">
+                                      <Group type="102" alignment="0" attributes="0">
+                                          <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
+                                          <Component id="btnAnnuler" min="-2" max="-2" attributes="0"/>
+                                          <EmptySpace min="-2" pref="48" max="-2" attributes="0"/>
+                                          <Component id="btnPrecedant" min="-2" max="-2" attributes="0"/>
+                                          <EmptySpace max="32767" attributes="0"/>
+                                          <Component id="btnModifier" min="-2" max="-2" attributes="0"/>
+                                      </Group>
+                                      <Group type="102" alignment="0" attributes="0">
+                                          <EmptySpace min="-2" pref="77" max="-2" attributes="0"/>
+                                          <Component id="jScrollPane4" min="-2" pref="243" max="-2" attributes="0"/>
+                                      </Group>
                                   </Group>
                               </Group>
                           </Group>
                       </Group>
+<<<<<<< HEAD
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" alignment="0" attributes="0">
                               <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
@@ -443,6 +483,9 @@
                           </Group>
                       </Group>
                       <EmptySpace pref="60" max="32767" attributes="0"/>
+=======
+                      <EmptySpace pref="246" max="32767" attributes="0"/>
+>>>>>>> fd296e35628c0eb395eebd9e865912a3be413070
                   </Group>
               </Group>
             </DimensionLayout>
@@ -503,14 +546,24 @@
                           </Group>
                           <Component id="jScrollPane5" min="-2" pref="92" max="-2" attributes="0"/>
                       </Group>
+<<<<<<< HEAD
                       <EmptySpace pref="83" max="32767" attributes="0"/>
+=======
+                      <EmptySpace min="-2" pref="37" max="-2" attributes="0"/>
+                      <Component id="LAlerte" min="-2" pref="30" max="-2" attributes="0"/>
+                      <EmptySpace pref="57" max="32767" attributes="0"/>
+>>>>>>> fd296e35628c0eb395eebd9e865912a3be413070
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="btnEffacer" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="btnAnnuler" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="btnPrecedant" alignment="3" min="-2" max="-2" attributes="0"/>
+<<<<<<< HEAD
                           <Component id="BtnCommenter" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="btnDislike" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="btnLike" alignment="3" min="-2" max="-2" attributes="0"/>
+=======
+                          <Component id="btnModifier" alignment="3" min="-2" max="-2" attributes="0"/>
+>>>>>>> fd296e35628c0eb395eebd9e865912a3be413070
                       </Group>
                       <EmptySpace min="-2" pref="47" max="-2" attributes="0"/>
                   </Group>
@@ -649,6 +702,7 @@
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnPrecedantActionPerformed"/>
               </Events>
             </Component>
+<<<<<<< HEAD
             <Component class="javax.swing.JButton" name="BtnCommenter">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Commenter"/>
@@ -688,6 +742,22 @@
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnLikeActionPerformed"/>
               </Events>
+=======
+            <Component class="javax.swing.JButton" name="btnModifier">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Modifier"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnModifierActionPerformed"/>
+              </Events>
+            </Component>
+            <Component class="javax.swing.JLabel" name="LAlerte">
+              <Properties>
+                <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                  <Color blue="0" green="0" red="cc" type="rgb"/>
+                </Property>
+              </Properties>
+>>>>>>> fd296e35628c0eb395eebd9e865912a3be413070
             </Component>
           </SubComponents>
         </Container>

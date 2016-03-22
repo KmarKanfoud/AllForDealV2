@@ -17,7 +17,7 @@ import javax.swing.table.AbstractTableModel;
 public class CommentModel extends AbstractTableModel {
 
     List<Comment> com;
-    String[] colonnes = {"Numéro de commentaire", "Commentaire", "Ajouté le"};
+    String[] colonnes = { "Commentaire", "Ajouté le", "Produit"};
 
     public CommentModel() {
         CommentDao pdao = new CommentDao();
@@ -37,12 +37,14 @@ public class CommentModel extends AbstractTableModel {
     @Override
     public Object getValueAt(int rowIndex, int columnIndex) {
         switch (columnIndex) {
+//            case 0:
+//                return com.get(rowIndex).getId();
             case 0:
-                return com.get(rowIndex).getId();
-            case 1:
                 return com.get(rowIndex).getBody();
-            case 2:
+            case 1:
                 return com.get(rowIndex).getCreated_at();
+            case 2:
+                return com.get(rowIndex).getProduit_id();
 
             default:
                 return null;
@@ -50,7 +52,7 @@ public class CommentModel extends AbstractTableModel {
 
     }
 
-    public String  getColumnName(int i) {
+    public String getColumnName(int i) {
         return colonnes[i];
     }
 }

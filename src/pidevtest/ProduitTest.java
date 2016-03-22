@@ -25,10 +25,10 @@ public class ProduitTest {
        // Produit p1 = new Produit(5, 2, 2, 10, "fcghbjn", 2, 20, "pontalon", "cfvgbhjnk,l;nhbugvyfct", 12000, 156, 1566 ,31  , 50  , "2016-03-08");
      //   Produit p2 = new Produit(32, 2, 2, 10, "fcghbjn", 2, 20, "pontalon", "cfvgbhjnk,l;nhbugvyfct", 12000, 156, 1566 ,31  , 50  , date);
     // Produit p3 = new Produit(7, 2, 2, 10, "fcghbjn", 2, 20, "pontalon", "cfvgbhjnk,l;nhbugvyfct", 12000, 156, 1566 ,31  , 50  , "2016-03-08");
-     Produit p4 = new Produit(17, 2, 2, 10, "fcghbjn", 2, 20, "pontalon", "cfvgbhjnk,l;nhbugvyfct", 12000, 156, 1566 ,31  , 50  , date);
+    // Produit p4 = new Produit(17, 2, 2, 10, "fcghbjn", 2, 20, "pontalon", "cfvgbhjnk,l;nhbugvyfct", 12000, 156, 1566 ,31  , 50  , date);
         
         ProduitDao pdao = new ProduitDao();
-        
+        Produit p =new Produit();
         
       // pdao.add(p4);
        // pdao.add(p3);
@@ -37,10 +37,12 @@ public class ProduitTest {
 //      pdao.update(p2);
        
    //    pdao.removeById(1);
-     List<Produit>LP = new ArrayList();
-        LP = pdao.DisplayById(7);
-        System.out.println(LP);
-  ;
+//     List<Produit>LP = new ArrayList();
+//        LP = pdao.DisplayById(7);
+//        System.out.println(LP);
+//        
+ p= pdao.findById(1);
+   System.out.println(p);
        
     }
     

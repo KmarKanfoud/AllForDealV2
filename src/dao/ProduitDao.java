@@ -34,44 +34,24 @@ public class ProduitDao implements IDao<Produit> {
         connection = DataSource.getInstance().getConnection();
 
     }
+    
+//    private static IDao iprodDao;
+//      public static IDao getInstance() {
+//        if (iprodDao== null) {
+//            iprodDao = new ProduitDao();
+//        }
+//        return iprodDao;
+//    }
 
     @Override
     public void add(Produit p) {
-        String req = "insert into produit (id,categorie,quantite,ptbonus,nomP,description,prix,prix1,prix2,tva, reduction, dateAjout) values (?,?,?,?,?,?,?,?,?,?,?,?)";
+        String req = "insert into produit (id,zone_id,categorie,quantite,ptbonus,nomP,description,prix,prix1,prix2,tva, reduction, dateAjout) values (?,?,?,?,?,?,?,?,?,?,?,?,?)";
         try {
             pst = connection.prepareStatement(req);
 
             pst.setString(1, p.getId() + "");
-          //  pst.setString(2, p.getZone() + "");
-          //  pst.setString(2, p.getUser() + "");
-            pst.setString(2, p.getCategorie());
-            pst.setString(3, p.getQuantite() + "");
-            pst.setString(4, p.getPtbonus() + "");
-            pst.setString(5, p.getNomP());
-            pst.setString(6, p.getDescription());
-            pst.setString(7, p.getPrix() + "");
-            pst.setString(8, p.getPrix1() + "");
-            pst.setString(9, p.getPrix2() + "");
-            pst.setString(10, p.getTva() + "");
-            pst.setString(11, p.getReduction() + "");
-            // pst.setString(14, p.getDateAjout() + "");
-            pst.setDate(12, (java.sql.Date) p.getDateAjout());
-
-            pst.executeUpdate();
-        } catch (SQLException ex) {
-            Logger.getLogger(ProduitDao.class.getName()).log(Level.SEVERE, null, ex);
-        }
-
-    }
-
-    @Override
-    public void update(Produit p) {
-        String req = "update produit set  zone_id=? , user_id=?, categorie=?,quantite=? ,ptbonus=?,nomP=?,description=?,prix=?,prix1=?,prix2=?,tva=?,reduction=? where id=?";
-
-        try {
-            pst = connection.prepareStatement(req);
-            pst.setString(1, p.getZone() + "");
-            pst.setString(2, p.getUser() + "");
+              pst.setInt(2, p.getZone());
+            //  pst.setString(2, p.getUser() + "");
             pst.setString(3, p.getCategorie());
             pst.setString(4, p.getQuantite() + "");
             pst.setString(5, p.getPtbonus() + "");
@@ -82,8 +62,37 @@ public class ProduitDao implements IDao<Produit> {
             pst.setString(10, p.getPrix2() + "");
             pst.setString(11, p.getTva() + "");
             pst.setString(12, p.getReduction() + "");
-            pst.setString(13, p.getDateAjout() + "");
-            pst.setInt(14, p.getId());
+           
+            pst.setDate(13, (java.sql.Date) p.getDateAjout());
+
+            pst.executeUpdate();
+        } catch (SQLException ex) {
+            Logger.getLogger(ProduitDao.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+    }
+
+    @Override
+    public void update(Produit p) {
+        String req = "update produit set  zone_id=? ,  categorie=?,quantite=? ,nomP=?,description=?,prix=?,prix1=?,prix2=?,tva=?,reduction=?,rating=?, where id=?";
+
+        try {
+            pst = connection.prepareStatement(req);
+            pst.setInt(12, p.getId());
+            pst.setString(1, p.getZone() + "");
+            //pst.setString(2, p.getUser() + "");
+            pst.setString(2, p.getCategorie());
+            pst.setString(3, p.getQuantite() + "");
+           // pst.setString(5, p.getPtbonus() + "");
+            pst.setString(4, p.getNomP());
+            pst.setString(5, p.getDescription());
+            pst.setString(6, p.getPrix() + "");
+            pst.setString(7, p.getPrix1() + "");
+            pst.setString(8, p.getPrix2() + "");
+            pst.setString(9, p.getTva() + "");
+            pst.setString(10, p.getReduction() + "");
+            pst.setInt(11, p.getRating());
+         
             pst.executeUpdate();
         } catch (SQLException ex) {
             Logger.getLogger(ProduitDao.class.getName()).log(Level.SEVERE, null, ex);
@@ -143,21 +152,18 @@ public class ProduitDao implements IDao<Produit> {
 
     }
 
-    
     public List<Produit> DisplayById(int id) {
-      List<Produit> listeProduit = new ArrayList<>();
-       
-     
-       String requete ="select * from produit where id="+id;
-       
-        
+        List<Produit> listeProduit = new ArrayList<>();
+
+        String requete = "select * from produit where id=" + id;
+
         try {
-           PreparedStatement ps = connection.prepareStatement(requete);
-          
-            ResultSet resultat =ps.executeQuery(requete);
-            while (resultat.next()){
-                
-                  Produit p = new Produit();
+            PreparedStatement ps = connection.prepareStatement(requete);
+
+            ResultSet resultat = ps.executeQuery(requete);
+            while (resultat.next()) {
+
+                Produit p = new Produit();
 
                 p.setId(resultat.getInt(1));
                 //p.setZone(resultat.getInt(2));
@@ -179,43 +185,65 @@ public class ProduitDao implements IDao<Produit> {
             Logger.getLogger(ProduitDao.class.getName()).log(Level.SEVERE, null, ex);
             return null;
         }
-      
-       
-       
+
     }
 
-     public ResultSet getAllVille() {
-       
+    public ResultSet getAllVille() {
+
         try {
             pst = connection.prepareStatement("SELECT nom FROM zone;");
             ResultSet allAdmin = pst.executeQuery();
             return allAdmin;
-            
-           
+
         } catch (SQLException ex) {
             Logger.getLogger(ProduitDao.class.getName()).log(Level.SEVERE, null, ex);
         }
-         return null;
+        return null;
     }
-     public ResultSet getCollections() {
-       
+
+    public ResultSet getCollections() {
+
         try {
             pst = connection.prepareStatement("SELECT name FROM classification__collection;");
             ResultSet allAdmin = pst.executeQuery();
             return allAdmin;
-            
-           
+
         } catch (SQLException ex) {
             Logger.getLogger(ProduitDao.class.getName()).log(Level.SEVERE, null, ex);
         }
-         return null;
+        return null;
     }
 
     @Override
     public Produit findById(int id) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
+        Produit p = new Produit();
+        String requete = "select * from produit where id=" + id;
+        try {
+            PreparedStatement ps = connection.prepareStatement(requete);
 
-  
+            ResultSet resultat = ps.executeQuery();
+            while (resultat.next()) {
+                p.setId(resultat.getInt(1));
+                //p.setZone(resultat.getInt(2));
+                p.setUser(resultat.getInt(3));
+                p.setCategorie(resultat.getString(5));
+                p.setQuantite(resultat.getInt(6));
+                p.setPtbonus(resultat.getInt(7));
+                p.setNomP(resultat.getString(8));
+                p.setDescription(resultat.getString(9));
+                p.setPrix(resultat.getInt(10));
+                p.setPrix1(resultat.getInt(11));
+                p.setPrix2(resultat.getInt(12));
+                p.setTva(resultat.getInt(13));
+                //p.setReduction(resultat.getInt(14));
+            }
+            return p;
+
+        } catch (SQLException ex) {
+            //Logger.getLogger(PersonneDao.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println("erreur lors de la recherche du produit " + ex.getMessage());
+            return null;
+        }
+    }
 
 }

@@ -6,6 +6,7 @@
 package entite;
 
 import java.util.Date;
+import java.util.List;
 import java.util.Objects;
 
 /**
@@ -13,22 +14,41 @@ import java.util.Objects;
  * @author esprit
  */
 public class Produit {
+
     private int id;
-        private int zone;
+    private int zone;
     private int user;
     private int media;
     private String categorie;
     private int quantite;
     private int ptbonus;
-    private String  nomP;
+    private String nomP;
     private String description;
     private float prix;
-    private int prix1; 
-    private int prix2; 
+    private int prix1;
+    private int prix2;
     private float tva;
     private float reduction;
-    private Date dateAjout; 
+    private Date dateAjout;
+    private int rating;
+    private List<Evaluation> evaluations;
 
+    public Produit(int id, int zone, String categorie, int quantite, String nomP, String description, float prix, int prix1, int prix2, float tva, float reduction, int rating) {
+        this.id = id;
+        this.zone = zone;
+        this.categorie = categorie;
+        this.quantite = quantite;
+        this.nomP = nomP;
+        this.description = description;
+        this.prix = prix;
+        this.prix1 = prix1;
+        this.prix2 = prix2;
+        this.tva = tva;
+        this.reduction = reduction;
+        this.rating = rating;
+    }
+
+    
     public Produit(int id, int zone, int user, int media, String categorie, int quantite, int ptbonus, String nomP, String description, float prix, int prix1, int prix2, float tva, float reduction, Date dateAjout) {
         this.id = id;
         this.zone = zone;
@@ -50,9 +70,6 @@ public class Produit {
     public Produit() {
     }
 
-    
-    
-
     public int getId() {
         return id;
     }
@@ -61,12 +78,6 @@ public class Produit {
         this.id = id;
     }
 
-   
-
-    
-    
-    
-    
     public String getDescription() {
         return description;
     }
@@ -74,10 +85,8 @@ public class Produit {
     public void setDescription(String description) {
         this.description = description;
     }
-    
-    
-    
-      public int getMedia() {
+
+    public int getMedia() {
         return media;
     }
 
@@ -92,7 +101,6 @@ public class Produit {
     public void setUser(int user) {
         this.user = user;
     }
-   
 
     public String getNomP() {
         return nomP;
@@ -109,8 +117,6 @@ public class Produit {
     public void setPrix1(int prix1) {
         this.prix1 = prix1;
     }
-    
-    
 
     public String getCategorie() {
         return categorie;
@@ -184,14 +190,19 @@ public class Produit {
         this.dateAjout = dateAjout;
     }
 
+    public int getRating() {
+        return rating;
+    }
+
+    public void setRating(int rating) {
+        this.rating = rating;
+    }
+
     @Override
     public String toString() {
         return "Produit{" + "id=" + id + ", zone=" + zone + ", user=" + user + ", media=" + media + ", categorie=" + categorie + ", quantite=" + quantite + ", ptbonus=" + ptbonus + ", nomP=" + nomP + ", description=" + description + ", prix=" + prix + ", prix1=" + prix1 + ", prix2=" + prix2 + ", tva=" + tva + ", reduction=" + reduction + ", dateAjout=" + dateAjout + '}';
     }
 
-    
-    
-    
     @Override
     public int hashCode() {
         int hash = 5;
@@ -221,8 +232,13 @@ public class Produit {
         }
         return true;
     }
-    
-    
-   
-    
+
+    public List<Evaluation> getEvaluations() {
+        return evaluations;
+    }
+
+    public void setEvaluations(List<Evaluation> evaluations) {
+        this.evaluations = evaluations;
+    }
+
 }

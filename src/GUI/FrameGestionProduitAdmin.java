@@ -6,18 +6,20 @@
 package GUI;
 
 import dao.ProduitDao;
+import entite.Produit;
 import java.awt.Dimension;
 import java.awt.Toolkit;
 import javax.swing.JOptionPane;
 import javax.swing.table.TableModel;
 import utils.ProduitModel;
 import utils.*;
+
 /**
  *
  * @author esprit
  */
 public class FrameGestionProduitAdmin extends javax.swing.JFrame {
-    
+
     Toolkit tk = Toolkit.getDefaultToolkit();
     Dimension screenSize = tk.getScreenSize();
     int screenHeight = screenSize.height;
@@ -98,9 +100,11 @@ public class FrameGestionProduitAdmin extends javax.swing.JFrame {
         taDescription1 = new javax.swing.JTextArea();
         jLabel19 = new javax.swing.JLabel();
         btnPrecedant = new javax.swing.JButton();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        tbCommentaires = new javax.swing.JTable();
         BtnCommenter = new javax.swing.JButton();
+        jScrollPane5 = new javax.swing.JScrollPane();
+        tbCommentaires = new javax.swing.JTable();
+        btnDislike = new javax.swing.JButton();
+        btnLike = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -418,13 +422,27 @@ public class FrameGestionProduitAdmin extends javax.swing.JFrame {
             }
         });
 
-        tbCommentaires.setModel(new CommentPModel());
-        jScrollPane1.setViewportView(tbCommentaires);
-
         BtnCommenter.setText("Commenter");
         BtnCommenter.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 BtnCommenterActionPerformed(evt);
+            }
+        });
+
+        tbCommentaires.setModel( new CommentPModel());
+        jScrollPane5.setViewportView(tbCommentaires);
+
+        btnDislike.setText("dislike");
+        btnDislike.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDislikeActionPerformed(evt);
+            }
+        });
+
+        btnLike.setText("like");
+        btnLike.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnLikeActionPerformed(evt);
             }
         });
 
@@ -463,21 +481,25 @@ public class FrameGestionProduitAdmin extends javax.swing.JFrame {
                                 .addComponent(tfPointBonus1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                 .addGroup(DetailsProduitLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(DetailsProduitLayout.createSequentialGroup()
-                        .addGap(28, 28, 28)
-                        .addComponent(jLabel19))
-                    .addGroup(DetailsProduitLayout.createSequentialGroup()
                         .addGap(20, 20, 20)
                         .addComponent(btnAnnuler)
                         .addGap(48, 48, 48)
                         .addComponent(btnPrecedant)
                         .addGap(18, 18, 18)
-                        .addComponent(BtnCommenter))
+                        .addComponent(BtnCommenter)
+                        .addGap(37, 37, 37)
+                        .addComponent(btnDislike)
+                        .addGap(34, 34, 34)
+                        .addComponent(btnLike))
                     .addGroup(DetailsProduitLayout.createSequentialGroup()
                         .addGap(86, 86, 86)
+                        .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 243, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(DetailsProduitLayout.createSequentialGroup()
+                        .addGap(28, 28, 28)
                         .addGroup(DetailsProduitLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 243, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 380, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(96, Short.MAX_VALUE))
+                            .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel19))))
+                .addContainerGap(60, Short.MAX_VALUE))
         );
         DetailsProduitLayout.setVerticalGroup(
             DetailsProduitLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -504,8 +526,13 @@ public class FrameGestionProduitAdmin extends javax.swing.JFrame {
                         .addGap(18, 18, 18)
                         .addGroup(DetailsProduitLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel14)
-                            .addComponent(tfTVA1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                            .addComponent(tfTVA1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(DetailsProduitLayout.createSequentialGroup()
+                        .addGap(1, 1, 1)
+                        .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(DetailsProduitLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(DetailsProduitLayout.createSequentialGroup()
                         .addGroup(DetailsProduitLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(tfReduction1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel15))
@@ -517,17 +544,15 @@ public class FrameGestionProduitAdmin extends javax.swing.JFrame {
                         .addGroup(DetailsProduitLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(tfPointBonus1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel18)))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, DetailsProduitLayout.createSequentialGroup()
-                        .addGap(1, 1, 1)
-                        .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(42, 42, 42)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 93, Short.MAX_VALUE)
+                    .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 83, Short.MAX_VALUE)
                 .addGroup(DetailsProduitLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnEffacer)
                     .addComponent(btnAnnuler)
                     .addComponent(btnPrecedant)
-                    .addComponent(BtnCommenter))
+                    .addComponent(BtnCommenter)
+                    .addComponent(btnDislike)
+                    .addComponent(btnLike))
                 .addGap(47, 47, 47))
         );
 
@@ -590,31 +615,29 @@ public class FrameGestionProduitAdmin extends javax.swing.JFrame {
     }//GEN-LAST:event_tbProduitsMouseClicked
 
     private void btnConsulterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConsulterActionPerformed
-       
-        
+
         int i = tbProduits.getSelectedRow();
         Object l = tbProduits.getValueAt(i, 0);
         prod_id = (int) l;
         System.out.println(getProd_id());
         TableModel model = tbProduits.getModel();
-//        tfNomProduit1.setText(tfNomProduit.getText());
-//        cbCategorie1.setSelectedItem(cbCategorie.getSelectedItem());
-//        tfQuantite1.setText(tfQuantite.getText());
-//        taDescription1.setText(taDescription.getText());
-//        tfPrix1.setText(tfPrix.getText());
-//        tfPointBonus1.setText(tfPointBonus.getText());
-//        cbZone1.setSelectedItem(cbZone.getSelectedItem());
-//        tfTVA1.setText(tfTVA.getText());
-//        tfReduction1.setText(tfReduction.getText());
-//         ParentPanel.removeAll();
-//        ParentPanel.add(DetailsProduit);
-//        ParentPanel.repaint();
-//        ParentPanel.revalidate();
+//        TableModel model1 = tbCommentaires.getModel();
+        tfNomProduit1.setText(tfNomProduit.getText());
+        cbCategorie1.setSelectedItem(cbCategorie.getSelectedItem());
+        tfQuantite1.setText(tfQuantite.getText());
+        taDescription1.setText(taDescription.getText());
+        tfPrix1.setText(tfPrix.getText());
+        tfPointBonus1.setText(tfPointBonus.getText());
+        cbZone1.setSelectedItem(cbZone.getSelectedItem());
+        tfTVA1.setText(tfTVA.getText());
+        tfReduction1.setText(tfReduction.getText());
+        ParentPanel.removeAll();
+        ParentPanel.add(DetailsProduit);
+        ParentPanel.repaint();
+        ParentPanel.revalidate();
 
-       
-          FrameDetailsProduit frame = new FrameDetailsProduit();
-        frame.setVisible(true);
-
+//          FrameDetailsProduit frame = new FrameDetailsProduit();
+//        frame.setVisible(true);
 
     }//GEN-LAST:event_btnConsulterActionPerformed
 
@@ -689,12 +712,37 @@ public class FrameGestionProduitAdmin extends javax.swing.JFrame {
     }//GEN-LAST:event_btnSupprimerActionPerformed
 
     private void BtnCommenterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnCommenterActionPerformed
-    FrameAjouterCommentaire frame = new FrameAjouterCommentaire();
+        FrameAjouterCommentaire frame = new FrameAjouterCommentaire();
         frame.setVisible(true);
         frame.setResizable(false);
         frame.setSize(screenWidth / 2, screenHeight / 2);
         frame.setLocation(screenWidth / 4, screenHeight / 4);
     }//GEN-LAST:event_BtnCommenterActionPerformed
+
+    private void btnDislikeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDislikeActionPerformed
+  Produit prod = new Produit();
+        ProduitDao pdao = new ProduitDao();
+        prod= pdao.findById(prod_id);
+        System.out.println(prod);
+        prod.setRating(prod.getRating() - 1);
+        pdao.update(prod);
+        btnDislike.setVisible(false);
+        
+        
+        
+          
+    }//GEN-LAST:event_btnDislikeActionPerformed
+
+    private void btnLikeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLikeActionPerformed
+       
+        Produit prod = new Produit();
+        ProduitDao pdao = new ProduitDao();
+        prod= pdao.findById(prod_id);
+        System.out.println(prod);
+        prod.setRating(prod.getRating() + 1);
+        pdao.update(prod);
+        btnLike.setVisible(false);
+    }//GEN-LAST:event_btnLikeActionPerformed
 
     /**
      * @param args the command line arguments
@@ -738,7 +786,9 @@ public class FrameGestionProduitAdmin extends javax.swing.JFrame {
     private javax.swing.JPanel ParentPanel;
     private javax.swing.JButton btnAnnuler;
     private javax.swing.JButton btnConsulter;
+    private javax.swing.JButton btnDislike;
     private javax.swing.JButton btnEffacer;
+    private javax.swing.JButton btnLike;
     private javax.swing.JButton btnPrecedant;
     private javax.swing.JButton btnSupprimer;
     private javax.swing.JComboBox cbCategorie;
@@ -764,10 +814,10 @@ public class FrameGestionProduitAdmin extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
-    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
+    private javax.swing.JScrollPane jScrollPane5;
     private javax.swing.JTextArea taDescription;
     private javax.swing.JTextArea taDescription1;
     private javax.swing.JTable tbCommentaires;

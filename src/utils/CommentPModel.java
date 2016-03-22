@@ -18,7 +18,7 @@ import javax.swing.table.AbstractTableModel;
 public class CommentPModel extends AbstractTableModel {
 
     List<Comment> com;
-    String[] colonnes = {"Numéro de commentaire", "Commentaire", "Ajouté le"};
+    String[] colonnes = { "Commentaire", "Ajouté le"};
 
     public CommentPModel() {
         CommentDao pdao = new CommentDao();
@@ -39,11 +39,11 @@ public class CommentPModel extends AbstractTableModel {
     @Override
     public Object getValueAt(int rowIndex, int columnIndex) {
         switch (columnIndex) {
+//            case 0:
+//                return com.get(rowIndex).getId();
             case 0:
-                return com.get(rowIndex).getId();
-            case 1:
                 return com.get(rowIndex).getBody();
-            case 2:
+            case 1:
                 return com.get(rowIndex).getCreated_at();
 
             default:

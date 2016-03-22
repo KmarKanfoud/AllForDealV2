@@ -20,14 +20,13 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import utils.DataSource;
 
-
-
 /**
  *
  * @author SaharS
  */
-public class CommentDao implements IDao<Comment>{
-     private Connection connection;
+public class CommentDao implements IDao<Comment> {
+
+    private Connection connection;
     private PreparedStatement pst;
 
     public CommentDao() {
@@ -36,30 +35,30 @@ public class CommentDao implements IDao<Comment>{
 
     @Override
     public void add(Comment c) {
-        
-         String req = "insert into comment (body,created_at,produit_id) values (?,?,?)";
+
+        String req = "insert into comment (body,created_at,produit_id) values (?,?,?)";
         try {
             pst = connection.prepareStatement(req);
-           
-             //pst.setInt(1, c.getId());
-             pst.setString(1, c.getBody());
-             pst.setDate(2, (Date) c.getCreated_at());
-             pst.setInt(3,FrameGestionProduitAdmin.getProd_id());
-             pst.executeUpdate();
-            
+
+            //pst.setInt(1, c.getId());
+            pst.setString(1, c.getBody());
+            pst.setDate(2, (Date) c.getCreated_at());
+            pst.setInt(3, FrameGestionProduitAdmin.getProd_id());
+            pst.executeUpdate();
+
         } catch (SQLException ex) {
-            
+
             Logger.getLogger(CommentDao.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
     @Override
     public void update(Comment c) {
-         String req = "UPDATE comment SET body = ? WHERE id =? ";
+        String req = "UPDATE comment SET body = ? WHERE id =? ";
         try {
             pst = connection.prepareStatement(req);
             pst.setString(1, c.getBody());
-            pst.setInt(2,c.getId());
+            pst.setInt(2, c.getId());
             pst.executeUpdate();
         } catch (SQLException ex) {
             Logger.getLogger(CommentDao.class.getName()).log(Level.SEVERE, null, ex);
@@ -68,7 +67,7 @@ public class CommentDao implements IDao<Comment>{
 
     @Override
     public void removeById(int id) {
-         String requete = "delete from comment where id=?";
+        String requete = "delete from comment where id=?";
         try {
             PreparedStatement ps = connection.prepareStatement(requete);
             ps.setInt(1, id);
@@ -81,23 +80,26 @@ public class CommentDao implements IDao<Comment>{
 
     @Override
     public List<Comment> findAll() {
-         List<Comment> listeCommentaire = new ArrayList<>();
+        List<Comment> listeCommentaire = new ArrayList<>();
+        
         String req = "select * from comment";
         try {
             pst = connection.prepareStatement(req);
             ResultSet resultat = pst.executeQuery(req);
-            
+
             while (resultat.next()) {
                 Comment c = new Comment();
-                c.setId(resultat.getInt(1));
+                //c.setId(resultat.getInt(1));
                 c.setBody(resultat.getString(3));
-                c.setCreated_at((Date)resultat.getDate(6));
-               listeCommentaire.add(c);
+                c.setCreated_at((Date) resultat.getDate(6));
+                c.setProduit_id(resultat.getInt(9));
+               
+                listeCommentaire.add(c);
             }
             return listeCommentaire;
         } catch (SQLException ex) {
             System.out.println("erreur Recherche all " + ex.getMessage());
-        return listeCommentaire;
+            return listeCommentaire;
         }
     }
 
@@ -105,30 +107,46 @@ public class CommentDao implements IDao<Comment>{
     public Comment findById(int id) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-     public List<Comment> DisplayAllCommentaireByProduit(int num) {
+
+    public List<Comment> DisplayAllCommentaireByProduit(int num) {
 
         List<Comment> commentaires = new ArrayList<>();
 
         String requete = "select * from comment where produit_id=" + num;
         try {
-            
-             PreparedStatement ps = connection.prepareStatement(requete);
-            
+
+            PreparedStatement ps = connection.prepareStatement(requete);
+
             ResultSet resultat = ps.executeQuery(requete);
 
             while (resultat.next()) {
                 Comment c = new Comment();
-                  c.setId(resultat.getInt(1));
+                //c.setId(resultat.getInt(1));
                 c.setBody(resultat.getString(3));
                 c.setCreated_at((Date) resultat.getDate(6));
+            
                 commentaires.add(c);
             }
             return commentaires;
         } catch (SQLException ex) {
-            
+
             System.out.println("erreur lors du chargement des commentaires " + ex.getMessage());
             return null;
         }
     }
     
+    public ResultSet getUserName() {
+       
+        try {
+            pst = connection.prepareStatement("SELECT username FROM fos_user_user;");
+            ResultSet allAdmin = pst.executeQuery();
+            return allAdmin;
+            
+           
+        } catch (SQLException ex) {
+            Logger.getLogger(ProduitDao.class.getName()).log(Level.SEVERE, null, ex);
+        }
+         return null;
+    }
+
 }

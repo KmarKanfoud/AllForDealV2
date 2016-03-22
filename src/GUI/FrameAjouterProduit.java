@@ -30,6 +30,8 @@ public class FrameAjouterProduit extends javax.swing.JFrame {
     static ResultSet res;
     static PreparedStatement ps;
     static Statement stm;
+     ResultSet rs = null;
+    ResultSet rsId = null;
     /**
      * Creates new form FrameAjoutProduit
      */
@@ -364,6 +366,15 @@ public class FrameAjouterProduit extends javax.swing.JFrame {
         p.setReduction(Integer.parseInt(tfReduction.getText()));
         p.setNomP(tfNomProduit.getText());
         p.setCategorie(cbCategorie.getSelectedItem().toString());
+       try {
+                rsId = zdao.getZoneByName(cbZone.getSelectedItem().toString());
+                while (rsId.next()) {
+                    p.setZone(rsId.getInt(1));
+
+                }//this.setResizable(false);
+            } catch (SQLException ex) {
+                Logger.getLogger(FrameAjouterService.class.getName()).log(Level.SEVERE, null, ex);
+            }
         p.setPtbonus(Integer.parseInt(tfPointBonus.getText()));
         p.setDescription(taDescription.getText());
 

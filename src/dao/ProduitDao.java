@@ -146,17 +146,21 @@ public class ProduitDao implements IDao<Produit> {
 
                 p.setId(resultat.getInt(1));
                 p.setZone(resultat.getInt(2));
-                p.setUser(resultat.getInt(3));
-                p.setCategorie(resultat.getString(5));
-                p.setQuantite(resultat.getInt(6));
-                p.setPtbonus(resultat.getInt(7));
-                p.setNomP(resultat.getString(8));
-                p.setDescription(resultat.getString(9));
-                p.setPrix(resultat.getInt(10));
-                p.setPrix1(resultat.getInt(11));
-                p.setPrix2(resultat.getInt(12));
-                p.setTva(resultat.getInt(13));
-                p.setReduction(resultat.getInt(14));
+                 p.setCategorie(resultat.getString(3));
+                  p.setDescription(resultat.getString(4));
+                  p.setPrix(resultat.getInt(5));
+                p.setUser(resultat.getInt(6));
+               
+                p.setQuantite(resultat.getInt(7));
+                p.setPtbonus(resultat.getInt(8));
+                p.setNomP(resultat.getString(9));
+               
+                
+                p.setPrix1(resultat.getInt(10));
+                p.setPrix2(resultat.getInt(11));
+                p.setTva(resultat.getInt(12));
+                p.setReduction(resultat.getInt(13));
+               p.setDateAjout(resultat.getDate(14));
 
                 listeProduit.add(p);
 
@@ -218,10 +222,10 @@ public class ProduitDao implements IDao<Produit> {
         return null;
     }
 
-    public ResultSet getCollections() {
+    public ResultSet getCategories() {
 
         try {
-            pst = connection.prepareStatement("SELECT name FROM classification__collection;");
+            pst = connection.prepareStatement("SELECT name FROM classification__category;");
             ResultSet allAdmin = pst.executeQuery();
             return allAdmin;
 
@@ -262,5 +266,44 @@ public class ProduitDao implements IDao<Produit> {
             return null;
         }
     }
+ public List<Produit> findAllByUser(int user_id) {
+        List<Produit> listeProduits = new ArrayList<>();
 
+        String req = "select * from produit where user_id="+user_id;
+
+        try {
+            pst = connection.prepareStatement(req);
+            ResultSet resultat = pst.executeQuery(req);
+
+            while (resultat.next()) {
+
+                Produit p = new Produit();
+  p.setId(resultat.getInt(1));
+                p.setZone(resultat.getInt(2));
+                 p.setCategorie(resultat.getString(3));
+                  p.setDescription(resultat.getString(4));
+                  p.setPrix(resultat.getInt(5));
+                p.setUser(resultat.getInt(6));
+               
+                p.setQuantite(resultat.getInt(7));
+                p.setPtbonus(resultat.getInt(8));
+                p.setNomP(resultat.getString(9));
+               
+                
+                p.setPrix1(resultat.getInt(10));
+                p.setPrix2(resultat.getInt(11));
+                p.setTva(resultat.getInt(12));
+                p.setReduction(resultat.getInt(13));
+                p.setDateAjout(resultat.getDate(14));
+                
+
+                listeProduits.add(p);
+
+            }
+            return listeProduits;
+        } catch (SQLException ex) {
+            System.out.println("erreur" + ex.getMessage());
+            return listeProduits;
+        }
+    }
 }

@@ -3,28 +3,25 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
-
 package utils;
 
+import GUI.*;
 import dao.ProduitDao;
 import entite.Produit;
-import java.util.ArrayList;
-import static java.util.Collections.list;
 import java.util.List;
 import javax.swing.table.AbstractTableModel;
 
 /**
  *
- * @author esprit
+ * @author Lilya Thebti
  */
-public class ProduitModel extends AbstractTableModel{
-List<Produit> l;
+public class ProduitClientModel extends AbstractTableModel{
+    List<Produit> l;
 
 String [] colonnes={"id","nom","Categorie","Quantité","Description","prix","point Bonus","Zone","Ajouté le","TVA","Réduction"};
-    public ProduitModel() {
+    public ProduitClientModel() {
        ProduitDao pdao = new ProduitDao();
-       l = pdao.findAll();
+       l = pdao.findAllByUser(FrameAccueil.getId());
     }
 
     @Override
@@ -56,5 +53,6 @@ switch (columnIndex){
     public String getColumnName(int i) {
       return colonnes[i];
     }
+    
     
 }

@@ -619,12 +619,12 @@ public class FrameGestionProduitAdmin extends javax.swing.JFrame {
         labelId.setText(model.getValueAt(i, 0).toString());
         System.out.println(labelId);
         tfNomProduit.setText(model.getValueAt(i, 1).toString());
-        cbCategorie.setSelectedItem(model.getValueAt(i, 2));
+        cbCategorie.setSelectedItem(model.getValueAt(i, 2).toString());
         tfQuantite.setText(model.getValueAt(i, 3).toString());
         taDescription.setText(model.getValueAt(i, 4).toString());
         tfPrix.setText(model.getValueAt(i, 5).toString());
         tfPointBonus.setText(model.getValueAt(i, 6).toString());
-        cbZone.setSelectedItem(model.getValueAt(i, 7));
+        cbZone.setSelectedItem(model.getValueAt(i, 7).toString());
         tfTVA.setText(model.getValueAt(i, 9).toString());
         tfReduction.setText(model.getValueAt(i, 10).toString());
 
@@ -832,7 +832,7 @@ public class FrameGestionProduitAdmin extends javax.swing.JFrame {
 
     private void loadAllCollection() {
         try {
-            ResultSet res = pdao.getCollections();
+            ResultSet res = pdao.getCategories();
 
             while (res.next()) {
 

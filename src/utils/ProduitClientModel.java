@@ -21,7 +21,7 @@ public class ProduitClientModel extends AbstractTableModel{
 String [] colonnes={"id","nom","Categorie","Quantité","Description","prix","point Bonus","Zone","Ajouté le","TVA","Réduction"};
     public ProduitClientModel() {
        ProduitDao pdao = new ProduitDao();
-       l = pdao.findAllByUser(FrameAccueil.getId());
+       //l = pdao.findAllByUser(FrameAccueil.get());
     }
 
     @Override

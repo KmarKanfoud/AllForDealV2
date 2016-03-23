@@ -23,21 +23,21 @@ public class FrameAccueil extends javax.swing.JFrame {
     /**
      * Creates new form FrameAccueil
      */
-    private int id;
+    private int user_id;
 
-    public int getId() {
-        return id;
+    public int getUserId() {
+        return user_id;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setUserId(int user_id) {
+        this.user_id = user_id;
     }
-    public FrameAccueil(int id) {
+    public FrameAccueil(int user_id) {
         initComponents();
-        this.id=id;
+        this.user_id=user_id;
         User u=new User();
         UserDao udao=new UserDao();
-        u=udao.findById(id);
+        u=udao.findById(user_id);
         
     }
     public FrameAccueil() {
@@ -486,7 +486,7 @@ public class FrameAccueil extends javax.swing.JFrame {
     private void jPanel1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel1MouseClicked
          User u=new User();
         UserDao udao=new UserDao();
-        u=udao.findById(id);
+        u=udao.findById(user_id);
         lUserName.setText(u.getUsername());
         lEmail.setText(u.getEmail());
         lGender.setText(u.getGender());

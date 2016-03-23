@@ -34,14 +34,7 @@ public class ProduitDao implements IDao<Produit> {
         connection = DataSource.getInstance().getConnection();
 
     }
-    
-//    private static IDao iprodDao;
-//      public static IDao getInstance() {
-//        if (iprodDao== null) {
-//            iprodDao = new ProduitDao();
-//        }
-//        return iprodDao;
-//    }
+
 
     @Override
     public void add(Produit p) {
@@ -76,39 +69,39 @@ public class ProduitDao implements IDao<Produit> {
 
     @Override
     public void update(Produit p) {
-        String req = "update produit set  categorie=?,quantite=? ,ptBonus=?,nomP=?,description=?,prix=?,prix1=?,prix2=?,tva=?,reduction=?,rating=? where id=?";
+        String req = "update produit set  zone_id=?,categorie=?,quantite=? ,ptBonus=?,nomP=?,description=?,prix=?,prix1=?,prix2=?,tva=?,reduction=? where id=?";
 
         try {
             pst = connection.prepareStatement(req);
            
-//            pst.setString(1, p.getZone() + "");
-//            //pst.setString(2, p.getUser() + "");
-//            pst.setString(2, p.getCategorie());
-//            pst.setString(3, p.getQuantite() + "");
-//           pst.setString(4, p.getPtbonus() + "");
-//            pst.setString(5, p.getNomP());
-//            pst.setString(6, p.getDescription());
-//            pst.setString(7, p.getPrix() + "");
-//            pst.setString(8, p.getPrix1() + "");
-//            pst.setString(9, p.getPrix2() + "");
-//            pst.setString(10, p.getTva() + "");
-//            pst.setString(11, p.getReduction() + "");
-//            pst.setInt(12, p.getRating());
-//            pst.setInt(13, p.getId());
+           pst.setString(1, p.getZone() + "");
+            //pst.setString(2, p.getUser() + "");
+           pst.setString(2, p.getCategorie());
+           pst.setString(3, p.getQuantite() + "");
+           pst.setString(4, p.getPtbonus() + "");
+            pst.setString(5, p.getNomP());
+            pst.setString(6, p.getDescription());
+            pst.setString(7, p.getPrix() + "");
+            pst.setString(8, p.getPrix1() + "");
+            pst.setString(9, p.getPrix2() + "");
+            pst.setString(10, p.getTva() + "");
+           pst.setString(11, p.getReduction() + "");
+         
+          pst.setInt(12, p.getId());
             
-             pst.setString(1, p.getCategorie());
-            pst.setString(2, p.getQuantite() + "");
-           pst.setString(3, p.getPtbonus() + "");
-            pst.setString(4, p.getNomP());
-            pst.setString(5, p.getDescription());
-            pst.setString(6, p.getPrix() + "");
-            pst.setString(7, p.getPrix1() + "");
-            pst.setString(8, p.getPrix2() + "");
-            pst.setString(9, p.getTva() + "");
-            pst.setString(10, p.getReduction() + "");
-            pst.setInt(11, p.getRating());
-            pst.setInt(12, p.getId());
- 
+//             pst.setString(1, p.getCategorie());
+//            pst.setString(2, p.getQuantite() + "");
+//           pst.setString(3, p.getPtbonus() + "");
+//            pst.setString(4, p.getNomP());
+//            pst.setString(5, p.getDescription());
+//            pst.setString(6, p.getPrix() + "");
+//            pst.setString(7, p.getPrix1() + "");
+//            pst.setString(8, p.getPrix2() + "");
+//            pst.setString(9, p.getTva() + "");
+//            pst.setString(10, p.getReduction() + "");
+//            pst.setInt(11, p.getRating());
+//            pst.setInt(12, p.getId());
+// 
 
             pst.executeUpdate();
         } catch (SQLException ex) {
@@ -261,6 +254,37 @@ public class ProduitDao implements IDao<Produit> {
             System.out.println("erreur lors de la recherche du produit " + ex.getMessage());
             return null;
         }
+    }
+    
+     public void updateRating(Produit p) {
+        String requete = "update produit set  rating= rating +1  where id=?";
+        try {
+            PreparedStatement ps = connection.prepareStatement(requete);
+             ps.setInt(1, p.getRating());
+              ps.setInt(2, p.getId());
+           
+          
+            ps.executeUpdate();
+            System.out.println("Mise à jour effectuée avec succès");
+        } catch (SQLException ex) {
+            //Logger.getLogger(PersonneDao.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println("erreur lors de la mise à jour " + ex.getMessage());
+        }
+//        public void Vote (int v, int u ){
+//             String requete = "update produit set  rating= rating +?  where id=?";
+//        try {
+//            PreparedStatement ps = connection.prepareStatement(requete);
+//             ps.setInt(1, p.getRating());
+//              ps.setInt(2, p.getId());
+//           
+//          
+//            ps.executeUpdate();
+//            System.out.println("Mise à jour effectuée avec succès");
+//        } catch (SQLException ex) {
+//            //Logger.getLogger(PersonneDao.class.getName()).log(Level.SEVERE, null, ex);
+//            System.out.println("erreur lors de la mise à jour " + ex.getMessage());
+//        }
+//        }
     }
 
 }

@@ -20,15 +20,13 @@ import java.util.logging.Logger;
  * @author esprit
  */
 public class Produit {
-<<<<<<< HEAD
 
-=======
+
+
     ZoneDao zoneDAO =new ZoneDao();
     ResultSet rsName=null;
     private String zoneName;
     
-    
->>>>>>> fd296e35628c0eb395eebd9e865912a3be413070
     private int id;
     private int zone;
     private int user;
@@ -80,6 +78,27 @@ public class Produit {
         this.reduction = reduction;
         this.dateAjout = dateAjout;
     }
+
+    public Produit(String zoneName, int id, int zone, int user, int media, String categorie, int quantite, int ptbonus, String nomP, String description, float prix, int prix1, int prix2, float tva, float reduction, Date dateAjout, int rating) {
+        this.zoneName = zoneName;
+        this.id = id;
+        this.zone = zone;
+        this.user = user;
+        this.media = media;
+        this.categorie = categorie;
+        this.quantite = quantite;
+        this.ptbonus = ptbonus;
+        this.nomP = nomP;
+        this.description = description;
+        this.prix = prix;
+        this.prix1 = prix1;
+        this.prix2 = prix2;
+        this.tva = tva;
+        this.reduction = reduction;
+        this.dateAjout = dateAjout;
+        this.rating = rating;
+    }
+    
 
     public Produit() {
     }
@@ -216,9 +235,7 @@ public class Produit {
     public String toString() {
         return "Produit{" + "id=" + id + ", zone=" + zone + ", user=" + user + ", media=" + media + ", categorie=" + categorie + ", quantite=" + quantite + ", ptbonus=" + ptbonus + ", nomP=" + nomP + ", description=" + description + ", prix=" + prix + ", prix1=" + prix1 + ", prix2=" + prix2 + ", tva=" + tva + ", reduction=" + reduction + ", dateAjout=" + dateAjout + '}';
     }
-
-<<<<<<< HEAD
-=======
+    
   public String getZoneName() {
         try {
             rsName = zoneDAO.getZoneById(zone);
@@ -234,9 +251,6 @@ public class Produit {
     }
 
     
-    
-    
->>>>>>> fd296e35628c0eb395eebd9e865912a3be413070
     @Override
     public int hashCode() {
         int hash = 5;

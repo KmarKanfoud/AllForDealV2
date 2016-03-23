@@ -30,15 +30,12 @@ public class FrameAjouterProduit extends javax.swing.JFrame {
     static ResultSet res;
     static PreparedStatement ps;
     static Statement stm;
-<<<<<<< HEAD
      ResultSet rs = null;
     ResultSet rsId = null;
-=======
-    ResultSet rs=null;
-    ResultSet rsId=null;
+   
     ProduitDao pdao = new ProduitDao();
     ZoneDao zdao = new ZoneDao();
->>>>>>> fd296e35628c0eb395eebd9e865912a3be413070
+
     /**
      * Creates new form FrameAjoutProduit
      */
@@ -130,8 +127,6 @@ public class FrameAjouterProduit extends javax.swing.JFrame {
         jLabel3.setText("Catégorie");
 
         jLabel4.setText("Prix");
-
-        cbCategorie.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "vetements", "éléctronique", "aliment" }));
 
         jLabel5.setText("TVA");
 
@@ -225,12 +220,13 @@ public class FrameAjouterProduit extends javax.swing.JFrame {
                     .addComponent(jLabel5))
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(tfPrix, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(cbZone, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGroup(jPanel1Layout.createSequentialGroup()
                             .addGap(47, 47, 47)
-                            .addComponent(tfNomProduit, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addComponent(cbCategorie, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(tfPrix, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(cbZone, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(cbCategorie, javax.swing.GroupLayout.Alignment.TRAILING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(tfNomProduit, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 84, Short.MAX_VALUE))))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addGap(47, 47, 47)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -386,16 +382,6 @@ public class FrameAjouterProduit extends javax.swing.JFrame {
         p.setDescription(taDescription.getText());
 
         
-        try {
-                rsId = zdao.getZoneByName(cbZone.getSelectedItem().toString());
-                while (rsId.next()) {
-                    p.setZone(rsId.getInt(1));
-                    
-                }//this.setResizable(false);
-            } catch (SQLException ex) {
-                Logger.getLogger(FrameAjouterService.class.getName()).log(Level.SEVERE, null, ex);
-            }
-
         LAlerte.setText(" ");
         DefaultTableModel model = (DefaultTableModel) tblProduits.getModel();
         if (!tfNomProduit.getText().trim().equals("")) {

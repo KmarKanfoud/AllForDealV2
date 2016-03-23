@@ -358,7 +358,7 @@ ProduitDao pdao = new ProduitDao();
         int j =JOptionPane.showConfirmDialog(null, "la suppression est irréversible. Etes-vous sur de vouloir continuer?", "Veuillez confirmer votre choix", JOptionPane.YES_NO_OPTION);
       
         if (j==0){
-            pdao. removeById((int)l);
+            pdao.removeById((int)l);
         
         tbProduits.setModel(new ProduitModel() );
 

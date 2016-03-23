@@ -95,37 +95,7 @@ public class ZoneDao implements IDao<Zone> {
         }
         return null;
     }
-<<<<<<< HEAD
     
-      public ResultSet getZoneByName(String name) {
+   
 
-        try {
-            pst = connection.prepareStatement("SELECT id FROM zone where nom='" + name + "';");
-            ResultSet allAdmin = pst.executeQuery();
-           
-            return allAdmin;
-            
-
-        } catch (SQLException ex) {
-            Logger.getLogger(ProduitDao.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        return null;
-    }
-    public ResultSet getZoneById(int id) {
-
-        try {
-            pst = connection.prepareStatement("SELECT nom FROM zone where id=" + id + ";");
-            ResultSet allAdmin = pst.executeQuery();
-
-            return allAdmin;
-
-        } catch (SQLException ex) {
-            Logger.getLogger(ProduitDao.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        return null;
-    }
-      
-=======
-
->>>>>>> 50490d9ec72bf41840939a003533b759d29ad3da
 }

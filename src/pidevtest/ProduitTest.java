@@ -29,8 +29,8 @@ public class ProduitTest {
         
         ProduitDao pdao = new ProduitDao();
         Produit p =new Produit();
-        
-      // pdao.add(p4);
+      Produit p2 = new Produit(32, 2, 2, 10, "fcghbjn", 2, 20, "pontalon", "cfvgbhjnk,l;nhbugvyfct", 12000, 156, 1566 ,31  , 50  , date);
+//      pdao.add(p2);
        // pdao.add(p3);
         
 //       p2.setNomP("lilya");
@@ -41,8 +41,9 @@ public class ProduitTest {
 //        LP = pdao.DisplayById(7);
 //        System.out.println(LP);
 //        
- p= pdao.findById(1);
-   System.out.println(p);
+p2.setRating(p2.getRating() + 1);
+        pdao.update(p2);
+   System.out.println(p2);
        
     }
     

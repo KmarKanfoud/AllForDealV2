@@ -31,8 +31,8 @@ public class UserDao implements Idao.IDao<User>{
      }
     @Override
     public void add(User t) {
-        String req = "insert into fos_user_user(username, username_canonical, email, email_canonical, enabled, password, gender, phone, firstname, lastname, roles, created_at,adress )"
-               +"values (?,?,?,?,?,?,?,?,?,?,?,?,?)";
+        String req = "insert into fos_user_user(username, username_canonical, email, email_canonical, enabled, password, gender, phone, firstname, lastname, roles, created_at,adress,photo )"
+               +"values (?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
         try {
             pst = connection.prepareStatement(req);
 
@@ -50,6 +50,7 @@ public class UserDao implements Idao.IDao<User>{
             pst.setString(11, t.getRoles());
             pst.setDate(12, (Date) t.getCreated_at());
             pst.setString(13, t.getAdress());
+            pst.setString(14, t.getImage());
            
            
             pst.executeUpdate();

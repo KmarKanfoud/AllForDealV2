@@ -7,8 +7,18 @@ package GUI;
 
 import dao.UserDao;
 import entite.User;
+import java.io.IOException;
+import java.io.InputStream;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.time.LocalDate;
+import static java.nio.file.StandardCopyOption.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
+import javax.swing.filechooser.FileNameExtensionFilter;
 
 /**
  *
@@ -19,8 +29,11 @@ public class LoginForm extends javax.swing.JFrame {
     /**
      * Creates new form LoginForm
      */
+    String im;
     public LoginForm() {
+        
         initComponents();
+        
     }
 
     /**
@@ -64,6 +77,8 @@ public class LoginForm extends javax.swing.JFrame {
         cbtype = new javax.swing.JComboBox();
         jButton2 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
+        btnpar = new javax.swing.JButton();
+        tfimage = new javax.swing.JTextField();
         jLabel14 = new javax.swing.JLabel();
         lerror = new javax.swing.JLabel();
 
@@ -177,6 +192,13 @@ public class LoginForm extends javax.swing.JFrame {
 
         jButton3.setText("Annuler");
 
+        btnpar.setText("Parcourir");
+        btnpar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnparActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -211,16 +233,24 @@ public class LoginForm extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 186, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addGap(0, 0, Short.MAX_VALUE)
-                                .addComponent(jButton2))
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(jButton2)
+                        .addGap(7, 7, 7)
+                        .addComponent(jButton3))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel2Layout.createSequentialGroup()
                                 .addComponent(jLabel13)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 79, Short.MAX_VALUE)
-                                .addComponent(cbtype, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(7, 7, 7)
-                        .addComponent(jButton3)))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addGap(10, 10, 10)
+                                .addComponent(btnpar)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(cbtype, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addGap(38, 38, 38)
+                                .addComponent(tfimage, javax.swing.GroupLayout.PREFERRED_SIZE, 224, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                 .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
@@ -266,7 +296,11 @@ public class LoginForm extends javax.swing.JFrame {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(cbtype, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel13))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 31, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnpar)
+                    .addComponent(tfimage, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton2)
                     .addComponent(jButton3)))
@@ -298,7 +332,7 @@ public class LoginForm extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGap(18, 18, 18)
                         .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(43, Short.MAX_VALUE))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jLabel14)
@@ -319,7 +353,7 @@ public class LoginForm extends javax.swing.JFrame {
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(jLabel14)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 24, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 20, Short.MAX_VALUE)
                         .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(23, 23, 23))))
         );
@@ -382,7 +416,15 @@ public class LoginForm extends javax.swing.JFrame {
         }
         java.sql.Date d = java.sql.Date.valueOf(LocalDate.now());
         u.setCreated_at(d);
-            
+           Path s= Paths.get(tfimage.getText());
+           Path ds= Paths.get("http://localhost/Tec/web/uploads/media/default/0001/01/");
+       
+              try {
+                  Files.copy(s,ds,COPY_ATTRIBUTES) ;
+              } catch (IOException ex) {
+                  Logger.getLogger(LoginForm.class.getName()).log(Level.SEVERE, null, ex);
+              }
+              u.setImage(""+ds+im);
      udao.add(u); 
         JOptionPane.showMessageDialog(null,"Vous etes Inscrit avec succés");// TODO add your handling code here:
     }//GEN-LAST:event_jButton2ActionPerformed
@@ -415,6 +457,20 @@ public class LoginForm extends javax.swing.JFrame {
        
       
     }//GEN-LAST:event_btloginActionPerformed
+
+    private void btnparActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnparActionPerformed
+          JFileChooser chooser = new JFileChooser();
+         
+    FileNameExtensionFilter filter = new FileNameExtensionFilter(
+        "JPG & GIF Images", "jpg", "gif");
+    chooser.setFileFilter(filter);
+    int returnVal = chooser.showOpenDialog(btnpar);
+    if(returnVal == JFileChooser.APPROVE_OPTION) {
+       
+       tfimage.setText(chooser.getSelectedFile().getAbsolutePath());
+     im=chooser.getSelectedFile().getName();
+    }
+    }//GEN-LAST:event_btnparActionPerformed
 
     /**
      * @param args the command line arguments
@@ -453,6 +509,7 @@ public class LoginForm extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btlogin;
+    private javax.swing.JButton btnpar;
     private javax.swing.JComboBox cboxgender;
     private javax.swing.JComboBox cbtype;
     private javax.swing.JButton jButton2;
@@ -480,6 +537,7 @@ public class LoginForm extends javax.swing.JFrame {
     private javax.swing.JTextField tfLogin;
     private javax.swing.JTextField tfemail;
     private javax.swing.JTextField tffirstname;
+    private javax.swing.JTextField tfimage;
     private javax.swing.JTextField tflastname;
     private javax.swing.JPasswordField tfmdp;
     private javax.swing.JPasswordField tfmdp1;

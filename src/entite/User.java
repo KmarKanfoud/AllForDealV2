@@ -34,6 +34,7 @@ public class User {
     private Date updated_at;
     private int bonus;
     private String adress;
+    private String image;
 
     public User() {
     }
@@ -223,6 +224,15 @@ public class User {
     public void setAdress(String adress) {
         this.adress = adress;
     }
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
+    }
+    
     
 
     @Override

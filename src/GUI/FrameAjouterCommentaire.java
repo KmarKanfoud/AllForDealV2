@@ -17,16 +17,18 @@ import javax.swing.table.DefaultTableModel;
  * @author SaharS
  */
 public class FrameAjouterCommentaire extends javax.swing.JFrame {
- Toolkit tk = Toolkit.getDefaultToolkit();
-        Dimension screenSize = tk.getScreenSize();
-        int screenHeight = screenSize.height;
-        int screenWidth = screenSize.width;
+
+    Toolkit tk = Toolkit.getDefaultToolkit();
+    Dimension screenSize = tk.getScreenSize();
+    int screenHeight = screenSize.height;
+    int screenWidth = screenSize.width;
+
     /**
      * Creates new form FrameAjouterCommentaire
      */
     public FrameAjouterCommentaire() {
         initComponents();
-           
+        
     }
 
     /**
@@ -128,19 +130,23 @@ public class FrameAjouterCommentaire extends javax.swing.JFrame {
         c.setBody(TFComment.getText());
         Date date = new java.sql.Date(System.currentTimeMillis());
         c.setCreated_at(date);
+        System.out.println("test"+FrameGestionProduitAdmin.getProd_id()); 
+        c.setProduit_id(FrameGestionProduitAdmin.getProd_id());
         CommentDao pdao = new CommentDao();
         pdao.add(c);
 
         // DefaultTableModel model = (DefaultTableModel) tbCommentaire.getModel();
         // model.addRow(new Object[]{TFComment.getText()});
-         CommAjoute.setText(String.valueOf(TFComment.getText()));
+        CommAjoute.setText(String.valueOf(TFComment.getText()));
         TFComment.setText("");
-          FrameListCommentaire f = new FrameListCommentaire();
-       f.setVisible(true);
-       f.setVisible(true);
-        f.setResizable(false);
-        f.setSize(screenWidth / 2, screenHeight / 2);
-        f.setLocation(screenWidth / 4, screenHeight / 4);
+        FrameDetailsProduit f = new FrameDetailsProduit();
+        f.setVisible(true);
+//        FrameListCommentaire f = new FrameListCommentaire();
+//        f.setVisible(true);
+//        f.setVisible(true);
+//        f.setResizable(false);
+//        f.setSize(screenWidth / 2, screenHeight / 2);
+//        f.setLocation(screenWidth / 4, screenHeight / 4);
 
     }//GEN-LAST:event_CommenterActionPerformed
 
@@ -148,7 +154,7 @@ public class FrameAjouterCommentaire extends javax.swing.JFrame {
      * @param args the command line arguments
      */
     public static void main(String args[]) {
-
+        
         Toolkit tk = Toolkit.getDefaultToolkit();
         Dimension screenSize = tk.getScreenSize();
         int screenHeight = screenSize.height;

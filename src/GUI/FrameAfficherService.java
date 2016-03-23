@@ -63,7 +63,7 @@ public class FrameAfficherService extends javax.swing.JFrame {
         getContentPane().add(ltitre);
         ltitre.setBounds(296, 59, 140, 45);
 
-        jPanel1.setBackground(new java.awt.Color(255, 153, 153));
+        jPanel1.setBackground(new java.awt.Color(255, 255, 255));
 
         tblService.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {

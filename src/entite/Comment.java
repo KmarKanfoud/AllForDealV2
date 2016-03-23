@@ -8,15 +8,18 @@ package entite;
 import java.util.Date;
 import java.util.Objects;
 
-
 /**
  *
  * @author SaharS
  */
 public class Comment {
-      private int id; 
+
+    private int id;
     private String body;
     private Date created_at;
+    private int produit_id;
+    private int service_id;
+    private int user_id;
 
     public Comment() {
     }
@@ -30,13 +33,18 @@ public class Comment {
         this.body = body;
         this.created_at = created_at;
     }
-    
-    
 
     public Comment(int id, String body, Date created_at) {
         this.id = id;
         this.body = body;
         this.created_at = created_at;
+    }
+
+    public Comment(int id, String body, Date created_at, int produit_id) {
+        this.id = id;
+        this.body = body;
+        this.created_at = created_at;
+        this.produit_id = produit_id;
     }
 
     public int getId() {
@@ -62,7 +70,30 @@ public class Comment {
     public void setCreated_at(Date created_at) {
         this.created_at = created_at;
     }
-    
+
+    public int getProduit_id() {
+        return produit_id;
+    }
+
+    public void setProduit_id(int produit_id) {
+        this.produit_id = produit_id;
+    }
+
+    public int getService_id() {
+        return service_id;
+    }
+
+    public void setService_id(int service_id) {
+        this.service_id = service_id;
+    }
+
+    public int getUser_id() {
+        return user_id;
+    }
+
+    public void setUser_id(int user_id) {
+        this.user_id = user_id;
+    }
     
     
 
@@ -100,8 +131,5 @@ public class Comment {
     public String toString() {
         return "Comment{" + "id=" + id + ", body=" + body + ", created_at=" + created_at + '}';
     }
-    
-    
-    
-    
+
 }

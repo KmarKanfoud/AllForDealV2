@@ -74,7 +74,7 @@ public class FrameAjouterService extends javax.swing.JFrame {
         setSize(new java.awt.Dimension(550, 600));
         getContentPane().setLayout(null);
 
-        jPanel1.setBackground(new java.awt.Color(255, 153, 153));
+        jPanel1.setBackground(new java.awt.Color(255, 255, 255));
         jPanel1.setFocusable(false);
 
         jLabel1.setText("Nom Service :");

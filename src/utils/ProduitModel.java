@@ -43,7 +43,7 @@ switch (columnIndex){
     case 4: return l.get(rowIndex).getDescription();
     case 5: return l.get(rowIndex).getPrix();
     case 6: return l.get(rowIndex).getPtbonus();
-    case 7: return l.get(rowIndex).getZone();
+    case 7: return l.get(rowIndex).getZoneName();
     case 8: return l.get(rowIndex).getDateAjout();
     case 9: return l.get(rowIndex).getTva();
     case 10: return l.get(rowIndex).getReduction();

@@ -8,6 +8,7 @@ package utils;
 import dao.CommentDao;
 import entite.Comment;
 import java.util.List;
+import GUI.*;
 import javax.swing.table.AbstractTableModel;
 
 /**
@@ -17,11 +18,12 @@ import javax.swing.table.AbstractTableModel;
 public class CommentPModel extends AbstractTableModel {
 
     List<Comment> com;
-    String[] colonnes = {"Numéro de commentaire", "Commentaire", "Ajouté le"};
+    String[] colonnes = { "Commentaire", "Ajouté le"};
 
     public CommentPModel() {
         CommentDao pdao = new CommentDao();
-        com = pdao.DisplayAllCommentaireByProduit(1);
+        //com = pdao.DisplayAllCommentaireByProduit(1);
+        com = pdao.DisplayAllCommentaireByProduit(FrameGestionProduitAdmin.getProd_id());
     }
 
     @Override
@@ -37,11 +39,11 @@ public class CommentPModel extends AbstractTableModel {
     @Override
     public Object getValueAt(int rowIndex, int columnIndex) {
         switch (columnIndex) {
+//            case 0:
+//                return com.get(rowIndex).getId();
             case 0:
-                return com.get(rowIndex).getId();
-            case 1:
                 return com.get(rowIndex).getBody();
-            case 2:
+            case 1:
                 return com.get(rowIndex).getCreated_at();
 
             default:

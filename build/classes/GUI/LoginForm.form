@@ -422,6 +422,7 @@
             <Property name="text" type="java.lang.String" value="Annuler"/>
           </Properties>
         </Component>
+<<<<<<< HEAD
         <Component class="javax.swing.JButton" name="btnpar">
           <Properties>
             <Property name="text" type="java.lang.String" value="Parcourir"/>
@@ -432,6 +433,8 @@
         </Component>
         <Component class="javax.swing.JTextField" name="tfimage">
         </Component>
+=======
+>>>>>>> e0f8529ccec57984632ac6aec95c14c9a75e8f43
       </SubComponents>
     </Container>
     <Component class="javax.swing.JLabel" name="jLabel14">

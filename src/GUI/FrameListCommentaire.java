@@ -48,7 +48,6 @@ public class FrameListCommentaire extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         BtnSupprimer = new javax.swing.JButton();
         BtnModifier = new javax.swing.JButton();
-        BtnAjouter = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -71,22 +70,12 @@ public class FrameListCommentaire extends javax.swing.JFrame {
             }
         });
 
-        BtnAjouter.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/add.png"))); // NOI18N
-        BtnAjouter.setText("Ajouter");
-        BtnAjouter.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                BtnAjouterActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(BtnAjouter)
-                .addGap(47, 47, 47)
+                .addGap(156, 156, 156)
                 .addComponent(BtnModifier)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 61, Short.MAX_VALUE)
                 .addComponent(BtnSupprimer)
@@ -98,8 +87,7 @@ public class FrameListCommentaire extends javax.swing.JFrame {
                 .addGap(30, 30, 30)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(BtnSupprimer)
-                    .addComponent(BtnModifier)
-                    .addComponent(BtnAjouter))
+                    .addComponent(BtnModifier))
                 .addContainerGap(35, Short.MAX_VALUE))
         );
 
@@ -109,7 +97,7 @@ public class FrameListCommentaire extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 604, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
-                .addGap(73, 73, 73)
+                .addContainerGap()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -117,9 +105,9 @@ public class FrameListCommentaire extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 179, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(66, 66, 66)
+                .addGap(65, 65, 65)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 140, Short.MAX_VALUE))
+                .addGap(0, 141, Short.MAX_VALUE))
         );
 
         pack();
@@ -141,15 +129,6 @@ public class FrameListCommentaire extends javax.swing.JFrame {
             jScrollPane1.setViewportView(ListComment);
         }
     }//GEN-LAST:event_BtnSupprimerActionPerformed
-
-    private void BtnAjouterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnAjouterActionPerformed
-        FrameAjouterCommentaire frame = new FrameAjouterCommentaire();
-        frame.setVisible(true);
-        frame.setResizable(false);
-        frame.setSize(screenWidth / 2, screenHeight / 2);
-        frame.setLocation(screenWidth / 4, screenHeight / 4);
-
-    }//GEN-LAST:event_BtnAjouterActionPerformed
 
     private void BtnModifierActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnModifierActionPerformed
         int ligneSelectionne = ListComment.getSelectedRow();
@@ -229,7 +208,6 @@ public class FrameListCommentaire extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton BtnAjouter;
     private javax.swing.JButton BtnModifier;
     private javax.swing.JButton BtnSupprimer;
     public static javax.swing.JTable ListComment;

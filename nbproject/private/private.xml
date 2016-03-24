@@ -3,10 +3,21 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
+<<<<<<< HEAD
             <file>file:/C:/Users/Super%20Moon/Documents/AllForDealV2/src/utils/ServiceByCategorieModel.java</file>
             <file>file:/C:/Users/Super%20Moon/Documents/AllForDealV2/src/utils/ServiceByUserIdModel.java</file>
             <file>file:/C:/Users/Super%20Moon/Documents/AllForDealV2/src/dao/ServiceDao.java</file>
             <file>file:/C:/Users/Super%20Moon/Documents/AllForDealV2/src/GUI/FrameAfficherServiceAll.java</file>
+=======
+            <file>file:/C:/Users/SaharS/Documents/NetBeansProjects/AllForDealV2/src/dao/ProduitDao.java</file>
+            <file>file:/C:/Users/SaharS/Documents/NetBeansProjects/AllForDealV2/src/dao/ReclamationDao.java</file>
+            <file>file:/C:/Users/SaharS/Documents/NetBeansProjects/AllForDealV2/src/GUI/FrameGestionProduitAdmin.java</file>
+            <file>file:/C:/Users/SaharS/Documents/NetBeansProjects/AllForDealV2/src/utils/SendEmailUsingGMailSMTP.java</file>
+            <file>file:/C:/Users/SaharS/Documents/NetBeansProjects/AllForDealV2/src/entite/Reclamation.java</file>
+            <file>file:/C:/Users/SaharS/Documents/NetBeansProjects/AllForDealV2/src/GUI/LoginForm.java</file>
+            <file>file:/C:/Users/SaharS/Documents/NetBeansProjects/AllForDealV2/src/GUI/FrameAccueil.java</file>
+            <file>file:/C:/Users/SaharS/Documents/NetBeansProjects/AllForDealV2/src/utils/PostFile.java</file>
+>>>>>>> 48a20cf2ec98cae6881cbc403d8817dae05c322a
         </group>
     </open-files>
 </project-private>

@@ -24,6 +24,9 @@ import utils.ProduitModel;
  * @author esprit
  */
 public class FrameGestionProduitAdmin extends javax.swing.JFrame {
+    
+    
+    
 
     ResultSet rsNom = null;
     public static int prod_id;
@@ -688,21 +691,23 @@ public class FrameGestionProduitAdmin extends javax.swing.JFrame {
         prod_id = (int) l;
         System.out.println(prod_id);
         TableModel model = tbProduits.getModel();
-        tfNomProduit1.setText(tfNomProduit.getText());
-        cbCategorie1.setSelectedItem(cbCategorie.getSelectedItem());
-        tfQuantite1.setText(tfQuantite.getText());
-        taDescription1.setText(taDescription.getText());
-        tfPrix1.setText(tfPrix.getText());
-        tfPointBonus1.setText(tfPointBonus.getText());
-        cbZone1.setSelectedItem(cbZone.getSelectedItem());
-        tfTVA1.setText(tfTVA.getText());
-        tfReduction1.setText(tfReduction.getText());
+//        tfNomProduit1.setText(tfNomProduit.getText());
+//        cbCategorie1.setSelectedItem(cbCategorie.getSelectedItem());
+//        tfQuantite1.setText(tfQuantite.getText());
+//        taDescription1.setText(taDescription.getText());
+//        tfPrix1.setText(tfPrix.getText());
+//        tfPointBonus1.setText(tfPointBonus.getText());
+//        cbZone1.setSelectedItem(cbZone.getSelectedItem());
+//        tfTVA1.setText(tfTVA.getText());
+//        tfReduction1.setText(tfReduction.getText());
+//
+//        ParentPanel.removeAll();
+//        ParentPanel.add(DetailsProduit);
+//        ParentPanel.repaint();
+//        ParentPanel.revalidate();
 
-        ParentPanel.removeAll();
-        ParentPanel.add(DetailsProduit);
-        ParentPanel.repaint();
-        ParentPanel.revalidate();
-
+        FrameDetailsProduit fe =new FrameDetailsProduit();
+        fe.setVisible(true);
 
     }//GEN-LAST:event_btnConsulterActionPerformed
 
@@ -853,6 +858,8 @@ if(rb5.isSelected()){
      * @param args the command line arguments
      */
     public static void main(String args[]) {
+        
+        
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.

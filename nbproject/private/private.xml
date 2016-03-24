@@ -3,26 +3,8 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-<<<<<<< HEAD
-            <file>file:/C:/Users/SaharS/Documents/NetBeansProjects/AllForDealV2/src/dao/ProduitDao.java</file>
-            <file>file:/C:/Users/SaharS/Documents/NetBeansProjects/AllForDealV2/src/GUI/FrameGestionProduitAdmin.java</file>
-            <file>file:/C:/Users/SaharS/Documents/NetBeansProjects/AllForDealV2/src/dao/CommentDao.java</file>
-            <file>file:/C:/Users/SaharS/Documents/NetBeansProjects/AllForDealV2/src/pidevtest/ProduitTest.java</file>
-=======
-<<<<<<< HEAD
-            <file>file:/C:/Users/maroo/Documents/NetBeansProjects/AllForDealV2/src/GUI/UserModel.java</file>
-            <file>file:/C:/Users/maroo/Documents/NetBeansProjects/AllForDealV2/src/GUI/LoginForm.java</file>
-            <file>file:/C:/Users/maroo/Documents/NetBeansProjects/AllForDealV2/src/entite/User.java</file>
-            <file>file:/C:/Users/maroo/Documents/NetBeansProjects/AllForDealV2/src/GUI/FrameAccueil.java</file>
-            <file>file:/C:/Users/maroo/Documents/NetBeansProjects/AllForDealV2/src/GUI/Framedashboard.java</file>
-            <file>file:/C:/Users/maroo/Documents/NetBeansProjects/AllForDealV2/src/dao/UserDao.java</file>
-=======
-            <file>file:/C:/Users/SaharS/Documents/NetBeansProjects/AllForDealV2/src/entite/Produit.java</file>
-            <file>file:/C:/Users/SaharS/Documents/NetBeansProjects/AllForDealV2/src/GUI/FrameGestionProduitAdmin.java</file>
-            <file>file:/C:/Users/SaharS/Documents/NetBeansProjects/AllForDealV2/src/entite/Service.java</file>
-            <file>file:/C:/Users/SaharS/Documents/NetBeansProjects/AllForDealV2/src/GUI/FrameAjouterProduit.java</file>
->>>>>>> e0f8529ccec57984632ac6aec95c14c9a75e8f43
->>>>>>> 76ec313737876057095d5bb137887deb04cffd0d
+            <file>file:/C:/Users/SaharS/Documents/NetBeansProjects/AllForDealV2/src/GUI/FrameAccueil.java</file>
+            <file>file:/C:/Users/SaharS/Documents/NetBeansProjects/AllForDealV2/src/utils/PostFile.java</file>
         </group>
     </open-files>
 </project-private>

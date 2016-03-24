@@ -15,16 +15,16 @@ import javax.swing.table.AbstractTableModel;
  *
  * @author Super
  */
-public class ListeService extends AbstractTableModel {
+public class ServiceByUserIdModel extends AbstractTableModel {
 
     List<Service> l;
     String[] colonnes = {"id", "nom Service", "Description", "Catégorie", "etat", "zone", "Ajouté le"};
     ZoneDao zoneDAO = new ZoneDao();
-    public ListeService() {
+    public ServiceByUserIdModel() {
         
         ServiceDao pdao = new ServiceDao();
-       // l = pdao.findAllByUser(1); // userID
-       l = pdao.findAll(); // ALL
+       l = pdao.findAllByUser(1); // userID
+        //l = pdao.findAll(); // ALL
     }
 // test git 
     @Override

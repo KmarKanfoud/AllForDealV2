@@ -4,7 +4,22 @@
  * and open the template in the editor.
  */
 package GUI;
-import utils.* ;
+
+import static GUI.FrameGestionProduitAdmin.prod_id;
+import utils.*;
+import dao.ServiceDao;
+import dao.ZoneDao;
+import entite.Service;
+import java.sql.Connection;
+import java.sql.Date;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import javax.swing.JOptionPane;
+import java.sql.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
 
 /**
  *
@@ -12,11 +27,23 @@ import utils.* ;
  */
 public class FrameAfficherServiceAll extends javax.swing.JFrame {
 
+    public static int service_id;
+    private Connection conn = null;
+    private PreparedStatement pst = null;
+    ResultSet rs = null;
+    ResultSet rsNom = null;
+    ResultSet rsId = null;
+    ServiceDao pdao = new ServiceDao();
+    ZoneDao zoneDAO = new ZoneDao();
+
     /**
      * Creates new form FrameAfficherServiceAll
      */
     public FrameAfficherServiceAll() {
         initComponents();
+        loadAllVille();
+        loadAllCategorie();
+        labelId.setVisible(false);
     }
 
     /**
@@ -29,21 +56,434 @@ public class FrameAfficherServiceAll extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
+        jLabel1 = new javax.swing.JLabel();
+        tpService = new javax.swing.JTabbedPane();
+        pAjoutS = new javax.swing.JPanel();
+        jLabel5 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        tfNomS = new javax.swing.JTextField();
+        jLabel3 = new javax.swing.JLabel();
+        tfDescription = new javax.swing.JTextField();
+        jLabel4 = new javax.swing.JLabel();
+        cbCat = new javax.swing.JComboBox();
+        cbZone = new javax.swing.JComboBox();
+        jLabel6 = new javax.swing.JLabel();
+        btnAjoutS = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblService = new javax.swing.JTable();
-        jLabel1 = new javax.swing.JLabel();
+        lerror = new javax.swing.JLabel();
+        pAllServices = new javax.swing.JPanel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        tblAllServices = new javax.swing.JTable();
+        pMesServices = new javax.swing.JPanel();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        tblMesServices = new javax.swing.JTable();
+        lMsg = new javax.swing.JLabel();
+        btnModifier = new javax.swing.JButton();
+        bntSupprimer = new javax.swing.JButton();
+        cbZone1 = new javax.swing.JComboBox();
+        jLabel7 = new javax.swing.JLabel();
+        jLabel8 = new javax.swing.JLabel();
+        cbEtat = new javax.swing.JComboBox();
+        cbCat1 = new javax.swing.JComboBox();
+        jLabel9 = new javax.swing.JLabel();
+        jLabel10 = new javax.swing.JLabel();
+        tfDescription1 = new javax.swing.JTextField();
+        tfNomService = new javax.swing.JTextField();
+        jLabel11 = new javax.swing.JLabel();
+        labelId = new javax.swing.JLabel();
+        btnConsulterS = new javax.swing.JButton();
+        pConsulterS = new javax.swing.JPanel();
+        jLabel12 = new javax.swing.JLabel();
+        tfNomService1 = new javax.swing.JTextField();
+        jLabel13 = new javax.swing.JLabel();
+        tfDescription2 = new javax.swing.JTextField();
+        jLabel14 = new javax.swing.JLabel();
+        cbCat2 = new javax.swing.JComboBox();
+        cbEtat1 = new javax.swing.JComboBox();
+        jLabel15 = new javax.swing.JLabel();
+        jLabel16 = new javax.swing.JLabel();
+        cbZone2 = new javax.swing.JComboBox();
+        pRechercheS = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
 
-        tblService.setModel(new ListeService()
-        );
-        jScrollPane1.setViewportView(tblService);
-
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 51, 102));
-        jLabel1.setText("Les service:");
+        jLabel1.setText("Les services:");
+
+        tpService.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tpServiceMouseClicked(evt);
+            }
+        });
+
+        jLabel5.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        jLabel5.setForeground(new java.awt.Color(255, 51, 102));
+        jLabel5.setText("Ajouter Un Service");
+
+        jLabel2.setText("Nom Service :");
+
+        tfNomS.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                tfNomSActionPerformed(evt);
+            }
+        });
+
+        jLabel3.setText("Description :");
+
+        tfDescription.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                tfDescriptionActionPerformed(evt);
+            }
+        });
+
+        jLabel4.setText("Catégorie :");
+
+        cbCat.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbCatActionPerformed(evt);
+            }
+        });
+
+        cbZone.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbZoneActionPerformed(evt);
+            }
+        });
+
+        jLabel6.setText("Gouvernorat :");
+
+        btnAjoutS.setBackground(new java.awt.Color(255, 204, 204));
+        btnAjoutS.setText("Ajouter Service");
+        btnAjoutS.setAlignmentX(10.1F);
+        btnAjoutS.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAjoutSActionPerformed(evt);
+            }
+        });
+
+        tblService.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Nom Service", "Description", "Catégorie", "Date d'ajout", "Etat"
+            }
+        ));
+        jScrollPane1.setViewportView(tblService);
+
+        javax.swing.GroupLayout pAjoutSLayout = new javax.swing.GroupLayout(pAjoutS);
+        pAjoutS.setLayout(pAjoutSLayout);
+        pAjoutSLayout.setHorizontalGroup(
+            pAjoutSLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pAjoutSLayout.createSequentialGroup()
+                .addGroup(pAjoutSLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel6)
+                    .addGroup(pAjoutSLayout.createSequentialGroup()
+                        .addGap(10, 10, 10)
+                        .addGroup(pAjoutSLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel2)
+                            .addComponent(jLabel3)
+                            .addComponent(jLabel4)))
+                    .addComponent(btnAjoutS, javax.swing.GroupLayout.PREFERRED_SIZE, 179, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pAjoutSLayout.createSequentialGroup()
+                        .addGap(80, 80, 80)
+                        .addGroup(pAjoutSLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(cbCat, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(tfDescription)
+                            .addComponent(tfNomS, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(cbZone, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addGroup(pAjoutSLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(pAjoutSLayout.createSequentialGroup()
+                        .addGap(44, 44, 44)
+                        .addComponent(jLabel5))
+                    .addGroup(pAjoutSLayout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(lerror, javax.swing.GroupLayout.PREFERRED_SIZE, 337, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(pAjoutSLayout.createSequentialGroup()
+                        .addGap(33, 33, 33)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 526, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        pAjoutSLayout.setVerticalGroup(
+            pAjoutSLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pAjoutSLayout.createSequentialGroup()
+                .addGap(19, 19, 19)
+                .addComponent(jLabel5)
+                .addGap(47, 47, 47)
+                .addComponent(jLabel2)
+                .addGap(7, 7, 7)
+                .addGroup(pAjoutSLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(pAjoutSLayout.createSequentialGroup()
+                        .addComponent(tfNomS, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(10, 10, 10)
+                        .addComponent(jLabel3)
+                        .addGap(4, 4, 4)
+                        .addComponent(tfDescription, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(12, 12, 12)
+                        .addComponent(jLabel4)
+                        .addGap(2, 2, 2)
+                        .addComponent(cbCat, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(11, 11, 11)
+                        .addComponent(jLabel6)
+                        .addGap(9, 9, 9)
+                        .addComponent(cbZone, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(52, 52, 52)
+                        .addComponent(btnAjoutS, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 232, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(lerror, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(141, 141, 141))
+        );
+
+        tpService.addTab("Ajouter Un Service", pAjoutS);
+
+        tblAllServices.setModel((new ListeService()));
+        jScrollPane2.setViewportView(tblAllServices);
+
+        javax.swing.GroupLayout pAllServicesLayout = new javax.swing.GroupLayout(pAllServices);
+        pAllServices.setLayout(pAllServicesLayout);
+        pAllServicesLayout.setHorizontalGroup(
+            pAllServicesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pAllServicesLayout.createSequentialGroup()
+                .addGap(55, 55, 55)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        pAllServicesLayout.setVerticalGroup(
+            pAllServicesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pAllServicesLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        tpService.addTab("Les Offres", pAllServices);
+
+        tblMesServices.setModel((new ServiceByUserIdModel()));
+        tblMesServices.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblMesServicesMouseClicked(evt);
+            }
+        });
+        jScrollPane3.setViewportView(tblMesServices);
+
+        btnModifier.setText("Modifier");
+        btnModifier.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnModifierActionPerformed(evt);
+            }
+        });
+
+        bntSupprimer.setText("Supprimer");
+        bntSupprimer.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bntSupprimerActionPerformed(evt);
+            }
+        });
+
+        jLabel7.setText("Zone :");
+
+        jLabel8.setText("Etat :");
+
+        cbEtat.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "EnCours", "n'est Plus valide" }));
+
+        jLabel9.setText("Catégorie :");
+
+        jLabel10.setText("Description :");
+
+        tfNomService.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                tfNomServiceActionPerformed(evt);
+            }
+        });
+
+        jLabel11.setText("Nom Service :");
+
+        labelId.setText("ID");
+
+        btnConsulterS.setText("Consulter");
+        btnConsulterS.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnConsulterSActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout pMesServicesLayout = new javax.swing.GroupLayout(pMesServices);
+        pMesServices.setLayout(pMesServicesLayout);
+        pMesServicesLayout.setHorizontalGroup(
+            pMesServicesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pMesServicesLayout.createSequentialGroup()
+                .addGroup(pMesServicesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(pMesServicesLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addGroup(pMesServicesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(labelId)
+                            .addGroup(pMesServicesLayout.createSequentialGroup()
+                                .addGroup(pMesServicesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel11)
+                                    .addGroup(pMesServicesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                        .addComponent(jLabel10)
+                                        .addGroup(pMesServicesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(jLabel8)
+                                            .addComponent(jLabel9)
+                                            .addComponent(jLabel7))))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(pMesServicesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(tfDescription1, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(tfNomService, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(cbCat1, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(cbEtat, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(cbZone1, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                    .addGroup(pMesServicesLayout.createSequentialGroup()
+                        .addGap(34, 34, 34)
+                        .addComponent(btnModifier)
+                        .addGap(35, 35, 35)
+                        .addComponent(bntSupprimer)))
+                .addGroup(pMesServicesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(pMesServicesLayout.createSequentialGroup()
+                        .addGap(117, 117, 117)
+                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(pMesServicesLayout.createSequentialGroup()
+                        .addGap(18, 18, 18)
+                        .addComponent(btnConsulterS)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(lMsg, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(715, 715, 715))))
+        );
+        pMesServicesLayout.setVerticalGroup(
+            pMesServicesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pMesServicesLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(lMsg, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(pMesServicesLayout.createSequentialGroup()
+                .addGap(28, 28, 28)
+                .addGroup(pMesServicesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(cbEtat, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(pMesServicesLayout.createSequentialGroup()
+                        .addComponent(labelId)
+                        .addGap(18, 18, 18)
+                        .addGroup(pMesServicesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(tfNomService, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel11))
+                        .addGroup(pMesServicesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(pMesServicesLayout.createSequentialGroup()
+                                .addGap(40, 40, 40)
+                                .addComponent(jLabel10))
+                            .addGroup(pMesServicesLayout.createSequentialGroup()
+                                .addGap(53, 53, 53)
+                                .addComponent(tfDescription1, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(55, 55, 55)
+                        .addGroup(pMesServicesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel9)
+                            .addComponent(cbCat1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(50, 50, 50)
+                        .addComponent(jLabel8)))
+                .addGap(33, 33, 33)
+                .addGroup(pMesServicesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel7)
+                    .addComponent(cbZone1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(50, 50, 50)
+                .addGroup(pMesServicesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnModifier)
+                    .addComponent(bntSupprimer, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnConsulterS)))
+        );
+
+        tpService.addTab("Consulter Mes Services", pMesServices);
+
+        jLabel12.setText("Nom Service :");
+
+        tfNomService1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                tfNomService1ActionPerformed(evt);
+            }
+        });
+
+        jLabel13.setText("Description :");
+
+        jLabel14.setText("Catégorie :");
+
+        cbEtat1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "EnCours", "n'est Plus valide" }));
+
+        jLabel15.setText("Etat :");
+
+        jLabel16.setText("Zone :");
+
+        javax.swing.GroupLayout pConsulterSLayout = new javax.swing.GroupLayout(pConsulterS);
+        pConsulterS.setLayout(pConsulterSLayout);
+        pConsulterSLayout.setHorizontalGroup(
+            pConsulterSLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pConsulterSLayout.createSequentialGroup()
+                .addGap(39, 39, 39)
+                .addGroup(pConsulterSLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel12)
+                    .addGroup(pConsulterSLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addComponent(jLabel13)
+                        .addGroup(pConsulterSLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel15)
+                            .addComponent(jLabel14)
+                            .addComponent(jLabel16))))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(pConsulterSLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(tfDescription2, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(tfNomService1, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cbCat2, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cbEtat1, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cbZone2, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        pConsulterSLayout.setVerticalGroup(
+            pConsulterSLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pConsulterSLayout.createSequentialGroup()
+                .addGap(32, 32, 32)
+                .addGroup(pConsulterSLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(cbEtat1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(pConsulterSLayout.createSequentialGroup()
+                        .addGroup(pConsulterSLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(tfNomService1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel12))
+                        .addGroup(pConsulterSLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(pConsulterSLayout.createSequentialGroup()
+                                .addGap(40, 40, 40)
+                                .addComponent(jLabel13))
+                            .addGroup(pConsulterSLayout.createSequentialGroup()
+                                .addGap(53, 53, 53)
+                                .addComponent(tfDescription2, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(55, 55, 55)
+                        .addGroup(pConsulterSLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel14)
+                            .addComponent(cbCat2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(50, 50, 50)
+                        .addComponent(jLabel15)))
+                .addGap(33, 33, 33)
+                .addGroup(pConsulterSLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel16)
+                    .addComponent(cbZone2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        tpService.addTab("Consulter Service", pConsulterS);
+
+        javax.swing.GroupLayout pRechercheSLayout = new javax.swing.GroupLayout(pRechercheS);
+        pRechercheS.setLayout(pRechercheSLayout);
+        pRechercheSLayout.setHorizontalGroup(
+            pRechercheSLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
+        pRechercheSLayout.setVerticalGroup(
+            pRechercheSLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
+
+        tpService.addTab("Rechercher Un Service", pRechercheS);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -52,21 +492,21 @@ public class FrameAfficherServiceAll extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(89, 89, 89)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(268, 268, 268)
+                        .addComponent(jLabel1))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(235, 235, 235)
-                        .addComponent(jLabel1)))
-                .addContainerGap(94, Short.MAX_VALUE))
+                        .addGap(74, 74, 74)
+                        .addComponent(tpService, javax.swing.GroupLayout.PREFERRED_SIZE, 915, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(23, Short.MAX_VALUE)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(36, 36, 36)
                 .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 320, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(56, 56, 56))
+                .addGap(31, 31, 31)
+                .addComponent(tpService, javax.swing.GroupLayout.PREFERRED_SIZE, 617, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -77,11 +517,168 @@ public class FrameAfficherServiceAll extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void tfNomSActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfNomSActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_tfNomSActionPerformed
+
+    private void tfDescriptionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfDescriptionActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_tfDescriptionActionPerformed
+
+    private void cbCatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbCatActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cbCatActionPerformed
+
+    private void cbZoneActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbZoneActionPerformed
+
+    }//GEN-LAST:event_cbZoneActionPerformed
+
+    private void btnAjoutSActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAjoutSActionPerformed
+        // TODO add your handling code here:
+        lerror.setText(" ");
+
+        Service s = new Service();
+        Date date = new java.sql.Date(System.currentTimeMillis());
+        if (!tfNomS.getText().trim().equals("")) {
+            s.setNomService(tfNomS.getText());
+            try {
+                rsId = zoneDAO.getZoneByName(cbZone.getSelectedItem().toString());
+                while (rsId.next()) {
+                    s.setZone(rsId.getInt(1));
+
+                }//this.setResizable(false);
+            } catch (SQLException ex) {
+                Logger.getLogger(FrameAjouterService.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
+            s.setDescription(tfDescription.getText());
+            s.setType(cbCat.getSelectedItem().toString());
+            //s.setZone((int) cbZone.getSelectedItem());
+            s.setDateAjout(date);
+            s.setEtat("EnCours");
+            ServiceDao pdao = new ServiceDao();
+            pdao.add(s);
+            DefaultTableModel model = (DefaultTableModel) tblService.getModel();
+            model.addRow(new Object[]{tfNomS.getText(), tfDescription.getText(), cbCat.getSelectedItem().toString(), s.getDateAjout(), s.getEtat()});
+        } else {
+            lerror.setText(" Veuiller enter le nom de votre service SVP !");
+            tblAllServices.setModel(new ListeService());
+        }
+    }//GEN-LAST:event_btnAjoutSActionPerformed
+
+    private void tpServiceMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tpServiceMouseClicked
+        // TODO add your handling code here:
+        tblAllServices.setModel(new ListeService());
+
+    }//GEN-LAST:event_tpServiceMouseClicked
+
+    private void btnModifierActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModifierActionPerformed
+        // TODO add your handling code here:
+        lMsg.setText(" ");
+
+        Service s = new Service();
+        Date date = new java.sql.Date(System.currentTimeMillis());
+        if (!tfNomService.getText().trim().equals("")) {
+            s.setId(Integer.parseInt(labelId.getText()));
+            s.setNomService(tfNomService.getText());
+            s.setDescription(tfDescription1.getText());
+            s.setType(cbCat1.getSelectedItem().toString());
+            try {
+                rsNom = zoneDAO.getZoneByName(cbZone1.getSelectedItem().toString());
+                while (rsNom.next()) {
+                    s.setZone(rsNom.getInt(1));
+                    System.out.println(rsNom.getInt(1));
+                }//this.setResizable(false);
+            } catch (SQLException ex) {
+                Logger.getLogger(FrameAjouterService.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            s.setDateAjout(date);
+            s.setEtat(cbEtat.getSelectedItem().toString());
+            ServiceDao pdao = new ServiceDao();
+            pdao.update(s);
+            //jScrollPane1.setViewportView(tblService);
+
+        } else {
+            lMsg.setText(" Veuiller enter le nom de votre service SVP !");
+        }
+        tblMesServices.setModel(new ServiceByUserIdModel()); // Act tab apres modif
+    }//GEN-LAST:event_btnModifierActionPerformed
+
+    private void bntSupprimerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bntSupprimerActionPerformed
+        // TODO add your handling code here:
+
+        FrameAfficherServiceAdmin f = new FrameAfficherServiceAdmin();
+        int i = tblMesServices.getSelectedRow();
+        Object l = tblMesServices.getValueAt(i, 0);
+
+        ServiceDao pdao = new ServiceDao();
+
+        int j = JOptionPane.showConfirmDialog(null, "la suppression est irréversible. Etes-vous sur de vouloir continuer?", "Veuillez confirmer votre choix", JOptionPane.YES_NO_OPTION);
+
+        if (j == 0) {
+            pdao.removeById((int) l);
+
+            tblMesServices.setModel(new ServiceByUserIdModel());
+
+            jScrollPane3.setViewportView(tblMesServices);
+        }
+    }//GEN-LAST:event_bntSupprimerActionPerformed
+
+    private void tfNomServiceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfNomServiceActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_tfNomServiceActionPerformed
+
+    private void btnConsulterSActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConsulterSActionPerformed
+        // TODO add your handling code here:
+        FrameDetailsService f = new FrameDetailsService();
+        f.setVisible(true);
+        this.hide();
+        int i = tblMesServices.getSelectedRow();
+        Object l = tblMesServices.getValueAt(i, 0);
+        service_id = (int) l;
+        System.out.println(service_id);
+        TableModel model = tblMesServices.getModel();
+        labelId.setText(model.getValueAt(i, 0).toString());
+        tfNomService.setText(model.getValueAt(i, 1).toString());
+        tfDescription1.setText(model.getValueAt(i, 2).toString());
+
+        cbCat1.setSelectedItem(tblMesServices.getValueAt(i, 3));
+        cbEtat.setSelectedItem(tblMesServices.getValueAt(i, 4));
+        cbZone1.setSelectedItem(model.getValueAt(i, 5).toString());
+
+        pConsulterS.setVisible(true);
+
+
+    }//GEN-LAST:event_btnConsulterSActionPerformed
+
+    private void tblMesServicesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblMesServicesMouseClicked
+        // TODO add your handling code here:
+        int i = tblMesServices.getSelectedRow();
+        TableModel model = tblMesServices.getModel();
+
+        //tfId.setText(model.getValueAt(i, 0).toString());
+        labelId.setText(model.getValueAt(i, 0).toString());
+        tfNomService.setText(model.getValueAt(i, 1).toString());
+        tfDescription1.setText(model.getValueAt(i, 2).toString());
+
+        cbCat1.setSelectedItem(tblMesServices.getValueAt(i, 3));
+        cbEtat.setSelectedItem(tblMesServices.getValueAt(i, 4));
+        cbZone1.setSelectedItem(model.getValueAt(i, 5).toString());
+
+    }//GEN-LAST:event_tblMesServicesMouseClicked
+
+    private void tfNomService1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfNomService1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_tfNomService1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -118,10 +715,88 @@ public class FrameAfficherServiceAll extends javax.swing.JFrame {
         });
     }
 
+    private void loadAllVille() {
+        try {
+            ResultSet res = pdao.getAllVille();
+
+            while (res.next()) {
+
+                cbZone.addItem(res.getString(1));
+                cbZone1.addItem(res.getString(1));
+                // System.out.println(res.getString(1));
+
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(FrameAjouterService.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    private void loadAllCategorie() {
+        try {
+            ResultSet res = pdao.getCategorie();
+
+            while (res.next()) {
+
+                cbCat.addItem(res.getString(1));
+                cbCat1.addItem(res.getString(1));
+                // System.out.println(res.getString(1));
+
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(FrameAjouterProduit.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton bntSupprimer;
+    private javax.swing.JButton btnAjoutS;
+    private javax.swing.JButton btnConsulterS;
+    private javax.swing.JButton btnModifier;
+    private javax.swing.JComboBox cbCat;
+    private javax.swing.JComboBox cbCat1;
+    private javax.swing.JComboBox cbCat2;
+    private javax.swing.JComboBox cbEtat;
+    private javax.swing.JComboBox cbEtat1;
+    private javax.swing.JComboBox cbZone;
+    private javax.swing.JComboBox cbZone1;
+    private javax.swing.JComboBox cbZone2;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabel13;
+    private javax.swing.JLabel jLabel14;
+    private javax.swing.JLabel jLabel15;
+    private javax.swing.JLabel jLabel16;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JLabel lMsg;
+    private javax.swing.JLabel labelId;
+    private javax.swing.JLabel lerror;
+    private javax.swing.JPanel pAjoutS;
+    private javax.swing.JPanel pAllServices;
+    private javax.swing.JPanel pConsulterS;
+    private javax.swing.JPanel pMesServices;
+    private javax.swing.JPanel pRechercheS;
+    private javax.swing.JTable tblAllServices;
+    private javax.swing.JTable tblMesServices;
     private javax.swing.JTable tblService;
+    private javax.swing.JTextField tfDescription;
+    private javax.swing.JTextField tfDescription1;
+    private javax.swing.JTextField tfDescription2;
+    private javax.swing.JTextField tfNomS;
+    private javax.swing.JTextField tfNomService;
+    private javax.swing.JTextField tfNomService1;
+    private javax.swing.JTabbedPane tpService;
     // End of variables declaration//GEN-END:variables
 }

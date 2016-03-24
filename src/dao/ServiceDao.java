@@ -109,11 +109,11 @@ public class ServiceDao implements IDao<Service> {
 
                 s.setId(resultat.getInt(1));
                 s.setZone(resultat.getInt(2));
-                s.setNomService(resultat.getString(4));
-                s.setDescription(resultat.getString(5));
-                s.setType(resultat.getString(6));
-                s.setEtat(resultat.getString(7));
-                s.setDateAjout(resultat.getDate(8));
+                s.setNomService(resultat.getString(3));
+                s.setDescription(resultat.getString(4));
+                s.setType(resultat.getString(5));
+                s.setEtat(resultat.getString(6));
+                s.setDateAjout(resultat.getDate(7));
 
                 listeService.add(s);
 
@@ -139,11 +139,11 @@ public class ServiceDao implements IDao<Service> {
 
                 s.setId(resultat.getInt(1));
                 s.setZone(resultat.getInt(2));
-                s.setNomService(resultat.getString(4));
-                s.setDescription(resultat.getString(5));
-                s.setType(resultat.getString(6));
-                s.setEtat(resultat.getString(7));
-                s.setDateAjout(resultat.getDate(8));
+                s.setNomService(resultat.getString(3));
+                s.setDescription(resultat.getString(4));
+                s.setType(resultat.getString(5));
+                s.setEtat(resultat.getString(6));
+                s.setDateAjout(resultat.getDate(7));
 
                 listeService.add(s);
 

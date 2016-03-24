@@ -5,6 +5,7 @@
  */
 package dao;
 
+import GUI.FrameAccueil;
 import GUI.FrameAjouterProduit;
 import Idao.IDao;
 import entite.Comment;
@@ -45,27 +46,24 @@ public class ProduitDao implements IDao<Produit> {
 
     @Override
     public void add(Produit p) {
-        String req = "insert into produit (id,zone_id,categorie,quantite,ptbonus,nomP,description,prix,prix1,prix2,tva, reduction, dateAjout) values (?,?,?,?,?,?,?,?,?,?,?,?,?)";
+        String req = "insert into produit (id,zone_id,categorie,quantite,user_id,ptbonus,nomP,description,prix,prix1,prix2,tva, reduction, dateAjout) values (?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
         try {
             pst = connection.prepareStatement(req);
 
             pst.setString(1, p.getId() + "");
-
-              pst.setInt(2, p.getZone());
-            
-          //  pst.setString(2, p.getUser() + "");
+            pst.setInt(2, p.getZone());
             pst.setString(3, p.getCategorie());
             pst.setString(4, p.getQuantite() + "");
-            pst.setString(5, p.getPtbonus() + "");
-            pst.setString(6, p.getNomP());
-            pst.setString(7, p.getDescription());
-            pst.setString(8, p.getPrix() + "");
-            pst.setString(9, p.getPrix1() + "");
-            pst.setString(10, p.getPrix2() + "");
-            pst.setString(11, p.getTva() + "");
-            pst.setString(12, p.getReduction() + "");
-           
-            pst.setDate(13, (java.sql.Date) p.getDateAjout());
+            pst.setInt(5, p.getUser());
+            pst.setString(6, p.getPtbonus() + "");
+            pst.setString(7, p.getNomP());
+            pst.setString(8, p.getDescription());
+            pst.setString(9, p.getPrix() + "");
+            pst.setString(10, p.getPrix1() + "");
+            pst.setString(11, p.getPrix2() + "");
+            pst.setString(12, p.getTva() + "");
+            pst.setString(13, p.getReduction() + "");
+            pst.setDate(14, (java.sql.Date) p.getDateAjout());
 
             pst.executeUpdate();
         } catch (SQLException ex) {

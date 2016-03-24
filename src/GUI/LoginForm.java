@@ -19,6 +19,7 @@ import java.util.logging.Logger;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileNameExtensionFilter;
+import utils.PostFile;
 
 /**
  *
@@ -79,6 +80,7 @@ public class LoginForm extends javax.swing.JFrame {
         jButton3 = new javax.swing.JButton();
         btnpar = new javax.swing.JButton();
         tfimage = new javax.swing.JTextField();
+        btnUpload = new javax.swing.JButton();
         jLabel14 = new javax.swing.JLabel();
         lerror = new javax.swing.JLabel();
 
@@ -199,6 +201,13 @@ public class LoginForm extends javax.swing.JFrame {
             }
         });
 
+        btnUpload.setText("Upload");
+        btnUpload.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnUploadActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -227,30 +236,31 @@ public class LoginForm extends javax.swing.JFrame {
                                 .addComponent(tfmdp2)
                                 .addComponent(cboxgender, 0, 100, Short.MAX_VALUE)
                                 .addComponent(tfmdp1)))
-                        .addGap(0, 0, Short.MAX_VALUE))
+                        .addGap(0, 97, Short.MAX_VALUE))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(jLabel11)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 186, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(jButton2)
-                        .addGap(7, 7, 7)
-                        .addComponent(jButton3))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addComponent(jLabel13)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addGap(10, 10, 10)
-                                .addComponent(btnpar)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(cbtype, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addGap(38, 38, 38)
-                                .addComponent(tfimage, javax.swing.GroupLayout.PREFERRED_SIZE, 224, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                                .addComponent(jButton2)
+                                .addGap(7, 7, 7)
+                                .addComponent(jButton3))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(jPanel2Layout.createSequentialGroup()
+                                        .addComponent(jLabel13)
+                                        .addGap(8, 8, 8)
+                                        .addComponent(cbtype, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(jPanel2Layout.createSequentialGroup()
+                                        .addComponent(tfimage, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(btnpar)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(btnUpload)))
+                                .addGap(26, 26, 26)))))
                 .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
@@ -299,7 +309,8 @@ public class LoginForm extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnpar)
-                    .addComponent(tfimage, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(tfimage, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnUpload))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton2)
@@ -416,15 +427,8 @@ public class LoginForm extends javax.swing.JFrame {
         }
         java.sql.Date d = java.sql.Date.valueOf(LocalDate.now());
         u.setCreated_at(d);
-           Path s= Paths.get(tfimage.getText());
-           Path ds= Paths.get("http://localhost/Tec/web/uploads/media/default/0001/01/");
-       
-              try {
-                  Files.copy(s,ds,COPY_ATTRIBUTES) ;
-              } catch (IOException ex) {
-                  Logger.getLogger(LoginForm.class.getName()).log(Level.SEVERE, null, ex);
-              }
-              u.setImage(""+ds+im);
+        u.setImage("http://localhost/Tec/web/uploads/media/profile/"+im);
+           
      udao.add(u); 
         JOptionPane.showMessageDialog(null,"Vous etes Inscrit avec succés");// TODO add your handling code here:
     }//GEN-LAST:event_jButton2ActionPerformed
@@ -472,6 +476,23 @@ public class LoginForm extends javax.swing.JFrame {
     }
     }//GEN-LAST:event_btnparActionPerformed
 
+    private void btnUploadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUploadActionPerformed
+        PostFile pf = new PostFile();
+        String sp = tfimage.getText();
+     try {
+         pf.upload(sp);
+         JOptionPane.showMessageDialog(null,"Image telechargé avec succés");
+         
+         
+         
+// TODO add your handling code here:
+     } catch (Exception ex) {
+         Logger.getLogger(LoginForm.class.getName()).log(Level.SEVERE, null, ex);
+       
+     }
+     
+    }//GEN-LAST:event_btnUploadActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -509,6 +530,7 @@ public class LoginForm extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btlogin;
+    private javax.swing.JButton btnUpload;
     private javax.swing.JButton btnpar;
     private javax.swing.JComboBox cboxgender;
     private javax.swing.JComboBox cbtype;

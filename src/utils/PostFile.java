@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package utils;
 import java.io.File;
 import org.apache.http.HttpEntity;
@@ -16,17 +11,19 @@ import org.apache.http.entity.mime.content.FileBody;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.params.CoreProtocolPNames;
 import org.apache.http.util.EntityUtils;
-/**
- *
- * @author maroo
- */
+
+
 public class PostFile {
-    public static void main(String[] args) throws Exception {
+    public  String sp;
+
+   
+  public void upload(String sp) throws Exception {
+      
     HttpClient httpclient = new DefaultHttpClient();
     httpclient.getParams().setParameter(CoreProtocolPNames.PROTOCOL_VERSION, HttpVersion.HTTP_1_1);
 
-    HttpPost httppost = new HttpPost("http://localhost/Tec/web/uploads/media/default/0001/01/");
-    File file = new File("C:\\Users\\maroo\\Pictures\\resaux.jpg");
+    HttpPost httppost = new HttpPost("http://localhost/Tec/web/uploads/media/profile/up.php");
+    File file = new File(sp);
 
     MultipartEntity mpEntity = new MultipartEntity();
     ContentBody cbFile = new FileBody(file, "image/jpeg");

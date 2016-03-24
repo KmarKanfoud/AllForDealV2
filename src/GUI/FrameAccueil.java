@@ -33,16 +33,20 @@ public class FrameAccueil extends javax.swing.JFrame {
     /**
      * Creates new form FrameAccueil
      */
+<<<<<<< HEAD
     private int user_id;
     public static Mixer mixer;
     public static Clip clip;
+=======
+    private static int user_id;
+>>>>>>> 52585ed65a0b6255a14fa0b55428dfccc2e97c98
 
-    public int getUserId() {
+    public static int getUserId() {
         return user_id;
     }
 
-    public void setUserId(int user_id) {
-        this.user_id = user_id;
+    public static void setUserId(int user_id) {
+        FrameAccueil.user_id = user_id;
     }
 
     public FrameAccueil(int user_id) {
@@ -482,7 +486,8 @@ public class FrameAccueil extends javax.swing.JFrame {
     }//GEN-LAST:event_TFSujetActionPerformed
 
     private void ProposerPBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ProposerPBtnActionPerformed
-        // TODO add your handling code here:
+       FrameAjouterProduit faP= new FrameAjouterProduit();
+       faP.setVisible(true);
     }//GEN-LAST:event_ProposerPBtnActionPerformed
 
     private void AcheterBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AcheterBtnActionPerformed

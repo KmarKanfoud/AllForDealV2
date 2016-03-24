@@ -433,7 +433,7 @@ private void loadAllVille() {
     }
     private void loadAllCollection() {
         try {
-            ResultSet res = pdao.getCollections();
+            ResultSet res = pdao.getCategories();
 
             while (res.next()) {
 

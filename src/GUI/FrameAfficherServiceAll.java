@@ -44,6 +44,8 @@ public class FrameAfficherServiceAll extends javax.swing.JFrame {
         loadAllVille();
         loadAllCategorie();
         labelId.setVisible(false);
+    
+        pConsulterS.setVisible(false);
     }
 
     /**
@@ -75,6 +77,7 @@ public class FrameAfficherServiceAll extends javax.swing.JFrame {
         pAllServices = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
         tblAllServices = new javax.swing.JTable();
+        ParentPanel = new javax.swing.JPanel();
         pMesServices = new javax.swing.JPanel();
         jScrollPane3 = new javax.swing.JScrollPane();
         tblMesServices = new javax.swing.JTable();
@@ -104,7 +107,12 @@ public class FrameAfficherServiceAll extends javax.swing.JFrame {
         jLabel15 = new javax.swing.JLabel();
         jLabel16 = new javax.swing.JLabel();
         cbZone2 = new javax.swing.JComboBox();
+        btnBackS = new javax.swing.JButton();
         pRechercheS = new javax.swing.JPanel();
+        lTitreRechercheS = new javax.swing.JLabel();
+        cbRechercheCat = new javax.swing.JComboBox();
+        jScrollPane4 = new javax.swing.JScrollPane();
+        jTable1 = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -263,6 +271,10 @@ public class FrameAfficherServiceAll extends javax.swing.JFrame {
 
         tpService.addTab("Les Offres", pAllServices);
 
+        ParentPanel.setLayout(new java.awt.CardLayout());
+
+        pMesServices.setLayout(null);
+
         tblMesServices.setModel((new ServiceByUserIdModel()));
         tblMesServices.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -271,12 +283,19 @@ public class FrameAfficherServiceAll extends javax.swing.JFrame {
         });
         jScrollPane3.setViewportView(tblMesServices);
 
+        pMesServices.add(jScrollPane3);
+        jScrollPane3.setBounds(353, 11, 452, 402);
+        pMesServices.add(lMsg);
+        lMsg.setBounds(337, 470, 150, 57);
+
         btnModifier.setText("Modifier");
         btnModifier.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnModifierActionPerformed(evt);
             }
         });
+        pMesServices.add(btnModifier);
+        btnModifier.setBounds(34, 437, 71, 23);
 
         bntSupprimer.setText("Supprimer");
         bntSupprimer.addActionListener(new java.awt.event.ActionListener() {
@@ -284,120 +303,68 @@ public class FrameAfficherServiceAll extends javax.swing.JFrame {
                 bntSupprimerActionPerformed(evt);
             }
         });
+        pMesServices.add(bntSupprimer);
+        bntSupprimer.setBounds(140, 437, 81, 23);
+
+        pMesServices.add(cbZone1);
+        cbZone1.setBounds(80, 367, 156, 20);
 
         jLabel7.setText("Zone :");
+        pMesServices.add(jLabel7);
+        jLabel7.setBounds(16, 373, 31, 14);
 
         jLabel8.setText("Etat :");
+        pMesServices.add(jLabel8);
+        jLabel8.setBounds(16, 320, 27, 14);
 
         cbEtat.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "EnCours", "n'est Plus valide" }));
+        pMesServices.add(cbEtat);
+        cbEtat.setBounds(80, 314, 156, 20);
+
+        pMesServices.add(cbCat1);
+        cbCat1.setBounds(80, 250, 156, 20);
 
         jLabel9.setText("Catégorie :");
+        pMesServices.add(jLabel9);
+        jLabel9.setBounds(16, 253, 54, 14);
 
         jLabel10.setText("Description :");
+        pMesServices.add(jLabel10);
+        jLabel10.setBounds(10, 120, 60, 14);
+        pMesServices.add(tfDescription1);
+        tfDescription1.setBounds(80, 133, 156, 62);
 
         tfNomService.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 tfNomServiceActionPerformed(evt);
             }
         });
+        pMesServices.add(tfNomService);
+        tfNomService.setBounds(80, 60, 156, 20);
 
         jLabel11.setText("Nom Service :");
+        pMesServices.add(jLabel11);
+        jLabel11.setBounds(10, 63, 66, 14);
 
         labelId.setText("ID");
+        pMesServices.add(labelId);
+        labelId.setBounds(10, 28, 11, 14);
 
         btnConsulterS.setText("Consulter");
+        btnConsulterS.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnConsulterSMouseClicked(evt);
+            }
+        });
         btnConsulterS.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnConsulterSActionPerformed(evt);
             }
         });
+        pMesServices.add(btnConsulterS);
+        btnConsulterS.setBounds(254, 437, 79, 23);
 
-        javax.swing.GroupLayout pMesServicesLayout = new javax.swing.GroupLayout(pMesServices);
-        pMesServices.setLayout(pMesServicesLayout);
-        pMesServicesLayout.setHorizontalGroup(
-            pMesServicesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pMesServicesLayout.createSequentialGroup()
-                .addGroup(pMesServicesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(pMesServicesLayout.createSequentialGroup()
-                        .addContainerGap()
-                        .addGroup(pMesServicesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(labelId)
-                            .addGroup(pMesServicesLayout.createSequentialGroup()
-                                .addGroup(pMesServicesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel11)
-                                    .addGroup(pMesServicesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                        .addComponent(jLabel10)
-                                        .addGroup(pMesServicesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(jLabel8)
-                                            .addComponent(jLabel9)
-                                            .addComponent(jLabel7))))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(pMesServicesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(tfDescription1, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(tfNomService, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(cbCat1, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(cbEtat, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(cbZone1, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                    .addGroup(pMesServicesLayout.createSequentialGroup()
-                        .addGap(34, 34, 34)
-                        .addComponent(btnModifier)
-                        .addGap(35, 35, 35)
-                        .addComponent(bntSupprimer)))
-                .addGroup(pMesServicesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(pMesServicesLayout.createSequentialGroup()
-                        .addGap(117, 117, 117)
-                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(pMesServicesLayout.createSequentialGroup()
-                        .addGap(18, 18, 18)
-                        .addComponent(btnConsulterS)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(lMsg, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(715, 715, 715))))
-        );
-        pMesServicesLayout.setVerticalGroup(
-            pMesServicesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pMesServicesLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(lMsg, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(pMesServicesLayout.createSequentialGroup()
-                .addGap(28, 28, 28)
-                .addGroup(pMesServicesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(cbEtat, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(pMesServicesLayout.createSequentialGroup()
-                        .addComponent(labelId)
-                        .addGap(18, 18, 18)
-                        .addGroup(pMesServicesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(tfNomService, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel11))
-                        .addGroup(pMesServicesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(pMesServicesLayout.createSequentialGroup()
-                                .addGap(40, 40, 40)
-                                .addComponent(jLabel10))
-                            .addGroup(pMesServicesLayout.createSequentialGroup()
-                                .addGap(53, 53, 53)
-                                .addComponent(tfDescription1, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(55, 55, 55)
-                        .addGroup(pMesServicesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel9)
-                            .addComponent(cbCat1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(50, 50, 50)
-                        .addComponent(jLabel8)))
-                .addGap(33, 33, 33)
-                .addGroup(pMesServicesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel7)
-                    .addComponent(cbZone1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(50, 50, 50)
-                .addGroup(pMesServicesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnModifier)
-                    .addComponent(bntSupprimer, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnConsulterS)))
-        );
-
-        tpService.addTab("Consulter Mes Services", pMesServices);
+        ParentPanel.add(pMesServices, "card2");
 
         jLabel12.setText("Nom Service :");
 
@@ -411,34 +378,52 @@ public class FrameAfficherServiceAll extends javax.swing.JFrame {
 
         jLabel14.setText("Catégorie :");
 
+        cbCat2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbCat2ActionPerformed(evt);
+            }
+        });
+
         cbEtat1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "EnCours", "n'est Plus valide" }));
 
         jLabel15.setText("Etat :");
 
         jLabel16.setText("Zone :");
 
+        btnBackS.setText("Back");
+        btnBackS.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBackSActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout pConsulterSLayout = new javax.swing.GroupLayout(pConsulterS);
         pConsulterS.setLayout(pConsulterSLayout);
         pConsulterSLayout.setHorizontalGroup(
             pConsulterSLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pConsulterSLayout.createSequentialGroup()
-                .addGap(39, 39, 39)
                 .addGroup(pConsulterSLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel12)
-                    .addGroup(pConsulterSLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addComponent(jLabel13)
+                    .addGroup(pConsulterSLayout.createSequentialGroup()
+                        .addGap(39, 39, 39)
                         .addGroup(pConsulterSLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel15)
-                            .addComponent(jLabel14)
-                            .addComponent(jLabel16))))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(pConsulterSLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(tfDescription2, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(tfNomService1, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(cbCat2, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(cbEtat1, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(cbZone2, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(jLabel12)
+                            .addGroup(pConsulterSLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addComponent(jLabel13)
+                                .addGroup(pConsulterSLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel15)
+                                    .addComponent(jLabel14)
+                                    .addComponent(jLabel16))))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(pConsulterSLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(tfDescription2, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(tfNomService1, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(cbCat2, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(cbEtat1, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(cbZone2, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(pConsulterSLayout.createSequentialGroup()
+                        .addGap(319, 319, 319)
+                        .addComponent(btnBackS)))
+                .addContainerGap(536, Short.MAX_VALUE))
         );
         pConsulterSLayout.setVerticalGroup(
             pConsulterSLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -467,20 +452,54 @@ public class FrameAfficherServiceAll extends javax.swing.JFrame {
                 .addGroup(pConsulterSLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jLabel16)
                     .addComponent(cbZone2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(53, 53, 53)
+                .addComponent(btnBackS)
+                .addContainerGap(154, Short.MAX_VALUE))
         );
 
-        tpService.addTab("Consulter Service", pConsulterS);
+        ParentPanel.add(pConsulterS, "card3");
+
+        tpService.addTab("Mes Service", ParentPanel);
+
+        lTitreRechercheS.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
+        lTitreRechercheS.setText("Choisir Une Catégorie : ");
+
+        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+
+            }
+        ));
+        jScrollPane4.setViewportView(jTable1);
 
         javax.swing.GroupLayout pRechercheSLayout = new javax.swing.GroupLayout(pRechercheS);
         pRechercheS.setLayout(pRechercheSLayout);
         pRechercheSLayout.setHorizontalGroup(
             pRechercheSLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+            .addGroup(pRechercheSLayout.createSequentialGroup()
+                .addGroup(pRechercheSLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(pRechercheSLayout.createSequentialGroup()
+                        .addGap(26, 26, 26)
+                        .addComponent(lTitreRechercheS)
+                        .addGap(18, 18, 18)
+                        .addComponent(cbRechercheCat, javax.swing.GroupLayout.PREFERRED_SIZE, 332, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(pRechercheSLayout.createSequentialGroup()
+                        .addGap(119, 119, 119)
+                        .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(253, Short.MAX_VALUE))
         );
         pRechercheSLayout.setVerticalGroup(
             pRechercheSLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+            .addGroup(pRechercheSLayout.createSequentialGroup()
+                .addGap(22, 22, 22)
+                .addGroup(pRechercheSLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(cbRechercheCat, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lTitreRechercheS))
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(117, Short.MAX_VALUE))
         );
 
         tpService.addTab("Rechercher Un Service", pRechercheS);
@@ -492,21 +511,21 @@ public class FrameAfficherServiceAll extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(268, 268, 268)
-                        .addComponent(jLabel1))
+                        .addContainerGap()
+                        .addComponent(tpService, javax.swing.GroupLayout.PREFERRED_SIZE, 915, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(74, 74, 74)
-                        .addComponent(tpService, javax.swing.GroupLayout.PREFERRED_SIZE, 915, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(320, 320, 320)
+                        .addComponent(jLabel1)))
+                .addContainerGap(74, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(36, 36, 36)
+                .addContainerGap()
                 .addComponent(jLabel1)
                 .addGap(31, 31, 31)
                 .addComponent(tpService, javax.swing.GroupLayout.PREFERRED_SIZE, 617, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(44, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -518,9 +537,8 @@ public class FrameAfficherServiceAll extends javax.swing.JFrame {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(0, 3, Short.MAX_VALUE))
         );
 
         pack();
@@ -639,24 +657,24 @@ public class FrameAfficherServiceAll extends javax.swing.JFrame {
 
     private void btnConsulterSActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConsulterSActionPerformed
         // TODO add your handling code here:
-        FrameDetailsService f = new FrameDetailsService();
-        f.setVisible(true);
-        this.hide();
         int i = tblMesServices.getSelectedRow();
         Object l = tblMesServices.getValueAt(i, 0);
         service_id = (int) l;
         System.out.println(service_id);
         TableModel model = tblMesServices.getModel();
-        labelId.setText(model.getValueAt(i, 0).toString());
-        tfNomService.setText(model.getValueAt(i, 1).toString());
-        tfDescription1.setText(model.getValueAt(i, 2).toString());
+        //labelId.setText(model.getValueAt(i, 0).toString());
+        tfNomService1.setText(model.getValueAt(i, 1).toString());
+        tfDescription2.setText(model.getValueAt(i, 2).toString());
 
-        cbCat1.setSelectedItem(tblMesServices.getValueAt(i, 3));
-        cbEtat.setSelectedItem(tblMesServices.getValueAt(i, 4));
-        cbZone1.setSelectedItem(model.getValueAt(i, 5).toString());
+        cbCat2.setSelectedItem(tblMesServices.getValueAt(i, 3));
+        cbEtat1.setSelectedItem(tblMesServices.getValueAt(i, 4));
+        cbZone2.setSelectedItem(model.getValueAt(i, 5).toString());
+        ParentPanel.removeAll();
+        ParentPanel.add(pConsulterS);
+        ParentPanel.repaint();
+        ParentPanel.revalidate();
 
-        pConsulterS.setVisible(true);
-
+//        pConsulterS.setVisible(true);
 
     }//GEN-LAST:event_btnConsulterSActionPerformed
 
@@ -679,6 +697,22 @@ public class FrameAfficherServiceAll extends javax.swing.JFrame {
     private void tfNomService1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfNomService1ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_tfNomService1ActionPerformed
+
+    private void cbCat2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbCat2ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cbCat2ActionPerformed
+
+    private void btnBackSActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackSActionPerformed
+        // TODO add your handling code here:
+          ParentPanel.removeAll();
+        ParentPanel.add(pMesServices);
+        ParentPanel.repaint();
+        ParentPanel.revalidate();
+    }//GEN-LAST:event_btnBackSActionPerformed
+
+    private void btnConsulterSMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnConsulterSMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnConsulterSMouseClicked
 
     /**
      * @param args the command line arguments
@@ -723,6 +757,7 @@ public class FrameAfficherServiceAll extends javax.swing.JFrame {
 
                 cbZone.addItem(res.getString(1));
                 cbZone1.addItem(res.getString(1));
+                cbZone2.addItem(res.getString(1));
                 // System.out.println(res.getString(1));
 
             }
@@ -739,6 +774,7 @@ public class FrameAfficherServiceAll extends javax.swing.JFrame {
 
                 cbCat.addItem(res.getString(1));
                 cbCat1.addItem(res.getString(1));
+                cbCat2.addItem(res.getString(1));
                 // System.out.println(res.getString(1));
 
             }
@@ -748,8 +784,10 @@ public class FrameAfficherServiceAll extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JPanel ParentPanel;
     private javax.swing.JButton bntSupprimer;
     private javax.swing.JButton btnAjoutS;
+    private javax.swing.JButton btnBackS;
     private javax.swing.JButton btnConsulterS;
     private javax.swing.JButton btnModifier;
     private javax.swing.JComboBox cbCat;
@@ -757,6 +795,7 @@ public class FrameAfficherServiceAll extends javax.swing.JFrame {
     private javax.swing.JComboBox cbCat2;
     private javax.swing.JComboBox cbEtat;
     private javax.swing.JComboBox cbEtat1;
+    private javax.swing.JComboBox cbRechercheCat;
     private javax.swing.JComboBox cbZone;
     private javax.swing.JComboBox cbZone1;
     private javax.swing.JComboBox cbZone2;
@@ -780,7 +819,10 @@ public class FrameAfficherServiceAll extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JScrollPane jScrollPane4;
+    private javax.swing.JTable jTable1;
     private javax.swing.JLabel lMsg;
+    private javax.swing.JLabel lTitreRechercheS;
     private javax.swing.JLabel labelId;
     private javax.swing.JLabel lerror;
     private javax.swing.JPanel pAjoutS;

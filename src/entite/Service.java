@@ -23,6 +23,7 @@ public class Service {
     ZoneDao zoneDAO = new ZoneDao();
     ResultSet rsName = null;
     private int id;
+    private int userId;
     private String nomService;
     private String description;
     private String type;
@@ -34,8 +35,9 @@ public class Service {
     public Service() {
     }
 
-    public Service(int id, String nomService, String description, String type, String etat, Date dateAjout, int zone) {
+    public Service(int id,int userId, String nomService, String description, String type, String etat, Date dateAjout, int zone) {
         this.id = id;
+        this.userId = userId;
         this.nomService = nomService;
         this.description = description;
         this.type = type;

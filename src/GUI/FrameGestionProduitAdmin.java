@@ -691,23 +691,23 @@ public class FrameGestionProduitAdmin extends javax.swing.JFrame {
         prod_id = (int) l;
         System.out.println(prod_id);
         TableModel model = tbProduits.getModel();
-//        tfNomProduit1.setText(tfNomProduit.getText());
-//        cbCategorie1.setSelectedItem(cbCategorie.getSelectedItem());
-//        tfQuantite1.setText(tfQuantite.getText());
-//        taDescription1.setText(taDescription.getText());
-//        tfPrix1.setText(tfPrix.getText());
-//        tfPointBonus1.setText(tfPointBonus.getText());
-//        cbZone1.setSelectedItem(cbZone.getSelectedItem());
-//        tfTVA1.setText(tfTVA.getText());
-//        tfReduction1.setText(tfReduction.getText());
-//
-//        ParentPanel.removeAll();
-//        ParentPanel.add(DetailsProduit);
-//        ParentPanel.repaint();
-//        ParentPanel.revalidate();
+        tfNomProduit1.setText(tfNomProduit.getText());
+        cbCategorie1.setSelectedItem(cbCategorie.getSelectedItem());
+        tfQuantite1.setText(tfQuantite.getText());
+        taDescription1.setText(taDescription.getText());
+        tfPrix1.setText(tfPrix.getText());
+        tfPointBonus1.setText(tfPointBonus.getText());
+        cbZone1.setSelectedItem(cbZone.getSelectedItem());
+        tfTVA1.setText(tfTVA.getText());
+        tfReduction1.setText(tfReduction.getText());
 
-        FrameDetailsProduit fe =new FrameDetailsProduit();
-        fe.setVisible(true);
+        ParentPanel.removeAll();
+        ParentPanel.add(DetailsProduit);
+        ParentPanel.repaint();
+        ParentPanel.revalidate();
+
+//        FrameDetailsProduit fe =new FrameDetailsProduit();
+//        fe.setVisible(true);
 
     }//GEN-LAST:event_btnConsulterActionPerformed
 

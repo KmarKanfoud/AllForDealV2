@@ -257,7 +257,7 @@ public class ProduitDao implements IDao<Produit> {
             return null;
         }
     }
-<<<<<<< HEAD
+
     
      public void updateRating(Produit p) {
         String requete = "update produit set  rating= rating +1  where id=?";
@@ -289,12 +289,12 @@ public class ProduitDao implements IDao<Produit> {
 //        }
 //        }
     }
-=======
+
  public List<Produit> findAllByUser(int user_id) {
         List<Produit> listeProduits = new ArrayList<>();
 
         String req = "select * from produit where user_id="+user_id;
->>>>>>> 52585ed65a0b6255a14fa0b55428dfccc2e97c98
+
 
         try {
             pst = connection.prepareStatement(req);

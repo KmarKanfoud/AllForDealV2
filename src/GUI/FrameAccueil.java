@@ -33,13 +33,13 @@ public class FrameAccueil extends javax.swing.JFrame {
     /**
      * Creates new form FrameAccueil
      */
-<<<<<<< HEAD
-    private int user_id;
+
+    
     public static Mixer mixer;
     public static Clip clip;
-=======
+
     private static int user_id;
->>>>>>> 52585ed65a0b6255a14fa0b55428dfccc2e97c98
+
 
     public static int getUserId() {
         return user_id;

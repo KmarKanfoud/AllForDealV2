@@ -24,6 +24,9 @@ import utils.ProduitModel;
  * @author esprit
  */
 public class FrameGestionProduitAdmin extends javax.swing.JFrame {
+    
+    
+    
 
     ResultSet rsNom = null;
     public static int prod_id;
@@ -111,6 +114,12 @@ public class FrameGestionProduitAdmin extends javax.swing.JFrame {
         lMsg = new javax.swing.JLabel();
         BtnAime = new javax.swing.JButton();
         BtnAimepas = new javax.swing.JButton();
+        rb2 = new javax.swing.JRadioButton();
+        rb1 = new javax.swing.JRadioButton();
+        rb3 = new javax.swing.JRadioButton();
+        rb4 = new javax.swing.JRadioButton();
+        rb5 = new javax.swing.JRadioButton();
+        btnVote = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -328,7 +337,7 @@ public class FrameGestionProduitAdmin extends javax.swing.JFrame {
                         .addComponent(jLabel10)
                         .addGap(18, 18, 18)
                         .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 37, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 44, Short.MAX_VALUE)
                 .addGroup(ListeProduitsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnSupprimer)
                     .addComponent(btnConsulter))
@@ -456,6 +465,23 @@ public class FrameGestionProduitAdmin extends javax.swing.JFrame {
             }
         });
 
+        rb2.setText("jRadioButton1");
+
+        rb1.setText("jRadioButton2");
+
+        rb3.setText("jRadioButton3");
+
+        rb4.setText("jRadioButton4");
+
+        rb5.setText("jRadioButton5");
+
+        btnVote.setText("Vote");
+        btnVote.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnVoteActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout DetailsProduitLayout = new javax.swing.GroupLayout(DetailsProduit);
         DetailsProduit.setLayout(DetailsProduitLayout);
         DetailsProduitLayout.setHorizontalGroup(
@@ -510,7 +536,21 @@ public class FrameGestionProduitAdmin extends javax.swing.JFrame {
                                 .addGap(27, 27, 27)
                                 .addComponent(BtnAime)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(BtnAimepas))))
+                                .addComponent(BtnAimepas))
+                            .addGroup(DetailsProduitLayout.createSequentialGroup()
+                                .addGap(108, 108, 108)
+                                .addGroup(DetailsProduitLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(rb2)
+                                    .addComponent(rb1)))
+                            .addGroup(DetailsProduitLayout.createSequentialGroup()
+                                .addGap(110, 110, 110)
+                                .addGroup(DetailsProduitLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(rb4)
+                                    .addGroup(DetailsProduitLayout.createSequentialGroup()
+                                        .addComponent(rb3)
+                                        .addGap(70, 70, 70)
+                                        .addComponent(btnVote))
+                                    .addComponent(rb5)))))
                     .addGroup(DetailsProduitLayout.createSequentialGroup()
                         .addGap(222, 222, 222)
                         .addComponent(lMsg, javax.swing.GroupLayout.PREFERRED_SIZE, 296, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -549,15 +589,29 @@ public class FrameGestionProduitAdmin extends javax.swing.JFrame {
                 .addGroup(DetailsProduitLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(tfReduction1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel15))
+                .addGroup(DetailsProduitLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(DetailsProduitLayout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(DetailsProduitLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(tfQuantite1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel16)
+                            .addComponent(rb1))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(DetailsProduitLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(tfPointBonus1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel18)))
+                    .addGroup(DetailsProduitLayout.createSequentialGroup()
+                        .addGap(35, 35, 35)
+                        .addComponent(rb2)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(DetailsProduitLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(rb3)
+                            .addComponent(btnVote))))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(DetailsProduitLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(tfQuantite1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel16))
+                .addComponent(rb4)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(DetailsProduitLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(tfPointBonus1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel18))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 81, Short.MAX_VALUE)
+                .addComponent(rb5)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(lMsg, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(29, 29, 29)
                 .addGroup(DetailsProduitLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -619,12 +673,12 @@ public class FrameGestionProduitAdmin extends javax.swing.JFrame {
         labelId.setText(model.getValueAt(i, 0).toString());
         System.out.println(labelId);
         tfNomProduit.setText(model.getValueAt(i, 1).toString());
-        cbCategorie.setSelectedItem(model.getValueAt(i, 2));
+        cbCategorie.setSelectedItem(model.getValueAt(i, 2).toString());
         tfQuantite.setText(model.getValueAt(i, 3).toString());
         taDescription.setText(model.getValueAt(i, 4).toString());
         tfPrix.setText(model.getValueAt(i, 5).toString());
         tfPointBonus.setText(model.getValueAt(i, 6).toString());
-        cbZone.setSelectedItem(model.getValueAt(i, 7));
+        cbZone.setSelectedItem(model.getValueAt(i, 7).toString());
         tfTVA.setText(model.getValueAt(i, 9).toString());
         tfReduction.setText(model.getValueAt(i, 10).toString());
 
@@ -652,6 +706,8 @@ public class FrameGestionProduitAdmin extends javax.swing.JFrame {
         ParentPanel.repaint();
         ParentPanel.revalidate();
 
+//        FrameDetailsProduit fe =new FrameDetailsProduit();
+//        fe.setVisible(true);
 
     }//GEN-LAST:event_btnConsulterActionPerformed
 
@@ -764,9 +820,7 @@ public class FrameGestionProduitAdmin extends javax.swing.JFrame {
         Produit prod = new Produit();
         ProduitDao pdao = new ProduitDao();
         prod = pdao.findById(prod_id);
-        System.out.println(prod.getRating());
-        prod.setRating(prod.getRating() + 1);
-        pdao.update(prod);
+        pdao.updateRating(prod);
         BtnAime.setVisible(false);
     }//GEN-LAST:event_BtnAimeActionPerformed
 
@@ -779,10 +833,33 @@ public class FrameGestionProduitAdmin extends javax.swing.JFrame {
         BtnAimepas.setVisible(false);
     }//GEN-LAST:event_BtnAimepasActionPerformed
 
+    private void btnVoteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVoteActionPerformed
+      int v; 
+      ProduitDao pdao=new ProduitDao();
+if(rb1.isSelected()){
+   v=1;// TODO add your handling code here:
+   if(rb2.isSelected()){
+   v=2;// TODO add your handling code here:
+    }                                       
+if(rb3.isSelected()){
+   v=3;// TODO add your handling code here:
+    }                                       
+if(rb4.isSelected()){
+   v=4;// TODO add your handling code here:
+    }                                       
+if(rb5.isSelected()){
+   v=5;// TODO add your handling code here:
+    }
+   
+    }
+    }//GEN-LAST:event_btnVoteActionPerformed
+
     /**
      * @param args the command line arguments
      */
     public static void main(String args[]) {
+        
+        
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
@@ -832,7 +909,7 @@ public class FrameGestionProduitAdmin extends javax.swing.JFrame {
 
     private void loadAllCollection() {
         try {
-            ResultSet res = pdao.getCollections();
+            ResultSet res = pdao.getCategories();
 
             while (res.next()) {
 
@@ -856,6 +933,7 @@ public class FrameGestionProduitAdmin extends javax.swing.JFrame {
     private javax.swing.JButton btnModifier;
     private javax.swing.JButton btnPrecedant;
     private javax.swing.JButton btnSupprimer;
+    private javax.swing.JButton btnVote;
     private javax.swing.JComboBox cbCategorie;
     private javax.swing.JComboBox cbCategorie1;
     private javax.swing.JComboBox cbZone;
@@ -884,6 +962,11 @@ public class FrameGestionProduitAdmin extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JLabel lMsg;
     private javax.swing.JLabel labelId;
+    private javax.swing.JRadioButton rb1;
+    private javax.swing.JRadioButton rb2;
+    private javax.swing.JRadioButton rb3;
+    private javax.swing.JRadioButton rb4;
+    private javax.swing.JRadioButton rb5;
     private javax.swing.JTextArea taDescription;
     private javax.swing.JTextArea taDescription1;
     private javax.swing.JTable tbProduits;

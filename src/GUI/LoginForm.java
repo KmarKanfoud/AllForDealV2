@@ -26,7 +26,7 @@ import utils.PostFile;
  * @author maroo
  */
 public class LoginForm extends javax.swing.JFrame {
- public static int u_id;
+ 
     /**
      * Creates new form LoginForm
      */
@@ -458,8 +458,7 @@ public class LoginForm extends javax.swing.JFrame {
         catch(NullPointerException ex){
            lerror.setText("UserName ou Mot de passe Invalise!!");
         }
-      u_id = u.getId();
-        System.out.println(u_id);
+     
     }//GEN-LAST:event_btloginActionPerformed
 
     private void btnparActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnparActionPerformed

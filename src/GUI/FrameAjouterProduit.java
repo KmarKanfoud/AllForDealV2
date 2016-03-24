@@ -44,7 +44,7 @@ public class FrameAjouterProduit extends javax.swing.JFrame {
     public FrameAjouterProduit() {
          initComponents();
         loadAllVille();
-        loadAllCollection();
+        loadAllCategories();
         //fillCombo();
 
     }
@@ -492,9 +492,9 @@ public class FrameAjouterProduit extends javax.swing.JFrame {
             Logger.getLogger(FrameAjouterProduit.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    private void loadAllCollection() {
+    private void loadAllCategories() {
         try {
-            ResultSet res = pdao.getCollections();
+            ResultSet res = pdao.getCategories();
 
             while (res.next()) {
 

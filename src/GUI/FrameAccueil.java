@@ -11,8 +11,18 @@ import entite.Reclamation;
 import entite.User;
 import java.awt.Dimension;
 import java.awt.Toolkit;
+import java.io.IOException;
+import java.net.URL;
 import java.util.Date;
 import java.util.Set;
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
+import javax.sound.sampled.DataLine;
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.Mixer;
+import javax.sound.sampled.UnsupportedAudioFileException;
+import sun.applet.Main;
 
 /**
  *
@@ -24,26 +34,34 @@ public class FrameAccueil extends javax.swing.JFrame {
     /**
      * Creates new form FrameAccueil
      */
-    private int user_id;
 
-    public int getUserId() {
+    
+    public static Mixer mixer;
+    public static Clip clip;
+
+    private static int user_id;
+
+
+    public static int getUserId() {
         return user_id;
     }
 
-    public void setUserId(int user_id) {
-        this.user_id = user_id;
+    public static void setUserId(int user_id) {
+        FrameAccueil.user_id = user_id;
     }
+
     public FrameAccueil(int user_id) {
         initComponents();
-        this.user_id=user_id;
-        User u=new User();
-        UserDao udao=new UserDao();
-        u=udao.findById(user_id);
-        
+        this.user_id = user_id;
+        User u = new User();
+        UserDao udao = new UserDao();
+        u = udao.findById(user_id);
+
     }
+
     public FrameAccueil() {
         initComponents();
-        
+
     }
 
     /**
@@ -446,7 +464,7 @@ public class FrameAccueil extends javax.swing.JFrame {
     private void EnvoyerReclamationBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EnvoyerReclamationBtnActionPerformed
         Reclamation r = new Reclamation();
         erreur1.setText(" ");
-       // erreur2.setText(" ");
+        // erreur2.setText(" ");
         if (!TFSujet.getText().equals("") || TFDescription.getText().equals(" ")) {
             r.setSujet(TFSujet.getText());
             r.setDescription(TFDescription.getText());
@@ -458,7 +476,7 @@ public class FrameAccueil extends javax.swing.JFrame {
             TFDescription.setText("");
         } else {
             erreur1.setText("Veuiller introduire votre sujet");
-          //  erreur2.setText("Veuiller introduire votre description de réclamation");
+            //  erreur2.setText("Veuiller introduire votre description de réclamation");
         }
 
 
@@ -469,7 +487,8 @@ public class FrameAccueil extends javax.swing.JFrame {
     }//GEN-LAST:event_TFSujetActionPerformed
 
     private void ProposerPBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ProposerPBtnActionPerformed
-        // TODO add your handling code here:
+       FrameAjouterProduit faP= new FrameAjouterProduit();
+       faP.setVisible(true);
     }//GEN-LAST:event_ProposerPBtnActionPerformed
 
     private void AcheterBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AcheterBtnActionPerformed
@@ -485,18 +504,18 @@ public class FrameAccueil extends javax.swing.JFrame {
     }//GEN-LAST:event_ProposerServiceBtnActionPerformed
 
     private void jPanel1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel1MouseClicked
-         User u=new User();
-        UserDao udao=new UserDao();
-        u=udao.findById(user_id);
+        User u = new User();
+        UserDao udao = new UserDao();
+        u = udao.findById(user_id);
         lUserName.setText(u.getUsername());
         lEmail.setText(u.getEmail());
         lGender.setText(u.getGender());
         lAdress.setText(u.getAdress());
-        lBunus.setText(""+u.getBonus());
+        lBunus.setText("" + u.getBonus());
         lNom.setText(u.getLastname());
         lPrenom.setText(u.getFirstname());
-        lcreation.setText(""+u.getCreated_at());
-        
+        lcreation.setText("" + u.getCreated_at());
+
     }//GEN-LAST:event_jPanel1MouseClicked
 
     /**
@@ -508,6 +527,42 @@ public class FrameAccueil extends javax.swing.JFrame {
         Dimension screenSize = tk.getScreenSize();
         int screenHeight = screenSize.height;
         int screenWidth = screenSize.width;
+        Mixer.Info[] mixInfo = AudioSystem.getMixerInfo();
+
+//      for (Mixer.Info info : mixInfo){
+//            System.out.println(info.getName()+"...."+info.getDescription());
+//} 
+        mixer = AudioSystem.getMixer(mixInfo[0]);
+        DataLine.Info dataLine = new DataLine.Info(Clip.class, null);
+        try {
+            clip = (Clip) mixer.getLine(dataLine);
+        } catch (LineUnavailableException ex) {
+            ex.printStackTrace();
+        }
+        try {
+            URL soundURL = Main.class.getResource("/images/The_Eagles-Hotel_California_acoustic_live_www.wav");
+            AudioInputStream audioImput = AudioSystem.getAudioInputStream(soundURL);
+            clip.open(audioImput);
+
+        } catch (LineUnavailableException ex) {
+            ex.printStackTrace();
+        } catch (UnsupportedAudioFileException exp) {
+            exp.printStackTrace();
+        } catch (IOException io) {
+            io.printStackTrace();
+        }
+
+        clip.start();
+
+        do {
+            try {
+                Thread.sleep(50);
+            } catch (InterruptedException ie) {
+                ie.printStackTrace();
+            }
+
+        } while (clip.isActive());
+
 
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">

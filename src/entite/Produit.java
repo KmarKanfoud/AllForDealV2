@@ -5,6 +5,7 @@
  */
 package entite;
 
+import GUI.FrameAccueil;
 import GUI.FrameGestionProduitAdmin;
 import dao.ZoneDao;
 import java.sql.ResultSet;
@@ -128,7 +129,7 @@ public class Produit {
     }
 
     public int getUser() {
-        return user;
+        return FrameAccueil.getUserId();
     }
 
     public void setUser(int user) {

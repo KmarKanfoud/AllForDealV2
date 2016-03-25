@@ -10,6 +10,7 @@ import utils.*;
 import dao.ServiceDao;
 import dao.ZoneDao;
 import entite.Service;
+import java.lang.annotation.RetentionPolicy;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
@@ -27,6 +28,7 @@ import javax.swing.table.TableModel;
  */
 public class FrameAfficherServiceAll extends javax.swing.JFrame {
 
+    //private static int categorie;
     public static int service_id;
     private Connection conn = null;
     private PreparedStatement pst = null;
@@ -35,6 +37,15 @@ public class FrameAfficherServiceAll extends javax.swing.JFrame {
     ResultSet rsId = null;
     ServiceDao pdao = new ServiceDao();
     ZoneDao zoneDAO = new ZoneDao();
+    private static String categorie;
+    
+    public static String getCategorie() {
+        return categorie;
+    }
+
+    public static void setUserId(int user_id) {
+        FrameAfficherServiceAll.categorie = categorie;
+    }
 
     /**
      * Creates new form FrameAfficherServiceAll
@@ -44,7 +55,7 @@ public class FrameAfficherServiceAll extends javax.swing.JFrame {
         loadAllVille();
         loadAllCategorie();
         labelId.setVisible(false);
-    
+
         pConsulterS.setVisible(false);
     }
 
@@ -57,8 +68,6 @@ public class FrameAfficherServiceAll extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jPanel1 = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
         tpService = new javax.swing.JTabbedPane();
         pAjoutS = new javax.swing.JPanel();
         jLabel5 = new javax.swing.JLabel();
@@ -112,15 +121,10 @@ public class FrameAfficherServiceAll extends javax.swing.JFrame {
         lTitreRechercheS = new javax.swing.JLabel();
         cbRechercheCat = new javax.swing.JComboBox();
         jScrollPane4 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        tblRechercheS = new javax.swing.JTable();
+        bntRechercheS = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-
-        jPanel1.setBackground(new java.awt.Color(255, 255, 255));
-
-        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
-        jLabel1.setForeground(new java.awt.Color(255, 51, 102));
-        jLabel1.setText("Les services:");
 
         tpService.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -423,7 +427,7 @@ public class FrameAfficherServiceAll extends javax.swing.JFrame {
                     .addGroup(pConsulterSLayout.createSequentialGroup()
                         .addGap(319, 319, 319)
                         .addComponent(btnBackS)))
-                .addContainerGap(536, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         pConsulterSLayout.setVerticalGroup(
             pConsulterSLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -454,7 +458,7 @@ public class FrameAfficherServiceAll extends javax.swing.JFrame {
                     .addComponent(cbZone2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(53, 53, 53)
                 .addComponent(btnBackS)
-                .addContainerGap(154, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         ParentPanel.add(pConsulterS, "card3");
@@ -464,7 +468,21 @@ public class FrameAfficherServiceAll extends javax.swing.JFrame {
         lTitreRechercheS.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         lTitreRechercheS.setText("Choisir Une Catégorie : ");
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        cbRechercheCat.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                cbRechercheCatMouseClicked(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                cbRechercheCatMouseExited(evt);
+            }
+        });
+        cbRechercheCat.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbRechercheCatActionPerformed(evt);
+            }
+        });
+
+        tblRechercheS.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -472,7 +490,14 @@ public class FrameAfficherServiceAll extends javax.swing.JFrame {
 
             }
         ));
-        jScrollPane4.setViewportView(jTable1);
+        jScrollPane4.setViewportView(tblRechercheS);
+
+        bntRechercheS.setText("Rechercher");
+        bntRechercheS.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bntRechercheSActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout pRechercheSLayout = new javax.swing.GroupLayout(pRechercheS);
         pRechercheS.setLayout(pRechercheSLayout);
@@ -484,11 +509,13 @@ public class FrameAfficherServiceAll extends javax.swing.JFrame {
                         .addGap(26, 26, 26)
                         .addComponent(lTitreRechercheS)
                         .addGap(18, 18, 18)
-                        .addComponent(cbRechercheCat, javax.swing.GroupLayout.PREFERRED_SIZE, 332, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(cbRechercheCat, javax.swing.GroupLayout.PREFERRED_SIZE, 332, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(55, 55, 55)
+                        .addComponent(bntRechercheS))
                     .addGroup(pRechercheSLayout.createSequentialGroup()
                         .addGap(119, 119, 119)
                         .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(253, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         pRechercheSLayout.setVerticalGroup(
             pRechercheSLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -496,49 +523,28 @@ public class FrameAfficherServiceAll extends javax.swing.JFrame {
                 .addGap(22, 22, 22)
                 .addGroup(pRechercheSLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(cbRechercheCat, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lTitreRechercheS))
+                    .addComponent(lTitreRechercheS)
+                    .addComponent(bntRechercheS))
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(117, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         tpService.addTab("Rechercher Un Service", pRechercheS);
-
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(tpService, javax.swing.GroupLayout.PREFERRED_SIZE, 915, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(320, 320, 320)
-                        .addComponent(jLabel1)))
-                .addContainerGap(74, Short.MAX_VALUE))
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel1)
-                .addGap(31, 31, 31)
-                .addComponent(tpService, javax.swing.GroupLayout.PREFERRED_SIZE, 617, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(44, Short.MAX_VALUE))
-        );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(tpService, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 52, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 3, Short.MAX_VALUE))
+                .addComponent(tpService, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 74, Short.MAX_VALUE))
         );
 
         pack();
@@ -590,6 +596,7 @@ public class FrameAfficherServiceAll extends javax.swing.JFrame {
         } else {
             lerror.setText(" Veuiller enter le nom de votre service SVP !");
             tblAllServices.setModel(new ListeService());
+            tblMesServices.setModel(new ServiceByUserIdModel());
         }
     }//GEN-LAST:event_btnAjoutSActionPerformed
 
@@ -704,7 +711,7 @@ public class FrameAfficherServiceAll extends javax.swing.JFrame {
 
     private void btnBackSActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackSActionPerformed
         // TODO add your handling code here:
-          ParentPanel.removeAll();
+        ParentPanel.removeAll();
         ParentPanel.add(pMesServices);
         ParentPanel.repaint();
         ParentPanel.revalidate();
@@ -713,6 +720,31 @@ public class FrameAfficherServiceAll extends javax.swing.JFrame {
     private void btnConsulterSMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnConsulterSMouseClicked
         // TODO add your handling code here:
     }//GEN-LAST:event_btnConsulterSMouseClicked
+
+    private void cbRechercheCatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbRechercheCatActionPerformed
+        // TODO add your handling code here:
+
+    }//GEN-LAST:event_cbRechercheCatActionPerformed
+
+    private void cbRechercheCatMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cbRechercheCatMouseExited
+        // TODO add your handling code here:
+
+    }//GEN-LAST:event_cbRechercheCatMouseExited
+
+    private void cbRechercheCatMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cbRechercheCatMouseClicked
+        // TODO add your handling code here:
+
+
+    }//GEN-LAST:event_cbRechercheCatMouseClicked
+
+    private void bntRechercheSActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bntRechercheSActionPerformed
+        // TODO add your handling code here:
+          categorie = cbRechercheCat.getSelectedItem().toString();
+          System.out.println(categorie);
+        ServiceDao pdao = new ServiceDao();
+        pdao.findAllByCategorie(categorie);
+        tblRechercheS.setModel(new ServiceByCategorieModel());
+    }//GEN-LAST:event_bntRechercheSActionPerformed
 
     /**
      * @param args the command line arguments
@@ -758,8 +790,8 @@ public class FrameAfficherServiceAll extends javax.swing.JFrame {
                 cbZone.addItem(res.getString(1));
                 cbZone1.addItem(res.getString(1));
                 cbZone2.addItem(res.getString(1));
-                // System.out.println(res.getString(1));
 
+                // System.out.println(res.getString(1));
             }
         } catch (SQLException ex) {
             Logger.getLogger(FrameAjouterService.class.getName()).log(Level.SEVERE, null, ex);
@@ -775,6 +807,7 @@ public class FrameAfficherServiceAll extends javax.swing.JFrame {
                 cbCat.addItem(res.getString(1));
                 cbCat1.addItem(res.getString(1));
                 cbCat2.addItem(res.getString(1));
+                cbRechercheCat.addItem(res.getString(1));
                 // System.out.println(res.getString(1));
 
             }
@@ -785,6 +818,7 @@ public class FrameAfficherServiceAll extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel ParentPanel;
+    private javax.swing.JButton bntRechercheS;
     private javax.swing.JButton bntSupprimer;
     private javax.swing.JButton btnAjoutS;
     private javax.swing.JButton btnBackS;
@@ -799,7 +833,6 @@ public class FrameAfficherServiceAll extends javax.swing.JFrame {
     private javax.swing.JComboBox cbZone;
     private javax.swing.JComboBox cbZone1;
     private javax.swing.JComboBox cbZone2;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
@@ -815,12 +848,10 @@ public class FrameAfficherServiceAll extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
-    private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
-    private javax.swing.JTable jTable1;
     private javax.swing.JLabel lMsg;
     private javax.swing.JLabel lTitreRechercheS;
     private javax.swing.JLabel labelId;
@@ -832,6 +863,7 @@ public class FrameAfficherServiceAll extends javax.swing.JFrame {
     private javax.swing.JPanel pRechercheS;
     private javax.swing.JTable tblAllServices;
     private javax.swing.JTable tblMesServices;
+    private javax.swing.JTable tblRechercheS;
     private javax.swing.JTable tblService;
     private javax.swing.JTextField tfDescription;
     private javax.swing.JTextField tfDescription1;

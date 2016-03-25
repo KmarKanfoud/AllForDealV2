@@ -41,7 +41,7 @@ public class ServiceDao implements IDao<Service> {
 
     @Override
     public void add(Service t) {
-        String req = "insert into service (id,nomService,description,type,etat,dateAjout,zone_id) values (?,?,?,?,?,?,?)";
+        String req = "insert into service (id,nomService,description,type,etat,dateAjout,zone_id,user_id) values (?,?,?,?,?,?,?,?)";
         try {
             pst = connection.prepareStatement(req);
 
@@ -52,7 +52,10 @@ public class ServiceDao implements IDao<Service> {
             pst.setString(4, t.getType());
             pst.setString(5, t.getEtat());
             pst.setDate(6, (Date) t.getDateAjout());
+            
             pst.setInt(7, t.getZone());
+            pst.setInt(8, t.getUserId());
+            
             //pst.setDate(7 s.DateAjout());
 
             pst.executeUpdate();
@@ -125,7 +128,7 @@ public class ServiceDao implements IDao<Service> {
         }
     }
     public List<Service> findAllByUser(int user_id) {
-        List<Service> listeService = new ArrayList<>();
+        List<Service> ServiceByUserIdModel = new ArrayList<>();
 
         String req = "select * from service where user_id="+user_id;
 
@@ -145,19 +148,19 @@ public class ServiceDao implements IDao<Service> {
                 s.setEtat(resultat.getString(6));
                 s.setDateAjout(resultat.getDate(7));
 
-                listeService.add(s);
+                ServiceByUserIdModel.add(s);
 
             }
-            return listeService;
+            return ServiceByUserIdModel;
         } catch (SQLException ex) {
             System.out.println("erreur" + ex.getMessage());
-            return listeService;
+            return ServiceByUserIdModel;
         }
     }
-      public List<Service> findAllByCategorie(String categorie ) {
-        List<Service> listeService = new ArrayList<>();
+      public List<Service> findAllByCategorie(String cat ) {
+        List<Service> ServiceByCategorieModel = new ArrayList<>();
 
-        String req = "select * from service where categorie="+categorie;
+        String req = "select * from service where type like '%" +cat+"%'";
 
         try {
             pst = connection.prepareStatement(req);
@@ -175,13 +178,13 @@ public class ServiceDao implements IDao<Service> {
                 s.setEtat(resultat.getString(6));
                 s.setDateAjout(resultat.getDate(7));
 
-                listeService.add(s);
+               ServiceByCategorieModel.add(s);
 
             }
-            return listeService;
+            return ServiceByCategorieModel;
         } catch (SQLException ex) {
             System.out.println("erreur" + ex.getMessage());
-            return listeService;
+            return ServiceByCategorieModel;
         }
     }
 

@@ -5,6 +5,7 @@
  */
 package utils;
 
+import GUI.FrameAccueil;
 import dao.ServiceDao;
 import dao.ZoneDao;
 import entite.Service;
@@ -23,7 +24,7 @@ public class ServiceByUserIdModel extends AbstractTableModel {
     public ServiceByUserIdModel() {
         
         ServiceDao pdao = new ServiceDao();
-       l = pdao.findAllByUser(1); // userID
+       l = pdao.findAllByUser(FrameAccueil.getUserId()); // userID
         //l = pdao.findAll(); // ALL
     }
 // test git 

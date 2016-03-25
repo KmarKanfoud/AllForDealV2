@@ -5,6 +5,7 @@
  */
 package entite;
 
+import GUI.FrameAccueil;
 import GUI.FrameAjouterService;
 import dao.ZoneDao;
 import java.sql.ResultSet;
@@ -55,6 +56,15 @@ public class Service {
         this.dateAjout = dateAjout;
     }
 
+    public int getUserId() {
+        return FrameAccueil.getUserId();
+    }
+
+    public void setUserId(int userId) {
+        this.userId = userId;
+    }
+
+    
     public int getId() {
         return id;
     }

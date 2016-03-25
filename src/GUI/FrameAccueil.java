@@ -52,6 +52,7 @@ public class FrameAccueil extends javax.swing.JFrame {
     public FrameAccueil(int user_id) {
         initComponents();
         this.user_id = user_id;
+        System.out.println(user_id);
         User u = new User();
         UserDao udao = new UserDao();
         u = udao.findById(user_id);
@@ -527,10 +528,6 @@ public class FrameAccueil extends javax.swing.JFrame {
         int screenHeight = screenSize.height;
         int screenWidth = screenSize.width;
         Mixer.Info[] mixInfo = AudioSystem.getMixerInfo();
-
-//      for (Mixer.Info info : mixInfo){
-//            System.out.println(info.getName()+"...."+info.getDescription());
-//} 
         mixer = AudioSystem.getMixer(mixInfo[0]);
         DataLine.Info dataLine = new DataLine.Info(Clip.class, null);
         try {
@@ -551,16 +548,7 @@ public class FrameAccueil extends javax.swing.JFrame {
             io.printStackTrace();
         }
 
-        clip.start();
-
-        do {
-            try {
-                Thread.sleep(50);
-            } catch (InterruptedException ie) {
-                ie.printStackTrace();
-            }
-
-        } while (clip.isActive());
+     
 
 
         /* Set the Nimbus look and feel */
@@ -597,6 +585,17 @@ public class FrameAccueil extends javax.swing.JFrame {
                 fa.setLocation(screenWidth / 4, screenHeight / 4);
             }
         });
+        
+           clip.start();
+
+        do {
+            try {
+                Thread.sleep(50);
+            } catch (InterruptedException ie) {
+                ie.printStackTrace();
+            }
+
+        } while (clip.isActive());
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

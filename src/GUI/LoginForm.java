@@ -5,10 +5,13 @@
  */
 package GUI;
 
+import static GUI.FrameAccueil.clip;
+import static GUI.FrameAccueil.mixer;
 import dao.UserDao;
 import entite.User;
 import java.io.IOException;
 import java.io.InputStream;
+import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -16,9 +19,17 @@ import java.time.LocalDate;
 import static java.nio.file.StandardCopyOption.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
+import javax.sound.sampled.DataLine;
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.Mixer;
+import javax.sound.sampled.UnsupportedAudioFileException;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileNameExtensionFilter;
+import sun.applet.Main;
 import utils.PostFile;
 
 /**
@@ -31,6 +42,8 @@ public class LoginForm extends javax.swing.JFrame {
      * Creates new form LoginForm
      */
     String im;
+     public static Mixer mixer;
+    public static Clip clip;
     public LoginForm() {
         
         initComponents();
@@ -452,6 +465,7 @@ public class LoginForm extends javax.swing.JFrame {
             else{
             FrameAccueil fa=new FrameAccueil(u.getId());
             fa.setVisible(true);
+            
             }
         }
         }
@@ -496,6 +510,27 @@ public class LoginForm extends javax.swing.JFrame {
      * @param args the command line arguments
      */
     public static void main(String args[]) {
+        
+          Mixer.Info[] mixInfo = AudioSystem.getMixerInfo();
+        mixer = AudioSystem.getMixer(mixInfo[0]);
+        DataLine.Info dataLine = new DataLine.Info(Clip.class, null);
+        try {
+            clip = (Clip) mixer.getLine(dataLine);
+        } catch (LineUnavailableException ex) {
+            ex.printStackTrace();
+        }
+        try {
+            URL soundURL = Main.class.getResource("/images/The_Eagles-Hotel_California_acoustic_live_www.wav");
+            AudioInputStream audioImput = AudioSystem.getAudioInputStream(soundURL);
+            clip.open(audioImput);
+
+        } catch (LineUnavailableException ex) {
+            ex.printStackTrace();
+        } catch (UnsupportedAudioFileException exp) {
+            exp.printStackTrace();
+        } catch (IOException io) {
+            io.printStackTrace();
+        }
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
@@ -525,6 +560,15 @@ public class LoginForm extends javax.swing.JFrame {
                 new LoginForm().setVisible(true);
             }
         });
+        clip.start();
+        do {
+            try {
+                Thread.sleep(50);
+            } catch (InterruptedException ie) {
+                ie.printStackTrace();
+            }
+
+        } while (clip.isActive());
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

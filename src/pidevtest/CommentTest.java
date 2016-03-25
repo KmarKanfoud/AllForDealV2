@@ -5,6 +5,8 @@
  */
 package pidevtest;
 
+import GUI.FrameAccueil;
+import GUI.FrameGestionProduitAdmin;
 import dao.CommentDao;
 import entite.Comment;
 import java.text.DateFormat;
@@ -39,9 +41,10 @@ public class CommentTest {
         // c2.setBody("sahar");
         // pdao.update(c2);
         //pdao.removeById(12);
-        List<Comment> comm = new ArrayList();
-        comm= pdao.DisplayAllCommentaireByProduit(1);
-        System.out.println(comm);
+        List<Comment> com = new ArrayList();
+      //com = pdao.DisplayCommentaireByUserProduit(10,21);
+        com = pdao.DisplayAllCommentaireByUser(10);
+        System.out.println(com);
     }
 
 }

@@ -5,6 +5,7 @@
  */
 package dao;
 
+import GUI.FrameAccueil;
 import GUI.FrameGestionProduitAdmin;
 import Idao.IDao;
 import entite.Comment;
@@ -36,7 +37,7 @@ public class CommentDao implements IDao<Comment> {
     @Override
     public void add(Comment c) {
 
-        String req = "insert into comment (body,created_at,produit_id) values (?,?,?)";
+        String req = "insert into comment (body,created_at,produit_id,user_id) values (?,?,?,?)";
         try {
             pst = connection.prepareStatement(req);
 
@@ -44,6 +45,8 @@ public class CommentDao implements IDao<Comment> {
             pst.setString(1, c.getBody());
             pst.setDate(2, (Date) c.getCreated_at());
             pst.setInt(3, FrameGestionProduitAdmin.getProd_id());
+            pst.setInt(4, FrameAccueil.getUserId());
+
             pst.executeUpdate();
 
         } catch (SQLException ex) {
@@ -81,7 +84,7 @@ public class CommentDao implements IDao<Comment> {
     @Override
     public List<Comment> findAll() {
         List<Comment> listeCommentaire = new ArrayList<>();
-        
+
         String req = "select * from comment";
         try {
             pst = connection.prepareStatement(req);
@@ -93,7 +96,7 @@ public class CommentDao implements IDao<Comment> {
                 c.setBody(resultat.getString(3));
                 c.setCreated_at((Date) resultat.getDate(6));
                 c.setProduit_id(resultat.getInt(9));
-               
+
                 listeCommentaire.add(c);
             }
             return listeCommentaire;
@@ -108,11 +111,70 @@ public class CommentDao implements IDao<Comment> {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
-    public List<Comment> DisplayAllCommentaireByProduit(int num) {
+  ///////////////// AFFICHAGE DES COMMENTAIRES D'UN SEUL UTILISATEUR
+
+    public List<Comment> DisplayAllCommentaireByUser(int num) {
 
         List<Comment> commentaires = new ArrayList<>();
 
-        String requete = "select * from comment where produit_id=" + num;
+        String requete = "SELECT c.produit_id,p.nomP,c.body,c.created_at FROM produit p inner join comment c on (c.produit_id = p.id) and c.user_id=" + num;
+        try {
+
+            PreparedStatement ps = connection.prepareStatement(requete);
+
+            ResultSet resultat = ps.executeQuery(requete);
+
+            while (resultat.next()) {
+                Comment c = new Comment();
+                //c.setId(resultat.getInt(1));
+                 c.setProduit_id(resultat.getInt(1));
+                 c.setNomP(resultat.getString(2));
+                c.setBody(resultat.getString(3));
+                c.setCreated_at((Date) resultat.getDate(4));
+               
+
+                commentaires.add(c);
+            }
+            return commentaires;
+        } catch (SQLException ex) {
+
+            System.out.println("erreur lors du chargement des commentaires " + ex.getMessage());
+            return null;
+        }
+    }
+ 
+    ///////////////// AFFICHAGE DES COMMENTAIRES D'UN SEUL PRODUIT
+    
+         public   List<Comment> DisplayCommentProduit(int num) {
+        List<Comment> commentaires = new ArrayList<>();
+        String req = "SELECT u.username,c.body,c.created_at,c.produit_id FROM fos_user_user u inner join comment c on (c.user_id = u.id) and c.produit_id=" + num;
+        try {
+           
+            PreparedStatement ps = connection.prepareStatement(req);
+
+            ResultSet resultat = ps.executeQuery(req);
+
+            while (resultat.next()) {
+                Comment c = new Comment();
+             
+                c.setUsername(resultat.getString(1));
+                c.setBody(resultat.getString(2));
+                c.setCreated_at((Date) resultat.getDate(3));
+                c.setProduit_id(resultat.getInt(4));
+
+                commentaires.add(c);
+            }return commentaires;
+
+        } catch (SQLException ex) {
+            Logger.getLogger(ProduitDao.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
+    }
+           public List<Comment> DisplayCommentaireByUserProduit(int user_id, int produit_id) {
+
+        List<Comment> commentaires = new ArrayList<>();
+
+        String requete = "select * from comment where user_id like " + user_id + " and produit_id like " + produit_id;
         try {
 
             PreparedStatement ps = connection.prepareStatement(requete);
@@ -124,7 +186,8 @@ public class CommentDao implements IDao<Comment> {
                 //c.setId(resultat.getInt(1));
                 c.setBody(resultat.getString(3));
                 c.setCreated_at((Date) resultat.getDate(6));
-            
+                c.setUser_id(resultat.getInt(11));
+
                 commentaires.add(c);
             }
             return commentaires;
@@ -134,19 +197,31 @@ public class CommentDao implements IDao<Comment> {
             return null;
         }
     }
-    
-    public ResultSet getUserName() {
-       
-        try {
-            pst = connection.prepareStatement("SELECT username FROM fos_user_user;");
-            ResultSet allAdmin = pst.executeQuery();
-            return allAdmin;
-            
-           
-        } catch (SQLException ex) {
-            Logger.getLogger(ProduitDao.class.getName()).log(Level.SEVERE, null, ex);
-        }
-         return null;
+         
+//             public List<Comment> DisplayAllCommentaireByProduit(int num) {
+//
+//        List<Comment> commentaires = new ArrayList<>();
+//
+//        String requete = "select * from comment where produit_id=" + num;
+//        try {
+//
+//            PreparedStatement ps = connection.prepareStatement(requete);
+//
+//            ResultSet resultat = ps.executeQuery(requete);
+//
+//            while (resultat.next()) {
+//                Comment c = new Comment();
+//                //c.setId(resultat.getInt(1));
+//                c.setBody(resultat.getString(3));
+//                c.setCreated_at((Date) resultat.getDate(6));
+//
+//                commentaires.add(c);
+//            }
+//            return commentaires;
+//        } catch (SQLException ex) {
+//
+//            System.out.println("erreur lors du chargement des commentaires " + ex.getMessage());
+//            return null;
+//        }
+//    }
     }
-
-}

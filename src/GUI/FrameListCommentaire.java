@@ -136,16 +136,13 @@ public class FrameListCommentaire extends javax.swing.JFrame {
         //FrameModifierCommentaire frameModifier = new FrameModifierCommentaire();
         CommentDao dao = new CommentDao();
         Comment c = new Comment();
-        c.setId(ligneSelectionne);
-         c.setBody((String)ListComment.getValueAt(ligneSelectionne,1));
-        
-        
-        
-       c.setId((int)ListComment.getValueAt(ligneSelectionne,0));
+       // c.setId(ligneSelectionne);
+         c.setBody((String)ListComment.getValueAt(ligneSelectionne,0));
+          // c.setId((int)ListComment.getValueAt(ligneSelectionne,0));
      FrameModifierCommentaire frame=new FrameModifierCommentaire();
                      frame.setVisible(true);
                      frame.setC(c);
-                     frame.getTFComment().setText((String)ListComment.getValueAt(ligneSelectionne,1));                  
+                     frame.getTFComment().setText((String)ListComment.getValueAt(ligneSelectionne,0));                  
                      System.out.println(c);
 
         //frame.setVisible(true);

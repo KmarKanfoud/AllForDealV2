@@ -11,7 +11,7 @@ import utils.*;
  *
  * @author SaharS
  */
-public class FrameListCommentaireP extends javax.swing.JFrame {
+public class FrameListCommentaireUser extends javax.swing.JFrame {
  Toolkit tk = Toolkit.getDefaultToolkit();
         Dimension screenSize = tk.getScreenSize();
         int screenHeight = screenSize.height;
@@ -19,7 +19,7 @@ public class FrameListCommentaireP extends javax.swing.JFrame {
     /**
      * Creates new form FrameListCommentaireP
      */
-    public FrameListCommentaireP() {
+    public FrameListCommentaireUser() {
         initComponents();
     }
 
@@ -38,7 +38,7 @@ public class FrameListCommentaireP extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jTable1.setModel(new CommentPModel());
+        jTable1.setModel(new CommentUserModel());
         jScrollPane1.setViewportView(jTable1);
 
         jButton1.setText("Commenter");
@@ -102,14 +102,16 @@ public class FrameListCommentaireP extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(FrameListCommentaireP.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FrameListCommentaireUser.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(FrameListCommentaireP.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FrameListCommentaireUser.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(FrameListCommentaireP.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FrameListCommentaireUser.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(FrameListCommentaireP.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FrameListCommentaireUser.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
 
@@ -117,7 +119,7 @@ public class FrameListCommentaireP extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 
-                FrameListCommentaireP flc = new FrameListCommentaireP();
+                FrameListCommentaireUser flc = new FrameListCommentaireUser();
                 flc.setVisible(true);
                 flc.setResizable(false);
 

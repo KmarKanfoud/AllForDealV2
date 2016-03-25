@@ -28,7 +28,7 @@ public class FrameAjouterCommentaire extends javax.swing.JFrame {
      */
     public FrameAjouterCommentaire() {
         initComponents();
-        
+
     }
 
     /**
@@ -130,8 +130,10 @@ public class FrameAjouterCommentaire extends javax.swing.JFrame {
         c.setBody(TFComment.getText());
         Date date = new java.sql.Date(System.currentTimeMillis());
         c.setCreated_at(date);
-        System.out.println("test"+FrameGestionProduitAdmin.getProd_id()); 
+        System.out.println("testProduitId" + FrameGestionProduitAdmin.getProd_id());
         c.setProduit_id(FrameGestionProduitAdmin.getProd_id());
+         System.out.println("testUserId" + FrameAccueil.getUserId());
+        c.setUser_id(FrameAccueil.getUserId());
         CommentDao pdao = new CommentDao();
         pdao.add(c);
 
@@ -154,7 +156,7 @@ public class FrameAjouterCommentaire extends javax.swing.JFrame {
      * @param args the command line arguments
      */
     public static void main(String args[]) {
-        
+
         Toolkit tk = Toolkit.getDefaultToolkit();
         Dimension screenSize = tk.getScreenSize();
         int screenHeight = screenSize.height;

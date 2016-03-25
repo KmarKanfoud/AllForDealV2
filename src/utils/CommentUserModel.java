@@ -5,27 +5,25 @@
  */
 package utils;
 
+import GUI.FrameAccueil;
 import dao.CommentDao;
 import entite.Comment;
 import java.util.List;
-import GUI.*;
 import javax.swing.table.AbstractTableModel;
 
 /**
  *
  * @author SaharS
  */
-public class CommentPModel extends AbstractTableModel {
-
+public class CommentUserModel  extends AbstractTableModel {
+    
     List<Comment> com;
-    String[] colonnes = {"Commentaire", "Ajouté le", "ajouté par"};
+    String[] colonnes = { "Commentaire", "Ajouté le", "Réference produit", "Nom produit"};
 
-    public CommentPModel() {
+    public CommentUserModel() {
         CommentDao pdao = new CommentDao();
-        //com = pdao.DisplayAllCommentaireByProduit(1);
-        //com = pdao.DisplayCommentaireByUserProduit(FrameAccueil.getUserId(), FrameGestionProduitAdmin.getProd_id());
-        com = pdao.DisplayCommentProduit(FrameGestionProduitAdmin.getProd_id());
-      
+            //com = pdao.DisplayAllCommentaireByUser(FrameAccueil.getUserId());
+        com = pdao.DisplayAllCommentaireByUser(10);
     }
 
     @Override
@@ -48,7 +46,10 @@ public class CommentPModel extends AbstractTableModel {
             case 1:
                 return com.get(rowIndex).getCreated_at();
             case 2:
-                return com.get(rowIndex).getUsername();
+                return com.get(rowIndex).getProduit_id();
+            case 3:
+                return com.get(rowIndex).getNomP();
+
             default:
                 return null;
         }
@@ -58,4 +59,5 @@ public class CommentPModel extends AbstractTableModel {
     public String getColumnName(int i) {
         return colonnes[i];
     }
+    
 }

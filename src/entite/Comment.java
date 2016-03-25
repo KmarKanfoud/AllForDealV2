@@ -41,6 +41,19 @@ public class Comment {
         this.user_id = user_id;
         
     }
+
+    public Comment(int id, String body, Date created_at, int produit_id, int service_id, int user_id) {
+        this.id = id;
+        this.body = body;
+        this.created_at = created_at;
+        this.produit_id = produit_id;
+        this.service_id = service_id;
+        this.user_id = user_id;
+    }
+
+ 
+    
+    
     
 
     public Comment(int id, String body, Date created_at, int produit_id, int user_id) {

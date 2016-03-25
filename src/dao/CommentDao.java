@@ -5,8 +5,8 @@
  */
 package dao;
 
-import GUI.FrameAccueil;
-import GUI.FrameGestionProduitAdmin;
+
+import GUI.*;
 import Idao.IDao;
 import entite.Comment;
 import java.sql.Connection;
@@ -45,6 +45,26 @@ public class CommentDao implements IDao<Comment> {
             pst.setString(1, c.getBody());
             pst.setDate(2, (Date) c.getCreated_at());
             pst.setInt(3, FrameGestionProduitAdmin.getProd_id());
+            pst.setInt(4, FrameAccueil.getUserId());
+
+            pst.executeUpdate();
+
+        } catch (SQLException ex) {
+
+            Logger.getLogger(CommentDao.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+     public void addS(Comment c) {
+
+        String req = "insert into comment (body,created_at,service_id,user_id) values (?,?,?,?)";
+        try {
+            pst = connection.prepareStatement(req);
+
+            //pst.setInt(1, c.getId());
+            pst.setString(1, c.getBody());
+            pst.setDate(2, (Date) c.getCreated_at());
+            pst.setInt(3, FrameAfficherServiceAll.getService_id());
             pst.setInt(4, FrameAccueil.getUserId());
 
             pst.executeUpdate();
@@ -170,7 +190,9 @@ public class CommentDao implements IDao<Comment> {
         }
         return null;
     }
-           public List<Comment> DisplayCommentaireByUserProduit(int user_id, int produit_id) {
+       
+         
+     public List<Comment> DisplayCommentaireByUserProduit(int user_id, int produit_id) {
 
         List<Comment> commentaires = new ArrayList<>();
 
@@ -224,4 +246,108 @@ public class CommentDao implements IDao<Comment> {
 //            return null;
 //        }
 //    }
+     
+     
+     
+     //////////////////// AFFICHER LES COMMENTAIRES D'UN SEUL SERVICE
+     
+      public   List<Comment> DisplayCommentService(int num) {
+        List<Comment> commentaires = new ArrayList<>();
+        String req = "SELECT u.username,c.body,c.created_at,c.service_id FROM fos_user_user u inner join comment c on (c.user_id = u.id) and c.service_id=" + num;
+        try {
+           
+            PreparedStatement ps = connection.prepareStatement(req);
+
+            ResultSet resultat = ps.executeQuery(req);
+
+            while (resultat.next()) {
+                Comment c = new Comment();
+             
+                c.setUsername(resultat.getString(1));
+                c.setBody(resultat.getString(2));
+                c.setCreated_at((Date) resultat.getDate(3));
+                c.setProduit_id(resultat.getInt(4));
+
+                commentaires.add(c);
+            }return commentaires;
+
+        } catch (SQLException ex) {
+            Logger.getLogger(ProduitDao.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
+    }
+     
+     
+     //////////////////////AFFICHER LES COMMENTAIRES DE MES SERVICES
+     
+     
+      public List<Comment> DisplayCommentaireByUserService(int user_id, int service_id) {
+
+        List<Comment> commentaires = new ArrayList<>();
+
+        String requete = "select * from comment where user_id like " + user_id + " and service_id like " + service_id;
+        try {
+
+            PreparedStatement ps = connection.prepareStatement(requete);
+
+            ResultSet resultat = ps.executeQuery(requete);
+
+            while (resultat.next()) {
+                Comment c = new Comment();
+                //c.setId(resultat.getInt(1));
+                c.setBody(resultat.getString(3));
+                c.setCreated_at((Date) resultat.getDate(6));
+                c.setUser_id(resultat.getInt(11));
+
+                commentaires.add(c);
+            }
+            return commentaires;
+        } catch (SQLException ex) {
+
+            System.out.println("erreur lors du chargement des commentaires " + ex.getMessage());
+            return null;
+        }
+    }
+      
+      ///////////////// AFFICHAGE DES COMMENTAIRES D'UN SEUL UTILISATEUR D'UN SERVICE
+
+    public List<Comment> DisplayCommentaireSByUser(int num) {
+
+        List<Comment> commentaires = new ArrayList<>();
+
+        String requete = "SELECT c.service_id,p.nomP,c.body,c.created_at FROM produit p inner join comment c on (c.produit_id = p.id) and c.user_id=" + num;
+        try {
+
+            PreparedStatement ps = connection.prepareStatement(requete);
+
+            ResultSet resultat = ps.executeQuery(requete);
+
+            while (resultat.next()) {
+                Comment c = new Comment();
+                //c.setId(resultat.getInt(1));
+                 c.setProduit_id(resultat.getInt(1));
+                 c.setNomP(resultat.getString(2));
+                c.setBody(resultat.getString(3));
+                c.setCreated_at((Date) resultat.getDate(4));
+               
+
+                commentaires.add(c);
+            }
+            return commentaires;
+        } catch (SQLException ex) {
+
+            System.out.println("erreur lors du chargement des commentaires " + ex.getMessage());
+            return null;
+        }
+    }
+     
+     
+     
+     
+     
+     
+     
+     
+     
+     
     }

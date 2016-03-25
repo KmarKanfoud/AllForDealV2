@@ -64,6 +64,11 @@ public class FrameAjouterCommentaire extends javax.swing.JFrame {
         jLabel1.setText("Ajouter votre commentaire");
 
         TFComment.setSelectionColor(new java.awt.Color(240, 240, 240));
+        TFComment.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                TFCommentActionPerformed(evt);
+            }
+        });
 
         Commenter.setFont(new java.awt.Font("Arial", 0, 11)); // NOI18N
         Commenter.setText("Commenter");
@@ -151,6 +156,10 @@ public class FrameAjouterCommentaire extends javax.swing.JFrame {
 //        f.setLocation(screenWidth / 4, screenHeight / 4);
 
     }//GEN-LAST:event_CommenterActionPerformed
+
+    private void TFCommentActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TFCommentActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_TFCommentActionPerformed
 
     /**
      * @param args the command line arguments

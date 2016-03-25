@@ -30,7 +30,7 @@ public class CommentTest {
      */
     public static void main(String[] args) {
         //DateFormat dateFormat = new SimpleDateFormat("yyy/MM/dd HH:mm:ss");
-        // Date date = new Date();
+        //Date date = new Date();
         //System.out.println(dateFormat.format(date));
         Date date = new java.sql.Date(System.currentTimeMillis());
        // Comment c1 = new Comment("Bonjour", date);
@@ -41,9 +41,9 @@ public class CommentTest {
         // c2.setBody("sahar");
         // pdao.update(c2);
         //pdao.removeById(12);
-        List<Comment> com = new ArrayList();
+       List<Comment> com = new ArrayList();
       //com = pdao.DisplayCommentaireByUserProduit(10,21);
-        com = pdao.DisplayAllCommentaireByUser(10);
+        com = pdao.DisplayCommentService(16);
         System.out.println(com);
     }
 

@@ -1,3 +1,86 @@
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -560,15 +643,15 @@ public class LoginForm extends javax.swing.JFrame {
                 new LoginForm().setVisible(true);
             }
         });
-        clip.start();
-        do {
-            try {
-                Thread.sleep(50);
-            } catch (InterruptedException ie) {
-                ie.printStackTrace();
-            }
-
-        } while (clip.isActive());
+//        clip.start();
+//        do {
+//            try {
+//                Thread.sleep(50);
+//            } catch (InterruptedException ie) {
+//                ie.printStackTrace();
+//            }
+//
+//        } while (clip.isActive());
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

@@ -3,14 +3,11 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-<<<<<<< HEAD
+            <file>file:/C:/Users/SaharS/Documents/NetBeansProjects/AllForDealV2/src/GUI/FrameAfficherServiceAll.java</file>
+            <file>file:/C:/Users/SaharS/Documents/NetBeansProjects/AllForDealV2/src/pidevtest/CommentTest.java</file>
+            <file>file:/C:/Users/SaharS/Documents/NetBeansProjects/AllForDealV2/src/GUI/LoginForm.java</file>
             <file>file:/C:/Users/SaharS/Documents/NetBeansProjects/AllForDealV2/src/dao/CommentDao.java</file>
-=======
-            <file>file:/C:/Users/Super%20Moon/Documents/AllForDealV2/src/utils/ServiceByCategorieModel.java</file>
-            <file>file:/C:/Users/Super%20Moon/Documents/AllForDealV2/src/dao/ServiceDao.java</file>
-            <file>file:/C:/Users/Super%20Moon/Documents/AllForDealV2/src/GUI/FrameAfficherServiceAll.java</file>
-            <file>file:/C:/Users/Super%20Moon/Documents/AllForDealV2/src/GUI/FrameAccueil.java</file>
->>>>>>> ae514253c0e5579b4b911c471fe729f55e0b7dbf
+            <file>file:/C:/Users/SaharS/Documents/NetBeansProjects/AllForDealV2/src/utils/CommentSModel.java</file>
         </group>
     </open-files>
 </project-private>

@@ -266,7 +266,7 @@ public class CommentDao implements IDao<Comment> {
                 c.setUsername(resultat.getString(1));
                 c.setBody(resultat.getString(2));
                 c.setCreated_at((Date) resultat.getDate(3));
-                c.setProduit_id(resultat.getInt(4));
+                c.setService_id(resultat.getInt(4));
 
                 commentaires.add(c);
             }return commentaires;

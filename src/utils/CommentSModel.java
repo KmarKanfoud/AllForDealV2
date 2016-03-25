@@ -22,7 +22,7 @@ public class CommentSModel extends AbstractTableModel {
 
     public CommentSModel() {
         CommentDao pdao = new CommentDao();
-        com = pdao.DisplayCommentService( 16);
+        com = pdao.DisplayCommentService(FrameAfficherServiceAll.getService_id());
        
     }
 

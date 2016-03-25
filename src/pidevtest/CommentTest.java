@@ -43,7 +43,7 @@ public class CommentTest {
         //pdao.removeById(12);
        List<Comment> com = new ArrayList();
       //com = pdao.DisplayCommentaireByUserProduit(10,21);
-        com = pdao.DisplayCommentService(16);
+        com = pdao.DisplayCommentService(12);
         System.out.println(com);
     }
 

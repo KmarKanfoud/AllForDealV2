@@ -5,8 +5,10 @@
         <group>
             <file>file:/C:/Users/SaharS/Documents/NetBeansProjects/AllForDealV2/src/GUI/FrameAfficherServiceAll.java</file>
             <file>file:/C:/Users/SaharS/Documents/NetBeansProjects/AllForDealV2/src/pidevtest/CommentTest.java</file>
+            <file>file:/C:/Users/SaharS/Documents/NetBeansProjects/AllForDealV2/src/utils/SendEmailUsingGMailSMTP.java</file>
             <file>file:/C:/Users/SaharS/Documents/NetBeansProjects/AllForDealV2/src/GUI/LoginForm.java</file>
             <file>file:/C:/Users/SaharS/Documents/NetBeansProjects/AllForDealV2/src/dao/CommentDao.java</file>
+            <file>file:/C:/Users/SaharS/Documents/NetBeansProjects/AllForDealV2/src/GUI/FrameAccueil.java</file>
             <file>file:/C:/Users/SaharS/Documents/NetBeansProjects/AllForDealV2/src/utils/CommentSModel.java</file>
         </group>
     </open-files>

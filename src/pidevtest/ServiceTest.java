@@ -26,16 +26,17 @@ public class ServiceTest {
     public static void main(String[] args) {
         Date date = new java.sql.Date(System.currentTimeMillis());
         //Service s1 = new Service(6, "dcdv", "sfvs", "cscd", "vdsfc", date);
-        Service s2 = new Service(7, "testGIt", "git", "git", "git", date);
+        //Service s2 = new Service(7, "testGIt", "git", "git", "git", date);
         ServiceDao pdao = new ServiceDao();
         //pdao.add(s1);
         //pdao.add(s2);
        // s2.setNomService("Maison");
        // pdao.update(s2);
         //pdao.removeById(6);
-          List<Service>LS = new ArrayList();
-        LS = pdao.findAll();
-        System.out.println(LS);
+//          List<Service>LS = new ArrayList();
+//        LS = pdao.findAll();
+//        System.out.println(LS);
+        System.out.println(pdao.findAllByUser(8));
 
     }
 }

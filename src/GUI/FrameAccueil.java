@@ -500,7 +500,9 @@ public class FrameAccueil extends javax.swing.JFrame {
     }//GEN-LAST:event_ConsulterBtnActionPerformed
 
     private void ProposerServiceBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ProposerServiceBtnActionPerformed
-        // TODO add your handling code here:
+        FrameAfficherServiceAll faSA = new FrameAfficherServiceAll();
+        faSA.setVisible(true);
+        
     }//GEN-LAST:event_ProposerServiceBtnActionPerformed
 
     private void jPanel1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel1MouseClicked

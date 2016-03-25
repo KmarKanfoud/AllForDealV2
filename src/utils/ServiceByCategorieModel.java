@@ -1,3 +1,4 @@
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -5,6 +6,7 @@
  */
 package utils;
 
+import GUI.FrameAfficherServiceAll;
 import dao.ServiceDao;
 import dao.ZoneDao;
 import entite.Service;
@@ -15,16 +17,16 @@ import javax.swing.table.AbstractTableModel;
  *
  * @author Super
  */
-public class ListeService extends AbstractTableModel {
+public class ServiceByCategorieModel extends AbstractTableModel{
 
     List<Service> l;
     String[] colonnes = {"id", "nom Service", "Description", "Catégorie", "etat", "zone", "Ajouté le"};
     ZoneDao zoneDAO = new ZoneDao();
-    public ListeService() {
+    public ServiceByCategorieModel() {
         
         ServiceDao pdao = new ServiceDao();
-       // l = pdao.findAllByUser(1); // userID
-       l = pdao.findAll(); // ALL
+       l = pdao.findAllByCategorie(FrameAfficherServiceAll.getCategorie());
+   
     }
 // test git 
     @Override
@@ -67,3 +69,4 @@ public class ListeService extends AbstractTableModel {
     }
 
 }
+

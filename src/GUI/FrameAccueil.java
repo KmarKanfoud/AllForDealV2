@@ -5,6 +5,11 @@
  */
 package GUI;
 
+import java.io.*;
+
+
+
+
 import dao.MessageDao;
 import dao.ReclamationDao;
 import dao.UserDao;
@@ -12,11 +17,19 @@ import entite.Message;
 import entite.Reclamation;
 import entite.User;
 import java.awt.Dimension;
+import java.awt.Image;
 import java.awt.Toolkit;
+import java.awt.image.BufferedImage;
+import java.io.BufferedOutputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.net.URL;
 import java.util.Date;
 import java.util.Set;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
@@ -25,11 +38,17 @@ import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.Mixer;
 import javax.sound.sampled.UnsupportedAudioFileException;
 import sun.applet.Main;
+
+import javax.imageio.*;
+import javax.swing.JFrame;
+
+
 import utils.*;
 
 /**
  *
  * @author SaharS
+ * 
  */
 public class FrameAccueil extends javax.swing.JFrame {
 
@@ -40,7 +59,7 @@ public class FrameAccueil extends javax.swing.JFrame {
     
     public static Mixer mixer;
     public static Clip clip;
-
+    Image img ;
     private static int user_id;
 
 
@@ -59,6 +78,18 @@ public class FrameAccueil extends javax.swing.JFrame {
         User u = new User();
         UserDao udao = new UserDao();
         u = udao.findById(user_id);
+               String iu =u.getImage();
+     System.out.println(iu);
+       
+        try {
+     URL url = new URL(iu);
+        img = ImageIO.read(url);
+            
+} 
+        
+        catch(IOException e){
+            e.printStackTrace();
+        }
 
     }
 
@@ -386,7 +417,7 @@ public class FrameAccueil extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel10)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 108, Short.MAX_VALUE)
                         .addComponent(lcreation))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel9)
@@ -410,13 +441,19 @@ public class FrameAccueil extends javax.swing.JFrame {
                         .addComponent(lGender))
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel2)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 161, Short.MAX_VALUE)
+
+
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 170, Short.MAX_VALUE)
+
                         .addComponent(lEmail))
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(lUserName)))
-                .addContainerGap(383, Short.MAX_VALUE))
+
+
+                .addContainerGap(344, Short.MAX_VALUE))
+
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -612,18 +649,36 @@ public class FrameAccueil extends javax.swing.JFrame {
     }//GEN-LAST:event_ProposerServiceBtnActionPerformed
 
     private void jPanel1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel1MouseClicked
-        User u = new User();
-        UserDao udao = new UserDao();
-        u = udao.findById(user_id);
-        lUserName.setText(u.getUsername());
-        lEmail.setText(u.getEmail());
-        lGender.setText(u.getGender());
-        lAdress.setText(u.getAdress());
-        lBunus.setText("" + u.getBonus());
-        lNom.setText(u.getLastname());
-        lPrenom.setText(u.getFirstname());
-        lcreation.setText("" + u.getCreated_at());
-
+        try {
+            User u = new User();
+            UserDao udao = new UserDao();
+            u = udao.findById(user_id);
+            lUserName.setText(u.getUsername());
+            lEmail.setText(u.getEmail());
+            lGender.setText(u.getGender());
+            lAdress.setText(u.getAdress());
+            lBunus.setText("" + u.getBonus());
+            lNom.setText(u.getLastname());
+            lPrenom.setText(u.getFirstname());
+            lcreation.setText("" + u.getCreated_at());
+            
+            
+            String iu =u.getImage();
+            System.out.println(iu);
+           // String path = "C:\\bad.jpg";
+             URL url = new URL(iu);
+            BufferedImage image = ImageIO.read(url);
+            ImagePanel contentPane = new ImagePanel(image) {};
+            JFrame f = new JFrame();
+            f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+            f.setContentPane(contentPane);
+            f.setSize(400, 400);
+            f.setLocation(100, 100);
+            f.setVisible(true);
+        } catch (IOException ex) {
+            Logger.getLogger(FrameAccueil.class.getName()).log(Level.SEVERE, null, ex);
+        }
+       
     }//GEN-LAST:event_jPanel1MouseClicked
 
     private void tfToActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfToActionPerformed

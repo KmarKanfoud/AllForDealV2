@@ -133,7 +133,7 @@ public class UserDao implements Idao.IDao<User> {
     @Override
     public User findById(int id) {
         User p = new User();
-        String requete = "select id ,username , email, created_at,password,gender,firstname, lastname, roles,enabled,bonus,phone from fos_user_user  where id=?";
+        String requete = "select id ,username , email, created_at,password,gender,firstname, lastname, roles,enabled,bonus,phone,photo from fos_user_user  where id=?";
         try {
             PreparedStatement ps = connection.prepareStatement(requete);
             ps.setInt(1, id);
@@ -151,6 +151,11 @@ public class UserDao implements Idao.IDao<User> {
                 p.setEnabled(resultat.getInt(10));
                 p.setBonus(resultat.getInt(11));
                 p.setPhone(resultat.getString(12));
+                p.setImage(resultat.getString(13));
+                
+
+
+
 
             }
             return p;

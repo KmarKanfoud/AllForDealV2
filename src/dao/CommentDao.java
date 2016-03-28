@@ -254,7 +254,7 @@ public class CommentDao implements IDao<Comment> {
      
       public   List<Comment> DisplayCommentService(int num) {
         List<Comment> commentaires = new ArrayList<>();
-        String req = "SELECT u.username,c.body,c.created_at,c.service_id FROM fos_user_user u inner join comment c on (c.user_id = u.id) and c.service_id=" + num;
+        String req = "SELECT c.id,u.username,c.body,c.created_at,c.service_id FROM fos_user_user u inner join comment c on (c.user_id = u.id) and c.service_id=" + num;
         try {
            
             PreparedStatement ps = connection.prepareStatement(req);
@@ -262,11 +262,11 @@ public class CommentDao implements IDao<Comment> {
 
             while (resultat.next()) {
                 Comment c = new Comment();
-             
-                c.setUsername(resultat.getString(1));
-                c.setBody(resultat.getString(2));
-                c.setCreated_at((Date) resultat.getDate(3));
-                c.setService_id(resultat.getInt(4));
+                c.setId(resultat.getInt(1));
+                c.setUsername(resultat.getString(2));
+                c.setBody(resultat.getString(3));
+                c.setCreated_at((Date) resultat.getDate(4));
+                c.setService_id(resultat.getInt(5));
 
                 commentaires.add(c);
             }return commentaires;

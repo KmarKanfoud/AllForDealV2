@@ -5,30 +5,29 @@
  */
 package utils;
 
-import dao.CommentDao;
-import entite.Comment;
+
+import dao.ReclamationDao;
+import entite.Reclamation;
 import java.util.List;
-import GUI.*;
 import javax.swing.table.AbstractTableModel;
 
 /**
  *
  * @author SaharS
  */
-public class CommentSModel extends AbstractTableModel {
+public class ReclamationModel extends AbstractTableModel {
 
-    List<Comment> com;
-    String[] colonnes = {"id", "Commentaire", "Ajouté le", "Ajouté par"};
+    List<Reclamation> rec;
+    String[] colonnes = {"id réclamation", "Date réception", "Description","Sujet","Envoyé par"};
 
-    public CommentSModel() {
-        CommentDao pdao = new CommentDao();
-        com = pdao.DisplayCommentService(FrameAfficherServiceAll.getService_id());
-
+    public ReclamationModel() {
+        ReclamationDao rdao = new ReclamationDao();
+        rec = rdao.findAll();
     }
 
     @Override
     public int getRowCount() {
-        return com.size();
+        return rec.size();
     }
 
     @Override
@@ -40,13 +39,16 @@ public class CommentSModel extends AbstractTableModel {
     public Object getValueAt(int rowIndex, int columnIndex) {
         switch (columnIndex) {
             case 0:
-                return com.get(rowIndex).getId();
+                return rec.get(rowIndex).getId_reclamation();
             case 1:
-                return com.get(rowIndex).getBody();
+                return rec.get(rowIndex).getDate();
             case 2:
-                return com.get(rowIndex).getCreated_at();
+                return rec.get(rowIndex).getDescription();
             case 3:
-                return com.get(rowIndex).getUsername();
+                return rec.get(rowIndex).getSujet();
+            case 4 :
+                return rec.get(rowIndex).getUsername();
+
             default:
                 return null;
         }

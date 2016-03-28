@@ -126,6 +126,13 @@ public class FrameAccueil extends javax.swing.JFrame {
         EnvoyerReclamationBtn = new javax.swing.JButton();
         erreur1 = new javax.swing.JLabel();
         erreur2 = new javax.swing.JLabel();
+        tfSujetRec = new javax.swing.JTextField();
+        jScrollPane4 = new javax.swing.JScrollPane();
+        taDescriptionRec = new javax.swing.JTextArea();
+        jLabel11 = new javax.swing.JLabel();
+        jLabel12 = new javax.swing.JLabel();
+        jLabel13 = new javax.swing.JLabel();
+        btnEnvoyerRec = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
         lUserName = new javax.swing.JLabel();
         lEmail = new javax.swing.JLabel();
@@ -151,11 +158,11 @@ public class FrameAccueil extends javax.swing.JFrame {
         taMessage = new javax.swing.JTextArea();
         btnEnvoyerMsg = new javax.swing.JButton();
         labelMsg = new javax.swing.JLabel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        tbMesMessages = new javax.swing.JTable();
         jPanel5 = new javax.swing.JPanel();
         jScrollPane3 = new javax.swing.JScrollPane();
         tblMessagesEnv = new javax.swing.JTable();
-        jScrollPane2 = new javax.swing.JScrollPane();
-        tbMesMessages = new javax.swing.JTable();
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
@@ -341,23 +348,72 @@ public class FrameAccueil extends javax.swing.JFrame {
 
         erreur2.setForeground(new java.awt.Color(255, 0, 0));
 
+        taDescriptionRec.setColumns(20);
+        taDescriptionRec.setRows(5);
+        jScrollPane4.setViewportView(taDescriptionRec);
+
+        jLabel11.setText("Sujet");
+
+        jLabel12.setText("Description");
+
+        jLabel13.setText("Envoyer une réclamation");
+
+        btnEnvoyerRec.setText("Envoyer");
+        btnEnvoyerRec.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEnvoyerRecActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout ReclamationPanelLayout = new javax.swing.GroupLayout(ReclamationPanel);
         ReclamationPanel.setLayout(ReclamationPanelLayout);
         ReclamationPanelLayout.setHorizontalGroup(
             ReclamationPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(ReclamationPanelLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(ReclamationPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(ReclamationPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(ReclamationPanelLayout.createSequentialGroup()
+                            .addGroup(ReclamationPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(ReclamationPanelLayout.createSequentialGroup()
+                                    .addGap(65, 65, 65)
+                                    .addComponent(jLabel11)
+                                    .addGap(33, 33, 33))
+                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, ReclamationPanelLayout.createSequentialGroup()
+                                    .addContainerGap()
+                                    .addComponent(jLabel12)
+                                    .addGap(18, 18, 18)))
+                            .addGroup(ReclamationPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(tfSujetRec, javax.swing.GroupLayout.PREFERRED_SIZE, 280, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 368, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(btnEnvoyerRec, javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addGroup(ReclamationPanelLayout.createSequentialGroup()
+                            .addContainerGap()
+                            .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(ReclamationPanelLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jLabel13, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(ReclamationPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(erreur1)
                     .addComponent(erreur2))
-                .addContainerGap(220, Short.MAX_VALUE))
+                .addContainerGap(113, Short.MAX_VALUE))
         );
         ReclamationPanelLayout.setVerticalGroup(
             ReclamationPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, ReclamationPanelLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(22, 22, 22)
+                .addComponent(jLabel13, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addGroup(ReclamationPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(tfSujetRec, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel11))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(ReclamationPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 248, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel12))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(btnEnvoyerRec)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 447, Short.MAX_VALUE)
                 .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(21, 21, 21))
             .addGroup(ReclamationPanelLayout.createSequentialGroup()
@@ -417,7 +473,7 @@ public class FrameAccueil extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel10)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 108, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(lcreation))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel9)
@@ -441,19 +497,13 @@ public class FrameAccueil extends javax.swing.JFrame {
                         .addComponent(lGender))
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel2)
-
-
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 170, Short.MAX_VALUE)
-
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(lEmail))
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(lUserName)))
-
-
-                .addContainerGap(344, Short.MAX_VALUE))
-
+                .addContainerGap(466, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -559,6 +609,11 @@ public class FrameAccueil extends javax.swing.JFrame {
 
         jPanel3.add(jPanel2, "card4");
 
+        tbMesMessages.setModel( new MessageReçuModel ());
+        jScrollPane2.setViewportView(tbMesMessages);
+
+        jPanel3.add(jScrollPane2, "card2");
+
         tblMessagesEnv.setModel(new MessagesEnvoyesModel());
         jScrollPane3.setViewportView(tblMessagesEnv);
 
@@ -581,18 +636,13 @@ public class FrameAccueil extends javax.swing.JFrame {
 
         jPanel3.add(jPanel5, "card3");
 
-        tbMesMessages.setModel( new MessageReçuModel ());
-        jScrollPane2.setViewportView(tbMesMessages);
-
-        jPanel3.add(jScrollPane2, "card2");
-
         Service.addTab("Mes messages", jPanel3);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(Service, javax.swing.GroupLayout.DEFAULT_SIZE, 613, Short.MAX_VALUE)
+            .addComponent(Service)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -704,6 +754,18 @@ public class FrameAccueil extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_tfSujetMsgActionPerformed
 
+    private void btnEnvoyerRecActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEnvoyerRecActionPerformed
+        Reclamation r = new Reclamation();
+        r.setSujet( tfSujetRec.getText());
+        r.setDescription(taDescriptionRec.getText());
+        Date date = new java.sql.Date(System.currentTimeMillis());
+        r.setDate(date);
+        ReclamationDao pdao = new ReclamationDao();
+        pdao.add(r);
+         tfSujetRec.setText("");
+        taDescriptionRec.setText("");
+    }//GEN-LAST:event_btnEnvoyerRecActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -797,10 +859,14 @@ public class FrameAccueil extends javax.swing.JFrame {
     private javax.swing.JTextField TFDescription;
     private javax.swing.JTextField TFSujet;
     private javax.swing.JButton btnEnvoyerMsg;
+    private javax.swing.JButton btnEnvoyerRec;
     private javax.swing.JLabel erreur1;
     private javax.swing.JLabel erreur2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -820,6 +886,7 @@ public class FrameAccueil extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JLabel lAdress;
     private javax.swing.JLabel lBunus;
     private javax.swing.JLabel lEmail;
@@ -829,10 +896,12 @@ public class FrameAccueil extends javax.swing.JFrame {
     private javax.swing.JLabel lUserName;
     private javax.swing.JLabel labelMsg;
     private javax.swing.JLabel lcreation;
+    private javax.swing.JTextArea taDescriptionRec;
     private javax.swing.JTextArea taMessage;
     private javax.swing.JTable tbMesMessages;
     private javax.swing.JTable tblMessagesEnv;
     private javax.swing.JTextField tfSujetMsg;
+    private javax.swing.JTextField tfSujetRec;
     private javax.swing.JTextField tfTo;
     // End of variables declaration//GEN-END:variables
 }

@@ -13,31 +13,37 @@ import java.util.Date;
  * @author SaharS
  */
 public class Reclamation {
-     private int id_reclamation;
+
+    private int id_reclamation;
     private Date date;
     private String description;
     private String sujet;
-   // private User client;
+    private int user_id;
+    private String username;
 
     public Reclamation() {
     }
 
-    public Reclamation(Date date, String description, String sujet) {
-        this.date = date;
-        this.description = description;
-        this.sujet = sujet;
-    }
-    
-
+//    public Reclamation(Date date, String description, String sujet) {
+//        this.date = date;
+//        this.description = description;
+//        this.sujet = sujet;
+//    }
     public Reclamation(int id_reclamation, Date date, String description, String sujet) {
         this.id_reclamation = id_reclamation;
         this.date = date;
         this.description = description;
         this.sujet = sujet;
     }
-    
-    
-    
+
+    public Reclamation(int id_reclamation, Date date, String description, String sujet, int user_id) {
+        this.id_reclamation = id_reclamation;
+        this.date = date;
+        this.description = description;
+        this.sujet = sujet;
+        this.user_id = user_id;
+
+    }
 
     public int getId_reclamation() {
         return id_reclamation;
@@ -71,9 +77,20 @@ public class Reclamation {
         this.sujet = sujet;
     }
 
-    @Override
-    public String toString() {
-        return "ReclamationDao{" + "id_reclamation=" + id_reclamation + ", date=" + date + ", description=" + description + ", sujet=" + sujet + '}';
+    public int getUser_id() {
+        return user_id;
+    }
+
+    public void setUser_id(int user_id) {
+        this.user_id = user_id;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     @Override
@@ -82,6 +99,13 @@ public class Reclamation {
         hash = 71 * hash + this.id_reclamation;
         return hash;
     }
+
+    @Override
+    public String toString() {
+        return "Reclamation{" + "id_reclamation=" + id_reclamation + ", date=" + date + ", description=" + description + ", sujet=" + sujet + ", user_id=" + user_id + ", username=" + username + '}';
+    }
+
+   
 
     @Override
     public boolean equals(Object obj) {
@@ -97,7 +121,5 @@ public class Reclamation {
         }
         return true;
     }
-
-  
 
 }

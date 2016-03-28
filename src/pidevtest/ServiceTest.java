@@ -36,7 +36,7 @@ public class ServiceTest {
 //          List<Service>LS = new ArrayList();
 //        LS = pdao.findAll();
 //        System.out.println(LS);
-        System.out.println(pdao.findAllByUser(8));
+        System.out.println(pdao.findByName("sahar"));
 
     }
 }

@@ -152,11 +152,14 @@ public class UserDao implements Idao.IDao<User> {
                 p.setBonus(resultat.getInt(11));
                 p.setPhone(resultat.getString(12));
 
+<<<<<<< HEAD
                 p.setImage(resultat.getString(13));
                 
 
 
 
+=======
+>>>>>>> a22b913f0ab40c2c1decbde2f1158e4592ba2012
             }
             return p;
 

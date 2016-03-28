@@ -412,7 +412,11 @@
                           <Group type="102" alignment="0" attributes="0">
                               <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
 <<<<<<< HEAD
+<<<<<<< HEAD
                               <EmptySpace pref="170" max="32767" attributes="0"/>
+=======
+                              <EmptySpace pref="161" max="32767" attributes="0"/>
+>>>>>>> a22b913f0ab40c2c1decbde2f1158e4592ba2012
 =======
                               <EmptySpace pref="161" max="32767" attributes="0"/>
 >>>>>>> a22b913f0ab40c2c1decbde2f1158e4592ba2012
@@ -425,7 +429,11 @@
                           </Group>
                       </Group>
 <<<<<<< HEAD
+<<<<<<< HEAD
                       <EmptySpace pref="344" max="32767" attributes="0"/>
+=======
+                      <EmptySpace pref="383" max="32767" attributes="0"/>
+>>>>>>> a22b913f0ab40c2c1decbde2f1158e4592ba2012
 =======
                       <EmptySpace pref="383" max="32767" attributes="0"/>
 >>>>>>> a22b913f0ab40c2c1decbde2f1158e4592ba2012

@@ -85,7 +85,6 @@ public class FrameAfficherServiceAdmin extends javax.swing.JFrame {
         jLabel1.setForeground(new java.awt.Color(255, 51, 102));
         jLabel1.setText("Les Services :");
 
-        btnModifier.setIcon(new javax.swing.ImageIcon("C:\\Users\\Super\\Downloads\\modificone.png")); // NOI18N
         btnModifier.setText("Modifier");
         btnModifier.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -93,7 +92,6 @@ public class FrameAfficherServiceAdmin extends javax.swing.JFrame {
             }
         });
 
-        bntSupprimer.setIcon(new javax.swing.ImageIcon("C:\\Users\\Super\\Downloads\\deleteicone.png")); // NOI18N
         bntSupprimer.setText("Supprimer");
         bntSupprimer.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -327,6 +325,12 @@ public class FrameAfficherServiceAdmin extends javax.swing.JFrame {
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(FrameAfficherServiceAdmin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
 

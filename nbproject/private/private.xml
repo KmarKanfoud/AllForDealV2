@@ -3,18 +3,9 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-<<<<<<< HEAD
-            <file>file:/C:/Users/maroo/Documents/NetBeansProjects/AllForDealV2/src/GUI/LoginForm.java</file>
-            <file>file:/C:/Users/maroo/Documents/NetBeansProjects/AllForDealV2/src/utils/ImagePanel.java</file>
-            <file>file:/C:/Users/maroo/Documents/NetBeansProjects/AllForDealV2/src/GUI/FrameAccueil.java</file>
-            <file>file:/C:/Users/maroo/Documents/NetBeansProjects/AllForDealV2/src/utils/PostFile.java</file>
-=======
-            <file>file:/C:/Users/SaharS/Documents/NetBeansProjects/AllForDealV2/src/dao/ProduitDao.java</file>
-            <file>file:/C:/Users/SaharS/Documents/NetBeansProjects/AllForDealV2/src/entite/Produit.java</file>
-            <file>file:/C:/Users/SaharS/Documents/NetBeansProjects/AllForDealV2/src/GUI/FrameGestionProduitAdmin.java</file>
-            <file>file:/C:/Users/SaharS/Documents/NetBeansProjects/AllForDealV2/src/pidevtest/CommentTest.java</file>
-            <file>file:/C:/Users/SaharS/Documents/NetBeansProjects/AllForDealV2/src/pidevtest/ProduitTest.java</file>
->>>>>>> a22b913f0ab40c2c1decbde2f1158e4592ba2012
+            <file>file:/C:/Users/SaharS/Documents/NetBeansProjects/AllForDealV2/src/GUI/FrameAfficherServiceAll.java</file>
+            <file>file:/C:/Users/SaharS/Documents/NetBeansProjects/AllForDealV2/src/GUI/FrameAccueil.java</file>
+            <file>file:/C:/Users/SaharS/Documents/NetBeansProjects/AllForDealV2/src/GUI/FrameAfficherServiceAdmin.java</file>
         </group>
     </open-files>
 </project-private>

@@ -494,7 +494,28 @@
                           </Group>
                           <Group type="102" alignment="0" attributes="0">
                               <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
+<<<<<<< HEAD
                               <EmptySpace max="32767" attributes="0"/>
+=======
+<<<<<<< HEAD
+
+                              <EmptySpace pref="170" max="32767" attributes="0"/>
+
+                              <EmptySpace pref="161" max="32767" attributes="0"/>
+
+                          
+=======
+<<<<<<< HEAD
+<<<<<<< HEAD
+                              <EmptySpace pref="170" max="32767" attributes="0"/>
+=======
+                              <EmptySpace pref="161" max="32767" attributes="0"/>
+>>>>>>> a22b913f0ab40c2c1decbde2f1158e4592ba2012
+=======
+                              <EmptySpace pref="161" max="32767" attributes="0"/>
+>>>>>>> a22b913f0ab40c2c1decbde2f1158e4592ba2012
+>>>>>>> c109763ba9820908764a59a0625aee54f1cc9429
+>>>>>>> 7b6355358b0d24c57ab24640b6bbd3ffbbc1b885
                               <Component id="lEmail" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <Group type="102" alignment="0" attributes="0">
@@ -503,7 +524,27 @@
                               <Component id="lUserName" min="-2" max="-2" attributes="0"/>
                           </Group>
                       </Group>
+<<<<<<< HEAD
                       <EmptySpace pref="466" max="32767" attributes="0"/>
+=======
+<<<<<<< HEAD
+
+                      <EmptySpace pref="344" max="32767" attributes="0"/>
+
+                      <EmptySpace pref="383" max="32767" attributes="0"/>
+
+=======
+<<<<<<< HEAD
+<<<<<<< HEAD
+                      <EmptySpace pref="344" max="32767" attributes="0"/>
+=======
+                      <EmptySpace pref="383" max="32767" attributes="0"/>
+>>>>>>> a22b913f0ab40c2c1decbde2f1158e4592ba2012
+=======
+                      <EmptySpace pref="383" max="32767" attributes="0"/>
+>>>>>>> a22b913f0ab40c2c1decbde2f1158e4592ba2012
+>>>>>>> c109763ba9820908764a59a0625aee54f1cc9429
+>>>>>>> 7b6355358b0d24c57ab24640b6bbd3ffbbc1b885
                   </Group>
               </Group>
             </DimensionLayout>

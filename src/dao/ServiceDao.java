@@ -19,6 +19,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import utils.DataSource;
+import utils.ServiceByNomModel;
 
 /**
  *
@@ -192,7 +193,7 @@ public class ServiceDao implements IDao<Service> {
     }
       
       public List <Service> findByName(String name){
-          List<Service> ServiceByCategorieModel = new ArrayList<>();
+          List<Service> ServiceByNomModel = new ArrayList<>();
  String req = "select * from service where nomService like '%" +name+"%'";
 
         try {
@@ -211,13 +212,13 @@ public class ServiceDao implements IDao<Service> {
                 s.setEtat(resultat.getString(6));
                 s.setDateAjout(resultat.getDate(7));
 
-               ServiceByCategorieModel.add(s);
+               ServiceByNomModel.add(s);
 
             }
-            return ServiceByCategorieModel;
+            return ServiceByNomModel;
         } catch (SQLException ex) {
             System.out.println("erreur" + ex.getMessage());
-            return ServiceByCategorieModel;
+            return ServiceByNomModel;
         }
           
       }

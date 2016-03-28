@@ -87,6 +87,7 @@ public class FrameGestionProduitAdmin extends javax.swing.JFrame {
         btnConsulter = new javax.swing.JButton();
         btnSupprimer = new javax.swing.JButton();
         labelId = new javax.swing.JLabel();
+        jButton1 = new javax.swing.JButton();
         DetailsProduit = new javax.swing.JPanel();
         tfNomProduit1 = new javax.swing.JTextField();
         jLabel11 = new javax.swing.JLabel();
@@ -231,6 +232,18 @@ public class FrameGestionProduitAdmin extends javax.swing.JFrame {
             }
         });
 
+        jButton1.setText("j'aime");
+        jButton1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jButton1MouseClicked(evt);
+            }
+        });
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout ListeProduitsLayout = new javax.swing.GroupLayout(ListeProduits);
         ListeProduits.setLayout(ListeProduitsLayout);
         ListeProduitsLayout.setHorizontalGroup(
@@ -279,7 +292,12 @@ public class FrameGestionProduitAdmin extends javax.swing.JFrame {
                                                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 202, javax.swing.GroupLayout.PREFERRED_SIZE)))
                                         .addGap(2, 2, 2)))
                                 .addGap(33, 33, 33)))
-                        .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 547, Short.MAX_VALUE))
+                        .addGroup(ListeProduitsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 547, Short.MAX_VALUE)
+                            .addGroup(ListeProduitsLayout.createSequentialGroup()
+                                .addGap(97, 97, 97)
+                                .addComponent(jButton1)
+                                .addGap(0, 0, Short.MAX_VALUE))))
                     .addGroup(ListeProduitsLayout.createSequentialGroup()
                         .addComponent(labelId, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(246, 246, 246)
@@ -340,7 +358,8 @@ public class FrameGestionProduitAdmin extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 44, Short.MAX_VALUE)
                 .addGroup(ListeProduitsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnSupprimer)
-                    .addComponent(btnConsulter))
+                    .addComponent(btnConsulter)
+                    .addComponent(jButton1))
                 .addGap(19, 19, 19))
         );
 
@@ -854,6 +873,21 @@ if(rb5.isSelected()){
     }
     }//GEN-LAST:event_btnVoteActionPerformed
 
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+       
+        //BtnAimepas.setVisible(false);
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButton1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MouseClicked
+        Produit prod = new Produit();
+        ProduitDao pdao = new ProduitDao();
+        prod = pdao.findById(prod_id);
+         System.out.println(prod.getRating());
+        prod.setRating(prod.getRating() +1);
+        pdao.updateRating(prod);
+          System.out.println(prod.getRating());
+    }//GEN-LAST:event_jButton1MouseClicked
+
     /**
      * @param args the command line arguments
      */
@@ -938,6 +972,7 @@ if(rb5.isSelected()){
     private javax.swing.JComboBox cbCategorie1;
     private javax.swing.JComboBox cbZone;
     private javax.swing.JComboBox cbZone1;
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;

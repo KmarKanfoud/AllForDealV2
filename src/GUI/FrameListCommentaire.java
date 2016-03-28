@@ -116,14 +116,15 @@ public class FrameListCommentaire extends javax.swing.JFrame {
     private void BtnSupprimerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnSupprimerActionPerformed
         int ligneSelectionne = ListComment.getSelectedRow();
         Object l = ListComment.getValueAt(ligneSelectionne, 0);
-
+        System.out.println(l);
         CommentDao comm = new CommentDao();
-        //JOptionPane.showMessageDialog(null,"Vous allez supprimer ce commentaire!");
         int i = JOptionPane.showConfirmDialog(null, "La suppression est irréversible. Êtes-vous sûr de vouloir continuer?",
                 "Veuillez confirmer votre choix",
                 JOptionPane.YES_NO_OPTION);
 
         if (i == 0) {
+           // Object o = ListComment.getValueAt(ligneSelectionne, 3);
+           // System.out.println(o);
             comm.removeById((int) l);
             ListComment.setModel(new CommentModel());
             jScrollPane1.setViewportView(ListComment);

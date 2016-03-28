@@ -157,6 +157,9 @@ public class ServiceDao implements IDao<Service> {
             return ServiceByUserIdModel;
         }
     }
+    
+    
+    
       public List<Service> findAllByCategorie(String cat ) {
         List<Service> ServiceByCategorieModel = new ArrayList<>();
 
@@ -187,6 +190,38 @@ public class ServiceDao implements IDao<Service> {
             return ServiceByCategorieModel;
         }
     }
+      
+      public List <Service> findByName(String name){
+          List<Service> ServiceByCategorieModel = new ArrayList<>();
+ String req = "select * from service where nomService like '%" +name+"%'";
+
+        try {
+            pst = connection.prepareStatement(req);
+            ResultSet resultat = pst.executeQuery(req);
+
+            while (resultat.next()) {
+
+                Service s = new Service();
+
+                s.setId(resultat.getInt(1));
+                s.setZone(resultat.getInt(2));
+                s.setNomService(resultat.getString(3));
+                s.setDescription(resultat.getString(4));
+                s.setType(resultat.getString(5));
+                s.setEtat(resultat.getString(6));
+                s.setDateAjout(resultat.getDate(7));
+
+               ServiceByCategorieModel.add(s);
+
+            }
+            return ServiceByCategorieModel;
+        } catch (SQLException ex) {
+            System.out.println("erreur" + ex.getMessage());
+            return ServiceByCategorieModel;
+        }
+          
+      }
+      
 
     @Override
     public Service findById(int id) {

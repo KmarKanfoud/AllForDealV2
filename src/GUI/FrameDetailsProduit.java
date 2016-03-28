@@ -323,11 +323,7 @@ public class FrameDetailsProduit extends javax.swing.JFrame {
     }//GEN-LAST:event_btnEffacerActionPerformed
 
     private void CommenterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CommenterActionPerformed
-        FrameAjouterCommentaire frame = new FrameAjouterCommentaire();
-        frame.setVisible(true);
-        frame.setResizable(false);
-       // frame.setSize(screenWidth / 2, screenHeight / 2);
-       // frame.setLocation(screenWidth / 4, screenHeight / 4);
+       
     }//GEN-LAST:event_CommenterActionPerformed
 
     private void cbCategorieActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbCategorieActionPerformed

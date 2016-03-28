@@ -112,10 +112,11 @@ public class CommentDao implements IDao<Comment> {
 
             while (resultat.next()) {
                 Comment c = new Comment();
-                //c.setId(resultat.getInt(1));
+                c.setId(resultat.getInt(1));
                 c.setBody(resultat.getString(3));
                 c.setCreated_at((Date) resultat.getDate(6));
                 c.setProduit_id(resultat.getInt(9));
+                c.setUser_id(resultat.getInt(11));
 
                 listeCommentaire.add(c);
             }
@@ -257,7 +258,6 @@ public class CommentDao implements IDao<Comment> {
         try {
            
             PreparedStatement ps = connection.prepareStatement(req);
-
             ResultSet resultat = ps.executeQuery(req);
 
             while (resultat.next()) {

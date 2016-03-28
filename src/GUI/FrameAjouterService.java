@@ -68,9 +68,7 @@ public class FrameAjouterService extends javax.swing.JFrame {
         lerror = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setMaximumSize(new java.awt.Dimension(700, 700));
         setMinimumSize(new java.awt.Dimension(700, 600));
-        setPreferredSize(new java.awt.Dimension(600, 600));
         setSize(new java.awt.Dimension(550, 600));
         getContentPane().setLayout(null);
 

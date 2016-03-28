@@ -5,10 +5,13 @@
  */
 package GUI;
 
+import static GUI.FrameAccueil.clip;
+import static GUI.FrameAccueil.mixer;
 import dao.UserDao;
 import entite.User;
 import java.io.IOException;
 import java.io.InputStream;
+import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -16,9 +19,17 @@ import java.time.LocalDate;
 import static java.nio.file.StandardCopyOption.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
+import javax.sound.sampled.DataLine;
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.Mixer;
+import javax.sound.sampled.UnsupportedAudioFileException;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileNameExtensionFilter;
+import sun.applet.Main;
 import utils.PostFile;
 
 /**
@@ -26,15 +37,29 @@ import utils.PostFile;
  * @author maroo
  */
 public class LoginForm extends javax.swing.JFrame {
- 
+
     /**
      * Creates new form LoginForm
      */
     String im;
+    public static Mixer mixer;
+    public static Clip clip;
+    private static String userName;
+
+    public static String getUserName() {
+        return userName;
+    }
+
+    public static void setUserName(String userName) {
+        LoginForm.userName = userName;
+    }
+    
+    
+
     public LoginForm() {
-        
+
         initComponents();
-        
+
     }
 
     /**
@@ -389,113 +414,129 @@ public class LoginForm extends javax.swing.JFrame {
     }//GEN-LAST:event_tfmdp1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        User u =new User();
-        UserDao udao=new UserDao();
-        
+        User u = new User();
+        UserDao udao = new UserDao();
+
         u.setUsername(tfusername.getText());
         u.setUsernameCanonical(tfusername.getText());
         u.setEmail(tfemail.getText());
         u.setEmailCanonical(tfemail.getText());
-        if(tfmdp1.getText().equals(tfmdp2.getText())){
-        u.setPassword(tfmdp1.getText());
-      }
-        else{
+        if (tfmdp1.getText().equals(tfmdp2.getText())) {
+            u.setPassword(tfmdp1.getText());
+        } else {
             lerror.setText("Verifier Mot de passe !");
         }
         u.setEnabled(0);
-        if(cboxgender.getSelectedIndex()==0){
-             u.setGender("m");
-        }
-        else {
+        if (cboxgender.getSelectedIndex() == 0) {
+            u.setGender("m");
+        } else {
             u.setGender("f");
         }
-        try{
-            
-        u.setPhone(tfphone.getText());
-        }
-        catch(NumberFormatException ex ){
+        try {
+
+            u.setPhone(tfphone.getText());
+        } catch (NumberFormatException ex) {
             lerror.setText("num de tel existe");
         }
         u.setLastname(tflastname.getText());
         u.setFirstname(tffirstname.getText());
         u.setAdress(taadress.getText());
-        if(cbtype.getSelectedIndex()==0){
+        if (cbtype.getSelectedIndex() == 0) {
             u.setRoles("ROLE_USER");
-        }
-        else {
+        } else {
             u.setRoles("ROLE_FOURN");
         }
         java.sql.Date d = java.sql.Date.valueOf(LocalDate.now());
         u.setCreated_at(d);
-        u.setImage("http://localhost/Tec/web/uploads/media/profile/"+im);
-           
-     udao.add(u); 
-        JOptionPane.showMessageDialog(null,"Vous etes Inscrit avec succés");// TODO add your handling code here:
+        u.setImage("http://localhost/Tec/web/uploads/media/profile/" + im);
+
+        udao.add(u);
+        JOptionPane.showMessageDialog(null, "Vous etes Inscrit avec succés");// TODO add your handling code here:
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void btloginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btloginActionPerformed
-       String l= tfLogin.getText();
-       String m=tfmdp.getText();
-        UserDao udao=new UserDao();
-        User u=new User();
-         u = udao.findByLogin(l, m);
-        try{
-            
-        if((u.getUsername().equals(l)==true)&&(u.getPassword().equals(m)==true)&&(u.getEnabled()==1)){
-            
-            lerror.setText("Connecté");
-            if(u.getRoles().equals("ROLE_ADMIN"))
-            {
-                Framedashboard fd=new Framedashboard();
-                fd.setVisible(true);
+        String l = tfLogin.getText();
+        String m = tfmdp.getText();
+        UserDao udao = new UserDao();
+        User u = new User();
+        u = udao.findByLogin(l, m);
+        try {
+
+            if ((u.getUsername().equals(l) == true) && (u.getPassword().equals(m) == true) && (u.getEnabled() == 1)) {
+                
+                userName=u.getUsername();
+                System.out.println(userName);
+                
+                lerror.setText("Connecté");
+                if (u.getRoles().equals("ROLE_ADMIN")) {
+                    Framedashboard fd = new Framedashboard();
+                    fd.setVisible(true);
+                } else {
+                    FrameAccueil fa = new FrameAccueil(u.getId());
+                    fa.setVisible(true);
+
+                }
             }
-            else{
-            FrameAccueil fa=new FrameAccueil(u.getId());
-            fa.setVisible(true);
-            }
+        } catch (NullPointerException ex) {
+            lerror.setText("UserName ou Mot de passe Invalise!!");
         }
-        }
-        catch(NullPointerException ex){
-           lerror.setText("UserName ou Mot de passe Invalise!!");
-        }
-     
+
     }//GEN-LAST:event_btloginActionPerformed
 
     private void btnparActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnparActionPerformed
-          JFileChooser chooser = new JFileChooser();
-         
-    FileNameExtensionFilter filter = new FileNameExtensionFilter(
-        "JPG & GIF Images", "jpg", "gif");
-    chooser.setFileFilter(filter);
-    int returnVal = chooser.showOpenDialog(btnpar);
-    if(returnVal == JFileChooser.APPROVE_OPTION) {
-       
-       tfimage.setText(chooser.getSelectedFile().getAbsolutePath());
-     im=chooser.getSelectedFile().getName();
-    }
+        JFileChooser chooser = new JFileChooser();
+
+        FileNameExtensionFilter filter = new FileNameExtensionFilter(
+                "JPG & GIF Images", "jpg", "gif");
+        chooser.setFileFilter(filter);
+        int returnVal = chooser.showOpenDialog(btnpar);
+        if (returnVal == JFileChooser.APPROVE_OPTION) {
+
+            tfimage.setText(chooser.getSelectedFile().getAbsolutePath());
+            im = chooser.getSelectedFile().getName();
+        }
     }//GEN-LAST:event_btnparActionPerformed
 
     private void btnUploadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUploadActionPerformed
         PostFile pf = new PostFile();
         String sp = tfimage.getText();
-     try {
-         pf.upload(sp);
-         JOptionPane.showMessageDialog(null,"Image telechargé avec succés");
-         
-         
-         
+        try {
+            pf.upload(sp);
+            JOptionPane.showMessageDialog(null, "Image telechargé avec succés");
+
 // TODO add your handling code here:
-     } catch (Exception ex) {
-         Logger.getLogger(LoginForm.class.getName()).log(Level.SEVERE, null, ex);
-       
-     }
-     
+        } catch (Exception ex) {
+            Logger.getLogger(LoginForm.class.getName()).log(Level.SEVERE, null, ex);
+
+        }
+
     }//GEN-LAST:event_btnUploadActionPerformed
 
     /**
      * @param args the command line arguments
      */
     public static void main(String args[]) {
+
+        Mixer.Info[] mixInfo = AudioSystem.getMixerInfo();
+        mixer = AudioSystem.getMixer(mixInfo[0]);
+        DataLine.Info dataLine = new DataLine.Info(Clip.class, null);
+        try {
+            clip = (Clip) mixer.getLine(dataLine);
+        } catch (LineUnavailableException ex) {
+            ex.printStackTrace();
+        }
+        try {
+            URL soundURL = Main.class.getResource("/images/The_Eagles-Hotel_California_acoustic_live_www.wav");
+            AudioInputStream audioImput = AudioSystem.getAudioInputStream(soundURL);
+            clip.open(audioImput);
+
+        } catch (LineUnavailableException ex) {
+            ex.printStackTrace();
+        } catch (UnsupportedAudioFileException exp) {
+            exp.printStackTrace();
+        } catch (IOException io) {
+            io.printStackTrace();
+        }
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
@@ -525,6 +566,15 @@ public class LoginForm extends javax.swing.JFrame {
                 new LoginForm().setVisible(true);
             }
         });
+//        clip.start();
+//        do {
+//            try {
+//                Thread.sleep(50);
+//            } catch (InterruptedException ie) {
+//                ie.printStackTrace();
+//            }
+//
+//        } while (clip.isActive());
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

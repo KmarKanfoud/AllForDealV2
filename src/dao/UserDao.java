@@ -21,18 +21,20 @@ import utils.DataSource;
  *
  * @author maroo
  */
-public class UserDao implements Idao.IDao<User>{
+public class UserDao implements Idao.IDao<User> {
+
     private Connection connection;
     private PreparedStatement pst;
-    
-     public UserDao() {
+
+    public UserDao() {
         //initialiser la connection
         connection = DataSource.getInstance().getConnection();
-     }
+    }
+
     @Override
     public void add(User t) {
         String req = "insert into fos_user_user(username, username_canonical, email, email_canonical, enabled, password, gender, phone, firstname, lastname, roles, created_at,adress,photo )"
-               +"values (?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+                + "values (?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
         try {
             pst = connection.prepareStatement(req);
 
@@ -40,9 +42,9 @@ public class UserDao implements Idao.IDao<User>{
             pst.setString(2, t.getUsernameCanonical());
             pst.setString(3, t.getEmail());
             pst.setString(4, t.getEmailCanonical());
-             pst.setInt(5, t.getEnabled());
+            pst.setInt(5, t.getEnabled());
             pst.setString(6, t.getPassword());
-         
+
             pst.setString(7, t.getGender());
             pst.setString(8, t.getPhone());
             pst.setString(9, t.getFirstname());
@@ -51,8 +53,7 @@ public class UserDao implements Idao.IDao<User>{
             pst.setDate(12, (Date) t.getCreated_at());
             pst.setString(13, t.getAdress());
             pst.setString(14, t.getImage());
-           
-           
+
             pst.executeUpdate();
         } catch (SQLException ex) {
             Logger.getLogger(UserDao.class.getName()).log(Level.SEVERE, null, ex);
@@ -66,14 +67,13 @@ public class UserDao implements Idao.IDao<User>{
 
             pst = connection.prepareStatement(req);
 
-           
             pst.setString(1, t.getUsername());
             pst.setString(2, t.getUsernameCanonical());
             pst.setString(3, t.getEmail());
             pst.setString(4, t.getEmailCanonical());
-             pst.setInt(5, t.getEnabled());
+            pst.setInt(5, t.getEnabled());
             pst.setString(6, t.getPassword());
-         
+
             pst.setString(7, t.getGender());
             pst.setString(8, t.getPhone());
             pst.setString(9, t.getFirstname());
@@ -91,7 +91,7 @@ public class UserDao implements Idao.IDao<User>{
 
     @Override
     public void removeById(int id) {
- String requete = "delete from fos_user_user where id=?";
+        String requete = "delete from fos_user_user where id=?";
         try {
             PreparedStatement ps = connection.prepareStatement(requete);
             ps.setInt(1, id);
@@ -107,10 +107,10 @@ public class UserDao implements Idao.IDao<User>{
         List<User> listeUser = new ArrayList<>();
         String req = "select id ,username ,password , email, created_at,Bonus,roles ,enabled from fos_user_user ";
         try {
-            
+
             pst = connection.prepareStatement(req);
             ResultSet resultat = pst.executeQuery(req);
-           
+
             while (resultat.next()) {
                 User p = new User();
                 p.setId(resultat.getInt(1));
@@ -127,7 +127,7 @@ public class UserDao implements Idao.IDao<User>{
         } catch (SQLException ex) {
             Logger.getLogger(UserDao.class.getName()).log(Level.SEVERE, null, ex);
             return null;
-        }         
+        }
     }
 
     @Override
@@ -151,40 +151,61 @@ public class UserDao implements Idao.IDao<User>{
                 p.setEnabled(resultat.getInt(10));
                 p.setBonus(resultat.getInt(11));
                 p.setPhone(resultat.getString(12));
+
                 p.setImage(resultat.getString(13));
                 
+
+
+
             }
             return p;
 
         } catch (SQLException ex) {
-             Logger.getLogger(UserDao.class.getName()).log(Level.SEVERE, null, ex);
-            return null;
-        }
-    }
-    public User findByLogin( String login, String mdp ){
-         User u = new User();
-        String req="select username , password ,roles,id,enabled from fos_user_user where username=? and password=? ";
-        try {
-            PreparedStatement ps = connection.prepareStatement(req);
-             ps.setString(1, login);
-             ps.setString(2, mdp);
-             ResultSet resultat = ps.executeQuery();
-             while (resultat.next()){
-                 u.setUsername(resultat.getString(1));
-                 u.setPassword(resultat.getString(2));
-                 u.setRoles(resultat.getString(3));
-                 u.setId(resultat.getInt(4));
-                 u.setEnabled(resultat.getInt(5));
-             }
-             return u;
-        }
-      
-        catch (SQLException ex) {
-             Logger.getLogger(UserDao.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(UserDao.class.getName()).log(Level.SEVERE, null, ex);
             return null;
         }
     }
 
-   
-    
+    public User findByLogin(String login, String mdp) {
+        User u = new User();
+        String req = "select username , password ,roles,id,enabled from fos_user_user where username=? and password=? ";
+        try {
+            PreparedStatement ps = connection.prepareStatement(req);
+            ps.setString(1, login);
+            ps.setString(2, mdp);
+            ResultSet resultat = ps.executeQuery();
+            while (resultat.next()) {
+                u.setUsername(resultat.getString(1));
+                u.setPassword(resultat.getString(2));
+                u.setRoles(resultat.getString(3));
+                u.setId(resultat.getInt(4));
+                u.setEnabled(resultat.getInt(5));
+            }
+            return u;
+        } catch (SQLException ex) {
+            Logger.getLogger(UserDao.class.getName()).log(Level.SEVERE, null, ex);
+            return null;
+        }
+    }
+
+    public List<String> findAllEmail() {
+        List<String> listeEmail = new ArrayList<>();
+        String req = "select  email from fos_user_user where roles = 'ROLE_USER'";
+        try {
+
+            pst = connection.prepareStatement(req);
+            ResultSet resultat = pst.executeQuery(req);
+
+            while (resultat.next()) {
+                String s;
+                s = resultat.getString(1);
+                listeEmail.add(s);
+            }
+            return listeEmail;
+        } catch (SQLException ex) {
+            Logger.getLogger(UserDao.class.getName()).log(Level.SEVERE, null, ex);
+            return null;
+        }
+    }
+
 }

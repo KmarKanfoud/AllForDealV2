@@ -78,6 +78,7 @@ public class Produit {
         this.tva = tva;
         this.reduction = reduction;
         this.dateAjout = dateAjout;
+        this.rating = rating;
     }
 
     public Produit(String zoneName, int id, int zone, int user, int media, String categorie, int quantite, int ptbonus, String nomP, String description, float prix, int prix1, int prix2, float tva, float reduction, Date dateAjout, int rating) {
@@ -234,8 +235,10 @@ public class Produit {
 
     @Override
     public String toString() {
-        return "Produit{" + "id=" + id + ", zone=" + zone + ", user=" + user + ", media=" + media + ", categorie=" + categorie + ", quantite=" + quantite + ", ptbonus=" + ptbonus + ", nomP=" + nomP + ", description=" + description + ", prix=" + prix + ", prix1=" + prix1 + ", prix2=" + prix2 + ", tva=" + tva + ", reduction=" + reduction + ", dateAjout=" + dateAjout + '}';
+        return "Produit{" + "zoneDAO=" + zoneDAO + ", rsName=" + rsName + ", zoneName=" + zoneName + ", id=" + id + ", zone=" + zone + ", user=" + user + ", media=" + media + ", categorie=" + categorie + ", quantite=" + quantite + ", ptbonus=" + ptbonus + ", nomP=" + nomP + ", description=" + description + ", prix=" + prix + ", prix1=" + prix1 + ", prix2=" + prix2 + ", tva=" + tva + ", reduction=" + reduction + ", dateAjout=" + dateAjout + ", rating=" + rating + ", evaluations=" + evaluations + '}';
     }
+
+   
     
   public String getZoneName() {
         try {

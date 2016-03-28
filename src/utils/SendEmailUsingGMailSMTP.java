@@ -13,6 +13,11 @@ import javax.mail.Session;
 import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
+import dao.*;
+import entite.User;
+import static java.lang.ProcessBuilder.Redirect.to;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -21,8 +26,19 @@ import javax.mail.internet.MimeMessage;
 public class SendEmailUsingGMailSMTP {
 
     public static void main(String[] args) {
-
-        String to = "sahar.sayeb@esprit.tn";//sent TO
+       String to = null ;
+        UserDao u = new UserDao();
+      List  listeTo = new ArrayList();
+      listeTo= u.findAllEmail();
+      
+//     
+//      for (Object o : listeTo) {
+//         to = (String)o;
+//        }
+//      
+      
+      
+     
 
         String from = "allfordealpi@gmail.com";
         final String username = "allfordealpi@gmail.com";
@@ -49,17 +65,25 @@ public class SendEmailUsingGMailSMTP {
             Message message = new MimeMessage(session);
 
             message.setFrom(new InternetAddress(from));
-
+            
+           for (Object o : listeTo) {
+                
+                   to = (String)o;
+                      System.out.println(to);
             message.setRecipients(Message.RecipientType.TO,
                     InternetAddress.parse(to));
-
+            
+                 
+          
+       
+           
             message.setSubject("Testing Subject");
 
-            message.setText("Hello, Sahar testing APImail, hoping it will work LOL");
+            message.setText(" Sahar testing APImail to sent a message to all users");
 
             // Send message
             Transport.send(message);
-
+           }
             System.out.println("Sent message successfully....");
 
         } catch (MessagingException e) {

@@ -41,7 +41,7 @@ public class ServiceDao implements IDao<Service> {
 
     @Override
     public void add(Service t) {
-        String req = "insert into service (id,nomService,description,type,etat,dateAjout,zone_id) values (?,?,?,?,?,?,?)";
+        String req = "insert into service (id,nomService,description,type,etat,dateAjout,zone_id,user_id) values (?,?,?,?,?,?,?,?)";
         try {
             pst = connection.prepareStatement(req);
 
@@ -52,7 +52,10 @@ public class ServiceDao implements IDao<Service> {
             pst.setString(4, t.getType());
             pst.setString(5, t.getEtat());
             pst.setDate(6, (Date) t.getDateAjout());
+            
             pst.setInt(7, t.getZone());
+            pst.setInt(8, t.getUserId());
+            
             //pst.setDate(7 s.DateAjout());
 
             pst.executeUpdate();
@@ -109,11 +112,11 @@ public class ServiceDao implements IDao<Service> {
 
                 s.setId(resultat.getInt(1));
                 s.setZone(resultat.getInt(2));
-                s.setNomService(resultat.getString(4));
-                s.setDescription(resultat.getString(5));
-                s.setType(resultat.getString(6));
-                s.setEtat(resultat.getString(7));
-                s.setDateAjout(resultat.getDate(8));
+                s.setNomService(resultat.getString(3));
+                s.setDescription(resultat.getString(4));
+                s.setType(resultat.getString(5));
+                s.setEtat(resultat.getString(6));
+                s.setDateAjout(resultat.getDate(7));
 
                 listeService.add(s);
 
@@ -125,7 +128,7 @@ public class ServiceDao implements IDao<Service> {
         }
     }
     public List<Service> findAllByUser(int user_id) {
-        List<Service> listeService = new ArrayList<>();
+        List<Service> ServiceByUserIdModel = new ArrayList<>();
 
         String req = "select * from service where user_id="+user_id;
 
@@ -139,21 +142,86 @@ public class ServiceDao implements IDao<Service> {
 
                 s.setId(resultat.getInt(1));
                 s.setZone(resultat.getInt(2));
-                s.setNomService(resultat.getString(4));
-                s.setDescription(resultat.getString(5));
-                s.setType(resultat.getString(6));
-                s.setEtat(resultat.getString(7));
-                s.setDateAjout(resultat.getDate(8));
+                s.setNomService(resultat.getString(3));
+                s.setDescription(resultat.getString(4));
+                s.setType(resultat.getString(5));
+                s.setEtat(resultat.getString(6));
+                s.setDateAjout(resultat.getDate(7));
 
-                listeService.add(s);
+                ServiceByUserIdModel.add(s);
 
             }
-            return listeService;
+            return ServiceByUserIdModel;
         } catch (SQLException ex) {
             System.out.println("erreur" + ex.getMessage());
-            return listeService;
+            return ServiceByUserIdModel;
         }
     }
+    
+    
+    
+      public List<Service> findAllByCategorie(String cat ) {
+        List<Service> ServiceByCategorieModel = new ArrayList<>();
+
+        String req = "select * from service where type like '%" +cat+"%'";
+
+        try {
+            pst = connection.prepareStatement(req);
+            ResultSet resultat = pst.executeQuery(req);
+
+            while (resultat.next()) {
+
+                Service s = new Service();
+
+                s.setId(resultat.getInt(1));
+                s.setZone(resultat.getInt(2));
+                s.setNomService(resultat.getString(3));
+                s.setDescription(resultat.getString(4));
+                s.setType(resultat.getString(5));
+                s.setEtat(resultat.getString(6));
+                s.setDateAjout(resultat.getDate(7));
+
+               ServiceByCategorieModel.add(s);
+
+            }
+            return ServiceByCategorieModel;
+        } catch (SQLException ex) {
+            System.out.println("erreur" + ex.getMessage());
+            return ServiceByCategorieModel;
+        }
+    }
+      
+      public List <Service> findByName(String name){
+          List<Service> ServiceByCategorieModel = new ArrayList<>();
+ String req = "select * from service where nomService like '%" +name+"%'";
+
+        try {
+            pst = connection.prepareStatement(req);
+            ResultSet resultat = pst.executeQuery(req);
+
+            while (resultat.next()) {
+
+                Service s = new Service();
+
+                s.setId(resultat.getInt(1));
+                s.setZone(resultat.getInt(2));
+                s.setNomService(resultat.getString(3));
+                s.setDescription(resultat.getString(4));
+                s.setType(resultat.getString(5));
+                s.setEtat(resultat.getString(6));
+                s.setDateAjout(resultat.getDate(7));
+
+               ServiceByCategorieModel.add(s);
+
+            }
+            return ServiceByCategorieModel;
+        } catch (SQLException ex) {
+            System.out.println("erreur" + ex.getMessage());
+            return ServiceByCategorieModel;
+        }
+          
+      }
+      
 
     @Override
     public Service findById(int id) {

@@ -23,7 +23,7 @@ public class ListeService extends AbstractTableModel {
     public ListeService() {
         
         ServiceDao pdao = new ServiceDao();
-        //l = pdao.findAllByUser(1); // userID
+       // l = pdao.findAllByUser(1); // userID
        l = pdao.findAll(); // ALL
     }
 // test git 

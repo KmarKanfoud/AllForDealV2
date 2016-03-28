@@ -260,10 +260,10 @@ public class ProduitDao implements IDao<Produit> {
 
     
      public void updateRating(Produit p) {
-        String requete = "update produit set  rating= rating +1  where id=?";
+        String requete = "update produit set  rating=rating+?  where id=?";
         try {
             PreparedStatement ps = connection.prepareStatement(requete);
-             ps.setInt(1, p.getRating());
+             ps.setInt(1,1);
               ps.setInt(2, p.getId());
            
           

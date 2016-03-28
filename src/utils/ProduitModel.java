@@ -21,7 +21,7 @@ import javax.swing.table.AbstractTableModel;
 public class ProduitModel extends AbstractTableModel{
 List<Produit> l;
 
-String [] colonnes={"id","nom","Categorie","Quantité","Description","prix","point Bonus","Zone","Ajouté le","TVA","Réduction"};
+String [] colonnes={"id","nom","Categorie","Quantité","Description","prix","point Bonus","Zone","Ajouté le","TVA","Réduction","Rating"};
     public ProduitModel() {
        ProduitDao pdao = new ProduitDao();
        l = pdao.findAll();
@@ -49,6 +49,7 @@ switch (columnIndex){
     case 8: return l.get(rowIndex).getDateAjout();
     case 9: return l.get(rowIndex).getTva();
     case 10: return l.get(rowIndex).getReduction();
+    case 11:return l.get(rowIndex).getRating();
     default: return null;
     }
     }

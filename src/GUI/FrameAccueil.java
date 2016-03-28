@@ -5,12 +5,11 @@
  */
 package GUI;
 
-<<<<<<< HEAD
 import java.io.*;
 
 
-=======
->>>>>>> a22b913f0ab40c2c1decbde2f1158e4592ba2012
+
+
 import dao.MessageDao;
 import dao.ReclamationDao;
 import dao.UserDao;
@@ -39,11 +38,11 @@ import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.Mixer;
 import javax.sound.sampled.UnsupportedAudioFileException;
 import sun.applet.Main;
-<<<<<<< HEAD
+
 import javax.imageio.*;
 import javax.swing.JFrame;
-=======
->>>>>>> a22b913f0ab40c2c1decbde2f1158e4592ba2012
+
+
 import utils.*;
 
 /**
@@ -442,26 +441,19 @@ public class FrameAccueil extends javax.swing.JFrame {
                         .addComponent(lGender))
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel2)
-<<<<<<< HEAD
+
 
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 170, Short.MAX_VALUE)
 
-
-=======
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 161, Short.MAX_VALUE)
->>>>>>> a22b913f0ab40c2c1decbde2f1158e4592ba2012
                         .addComponent(lEmail))
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(lUserName)))
-<<<<<<< HEAD
+
 
                 .addContainerGap(344, Short.MAX_VALUE))
 
-=======
-                .addContainerGap(383, Short.MAX_VALUE))
->>>>>>> a22b913f0ab40c2c1decbde2f1158e4592ba2012
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)

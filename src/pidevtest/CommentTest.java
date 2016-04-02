@@ -38,16 +38,19 @@ public class CommentTest {
        // Comment c1 = new Comment("Bonjour", date);
         // Comment c2=  new Comment("AllForDeal", date);
    CommentDao pdao = new CommentDao();
+   Comment c = new Comment();
+   c=  pdao.findById(69);
+        System.out.println(c);
         //pdao.add(c1);
         //pdao.add(c2);
         // c2.setBody("sahar");
         // pdao.update(c2);
         //pdao.removeById(12);
-      List<Comment> com = new ArrayList();
+     // List<Comment> com = new ArrayList();
         //com = pdao.DisplayCommentaireByUserProduit(10,21);
-       com = pdao.DisplayCommentService(12);
-     System.out.println(com);
-        
+//       com = pdao.DisplayCommentService(12);
+//     System.out.println(com);
+    
         
         
         

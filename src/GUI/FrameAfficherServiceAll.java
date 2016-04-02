@@ -48,6 +48,7 @@ public class FrameAfficherServiceAll extends javax.swing.JFrame {
     ZoneDao zoneDAO = new ZoneDao();
     private static String categorie;
     private static String nomS;
+    private String s;
 
     public static String getNomS() {
         return nomS;
@@ -56,7 +57,6 @@ public class FrameAfficherServiceAll extends javax.swing.JFrame {
     public static void setNomS(String nomS) {
         FrameAfficherServiceAll.nomS = nomS;
     }
-    
 
     public static String getCategorie() {
         return categorie;
@@ -1069,7 +1069,7 @@ public class FrameAfficherServiceAll extends javax.swing.JFrame {
         Object l = tblAllServices.getValueAt(i, 0);
         service_id = (int) l;
         System.out.println("ID de Service" + service_id);
-       // TableModel mod = tbCommentService.getModel();
+        // TableModel mod = tbCommentService.getModel();
         //labelId.setText(model.getValueAt(i, 0).toString());
         tfNomService3.setText(model.getValueAt(i, 1).toString());
         tfDescription4.setText(model.getValueAt(i, 2).toString());
@@ -1102,13 +1102,15 @@ public class FrameAfficherServiceAll extends javax.swing.JFrame {
     }//GEN-LAST:event_btnBackS2ActionPerformed
 
     private void tbCommentServiceMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbCommentServiceMouseClicked
-      int ligneSelectionne = tbCommentService.getSelectedRow();
+        int ligneSelectionne = tbCommentService.getSelectedRow();
         Object l = tbCommentService.getValueAt(ligneSelectionne, 0);
         CommentDao dao = new CommentDao();
         Comment c = new Comment();
         c.setId((int) tbCommentService.getValueAt(ligneSelectionne, 0));
         System.out.println((int) tbCommentService.getValueAt(ligneSelectionne, 0));
         tfComment.setText((String) tbCommentService.getValueAt(ligneSelectionne, 1));
+        s = (String) tbCommentService.getValueAt(ligneSelectionne, 3);
+        System.out.println(s);
     }//GEN-LAST:event_tbCommentServiceMouseClicked
 
     private void tblAllServicesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblAllServicesMouseClicked
@@ -1125,7 +1127,7 @@ public class FrameAfficherServiceAll extends javax.swing.JFrame {
 
     private void bntRechercheS2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bntRechercheS2ActionPerformed
         // TODO add your handling code here:
-         nomS = tfRechercheS.getText();
+        nomS = tfRechercheS.getText();
         System.out.println(nomS);
         ServiceDao pdao = new ServiceDao();
         pdao.findByName(nomS);
@@ -1148,38 +1150,54 @@ public class FrameAfficherServiceAll extends javax.swing.JFrame {
     }//GEN-LAST:event_btnCommenterActionPerformed
 
     private void btnModifierComActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModifierComActionPerformed
-      int ligneSelectionne = tbCommentService.getSelectedRow();
-        Object l = tbCommentService.getValueAt(ligneSelectionne, 0);
         Comment c = new Comment();
-        String body;
-        CommentDao dao = new CommentDao();
-        c.setId((int) tbCommentService.getValueAt(ligneSelectionne, 0));
-        body = tfComment.getText();
-        c.setBody(body);
-        System.out.println(c);
-        dao.update(c);
-        tfComment.setText("");
-        tbCommentService.setModel(new CommentSModel());
+         CommentDao dao = new CommentDao();
+            int ligneSelectionne = tbCommentService.getSelectedRow();
+            Object l = tbCommentService.getValueAt(ligneSelectionne, 0);
+            c=dao.findById((int)l);
+            String s = (String) tbCommentService.getValueAt(ligneSelectionne, 3);
+            System.out.println(s);
+            String body;
+            if (FrameAccueil.getUserId() == c.getUser_id()) {
+            c.setId((int) tbCommentService.getValueAt(ligneSelectionne, 0));
+            body = tfComment.getText();
+            c.setBody(body);
+            System.out.println(c);
+            dao.update(c);
+            tfComment.setText("");
+            tbCommentService.setModel(new CommentSModel());
+        } else {
+//            JOptionPane.showDialog(null, "Ce commentaire est ajouté par"+c.getUsername(),
+//                "Vous ne pouvez pas mosifier ce commentaire");
+            JOptionPane.showMessageDialog(ParentPanel, "Ce commentaire est ajouté par " + s + ". Vous ne pouvez pas le modifier");
+        }
     }//GEN-LAST:event_btnModifierComActionPerformed
 
     private void btnSupprimerComActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSupprimerComActionPerformed
-         int ligneSelectionne = tbCommentService.getSelectedRow();
-        Object l = tbCommentService.getValueAt(ligneSelectionne, 0);
-        System.out.println(l);
-        CommentDao comm = new CommentDao();
-        int i = JOptionPane.showConfirmDialog(null, "La suppression est irréversible. Êtes-vous sûr de vouloir continuer?",
-                "Veuillez confirmer votre choix",
-                JOptionPane.YES_NO_OPTION);
+        Comment c = new Comment();
+            CommentDao comm = new CommentDao();
+            int ligneSelectionne = tbCommentService.getSelectedRow();
+            Object l = tbCommentService.getValueAt(ligneSelectionne, 0);
+            System.out.println(l);
+             c=comm.findById((int)l);
+            String s = (String) tbCommentService.getValueAt(ligneSelectionne, 3);
+            System.out.println(s);
+        if (FrameAccueil.getUserId() == c.getUser_id()) {
+            int i = JOptionPane.showConfirmDialog(null, "La suppression est irréversible. Êtes-vous sûr de vouloir continuer?",
+                    "Veuillez confirmer votre choix",
+                    JOptionPane.YES_NO_OPTION);
 
-        if (i == 0) {
-            comm.removeById((int) l);
-            tbCommentService.setModel(new CommentSModel());
-
+            if (i == 0) {
+                comm.removeById((int) l);
+                tbCommentService.setModel(new CommentSModel());
+            }
+        } else {
+            JOptionPane.showMessageDialog(ParentPanel, "Ce commentaire est ajouté par " + s + ". Vous ne pouvez pas le supprimer");
         }
     }//GEN-LAST:event_btnSupprimerComActionPerformed
 
     private void btnCommentServActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCommentServActionPerformed
-         Comment c = new Comment();
+        Comment c = new Comment();
         c.setBody(tfCommentS.getText());
         java.util.Date date = new java.sql.Date(System.currentTimeMillis());
         c.setCreated_at(date);
@@ -1194,7 +1212,7 @@ public class FrameAfficherServiceAll extends javax.swing.JFrame {
     }//GEN-LAST:event_btnCommentServActionPerformed
 
     private void btnModifierComSActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModifierComSActionPerformed
-          int ligneSelectionne = tbCommentMesServices.getSelectedRow();
+        int ligneSelectionne = tbCommentMesServices.getSelectedRow();
         Object l = tbCommentMesServices.getValueAt(ligneSelectionne, 0);
         Comment c = new Comment();
         String body;
@@ -1209,7 +1227,7 @@ public class FrameAfficherServiceAll extends javax.swing.JFrame {
     }//GEN-LAST:event_btnModifierComSActionPerformed
 
     private void btnSupprimerCommSActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSupprimerCommSActionPerformed
-       int ligneSelectionne = tbCommentMesServices.getSelectedRow();
+        int ligneSelectionne = tbCommentMesServices.getSelectedRow();
         Object l = tbCommentMesServices.getValueAt(ligneSelectionne, 0);
         System.out.println(l);
         CommentDao comm = new CommentDao();
@@ -1224,7 +1242,7 @@ public class FrameAfficherServiceAll extends javax.swing.JFrame {
     }//GEN-LAST:event_btnSupprimerCommSActionPerformed
 
     private void tbCommentMesServicesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbCommentMesServicesMouseClicked
-       int ligneSelectionne = tbCommentMesServices.getSelectedRow();
+        int ligneSelectionne = tbCommentMesServices.getSelectedRow();
         Object l = tbCommentMesServices.getValueAt(ligneSelectionne, 0);
         CommentDao dao = new CommentDao();
         Comment c = new Comment();

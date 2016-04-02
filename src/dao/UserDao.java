@@ -207,5 +207,27 @@ public class UserDao implements Idao.IDao<User> {
             return null;
         }
     }
+    
+    public List<String> findAllUsers() {
+        List<String> listUsers = new ArrayList<>();
+        String req = "select  user from fos_user_user ";
+        try {
+
+            pst = connection.prepareStatement(req);
+            ResultSet resultat = pst.executeQuery(req);
+
+            while (resultat.next()) {
+                String s;
+                s = resultat.getString(1);
+                listUsers.add(s);
+            }
+            return listUsers;
+        } catch (SQLException ex) {
+            Logger.getLogger(UserDao.class.getName()).log(Level.SEVERE, null, ex);
+            return null;
+        }
+    }
+    
+    
 
 }

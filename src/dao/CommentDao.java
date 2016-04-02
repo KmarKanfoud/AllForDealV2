@@ -130,9 +130,31 @@ public class CommentDao implements IDao<Comment> {
 
     @Override
     public Comment findById(int id) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
+         Comment  c = new Comment();
+        String requete = "select * from comment where id=?";
+        try {
+            PreparedStatement ps = connection.prepareStatement(requete);
+            ps.setInt(1, id);
+            ResultSet resultat = ps.executeQuery();
+            while (resultat.next()) {
+                c.setId(resultat.getInt(1));
+                c.setBody(resultat.getString(3));
+               c.setCreated_at((Date) resultat.getDate(4));
+               c.setUser_id(resultat.getInt(11));
+            }
+            return c;
 
+        } catch (SQLException ex) {
+            System.out.println("erreur lors de la recherche d'une Personne " + ex.getMessage());
+            return null;
+        }
+    }
+        
+    
+
+    
+    
+    
   ///////////////// AFFICHAGE DES COMMENTAIRES D'UN SEUL UTILISATEUR
 
     public List<Comment> DisplayAllCommentaireByUser(int num) {

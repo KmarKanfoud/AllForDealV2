@@ -71,7 +71,7 @@
                   </Group>
                   <Group type="102" alignment="1" attributes="0">
                       <Component id="jLabel14" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace pref="20" max="32767" attributes="0"/>
+                      <EmptySpace max="32767" attributes="0"/>
                       <Component id="jPanel2" min="-2" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="23" max="-2" attributes="0"/>
                   </Group>
@@ -187,15 +187,15 @@
                               <Component id="tfphone" min="-2" pref="100" max="-2" attributes="0"/>
                               <Component id="tffirstname" min="-2" pref="100" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                  <Component id="tfusername" alignment="1" max="32767" attributes="0"/>
-                                  <Component id="tfemail" alignment="1" max="32767" attributes="0"/>
-                                  <Component id="tflastname" alignment="0" max="32767" attributes="0"/>
-                                  <Component id="tfmdp2" alignment="0" max="32767" attributes="0"/>
-                                  <Component id="cboxgender" alignment="0" pref="100" max="32767" attributes="0"/>
-                                  <Component id="tfmdp1" alignment="0" max="32767" attributes="0"/>
+                                  <Component id="tfusername" alignment="1" pref="1" max="32767" attributes="0"/>
+                                  <Component id="tfemail" alignment="1" pref="0" max="32767" attributes="0"/>
+                                  <Component id="tflastname" alignment="0" pref="0" max="32767" attributes="0"/>
+                                  <Component id="tfmdp2" alignment="0" pref="0" max="32767" attributes="0"/>
+                                  <Component id="cboxgender" alignment="0" pref="0" max="32767" attributes="0"/>
+                                  <Component id="tfmdp1" alignment="0" pref="0" max="32767" attributes="0"/>
                               </Group>
                           </Group>
-                          <EmptySpace min="0" pref="97" max="32767" attributes="0"/>
+                          <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                       </Group>
                       <Group type="102" alignment="0" attributes="0">
                           <Component id="jLabel11" min="-2" max="-2" attributes="0"/>
@@ -205,7 +205,6 @@
                       <Group type="102" alignment="1" attributes="0">
                           <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
-<<<<<<< HEAD
                               <Component id="jLabel13" min="-2" max="-2" attributes="0"/>
                               <Group type="102" attributes="0">
                                   <EmptySpace min="10" pref="10" max="-2" attributes="0"/>
@@ -218,34 +217,17 @@
                               <Group type="102" attributes="0">
                                   <EmptySpace min="38" pref="38" max="-2" attributes="0"/>
                                   <Component id="tfimage" min="-2" pref="224" max="-2" attributes="0"/>
-=======
-                              <Group type="102" alignment="1" attributes="0">
+                                  <EmptySpace min="0" pref="0" max="-2" attributes="0"/>
                                   <Component id="jButton2" min="-2" max="-2" attributes="0"/>
                                   <EmptySpace min="-2" pref="7" max="-2" attributes="0"/>
                                   <Component id="jButton3" min="-2" max="-2" attributes="0"/>
-                              </Group>
-                              <Group type="102" alignment="1" attributes="0">
-                                  <Group type="103" groupAlignment="0" attributes="0">
-                                      <Group type="102" attributes="0">
-                                          <Component id="jLabel13" min="-2" max="-2" attributes="0"/>
-                                          <EmptySpace min="-2" pref="8" max="-2" attributes="0"/>
-                                          <Component id="cbtype" min="-2" max="-2" attributes="0"/>
-                                      </Group>
-                                      <Group type="102" attributes="0">
-                                          <Component id="tfimage" min="-2" pref="161" max="-2" attributes="0"/>
-                                          <EmptySpace max="-2" attributes="0"/>
-                                          <Component id="btnpar" min="-2" max="-2" attributes="0"/>
-                                          <EmptySpace max="-2" attributes="0"/>
-                                          <Component id="btnUpload" min="-2" max="-2" attributes="0"/>
-                                      </Group>
-                                  </Group>
-                                  <EmptySpace min="-2" pref="26" max="-2" attributes="0"/>
->>>>>>> 52585ed65a0b6255a14fa0b55428dfccc2e97c98
+                                  <EmptySpace min="-2" max="-2" attributes="0"/>
+                                  <Component id="btnUpload" min="-2" max="-2" attributes="0"/>
                               </Group>
                           </Group>
+                          <EmptySpace min="-2" pref="1" max="-2" attributes="0"/>
                       </Group>
                   </Group>
-                  <EmptySpace max="-2" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>

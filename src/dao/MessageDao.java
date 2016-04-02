@@ -62,7 +62,15 @@ public class MessageDao implements IDao<Message> {
     
     @Override
     public void removeById(int id) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+          String requete = "delete from message where id=?";
+        try {
+            PreparedStatement ps = connection.prepareStatement(requete);
+            ps.setInt(1, id);
+            ps.executeUpdate();
+            System.out.println("Message supprimé");
+        } catch (SQLException ex) {
+            System.out.println("erreur lors de la suppression " + ex.getMessage());
+        }
     }
     
     @Override

@@ -79,11 +79,15 @@ public class FrameAfficherServiceAll extends javax.swing.JFrame {
      */
     public FrameAfficherServiceAll() {
         initComponents();
+        tbCommentService.getColumnModel().getColumn(0).setMinWidth(0);
+        tbCommentService.getColumnModel().getColumn(0).setMaxWidth(0);
         loadAllVille();
         loadAllCategorie();
         labelId.setVisible(false);
-
         pConsulterS.setVisible(false);
+    
+//        tbCommentMesServices.getColumnModel().getColumn(0).setMinWidth(0);
+//        tbCommentMesServices.getColumnModel().getColumn(0).setMaxWidth(0);
     }
 
     /**
@@ -127,7 +131,7 @@ public class FrameAfficherServiceAll extends javax.swing.JFrame {
         jLabel26 = new javax.swing.JLabel();
         cbZone4 = new javax.swing.JComboBox();
         btnBackS2 = new javax.swing.JButton();
-        jScrollPane5 = new javax.swing.JScrollPane();
+        jScrollPaneComment = new javax.swing.JScrollPane();
         tbCommentService = new javax.swing.JTable();
         btnCommenter = new javax.swing.JButton();
         btnModifierCom = new javax.swing.JButton();
@@ -164,7 +168,7 @@ public class FrameAfficherServiceAll extends javax.swing.JFrame {
         jLabel16 = new javax.swing.JLabel();
         cbZone2 = new javax.swing.JComboBox();
         btnBackS = new javax.swing.JButton();
-        jScrollPane7 = new javax.swing.JScrollPane();
+        jScrollPaneComMesSer = new javax.swing.JScrollPane();
         tbCommentMesServices = new javax.swing.JTable();
         btnCommentServ = new javax.swing.JButton();
         btnModifierComS = new javax.swing.JButton();
@@ -384,7 +388,7 @@ public class FrameAfficherServiceAll extends javax.swing.JFrame {
                 tbCommentServiceMouseClicked(evt);
             }
         });
-        jScrollPane5.setViewportView(tbCommentService);
+        jScrollPaneComment.setViewportView(tbCommentService);
 
         btnCommenter.setText("Commenter");
         btnCommenter.addActionListener(new java.awt.event.ActionListener() {
@@ -407,8 +411,8 @@ public class FrameAfficherServiceAll extends javax.swing.JFrame {
             }
         });
 
-        pConsulterS2.add(jScrollPane5);
-        jScrollPane5.setBounds(55, 11, 452, 402);
+        pConsulterS2.add(jScrollPaneComment);
+        jScrollPaneComment.setBounds(55, 11, 452, 402);
 
         javax.swing.GroupLayout pConsulterS2Layout = new javax.swing.GroupLayout(pConsulterS2);
         pConsulterS2.setLayout(pConsulterS2Layout);
@@ -436,7 +440,7 @@ public class FrameAfficherServiceAll extends javax.swing.JFrame {
                         .addGap(54, 54, 54)
                         .addGroup(pConsulterS2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(btnBackS2)
-                            .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 365, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(jScrollPaneComment, javax.swing.GroupLayout.PREFERRED_SIZE, 365, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(pConsulterS2Layout.createSequentialGroup()
                         .addGap(115, 115, 115)
                         .addComponent(btnCommenter)
@@ -478,7 +482,7 @@ public class FrameAfficherServiceAll extends javax.swing.JFrame {
                                 .addComponent(jLabel25))
                             .addGroup(pConsulterS2Layout.createSequentialGroup()
                                 .addGap(17, 17, 17)
-                                .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 195, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jScrollPaneComment, javax.swing.GroupLayout.PREFERRED_SIZE, 195, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 22, Short.MAX_VALUE)
                                 .addComponent(tfComment, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(18, 18, 18)))
@@ -630,7 +634,7 @@ public class FrameAfficherServiceAll extends javax.swing.JFrame {
                 tbCommentMesServicesMouseClicked(evt);
             }
         });
-        jScrollPane7.setViewportView(tbCommentMesServices);
+        jScrollPaneComMesSer.setViewportView(tbCommentMesServices);
 
         btnCommentServ.setText("Commenter");
         btnCommentServ.addActionListener(new java.awt.event.ActionListener() {
@@ -691,7 +695,7 @@ public class FrameAfficherServiceAll extends javax.swing.JFrame {
                                 .addGap(86, 86, 86)
                                 .addGroup(pConsulterSLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(tfCommentS, javax.swing.GroupLayout.PREFERRED_SIZE, 402, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jScrollPane7, javax.swing.GroupLayout.PREFERRED_SIZE, 423, javax.swing.GroupLayout.PREFERRED_SIZE))))))
+                                    .addComponent(jScrollPaneComMesSer, javax.swing.GroupLayout.PREFERRED_SIZE, 423, javax.swing.GroupLayout.PREFERRED_SIZE))))))
                 .addContainerGap(119, Short.MAX_VALUE))
         );
         pConsulterSLayout.setVerticalGroup(
@@ -732,7 +736,7 @@ public class FrameAfficherServiceAll extends javax.swing.JFrame {
                                 .addComponent(jLabel15))
                             .addGroup(pConsulterSLayout.createSequentialGroup()
                                 .addGap(53, 53, 53)
-                                .addComponent(jScrollPane7, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jScrollPaneComMesSer, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(39, 39, 39)
                                 .addComponent(tfCommentS, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 156, Short.MAX_VALUE)))
@@ -1151,14 +1155,14 @@ public class FrameAfficherServiceAll extends javax.swing.JFrame {
 
     private void btnModifierComActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModifierComActionPerformed
         Comment c = new Comment();
-         CommentDao dao = new CommentDao();
-            int ligneSelectionne = tbCommentService.getSelectedRow();
-            Object l = tbCommentService.getValueAt(ligneSelectionne, 0);
-            c=dao.findById((int)l);
-            String s = (String) tbCommentService.getValueAt(ligneSelectionne, 3);
-            System.out.println(s);
-            String body;
-            if (FrameAccueil.getUserId() == c.getUser_id()) {
+        CommentDao dao = new CommentDao();
+        int ligneSelectionne = tbCommentService.getSelectedRow();
+        Object l = tbCommentService.getValueAt(ligneSelectionne, 0);
+        c = dao.findById((int) l);
+        String s = (String) tbCommentService.getValueAt(ligneSelectionne, 3);
+        System.out.println(s);
+        String body;
+        if (FrameAccueil.getUserId() == c.getUser_id()) {
             c.setId((int) tbCommentService.getValueAt(ligneSelectionne, 0));
             body = tfComment.getText();
             c.setBody(body);
@@ -1175,13 +1179,13 @@ public class FrameAfficherServiceAll extends javax.swing.JFrame {
 
     private void btnSupprimerComActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSupprimerComActionPerformed
         Comment c = new Comment();
-            CommentDao comm = new CommentDao();
-            int ligneSelectionne = tbCommentService.getSelectedRow();
-            Object l = tbCommentService.getValueAt(ligneSelectionne, 0);
-            System.out.println(l);
-             c=comm.findById((int)l);
-            String s = (String) tbCommentService.getValueAt(ligneSelectionne, 3);
-            System.out.println(s);
+        CommentDao comm = new CommentDao();
+        int ligneSelectionne = tbCommentService.getSelectedRow();
+        Object l = tbCommentService.getValueAt(ligneSelectionne, 0);
+        System.out.println(l);
+        c = comm.findById((int) l);
+        String s = (String) tbCommentService.getValueAt(ligneSelectionne, 3);
+        System.out.println(s);
         if (FrameAccueil.getUserId() == c.getUser_id()) {
             int i = JOptionPane.showConfirmDialog(null, "La suppression est irréversible. Êtes-vous sûr de vouloir continuer?",
                     "Veuillez confirmer votre choix",
@@ -1288,11 +1292,13 @@ public class FrameAfficherServiceAll extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
+
                 FrameAfficherServiceAll fa = new FrameAfficherServiceAll();
                 fa.setVisible(true);
                 fa.setResizable(true);
                 fa.setSize(screenWidth / 2, screenHeight / 2);
                 fa.setLocation(screenWidth / 4, screenHeight / 4);
+
             }
         });
     }
@@ -1388,9 +1394,9 @@ public class FrameAfficherServiceAll extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
-    private javax.swing.JScrollPane jScrollPane5;
     private javax.swing.JScrollPane jScrollPane6;
-    private javax.swing.JScrollPane jScrollPane7;
+    private javax.swing.JScrollPane jScrollPaneComMesSer;
+    private javax.swing.JScrollPane jScrollPaneComment;
     private javax.swing.JLabel lMsg;
     private javax.swing.JLabel lTitreRechercheS;
     private javax.swing.JLabel lTitreRechercheS2;

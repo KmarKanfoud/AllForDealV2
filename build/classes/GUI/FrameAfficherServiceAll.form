@@ -332,7 +332,7 @@
                                   <EmptySpace min="-2" pref="54" max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="0" attributes="0">
                                       <Component id="btnBackS2" min="-2" max="-2" attributes="0"/>
-                                      <Component id="jScrollPane5" min="-2" pref="365" max="-2" attributes="0"/>
+                                      <Component id="jScrollPaneComment" min="-2" pref="365" max="-2" attributes="0"/>
                                   </Group>
                               </Group>
                               <Group type="102" alignment="0" attributes="0">
@@ -388,7 +388,7 @@
                                       </Group>
                                       <Group type="102" alignment="0" attributes="0">
                                           <EmptySpace min="-2" pref="17" max="-2" attributes="0"/>
-                                          <Component id="jScrollPane5" min="-2" pref="195" max="-2" attributes="0"/>
+                                          <Component id="jScrollPaneComment" min="-2" pref="195" max="-2" attributes="0"/>
                                           <EmptySpace pref="22" max="32767" attributes="0"/>
                                           <Component id="tfComment" min="-2" pref="34" max="-2" attributes="0"/>
                                       </Group>
@@ -480,9 +480,9 @@
                     <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnBackS2ActionPerformed"/>
                   </Events>
                 </Component>
-                <Container class="javax.swing.JScrollPane" name="jScrollPane5">
+                <Container class="javax.swing.JScrollPane" name="jScrollPaneComment">
                   <AuxValues>
-                    <AuxValue name="JavaCodeGenerator_AddingCodePre" type="java.lang.String" value="pConsulterS2.add(jScrollPane5);&#xa;jScrollPane5.setBounds(55, 11, 452, 402);"/>
+                    <AuxValue name="JavaCodeGenerator_AddingCodePre" type="java.lang.String" value="pConsulterS2.add(jScrollPaneComment);&#xa;jScrollPaneComment.setBounds(55, 11, 452, 402);"/>
                     <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new javax.swing.JScrollPane()"/>
                     <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
                   </AuxValues>
@@ -801,7 +801,7 @@
                                           <EmptySpace min="-2" pref="86" max="-2" attributes="0"/>
                                           <Group type="103" groupAlignment="0" attributes="0">
                                               <Component id="tfCommentS" min="-2" pref="402" max="-2" attributes="0"/>
-                                              <Component id="jScrollPane7" min="-2" pref="423" max="-2" attributes="0"/>
+                                              <Component id="jScrollPaneComMesSer" min="-2" pref="423" max="-2" attributes="0"/>
                                           </Group>
                                       </Group>
                                   </Group>
@@ -858,7 +858,7 @@
                                       </Group>
                                       <Group type="102" alignment="0" attributes="0">
                                           <EmptySpace min="-2" pref="53" max="-2" attributes="0"/>
-                                          <Component id="jScrollPane7" min="-2" pref="128" max="-2" attributes="0"/>
+                                          <Component id="jScrollPaneComMesSer" min="-2" pref="128" max="-2" attributes="0"/>
                                           <EmptySpace min="-2" pref="39" max="-2" attributes="0"/>
                                           <Component id="tfCommentS" min="-2" pref="34" max="-2" attributes="0"/>
                                       </Group>
@@ -940,7 +940,7 @@
                     <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnBackSActionPerformed"/>
                   </Events>
                 </Component>
-                <Container class="javax.swing.JScrollPane" name="jScrollPane7">
+                <Container class="javax.swing.JScrollPane" name="jScrollPaneComMesSer">
                   <AuxValues>
                     <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
                   </AuxValues>

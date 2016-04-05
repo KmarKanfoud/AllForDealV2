@@ -7,9 +7,6 @@ package GUI;
 
 import java.io.*;
 
-
-
-
 import dao.MessageDao;
 import dao.ReclamationDao;
 import dao.UserDao;
@@ -42,26 +39,22 @@ import sun.applet.Main;
 import javax.imageio.*;
 import javax.swing.JFrame;
 
-
 import utils.*;
 
 /**
  *
  * @author SaharS
- * 
+ *
  */
 public class FrameAccueil extends javax.swing.JFrame {
 
     /**
      * Creates new form FrameAccueil
      */
-
-    
     public static Mixer mixer;
     public static Clip clip;
-    Image img ;
+    Image img;
     private static int user_id;
-
 
     public static int getUserId() {
         return user_id;
@@ -78,16 +71,14 @@ public class FrameAccueil extends javax.swing.JFrame {
         User u = new User();
         UserDao udao = new UserDao();
         u = udao.findById(user_id);
-               String iu =u.getImage();
-     System.out.println(iu);
-       
+        String iu = u.getImage();
+        System.out.println(iu);
+
         try {
-     URL url = new URL(iu);
-        img = ImageIO.read(url);
-            
-} 
-        
-        catch(IOException e){
+            URL url = new URL(iu);
+            img = ImageIO.read(url);
+
+        } catch (IOException e) {
             e.printStackTrace();
         }
 
@@ -150,19 +141,28 @@ public class FrameAccueil extends javax.swing.JFrame {
         jLabel9 = new javax.swing.JLabel();
         lcreation = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
-        jPanel3 = new javax.swing.JPanel();
-        jPanel2 = new javax.swing.JPanel();
-        tfSujetMsg = new javax.swing.JTextField();
-        tfTo = new javax.swing.JTextField();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        taMessage = new javax.swing.JTextArea();
-        btnEnvoyerMsg = new javax.swing.JButton();
-        labelMsg = new javax.swing.JLabel();
+        ParentPanel = new javax.swing.JPanel();
+        msgR = new javax.swing.JPanel();
+        btnTestMsg = new javax.swing.JButton();
+        btnTestMsg2 = new javax.swing.JButton();
+        jScrollPane5 = new javax.swing.JScrollPane();
+        tbMesMsgR = new javax.swing.JTable();
+        msgRediger = new javax.swing.JPanel();
+        lMsg = new javax.swing.JLabel();
+        btnBack1 = new javax.swing.JButton();
+        btnEnvMsg = new javax.swing.JButton();
+        tfDest = new javax.swing.JTextField();
+        tfObjet = new javax.swing.JTextField();
         jScrollPane2 = new javax.swing.JScrollPane();
-        tbMesMessages = new javax.swing.JTable();
-        jPanel5 = new javax.swing.JPanel();
-        jScrollPane3 = new javax.swing.JScrollPane();
-        tblMessagesEnv = new javax.swing.JTable();
+        taMsg = new javax.swing.JTextArea();
+        jLabel15 = new javax.swing.JLabel();
+        jLabel16 = new javax.swing.JLabel();
+        jLabel17 = new javax.swing.JLabel();
+        msgEnvoye = new javax.swing.JPanel();
+        jLabel14 = new javax.swing.JLabel();
+        btnBack2 = new javax.swing.JButton();
+        jScrollPane6 = new javax.swing.JScrollPane();
+        tbMsgEnvs = new javax.swing.JTable();
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
@@ -226,7 +226,7 @@ public class FrameAccueil extends javax.swing.JFrame {
             .addGroup(ProduitLabelLayout.createSequentialGroup()
                 .addGap(115, 115, 115)
                 .addComponent(jPanel9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(938, Short.MAX_VALUE))
+                .addContainerGap(497, Short.MAX_VALUE))
         );
 
         Service.addTab("Produit", ProduitLabel);
@@ -280,7 +280,7 @@ public class FrameAccueil extends javax.swing.JFrame {
             .addGroup(ServicePanelLayout.createSequentialGroup()
                 .addGap(110, 110, 110)
                 .addComponent(jPanel10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(947, Short.MAX_VALUE))
+                .addContainerGap(506, Short.MAX_VALUE))
         );
 
         Service.addTab("Service", ServicePanel);
@@ -540,92 +540,180 @@ public class FrameAccueil extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lcreation)
                     .addComponent(jLabel10))
-                .addContainerGap(887, Short.MAX_VALUE))
+                .addContainerGap(446, Short.MAX_VALUE))
         );
 
         Service.addTab("Profile", jPanel1);
 
-        jPanel2.setLayout(new java.awt.CardLayout());
+        ParentPanel.setLayout(new java.awt.CardLayout());
 
-        tfSujetMsg.addActionListener(new java.awt.event.ActionListener() {
+        msgR.setLayout(null);
+
+        btnTestMsg.setText("Ecrire");
+        btnTestMsg.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                tfSujetMsgActionPerformed(evt);
+                btnTestMsgActionPerformed(evt);
             }
         });
-        jPanel2.add(tfSujetMsg, "card2");
+        msgR.add(btnTestMsg);
+        btnTestMsg.setBounds(343, 340, 110, 30);
 
-        tfTo.addActionListener(new java.awt.event.ActionListener() {
+        btnTestMsg2.setText("Mes Messages");
+        btnTestMsg2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                tfToActionPerformed(evt);
+                btnTestMsg2ActionPerformed(evt);
             }
         });
-        jPanel2.add(tfTo, "card3");
+        msgR.add(btnTestMsg2);
+        btnTestMsg2.setBounds(470, 340, 110, 30);
 
-        taMessage.setColumns(20);
-        taMessage.setRows(5);
-        jScrollPane1.setViewportView(taMessage);
+        tbMesMsgR.setModel( new MessageReçuModel ());
+        jScrollPane5.setViewportView(tbMesMsgR);
 
-        jPanel2.add(jScrollPane1, "card4");
+        msgR.add(jScrollPane5);
+        jScrollPane5.setBounds(10, 70, 540, 180);
 
-        btnEnvoyerMsg.setText("Envoyer");
-        btnEnvoyerMsg.addActionListener(new java.awt.event.ActionListener() {
+        ParentPanel.add(msgR, "card2");
+
+        lMsg.setText("Ecrire un message");
+
+        btnBack1.setText("Back");
+        btnBack1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnEnvoyerMsgActionPerformed(evt);
+                btnBack1ActionPerformed(evt);
             }
         });
-        jPanel2.add(btnEnvoyerMsg, "card5");
-        jPanel2.add(labelMsg, "card6");
 
-        tbMesMessages.setModel( new MessageReçuModel ());
-        jScrollPane2.setViewportView(tbMesMessages);
+        btnEnvMsg.setText("Envoyer");
+        btnEnvMsg.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEnvMsgActionPerformed(evt);
+            }
+        });
 
-        tblMessagesEnv.setModel(new MessagesEnvoyesModel());
-        jScrollPane3.setViewportView(tblMessagesEnv);
+        tfObjet.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                tfObjetActionPerformed(evt);
+            }
+        });
 
-        javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
-        jPanel5.setLayout(jPanel5Layout);
-        jPanel5Layout.setHorizontalGroup(
-            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel5Layout.createSequentialGroup()
-                .addGap(62, 62, 62)
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(94, Short.MAX_VALUE))
+        taMsg.setColumns(20);
+        taMsg.setRows(5);
+        jScrollPane2.setViewportView(taMsg);
+
+        jLabel15.setText(" À");
+
+        jLabel16.setText("Objet");
+
+        jLabel17.setText("Message");
+
+        javax.swing.GroupLayout msgRedigerLayout = new javax.swing.GroupLayout(msgRediger);
+        msgRediger.setLayout(msgRedigerLayout);
+        msgRedigerLayout.setHorizontalGroup(
+            msgRedigerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, msgRedigerLayout.createSequentialGroup()
+                .addContainerGap(306, Short.MAX_VALUE)
+                .addComponent(btnBack1)
+                .addGap(74, 74, 74)
+                .addComponent(btnEnvMsg)
+                .addGap(100, 100, 100))
+            .addGroup(msgRedigerLayout.createSequentialGroup()
+                .addGroup(msgRedigerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(msgRedigerLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(lMsg, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(msgRedigerLayout.createSequentialGroup()
+                        .addGap(54, 54, 54)
+                        .addGroup(msgRedigerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel15)
+                            .addComponent(jLabel16)
+                            .addComponent(jLabel17))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(msgRedigerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(tfDest)
+                            .addComponent(tfObjet)
+                            .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 360, Short.MAX_VALUE))))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
-        jPanel5Layout.setVerticalGroup(
-            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel5Layout.createSequentialGroup()
-                .addGap(45, 45, 45)
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 236, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(882, Short.MAX_VALUE))
+        msgRedigerLayout.setVerticalGroup(
+            msgRedigerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(msgRedigerLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(lMsg, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(msgRedigerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(tfDest, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel15))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(msgRedigerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(tfObjet, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel16))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(msgRedigerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 201, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel17))
+                .addGap(40, 40, 40)
+                .addGroup(msgRedigerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnBack1)
+                    .addComponent(btnEnvMsg))
+                .addContainerGap(326, Short.MAX_VALUE))
         );
 
-        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
-        jPanel3.setLayout(jPanel3Layout);
-        jPanel3Layout.setHorizontalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 608, javax.swing.GroupLayout.PREFERRED_SIZE)
-            .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-            .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+        ParentPanel.add(msgRediger, "card3");
+
+        jLabel14.setText("Les messages envoyés");
+
+        btnBack2.setText("Back");
+        btnBack2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBack2ActionPerformed(evt);
+            }
+        });
+
+        tbMsgEnvs.setModel(new MessagesEnvoyesModel());
+        jScrollPane6.setViewportView(tbMsgEnvs);
+
+        javax.swing.GroupLayout msgEnvoyeLayout = new javax.swing.GroupLayout(msgEnvoye);
+        msgEnvoye.setLayout(msgEnvoyeLayout);
+        msgEnvoyeLayout.setHorizontalGroup(
+            msgEnvoyeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(msgEnvoyeLayout.createSequentialGroup()
+                .addGap(19, 19, 19)
+                .addComponent(jLabel14)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, msgEnvoyeLayout.createSequentialGroup()
+                .addContainerGap(15, Short.MAX_VALUE)
+                .addGroup(msgEnvoyeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 525, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnBack2))
+                .addGap(68, 68, 68))
         );
-        jPanel3Layout.setVerticalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 1163, javax.swing.GroupLayout.PREFERRED_SIZE)
-            .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-            .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+        msgEnvoyeLayout.setVerticalGroup(
+            msgEnvoyeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(msgEnvoyeLayout.createSequentialGroup()
+                .addGap(21, 21, 21)
+                .addComponent(jLabel14)
+                .addGap(61, 61, 61)
+                .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(182, 182, 182)
+                .addComponent(btnBack2)
+                .addContainerGap(313, Short.MAX_VALUE))
         );
 
-        Service.addTab("Mes messages", jPanel3);
+        ParentPanel.add(msgEnvoye, "card4");
+
+        Service.addTab("test msg", ParentPanel);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(Service)
+            .addComponent(Service, javax.swing.GroupLayout.DEFAULT_SIZE, 613, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(Service)
+                .addComponent(Service, javax.swing.GroupLayout.DEFAULT_SIZE, 750, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -658,8 +746,8 @@ public class FrameAccueil extends javax.swing.JFrame {
     }//GEN-LAST:event_TFSujetActionPerformed
 
     private void ProposerPBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ProposerPBtnActionPerformed
-       FrameAjouterProduit faP= new FrameAjouterProduit();
-       faP.setVisible(true);
+        FrameAjouterProduit faP = new FrameAjouterProduit();
+        faP.setVisible(true);
     }//GEN-LAST:event_ProposerPBtnActionPerformed
 
     private void AcheterBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AcheterBtnActionPerformed
@@ -673,7 +761,7 @@ public class FrameAccueil extends javax.swing.JFrame {
     private void ProposerServiceBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ProposerServiceBtnActionPerformed
         FrameAfficherServiceAll faSA = new FrameAfficherServiceAll();
         faSA.setVisible(true);
-        
+
     }//GEN-LAST:event_ProposerServiceBtnActionPerformed
 
     private void jPanel1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel1MouseClicked
@@ -689,14 +777,14 @@ public class FrameAccueil extends javax.swing.JFrame {
             lNom.setText(u.getLastname());
             lPrenom.setText(u.getFirstname());
             lcreation.setText("" + u.getCreated_at());
-            
-            
-            String iu =u.getImage();
+
+            String iu = u.getImage();
             System.out.println(iu);
-           // String path = "C:\\bad.jpg";
-             URL url = new URL(iu);
+            // String path = "C:\\bad.jpg";
+            URL url = new URL(iu);
             BufferedImage image = ImageIO.read(url);
-            ImagePanel contentPane = new ImagePanel(image) {};
+            ImagePanel contentPane = new ImagePanel(image) {
+            };
             JFrame f = new JFrame();
             f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
             f.setContentPane(contentPane);
@@ -706,43 +794,68 @@ public class FrameAccueil extends javax.swing.JFrame {
         } catch (IOException ex) {
             Logger.getLogger(FrameAccueil.class.getName()).log(Level.SEVERE, null, ex);
         }
-       
+
     }//GEN-LAST:event_jPanel1MouseClicked
-
-    private void tfToActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfToActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_tfToActionPerformed
-
-    private void btnEnvoyerMsgActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEnvoyerMsgActionPerformed
-          Message m = new Message();
-        m.setTo(tfTo.getText());
-        m.setSujet(tfSujetMsg.getText());
-        m.setTexte(taMessage.getText());
-        m.setFrom(LoginForm.getUserName());
-        Date date = new java.sql.Date(System.currentTimeMillis());
-        m.setDate_envoi(date);
-        MessageDao mdao = new MessageDao();
-        mdao.add(m);
-        tfTo.setText("");
-        tfSujetMsg.setText("");
-        taMessage.setText("");
-    }//GEN-LAST:event_btnEnvoyerMsgActionPerformed
-
-    private void tfSujetMsgActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfSujetMsgActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_tfSujetMsgActionPerformed
 
     private void btnEnvoyerRecActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEnvoyerRecActionPerformed
         Reclamation r = new Reclamation();
-        r.setSujet( tfSujetRec.getText());
+        r.setSujet(tfSujetRec.getText());
         r.setDescription(taDescriptionRec.getText());
         Date date = new java.sql.Date(System.currentTimeMillis());
         r.setDate(date);
         ReclamationDao pdao = new ReclamationDao();
         pdao.add(r);
-         tfSujetRec.setText("");
+        tfSujetRec.setText("");
         taDescriptionRec.setText("");
     }//GEN-LAST:event_btnEnvoyerRecActionPerformed
+
+    private void btnTestMsgActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTestMsgActionPerformed
+        // TODO add your handling code here:
+        ParentPanel.removeAll();
+        ParentPanel.add(msgRediger);
+        ParentPanel.repaint();
+        ParentPanel.revalidate();
+    }//GEN-LAST:event_btnTestMsgActionPerformed
+
+    private void btnTestMsg2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTestMsg2ActionPerformed
+        // TODO add your handling code here:
+        ParentPanel.removeAll();
+        ParentPanel.add(msgEnvoye);
+        ParentPanel.repaint();
+        ParentPanel.revalidate();
+    }//GEN-LAST:event_btnTestMsg2ActionPerformed
+
+    private void btnBack2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBack2ActionPerformed
+        ParentPanel.removeAll();
+        ParentPanel.add(msgR);
+        ParentPanel.repaint();
+        ParentPanel.revalidate();
+    }//GEN-LAST:event_btnBack2ActionPerformed
+
+    private void btnBack1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBack1ActionPerformed
+        ParentPanel.removeAll();
+        ParentPanel.add(msgR);
+        ParentPanel.repaint();
+        ParentPanel.revalidate();    }//GEN-LAST:event_btnBack1ActionPerformed
+
+    private void tfObjetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfObjetActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_tfObjetActionPerformed
+
+    private void btnEnvMsgActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEnvMsgActionPerformed
+            Message m = new Message();
+        m.setTo(tfDest.getText());
+        m.setSujet(tfObjet.getText());
+        m.setTexte(taMsg.getText());
+        m.setFrom(LoginForm.getUserName());
+        Date date = new java.sql.Date(System.currentTimeMillis());
+        m.setDate_envoi(date);
+        MessageDao mdao = new MessageDao();
+        mdao.add(m);
+        tfDest.setText("");
+       tfObjet.setText("");
+        taMsg.setText("");
+    }//GEN-LAST:event_btnEnvMsgActionPerformed
 
     /**
      * @param args the command line arguments
@@ -773,9 +886,6 @@ public class FrameAccueil extends javax.swing.JFrame {
         } catch (IOException io) {
             io.printStackTrace();
         }
-
-     
-
 
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -811,8 +921,8 @@ public class FrameAccueil extends javax.swing.JFrame {
                 fa.setLocation(screenWidth / 4, screenHeight / 4);
             }
         });
-        
-           clip.start();
+
+        clip.start();
 
         do {
             try {
@@ -828,6 +938,7 @@ public class FrameAccueil extends javax.swing.JFrame {
     private javax.swing.JButton AcheterBtn;
     private javax.swing.JButton ConsulterBtn;
     private javax.swing.JButton EnvoyerReclamationBtn;
+    private javax.swing.JPanel ParentPanel;
     private javax.swing.JPanel ProduitLabel;
     private javax.swing.JButton ProposerPBtn;
     private javax.swing.JButton ProposerServiceBtn;
@@ -836,8 +947,12 @@ public class FrameAccueil extends javax.swing.JFrame {
     private javax.swing.JPanel ServicePanel;
     private javax.swing.JTextField TFDescription;
     private javax.swing.JTextField TFSujet;
-    private javax.swing.JButton btnEnvoyerMsg;
+    private javax.swing.JButton btnBack1;
+    private javax.swing.JButton btnBack2;
+    private javax.swing.JButton btnEnvMsg;
     private javax.swing.JButton btnEnvoyerRec;
+    private javax.swing.JButton btnTestMsg;
+    private javax.swing.JButton btnTestMsg2;
     private javax.swing.JLabel erreur1;
     private javax.swing.JLabel erreur2;
     private javax.swing.JLabel jLabel1;
@@ -845,6 +960,10 @@ public class FrameAccueil extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
+    private javax.swing.JLabel jLabel14;
+    private javax.swing.JLabel jLabel15;
+    private javax.swing.JLabel jLabel16;
+    private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -855,31 +974,31 @@ public class FrameAccueil extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel10;
-    private javax.swing.JPanel jPanel2;
-    private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
-    private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel6;
     private javax.swing.JPanel jPanel9;
-    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
+    private javax.swing.JScrollPane jScrollPane5;
+    private javax.swing.JScrollPane jScrollPane6;
     private javax.swing.JLabel lAdress;
     private javax.swing.JLabel lBunus;
     private javax.swing.JLabel lEmail;
     private javax.swing.JLabel lGender;
+    private javax.swing.JLabel lMsg;
     private javax.swing.JLabel lNom;
     private javax.swing.JLabel lPrenom;
     private javax.swing.JLabel lUserName;
-    private javax.swing.JLabel labelMsg;
     private javax.swing.JLabel lcreation;
+    private javax.swing.JPanel msgEnvoye;
+    private javax.swing.JPanel msgR;
+    private javax.swing.JPanel msgRediger;
     private javax.swing.JTextArea taDescriptionRec;
-    private javax.swing.JTextArea taMessage;
-    private javax.swing.JTable tbMesMessages;
-    private javax.swing.JTable tblMessagesEnv;
-    private javax.swing.JTextField tfSujetMsg;
+    private javax.swing.JTextArea taMsg;
+    private javax.swing.JTable tbMesMsgR;
+    private javax.swing.JTable tbMsgEnvs;
+    private javax.swing.JTextField tfDest;
+    private javax.swing.JTextField tfObjet;
     private javax.swing.JTextField tfSujetRec;
-    private javax.swing.JTextField tfTo;
     // End of variables declaration//GEN-END:variables
 }

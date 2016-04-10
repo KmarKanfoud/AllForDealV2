@@ -8,6 +8,7 @@ package dao;
 import Idao.IDao;
 import entite.Produit;
 import entite.Service;
+import entite.Zone;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
@@ -15,6 +16,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
@@ -53,12 +55,11 @@ public class ServiceDao implements IDao<Service> {
             pst.setString(4, t.getType());
             pst.setString(5, t.getEtat());
             pst.setDate(6, (Date) t.getDateAjout());
-            
+
             pst.setInt(7, t.getZone());
             pst.setInt(8, t.getUserId());
-            
-            //pst.setDate(7 s.DateAjout());
 
+            //pst.setDate(7 s.DateAjout());
             pst.executeUpdate();
         } catch (SQLException ex) {
             Logger.getLogger(ServiceDao.class.getName()).log(Level.SEVERE, null, ex);
@@ -128,10 +129,11 @@ public class ServiceDao implements IDao<Service> {
             return listeService;
         }
     }
+
     public List<Service> findAllByUser(int user_id) {
         List<Service> ServiceByUserIdModel = new ArrayList<>();
 
-        String req = "select * from service where user_id="+user_id;
+        String req = "select * from service where user_id=" + user_id;
 
         try {
             pst = connection.prepareStatement(req);
@@ -158,13 +160,11 @@ public class ServiceDao implements IDao<Service> {
             return ServiceByUserIdModel;
         }
     }
-    
-    
-    
-      public List<Service> findAllByCategorie(String cat ) {
+
+    public List<Service> findAllByCategorie(String cat, String nom) {
         List<Service> ServiceByCategorieModel = new ArrayList<>();
 
-        String req = "select * from service where type like '%" +cat+"%'";
+        String req = "select * from service where type like '%" + cat + "%' OR nomService like '%" + nom + "%'";
 
         try {
             pst = connection.prepareStatement(req);
@@ -182,7 +182,7 @@ public class ServiceDao implements IDao<Service> {
                 s.setEtat(resultat.getString(6));
                 s.setDateAjout(resultat.getDate(7));
 
-               ServiceByCategorieModel.add(s);
+                ServiceByCategorieModel.add(s);
 
             }
             return ServiceByCategorieModel;
@@ -191,10 +191,10 @@ public class ServiceDao implements IDao<Service> {
             return ServiceByCategorieModel;
         }
     }
-      
-      public List <Service> findByName(String name){
-          List<Service> ServiceByNomModel = new ArrayList<>();
- String req = "select * from service where nomService like '%" +name+"%'";
+
+    public List<Service> findByName(String name) {
+        List<Service> ServiceByNomModel = new ArrayList<>();
+        String req = "select * from service where nomService like '%" + name + "%'";
 
         try {
             pst = connection.prepareStatement(req);
@@ -212,7 +212,7 @@ public class ServiceDao implements IDao<Service> {
                 s.setEtat(resultat.getString(6));
                 s.setDateAjout(resultat.getDate(7));
 
-               ServiceByNomModel.add(s);
+                ServiceByNomModel.add(s);
 
             }
             return ServiceByNomModel;
@@ -220,13 +220,29 @@ public class ServiceDao implements IDao<Service> {
             System.out.println("erreur" + ex.getMessage());
             return ServiceByNomModel;
         }
-          
-      }
-      
+
+    }
 
     @Override
     public Service findById(int id) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+
+        String req = "select zone_id from service where id=" + id;
+        Service s = new Service();
+        try {
+
+            pst = connection.prepareStatement(req);
+            ResultSet resultat = pst.executeQuery(req);
+
+            while (resultat.next()) {
+
+                s.setZone(resultat.getInt(1));
+
+            }
+            return s;
+        } catch (SQLException ex) {
+            System.out.println("erreur" + ex.getMessage());
+            return s;
+        }
     }
 
     public ResultSet getAllVille() {
@@ -253,6 +269,32 @@ public class ServiceDao implements IDao<Service> {
             Logger.getLogger(ServiceDao.class.getName()).log(Level.SEVERE, null, ex);
         }
         return null;
+    }
+
+    public List<Zone> findByZone(int z) {
+        List<Zone> Map = new ArrayList<>();
+
+        String req = "select lat,lon from zone where id=" + z;
+
+        try {
+            pst = connection.prepareStatement(req);
+            ResultSet resultat = pst.executeQuery(req);
+
+            while (resultat.next()) {
+
+                Zone zo = new Zone();
+
+                zo.setLat(resultat.getDouble(1));
+                zo.setLon(resultat.getDouble(2));
+
+                Map.add(zo);
+
+            }
+            return Map;
+        } catch (SQLException ex) {
+            System.out.println("erreur" + ex.getMessage());
+            return Map;
+        }
     }
 
 }

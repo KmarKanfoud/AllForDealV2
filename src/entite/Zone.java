@@ -12,10 +12,10 @@ package entite;
 public class Zone {
     private int id;
     private String nom;
-    private float lat;
-    private float lon;
+    private double lat;
+    private double lon;
 
-    public Zone(String nom, float lat, float lon) {
+    public Zone(String nom, double lat, double lon) {
         this.nom = nom;
         this.lat = lat;
         this.lon = lon;
@@ -29,21 +29,42 @@ public class Zone {
         this.nom = nom;
     }
 
-    public float getLat() {
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public double getLat() {
         return lat;
     }
 
-    public void setLat(float lat) {
+    public void setLat(double lat) {
         this.lat = lat;
     }
 
-    public float getLon() {
+    public double getLon() {
         return lon;
     }
 
-    public void setLon(float lon) {
+    public void setLon(double lon) {
         this.lon = lon;
     }
+
+    public Zone() {
+    }
+
+    public Zone(int id, String nom, double lat, double lon) {
+        this.id = id;
+        this.nom = nom;
+        this.lat = lat;
+        this.lon = lon;
+    }
+    
+
+   
 
     @Override
     public int hashCode() {

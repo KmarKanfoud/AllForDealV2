@@ -6,15 +6,22 @@
 package GUI;
 
 import static GUI.FrameGestionProduitAdmin.prod_id;
+import com.teamdev.jxbrowser.chromium.Browser;
+import com.teamdev.jxbrowser.chromium.swing.BrowserView;
 import com.restfb.DefaultFacebookClient;
 import com.restfb.FacebookClient;
 import com.restfb.Parameter;
 import com.restfb.types.FacebookType;
 import com.restfb.types.Page;
 import com.restfb.types.User;
+import com.teamdev.jxbrowser.chromium.Browser;
+import com.teamdev.jxbrowser.chromium.swing.BrowserView;
 import dao.ProduitDao;
+import dao.ServiceDao;
 import dao.ZoneDao;
 import entite.Produit;
+import entite.Service;
+import entite.Zone;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -27,25 +34,48 @@ import javax.swing.table.TableModel;
 import utils.ProduitClientModel;
 import utils.ProduitModel;
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.Image;
+import java.awt.Toolkit;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.List;
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileNameExtensionFilter;
-import utils.PostFile;
-import utils.ProduitByCategorieModel;
+import javax.swing.table.DefaultTableModel;
+import utils.*;
+import utils.Map;
+
 
 /**
  *
  * @author Lilya Thebti
  */
 public class AllForDealFrame extends javax.swing.JFrame {
+    //kmar
+     Toolkit tk = Toolkit.getDefaultToolkit();
+    Dimension screenSize = tk.getScreenSize();
+    int screenHeight = screenSize.height;
+    int screenWidth = screenSize.width;
+
+    //private static int categorie;
+    private static int service_id;
+    private Connection conn = null;
+    private PreparedStatement pst = null;
+   
+    ResultSet rsNom = null;
+    
+    ServiceDao sdao = new ServiceDao();
+    ZoneDao zoneDAO = new ZoneDao();
+    
+    private static String nomS;
+    //kmar
 
     /**
      * Creates new form AllForDealFrame
@@ -237,6 +267,86 @@ public class AllForDealFrame extends javax.swing.JFrame {
         limage = new javax.swing.JLabel();
         AjouterProduitPanier = new javax.swing.JButton();
         PanelService = new javax.swing.JPanel();
+        tpService = new javax.swing.JTabbedPane();
+        pAjoutS = new javax.swing.JPanel();
+        jLabel21 = new javax.swing.JLabel();
+        jLabel22 = new javax.swing.JLabel();
+        tfNomS = new javax.swing.JTextField();
+        jLabel23 = new javax.swing.JLabel();
+        tfDescription = new javax.swing.JTextField();
+        jLabel24 = new javax.swing.JLabel();
+        cbCat = new javax.swing.JComboBox();
+        cbZone2 = new javax.swing.JComboBox();
+        jLabel25 = new javax.swing.JLabel();
+        btnAjoutS = new javax.swing.JButton();
+        jScrollPane6 = new javax.swing.JScrollPane();
+        tblService = new javax.swing.JTable();
+        lerror = new javax.swing.JLabel();
+        ParentPanel2 = new javax.swing.JPanel();
+        pAllServices = new javax.swing.JPanel();
+        jScrollPane7 = new javax.swing.JScrollPane();
+        tblAllServices = new javax.swing.JTable();
+        btnConsulterS1 = new javax.swing.JButton();
+        pMap = new javax.swing.JPanel();
+        pConsulterS2 = new javax.swing.JPanel();
+        jLabel26 = new javax.swing.JLabel();
+        tfNomService3 = new javax.swing.JTextField();
+        jLabel27 = new javax.swing.JLabel();
+        tfDescription4 = new javax.swing.JTextField();
+        jLabel28 = new javax.swing.JLabel();
+        cbCat4 = new javax.swing.JComboBox();
+        cbEtat3 = new javax.swing.JComboBox();
+        jLabel29 = new javax.swing.JLabel();
+        jLabel30 = new javax.swing.JLabel();
+        cbZone4 = new javax.swing.JComboBox();
+        btnBackS2 = new javax.swing.JButton();
+        jScrollPane8 = new javax.swing.JScrollPane();
+        tbCommentService = new javax.swing.JTable();
+        btnVoirComm = new javax.swing.JButton();
+        bntMap = new javax.swing.JButton();
+        ParentPanel1 = new javax.swing.JPanel();
+        pMesServices = new javax.swing.JPanel();
+        jScrollPane9 = new javax.swing.JScrollPane();
+        tblMesServices = new javax.swing.JTable();
+        lMsg = new javax.swing.JLabel();
+        btnModifier = new javax.swing.JButton();
+        bntSupprimer = new javax.swing.JButton();
+        cbZone3 = new javax.swing.JComboBox();
+        jLabel31 = new javax.swing.JLabel();
+        jLabel32 = new javax.swing.JLabel();
+        cbEtat = new javax.swing.JComboBox();
+        cbCat1 = new javax.swing.JComboBox();
+        jLabel33 = new javax.swing.JLabel();
+        jLabel34 = new javax.swing.JLabel();
+        tfDescription1 = new javax.swing.JTextField();
+        tfNomService = new javax.swing.JTextField();
+        jLabel35 = new javax.swing.JLabel();
+        labelId1 = new javax.swing.JLabel();
+        btnConsulterS = new javax.swing.JButton();
+        pConsulterS = new javax.swing.JPanel();
+        jLabel36 = new javax.swing.JLabel();
+        tfNomService1 = new javax.swing.JTextField();
+        jLabel37 = new javax.swing.JLabel();
+        tfDescription2 = new javax.swing.JTextField();
+        jLabel38 = new javax.swing.JLabel();
+        cbCat2 = new javax.swing.JComboBox();
+        cbEtat1 = new javax.swing.JComboBox();
+        jLabel39 = new javax.swing.JLabel();
+        jLabel40 = new javax.swing.JLabel();
+        cbZone5 = new javax.swing.JComboBox();
+        btnBackS = new javax.swing.JButton();
+        btnMap = new javax.swing.JButton();
+        pRechercheS = new javax.swing.JPanel();
+        lTitreRechercheS = new javax.swing.JLabel();
+        cbRechercheCat = new javax.swing.JComboBox();
+        jScrollPane10 = new javax.swing.JScrollPane();
+        tblRechercheS = new javax.swing.JTable();
+        bntRechercheS = new javax.swing.JButton();
+        lTitreRechercheS2 = new javax.swing.JLabel();
+        tfRechercheS = new javax.swing.JTextField();
+        bntRechercheS2 = new javax.swing.JButton();
+        jScrollPane11 = new javax.swing.JScrollPane();
+        tblRechercheS2 = new javax.swing.JTable();
         PanierReclamation = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -257,10 +367,15 @@ public class AllForDealFrame extends javax.swing.JFrame {
         btnNotif.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/flag.png"))); // NOI18N
         btnNotif.setPreferredSize(new java.awt.Dimension(50, 40));
 
-        btnServices.setText("jButton2");
+        btnServices.setIcon(new javax.swing.ImageIcon("C:\\Users\\Super Moon\\Downloads\\free-service-icon.png")); // NOI18N
         btnServices.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         btnServices.setOpaque(false);
         btnServices.setPreferredSize(new java.awt.Dimension(50, 40));
+        btnServices.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnServicesActionPerformed(evt);
+            }
+        });
 
         btnProduits.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/store.png"))); // NOI18N
         btnProduits.setBorder(null);
@@ -1063,15 +1178,633 @@ public class AllForDealFrame extends javax.swing.JFrame {
 
         ParentPanel.add(ProduitPanel, "card2");
 
+        tpService.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tpServiceMouseClicked(evt);
+            }
+        });
+
+        jLabel21.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        jLabel21.setForeground(new java.awt.Color(255, 51, 102));
+        jLabel21.setText("Ajouter Un Service");
+
+        jLabel22.setText("Nom Service :");
+
+        tfNomS.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                tfNomSActionPerformed(evt);
+            }
+        });
+
+        jLabel23.setText("Description :");
+
+        tfDescription.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                tfDescriptionActionPerformed(evt);
+            }
+        });
+
+        jLabel24.setText("Catégorie :");
+
+        cbCat.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbCatActionPerformed(evt);
+            }
+        });
+
+        cbZone2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbZone2ActionPerformed(evt);
+            }
+        });
+
+        jLabel25.setText("Gouvernorat :");
+
+        btnAjoutS.setBackground(new java.awt.Color(255, 204, 204));
+        btnAjoutS.setText("Ajouter Service");
+        btnAjoutS.setAlignmentX(10.1F);
+        btnAjoutS.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAjoutSActionPerformed(evt);
+            }
+        });
+
+        tblService.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Nom Service", "Description", "Catégorie", "Date d'ajout", "Etat"
+            }
+        ));
+        tblService.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblServiceMouseClicked(evt);
+            }
+        });
+        jScrollPane6.setViewportView(tblService);
+
+        javax.swing.GroupLayout pAjoutSLayout = new javax.swing.GroupLayout(pAjoutS);
+        pAjoutS.setLayout(pAjoutSLayout);
+        pAjoutSLayout.setHorizontalGroup(
+            pAjoutSLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pAjoutSLayout.createSequentialGroup()
+                .addGroup(pAjoutSLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel25)
+                    .addGroup(pAjoutSLayout.createSequentialGroup()
+                        .addGap(10, 10, 10)
+                        .addGroup(pAjoutSLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel22)
+                            .addComponent(jLabel23)
+                            .addComponent(jLabel24)))
+                    .addComponent(btnAjoutS, javax.swing.GroupLayout.PREFERRED_SIZE, 179, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pAjoutSLayout.createSequentialGroup()
+                        .addGap(80, 80, 80)
+                        .addGroup(pAjoutSLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(cbCat, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(tfDescription)
+                            .addComponent(tfNomS, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(cbZone2, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addGroup(pAjoutSLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(pAjoutSLayout.createSequentialGroup()
+                        .addGap(44, 44, 44)
+                        .addComponent(jLabel21))
+                    .addGroup(pAjoutSLayout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(lerror, javax.swing.GroupLayout.PREFERRED_SIZE, 337, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(pAjoutSLayout.createSequentialGroup()
+                        .addGap(33, 33, 33)
+                        .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 526, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        pAjoutSLayout.setVerticalGroup(
+            pAjoutSLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pAjoutSLayout.createSequentialGroup()
+                .addGap(19, 19, 19)
+                .addComponent(jLabel21)
+                .addGap(47, 47, 47)
+                .addComponent(jLabel22)
+                .addGap(7, 7, 7)
+                .addGroup(pAjoutSLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(pAjoutSLayout.createSequentialGroup()
+                        .addComponent(tfNomS, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(10, 10, 10)
+                        .addComponent(jLabel23)
+                        .addGap(4, 4, 4)
+                        .addComponent(tfDescription, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(12, 12, 12)
+                        .addComponent(jLabel24)
+                        .addGap(2, 2, 2)
+                        .addComponent(cbCat, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(11, 11, 11)
+                        .addComponent(jLabel25)
+                        .addGap(9, 9, 9)
+                        .addComponent(cbZone2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(52, 52, 52)
+                        .addComponent(btnAjoutS, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 232, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(lerror, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(141, 141, 141))
+        );
+
+        tpService.addTab("Ajouter Un Service", pAjoutS);
+
+        ParentPanel2.setLayout(new java.awt.CardLayout());
+
+        pAllServices.setLayout(null);
+
+        tblAllServices.setModel((new ListeService()));
+        tblAllServices.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblAllServicesMouseClicked(evt);
+            }
+        });
+        jScrollPane7.setViewportView(tblAllServices);
+
+        pAllServices.add(jScrollPane7);
+        jScrollPane7.setBounds(55, 11, 452, 402);
+
+        btnConsulterS1.setText("Consulter");
+        btnConsulterS1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnConsulterS1MouseClicked(evt);
+            }
+        });
+        btnConsulterS1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnConsulterS1ActionPerformed(evt);
+            }
+        });
+        pAllServices.add(btnConsulterS1);
+        btnConsulterS1.setBounds(50, 450, 79, 23);
+
+        ParentPanel2.add(pAllServices, "card3");
+
+        javax.swing.GroupLayout pMapLayout = new javax.swing.GroupLayout(pMap);
+        pMap.setLayout(pMapLayout);
+        pMapLayout.setHorizontalGroup(
+            pMapLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 1260, Short.MAX_VALUE)
+        );
+        pMapLayout.setVerticalGroup(
+            pMapLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 788, Short.MAX_VALUE)
+        );
+
+        ParentPanel2.add(pMap, "card4");
+
+        jLabel26.setText("Nom Service :");
+
+        tfNomService3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                tfNomService3ActionPerformed(evt);
+            }
+        });
+
+        jLabel27.setText("Description :");
+
+        jLabel28.setText("Catégorie :");
+
+        cbCat4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbCat4ActionPerformed(evt);
+            }
+        });
+
+        cbEtat3.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "EnCours", "n'est Plus valide" }));
+
+        jLabel29.setText("Etat :");
+
+        jLabel30.setText("Zone :");
+
+        cbZone4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbZone4ActionPerformed(evt);
+            }
+        });
+
+        btnBackS2.setText("Back");
+        btnBackS2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBackS2ActionPerformed(evt);
+            }
+        });
+
+        tbCommentService.setModel( new CommentSModel());
+        tbCommentService.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tbCommentServiceMouseClicked(evt);
+            }
+        });
+        jScrollPane8.setViewportView(tbCommentService);
+
+        btnVoirComm.setText("Voir les commentaire");
+        btnVoirComm.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnVoirCommActionPerformed(evt);
+            }
+        });
+
+        bntMap.setText("voir maps");
+        bntMap.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bntMapActionPerformed(evt);
+            }
+        });
+
+        pConsulterS2.add(jScrollPane5);
+        jScrollPane5.setBounds(55, 11, 452, 402);
+
+        javax.swing.GroupLayout pConsulterS2Layout = new javax.swing.GroupLayout(pConsulterS2);
+        pConsulterS2.setLayout(pConsulterS2Layout);
+        pConsulterS2Layout.setHorizontalGroup(
+            pConsulterS2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pConsulterS2Layout.createSequentialGroup()
+                .addGap(39, 39, 39)
+                .addGroup(pConsulterS2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(btnVoirComm)
+                    .addGroup(pConsulterS2Layout.createSequentialGroup()
+                        .addGroup(pConsulterS2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel26)
+                            .addGroup(pConsulterS2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addComponent(jLabel27)
+                                .addGroup(pConsulterS2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel29)
+                                    .addComponent(jLabel28)
+                                    .addComponent(jLabel30))))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(pConsulterS2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(tfDescription4, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(tfNomService3, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(cbCat4, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(cbEtat3, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(cbZone4, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addGap(54, 54, 54)
+                .addGroup(pConsulterS2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(pConsulterS2Layout.createSequentialGroup()
+                        .addComponent(btnBackS2)
+                        .addGap(38, 38, 38)
+                        .addComponent(bntMap))
+                    .addComponent(jScrollPane8, javax.swing.GroupLayout.PREFERRED_SIZE, 365, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(576, Short.MAX_VALUE))
+        );
+        pConsulterS2Layout.setVerticalGroup(
+            pConsulterS2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pConsulterS2Layout.createSequentialGroup()
+                .addGap(32, 32, 32)
+                .addGroup(pConsulterS2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(cbEtat3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(pConsulterS2Layout.createSequentialGroup()
+                        .addGroup(pConsulterS2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(tfNomService3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel26))
+                        .addGroup(pConsulterS2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(pConsulterS2Layout.createSequentialGroup()
+                                .addGroup(pConsulterS2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(pConsulterS2Layout.createSequentialGroup()
+                                        .addGap(40, 40, 40)
+                                        .addComponent(jLabel27))
+                                    .addGroup(pConsulterS2Layout.createSequentialGroup()
+                                        .addGap(53, 53, 53)
+                                        .addComponent(tfDescription4, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addGap(55, 55, 55)
+                                .addGroup(pConsulterS2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(jLabel28)
+                                    .addComponent(cbCat4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(50, 50, 50)
+                                .addComponent(jLabel29))
+                            .addGroup(pConsulterS2Layout.createSequentialGroup()
+                                .addGap(17, 17, 17)
+                                .addComponent(jScrollPane8, javax.swing.GroupLayout.PREFERRED_SIZE, 195, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                .addGap(33, 33, 33)
+                .addGroup(pConsulterS2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel30)
+                    .addComponent(cbZone4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(53, 53, 53)
+                .addGroup(pConsulterS2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnBackS2)
+                    .addComponent(btnVoirComm)
+                    .addComponent(bntMap))
+                .addContainerGap(353, Short.MAX_VALUE))
+        );
+
+        ParentPanel2.add(pConsulterS2, "card3");
+
+        tpService.addTab("Les offres", ParentPanel2);
+
+        ParentPanel1.setLayout(new java.awt.CardLayout());
+
+        pMesServices.setLayout(null);
+
+        tblMesServices.setModel((new ServiceByUserIdModel()));
+        tblMesServices.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblMesServicesMouseClicked(evt);
+            }
+        });
+        jScrollPane9.setViewportView(tblMesServices);
+
+        pMesServices.add(jScrollPane9);
+        jScrollPane9.setBounds(353, 11, 452, 402);
+        pMesServices.add(lMsg);
+        lMsg.setBounds(337, 470, 150, 57);
+
+        btnModifier.setText("Modifier");
+        btnModifier.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnModifierActionPerformed(evt);
+            }
+        });
+        pMesServices.add(btnModifier);
+        btnModifier.setBounds(34, 437, 71, 23);
+
+        bntSupprimer.setText("Supprimer");
+        bntSupprimer.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bntSupprimerActionPerformed(evt);
+            }
+        });
+        pMesServices.add(bntSupprimer);
+        bntSupprimer.setBounds(140, 437, 81, 23);
+
+        pMesServices.add(cbZone3);
+        cbZone3.setBounds(80, 367, 156, 20);
+
+        jLabel31.setText("Zone :");
+        pMesServices.add(jLabel31);
+        jLabel31.setBounds(16, 373, 31, 14);
+
+        jLabel32.setText("Etat :");
+        pMesServices.add(jLabel32);
+        jLabel32.setBounds(16, 320, 27, 14);
+
+        cbEtat.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "EnCours", "n'est Plus valide" }));
+        pMesServices.add(cbEtat);
+        cbEtat.setBounds(80, 314, 156, 20);
+
+        pMesServices.add(cbCat1);
+        cbCat1.setBounds(80, 250, 156, 20);
+
+        jLabel33.setText("Catégorie :");
+        pMesServices.add(jLabel33);
+        jLabel33.setBounds(16, 253, 54, 14);
+
+        jLabel34.setText("Description :");
+        pMesServices.add(jLabel34);
+        jLabel34.setBounds(10, 120, 60, 14);
+        pMesServices.add(tfDescription1);
+        tfDescription1.setBounds(80, 133, 156, 62);
+
+        tfNomService.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                tfNomServiceActionPerformed(evt);
+            }
+        });
+        pMesServices.add(tfNomService);
+        tfNomService.setBounds(80, 60, 156, 20);
+
+        jLabel35.setText("Nom Service :");
+        pMesServices.add(jLabel35);
+        jLabel35.setBounds(10, 63, 66, 14);
+
+        labelId1.setText("ID");
+        pMesServices.add(labelId1);
+        labelId1.setBounds(10, 28, 11, 14);
+
+        btnConsulterS.setText("Consulter");
+        btnConsulterS.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnConsulterSMouseClicked(evt);
+            }
+        });
+        btnConsulterS.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnConsulterSActionPerformed(evt);
+            }
+        });
+        pMesServices.add(btnConsulterS);
+        btnConsulterS.setBounds(254, 437, 79, 23);
+
+        ParentPanel1.add(pMesServices, "card2");
+
+        jLabel36.setText("Nom Service :");
+
+        tfNomService1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                tfNomService1ActionPerformed(evt);
+            }
+        });
+
+        jLabel37.setText("Description :");
+
+        jLabel38.setText("Catégorie :");
+
+        cbCat2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbCat2ActionPerformed(evt);
+            }
+        });
+
+        cbEtat1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "EnCours", "n'est Plus valide" }));
+
+        jLabel39.setText("Etat :");
+
+        jLabel40.setText("Zone :");
+
+        btnBackS.setText("Back");
+        btnBackS.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBackSActionPerformed(evt);
+            }
+        });
+
+        btnMap.setText("Voir Map");
+        btnMap.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnMapActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout pConsulterSLayout = new javax.swing.GroupLayout(pConsulterS);
+        pConsulterS.setLayout(pConsulterSLayout);
+        pConsulterSLayout.setHorizontalGroup(
+            pConsulterSLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pConsulterSLayout.createSequentialGroup()
+                .addGap(39, 39, 39)
+                .addGroup(pConsulterSLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(pConsulterSLayout.createSequentialGroup()
+                        .addGroup(pConsulterSLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel36)
+                            .addGroup(pConsulterSLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addComponent(jLabel37)
+                                .addGroup(pConsulterSLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel39)
+                                    .addComponent(jLabel38)
+                                    .addComponent(jLabel40))))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(pConsulterSLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(tfDescription2, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(tfNomService1, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(cbCat2, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(cbEtat1, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(cbZone5, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(btnMap))
+                .addGap(54, 54, 54)
+                .addComponent(btnBackS)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        pConsulterSLayout.setVerticalGroup(
+            pConsulterSLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pConsulterSLayout.createSequentialGroup()
+                .addGap(32, 32, 32)
+                .addGroup(pConsulterSLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(cbEtat1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(pConsulterSLayout.createSequentialGroup()
+                        .addGroup(pConsulterSLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(tfNomService1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel36))
+                        .addGroup(pConsulterSLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(pConsulterSLayout.createSequentialGroup()
+                                .addGap(40, 40, 40)
+                                .addComponent(jLabel37))
+                            .addGroup(pConsulterSLayout.createSequentialGroup()
+                                .addGap(53, 53, 53)
+                                .addComponent(tfDescription2, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(55, 55, 55)
+                        .addGroup(pConsulterSLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel38)
+                            .addComponent(cbCat2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(50, 50, 50)
+                        .addComponent(jLabel39)))
+                .addGap(33, 33, 33)
+                .addGroup(pConsulterSLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel40)
+                    .addComponent(cbZone5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(pConsulterSLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(pConsulterSLayout.createSequentialGroup()
+                        .addGap(53, 53, 53)
+                        .addComponent(btnBackS))
+                    .addGroup(pConsulterSLayout.createSequentialGroup()
+                        .addGap(61, 61, 61)
+                        .addComponent(btnMap)))
+                .addContainerGap(345, Short.MAX_VALUE))
+        );
+
+        ParentPanel1.add(pConsulterS, "card3");
+
+        tpService.addTab("Mes Service", ParentPanel1);
+
+        lTitreRechercheS.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
+        lTitreRechercheS.setText("Choisir Une Catégorie : ");
+
+        cbRechercheCat.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                cbRechercheCatMouseClicked(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                cbRechercheCatMouseExited(evt);
+            }
+        });
+        cbRechercheCat.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbRechercheCatActionPerformed(evt);
+            }
+        });
+
+        tblRechercheS.setModel(new ServiceByCategorieModel()
+
+        );
+        jScrollPane10.setViewportView(tblRechercheS);
+
+        bntRechercheS.setText("Rechercher");
+        bntRechercheS.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bntRechercheSActionPerformed(evt);
+            }
+        });
+
+        lTitreRechercheS2.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
+        lTitreRechercheS2.setText("Choisir Le Nom De Service");
+
+        tfRechercheS.setText("Nom de Service");
+        tfRechercheS.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                tfRechercheSActionPerformed(evt);
+            }
+        });
+
+        bntRechercheS2.setText("Rechercher");
+        bntRechercheS2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bntRechercheS2ActionPerformed(evt);
+            }
+        });
+
+        tblRechercheS2.setModel(new ServiceByNomModel());
+        jScrollPane11.setViewportView(tblRechercheS2);
+
+        javax.swing.GroupLayout pRechercheSLayout = new javax.swing.GroupLayout(pRechercheS);
+        pRechercheS.setLayout(pRechercheSLayout);
+        pRechercheSLayout.setHorizontalGroup(
+            pRechercheSLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pRechercheSLayout.createSequentialGroup()
+                .addGroup(pRechercheSLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(pRechercheSLayout.createSequentialGroup()
+                        .addGap(137, 137, 137)
+                        .addComponent(bntRechercheS)
+                        .addGap(430, 430, 430)
+                        .addComponent(bntRechercheS2))
+                    .addGroup(pRechercheSLayout.createSequentialGroup()
+                        .addGroup(pRechercheSLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(pRechercheSLayout.createSequentialGroup()
+                                .addGap(26, 26, 26)
+                                .addGroup(pRechercheSLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(lTitreRechercheS)
+                                    .addComponent(cbRechercheCat, javax.swing.GroupLayout.PREFERRED_SIZE, 332, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(pRechercheSLayout.createSequentialGroup()
+                                .addContainerGap()
+                                .addComponent(jScrollPane10, javax.swing.GroupLayout.PREFERRED_SIZE, 401, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(136, 136, 136)
+                        .addGroup(pRechercheSLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jScrollPane11, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lTitreRechercheS2)
+                            .addComponent(tfRechercheS, javax.swing.GroupLayout.PREFERRED_SIZE, 332, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap(261, Short.MAX_VALUE))
+        );
+        pRechercheSLayout.setVerticalGroup(
+            pRechercheSLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pRechercheSLayout.createSequentialGroup()
+                .addGap(23, 23, 23)
+                .addGroup(pRechercheSLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lTitreRechercheS)
+                    .addComponent(lTitreRechercheS2))
+                .addGap(18, 18, 18)
+                .addGroup(pRechercheSLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(cbRechercheCat, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(tfRechercheS))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(pRechercheSLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(bntRechercheS2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(bntRechercheS, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 200, Short.MAX_VALUE)
+                .addGroup(pRechercheSLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jScrollPane11)
+                    .addComponent(jScrollPane10))
+                .addGap(52, 52, 52))
+        );
+
+        tpService.addTab("Rechercher Un Service", pRechercheS);
+
         javax.swing.GroupLayout PanelServiceLayout = new javax.swing.GroupLayout(PanelService);
         PanelService.setLayout(PanelServiceLayout);
         PanelServiceLayout.setHorizontalGroup(
             PanelServiceLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1103, Short.MAX_VALUE)
+            .addComponent(tpService)
         );
         PanelServiceLayout.setVerticalGroup(
             PanelServiceLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 542, Short.MAX_VALUE)
+            .addComponent(tpService)
         );
 
         ParentPanel.add(PanelService, "card4");
@@ -1300,6 +2033,349 @@ public class AllForDealFrame extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnSupprimerActionPerformed
 
+    private void btnServicesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnServicesActionPerformed
+        // TODO add your handling code here:
+          ParentPanel.removeAll();
+        ParentPanel.add(PanelService);
+        ParentPanel.repaint();
+        ParentPanel.revalidate();
+    }//GEN-LAST:event_btnServicesActionPerformed
+
+    private void tfNomSActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfNomSActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_tfNomSActionPerformed
+
+    private void tfDescriptionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfDescriptionActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_tfDescriptionActionPerformed
+
+    private void cbCatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbCatActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cbCatActionPerformed
+
+    private void cbZone2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbZone2ActionPerformed
+
+    }//GEN-LAST:event_cbZone2ActionPerformed
+
+    private void btnAjoutSActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAjoutSActionPerformed
+        // TODO add your handling code here:
+        lerror.setText(" ");
+
+        Service s = new Service();
+        Date date = new java.sql.Date(System.currentTimeMillis());
+        if (!tfNomS.getText().trim().equals("")) {
+            s.setNomService(tfNomS.getText());
+            try {
+                rsId = zoneDAO.getZoneByName(cbZone.getSelectedItem().toString());
+                while (rsId.next()) {
+                    s.setZone(rsId.getInt(1));
+
+                }//this.setResizable(false);
+            } catch (SQLException ex) {
+                Logger.getLogger(FrameAjouterService.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
+            s.setDescription(tfDescription.getText());
+            s.setType(cbCat.getSelectedItem().toString());
+            //s.setZone((int) cbZone.getSelectedItem());
+            s.setDateAjout(date);
+            s.setEtat("EnCours");
+            ServiceDao pdao = new ServiceDao();
+            pdao.add(s);
+            DefaultTableModel model = (DefaultTableModel) tblService.getModel();
+            model.addRow(new Object[]{tfNomS.getText(), tfDescription.getText(), cbCat.getSelectedItem().toString(), s.getDateAjout(), s.getEtat()});
+        } else {
+            lerror.setText(" Veuiller enter le nom de votre service SVP !");
+            tblAllServices.setModel(new ListeService());
+            tblMesServices.setModel(new ServiceByUserIdModel());
+        }
+    }//GEN-LAST:event_btnAjoutSActionPerformed
+
+    private void tblServiceMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblServiceMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_tblServiceMouseClicked
+
+    private void tblAllServicesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblAllServicesMouseClicked
+        int i = tblAllServices.getSelectedRow();
+        Object l = tblAllServices.getValueAt(i, 0);
+        service_id = (int) l;
+        System.out.println("ID" + service_id);
+    }//GEN-LAST:event_tblAllServicesMouseClicked
+
+    private void btnConsulterS1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnConsulterS1MouseClicked
+
+    }//GEN-LAST:event_btnConsulterS1MouseClicked
+
+    private void btnConsulterS1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConsulterS1ActionPerformed
+        // TODO add your handling code here:
+        int i = tblAllServices.getSelectedRow();
+        TableModel model = tblAllServices.getModel();
+        Object l = tblAllServices.getValueAt(i, 0);
+        service_id = (int) l;
+
+        //        Service s = pdao.findById(service_id);
+        //        //System.out.println("test zone"+s.getZone());
+        //        Map map=new Map();
+        //         ParentPanel2.add(pMap);
+        ////         ParentPanel2.add(map.maps(s.getZone()));
+        //        map.maps(s.getZone());
+        //System.out.println("ID de Service" + service_id);
+        // TableModel mod = tbCommentService.getModel();
+        //labelId.setText(model.getValueAt(i, 0).toString());
+        tfNomService3.setText(model.getValueAt(i, 1).toString());
+        tfDescription4.setText(model.getValueAt(i, 2).toString());
+        cbCat4.setSelectedItem(tblAllServices.getValueAt(i, 3));
+        cbEtat3.setSelectedItem(tblAllServices.getValueAt(i, 4));
+        cbZone4.setSelectedItem(model.getValueAt(i, 5).toString());
+        ParentPanel2.removeAll();
+        ParentPanel2.add(pConsulterS2);
+        ParentPanel2.repaint();
+        ParentPanel2.revalidate();
+
+    }//GEN-LAST:event_btnConsulterS1ActionPerformed
+
+    private void tfNomService3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfNomService3ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_tfNomService3ActionPerformed
+
+    private void cbCat4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbCat4ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cbCat4ActionPerformed
+
+    private void cbZone4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbZone4ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cbZone4ActionPerformed
+
+    private void btnBackS2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackS2ActionPerformed
+        // TODO add your handling code here:
+        ParentPanel2.removeAll();
+        ParentPanel2.add(pAllServices);
+        ParentPanel2.repaint();
+        ParentPanel2.revalidate();
+    }//GEN-LAST:event_btnBackS2ActionPerformed
+
+    private void tbCommentServiceMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbCommentServiceMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_tbCommentServiceMouseClicked
+
+    private void btnVoirCommActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVoirCommActionPerformed
+        // TODO add your handling code here:
+        AllForDealFrame fC = new AllForDealFrame();
+        fC.setVisible(true);
+        fC.setVisible(true);
+        fC.setResizable(false);
+        fC.setSize(screenWidth / 2, screenHeight / 2);
+        fC.setLocation(screenWidth / 4, screenHeight / 4);
+    }//GEN-LAST:event_btnVoirCommActionPerformed
+
+    private void bntMapActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bntMapActionPerformed
+        // TODO add your handling code here:
+        int i = tblAllServices.getSelectedRow();
+        TableModel model = tblAllServices.getModel();
+        Object l = tblAllServices.getValueAt(i, 0);
+        service_id = (int) l;
+
+        Service s = sdao.findById(service_id);
+        //System.out.println("test zone"+s.getZone());
+        Map map = new Map() ;
+        ParentPanel2.add(pMap);
+        //         ParentPanel2.add(map.maps(s.getZone()));
+        map.maps(s.getZone());
+    }//GEN-LAST:event_bntMapActionPerformed
+
+    private void tblMesServicesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblMesServicesMouseClicked
+        // TODO add your handling code here:
+        int i = tblMesServices.getSelectedRow();
+        TableModel model = tblMesServices.getModel();
+
+        //tfId.setText(model.getValueAt(i, 0).toString());
+        labelId.setText(model.getValueAt(i, 0).toString());
+        tfNomService.setText(model.getValueAt(i, 1).toString());
+        tfDescription1.setText(model.getValueAt(i, 2).toString());
+
+        cbCat1.setSelectedItem(tblMesServices.getValueAt(i, 3));
+        cbEtat.setSelectedItem(tblMesServices.getValueAt(i, 4));
+        cbZone1.setSelectedItem(model.getValueAt(i, 5).toString());
+    }//GEN-LAST:event_tblMesServicesMouseClicked
+
+    private void btnModifierActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModifierActionPerformed
+        // TODO add your handling code here:
+        lMsg.setText(" ");
+
+        Service s = new Service();
+        Date date = new java.sql.Date(System.currentTimeMillis());
+        if (!tfNomService.getText().trim().equals("")) {
+            s.setId(Integer.parseInt(labelId.getText()));
+            s.setNomService(tfNomService.getText());
+            s.setDescription(tfDescription1.getText());
+            s.setType(cbCat1.getSelectedItem().toString());
+            try {
+                rsNom = zoneDAO.getZoneByName(cbZone1.getSelectedItem().toString());
+                while (rsNom.next()) {
+                    s.setZone(rsNom.getInt(1));
+                    System.out.println(rsNom.getInt(1));
+                }//this.setResizable(false);
+            } catch (SQLException ex) {
+                Logger.getLogger(FrameAjouterService.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            s.setDateAjout(date);
+            s.setEtat(cbEtat.getSelectedItem().toString());
+            ServiceDao pdao = new ServiceDao();
+            pdao.update(s);
+            //jScrollPane1.setViewportView(tblService);
+
+        } else {
+            lMsg.setText(" Veuiller enter le nom de votre service SVP !");
+        }
+        tblMesServices.setModel(new ServiceByUserIdModel()); // Act tab apres modif
+    }//GEN-LAST:event_btnModifierActionPerformed
+
+    private void bntSupprimerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bntSupprimerActionPerformed
+        // TODO add your handling code here:
+
+        FrameAfficherServiceAdmin f = new FrameAfficherServiceAdmin();
+        int i = tblMesServices.getSelectedRow();
+        Object l = tblMesServices.getValueAt(i, 0);
+
+        ServiceDao pdao = new ServiceDao();
+
+        int j = JOptionPane.showConfirmDialog(null, "la suppression est irréversible. Etes-vous sur de vouloir continuer?", "Veuillez confirmer votre choix", JOptionPane.YES_NO_OPTION);
+
+        if (j == 0) {
+            pdao.removeById((int) l);
+
+            tblMesServices.setModel(new ServiceByUserIdModel());
+
+            jScrollPane3.setViewportView(tblMesServices);
+        }
+    }//GEN-LAST:event_bntSupprimerActionPerformed
+
+    private void tfNomServiceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfNomServiceActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_tfNomServiceActionPerformed
+
+    private void btnConsulterSMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnConsulterSMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnConsulterSMouseClicked
+
+    private void btnConsulterSActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConsulterSActionPerformed
+        // TODO add your handling code here:
+        int i = tblMesServices.getSelectedRow();
+        Object l = tblMesServices.getValueAt(i, 0);
+        service_id = (int) l;
+        System.out.println(service_id);
+        TableModel model = tblMesServices.getModel();
+        //labelId.setText(model.getValueAt(i, 0).toString());
+        tfNomService1.setText(model.getValueAt(i, 1).toString());
+        tfDescription2.setText(model.getValueAt(i, 2).toString());
+
+        cbCat2.setSelectedItem(tblMesServices.getValueAt(i, 3));
+        cbEtat1.setSelectedItem(tblMesServices.getValueAt(i, 4));
+        cbZone2.setSelectedItem(model.getValueAt(i, 5).toString());
+        ParentPanel.removeAll();
+        ParentPanel.add(pConsulterS);
+        ParentPanel.repaint();
+        ParentPanel.revalidate();
+
+        //        pConsulterS.setVisible(true);
+    }//GEN-LAST:event_btnConsulterSActionPerformed
+
+    private void tfNomService1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfNomService1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_tfNomService1ActionPerformed
+
+    private void cbCat2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbCat2ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cbCat2ActionPerformed
+
+    private void btnBackSActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackSActionPerformed
+        // TODO add your handling code here:
+        ParentPanel.removeAll();
+        ParentPanel.add(pMesServices);
+        ParentPanel.repaint();
+        ParentPanel.revalidate();
+    }//GEN-LAST:event_btnBackSActionPerformed
+
+    private void btnMapActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMapActionPerformed
+        // TODO add your handling code here:
+        int i = tblAllServices.getSelectedRow();
+        TableModel model = tblAllServices.getModel();
+        Object l = tblAllServices.getValueAt(i, 0);
+        service_id = (int) l;
+
+        Service s = sdao.findById(service_id);
+        //System.out.println("test zone"+s.getZone());
+        Map map = new Map();
+        ParentPanel2.add(pMap);
+        //         ParentPanel2.add(map.maps(s.getZone()));
+        map.maps(s.getZone());
+
+        ParentPanel2.removeAll();
+        ParentPanel2.add(pMap);
+        ParentPanel2.repaint();
+        ParentPanel2.revalidate();
+
+        Browser browser = new Browser();
+        BrowserView view = new BrowserView(browser);
+        double x;
+        double y;
+        java.util.List<Zone> obj = new ArrayList();
+        ServiceDao pdao = new ServiceDao();
+        obj = pdao.findByZone(s.getZone());
+        for (Object o : obj) {
+            x = ((Zone) o).getLat();
+            y = ((Zone) o).getLon();
+            browser.loadURL("https://maps.googleapis.com/maps/api/staticmap?center=" + x + "," + y + "&zoom=12&size=700x500&maptype=roadmap&markers=icone%7Clabel:S%7C" + x + "," + y);
+        }
+    }//GEN-LAST:event_btnMapActionPerformed
+
+    private void cbRechercheCatMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cbRechercheCatMouseClicked
+        // TODO add your handling code here:
+
+    }//GEN-LAST:event_cbRechercheCatMouseClicked
+
+    private void cbRechercheCatMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cbRechercheCatMouseExited
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cbRechercheCatMouseExited
+
+    private void cbRechercheCatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbRechercheCatActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cbRechercheCatActionPerformed
+
+    private void bntRechercheSActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bntRechercheSActionPerformed
+        // TODO add your handling code here:
+        ServiceDao pdao = new ServiceDao();
+        tblRechercheS.setModel(new ServiceByCategorieModel());
+        nomS = tfRechercheS.getText();
+        categorie = cbRechercheCat.getSelectedItem().toString();
+        // System.out.println(nomS);
+        //        ServiceDao pdao = new ServiceDao();
+        pdao.findAllByCategorie(nomS, categorie);
+        tblRechercheS.setModel(new ServiceByCategorieModel());
+
+        //System.out.println(categorie);
+        //pdao.findAllByCategorie(categorie);
+        // tblRechercheS.setModel(new ServiceByCategorieModel());
+    }//GEN-LAST:event_bntRechercheSActionPerformed
+
+    private void tfRechercheSActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfRechercheSActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_tfRechercheSActionPerformed
+
+    private void bntRechercheS2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bntRechercheS2ActionPerformed
+        // TODO add your handling code here:
+        nomS = tfRechercheS.getText();
+        System.out.println(nomS);
+        ServiceDao pdao = new ServiceDao();
+        pdao.findByName(nomS);
+        tblRechercheS2.setModel(new ServiceByNomModel());
+    }//GEN-LAST:event_bntRechercheS2ActionPerformed
+
+    private void tpServiceMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tpServiceMouseClicked
+        // TODO add your handling code here:
+        tblAllServices.setModel(new ListeService());
+    }//GEN-LAST:event_tpServiceMouseClicked
+
     /**
      * @param args the command line arguments
      */
@@ -1355,11 +2431,24 @@ public class AllForDealFrame extends javax.swing.JFrame {
     private javax.swing.JPanel PanelService;
     private javax.swing.JPanel PanierReclamation;
     private javax.swing.JPanel ParentPanel;
+    private javax.swing.JPanel ParentPanel1;
+    private javax.swing.JPanel ParentPanel2;
     private javax.swing.JPanel ProduitPanel;
     private javax.swing.JButton bntConsulter;
+    private javax.swing.JButton bntMap;
+    private javax.swing.JButton bntRechercheS;
+    private javax.swing.JButton bntRechercheS2;
+    private javax.swing.JButton bntSupprimer;
     private javax.swing.JButton btnAccueil;
+    private javax.swing.JButton btnAjoutS;
     private javax.swing.JButton btnAjouter;
+    private javax.swing.JButton btnBackS;
+    private javax.swing.JButton btnBackS2;
+    private javax.swing.JButton btnConsulterS;
+    private javax.swing.JButton btnConsulterS1;
+    private javax.swing.JButton btnMap;
     private javax.swing.JButton btnMessage;
+    private javax.swing.JButton btnModifier;
     private javax.swing.JButton btnNotif;
     private javax.swing.JButton btnPanier;
     private javax.swing.JButton btnParcourir;
@@ -1370,11 +2459,24 @@ public class AllForDealFrame extends javax.swing.JFrame {
     private javax.swing.JButton btnReclam;
     private javax.swing.JButton btnServices;
     private javax.swing.JButton btnSupprimer;
+    private javax.swing.JButton btnVoirComm;
+    private javax.swing.JComboBox cbCat;
+    private javax.swing.JComboBox cbCat1;
+    private javax.swing.JComboBox cbCat2;
+    private javax.swing.JComboBox cbCat4;
     private javax.swing.JComboBox cbCategorie;
     private javax.swing.JComboBox cbCategorie1;
     private javax.swing.JComboBox cbCategorieR;
+    private javax.swing.JComboBox cbEtat;
+    private javax.swing.JComboBox cbEtat1;
+    private javax.swing.JComboBox cbEtat3;
+    private javax.swing.JComboBox cbRechercheCat;
     private javax.swing.JComboBox cbZone;
     private javax.swing.JComboBox cbZone1;
+    private javax.swing.JComboBox cbZone2;
+    private javax.swing.JComboBox cbZone3;
+    private javax.swing.JComboBox cbZone4;
+    private javax.swing.JComboBox cbZone5;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -1388,8 +2490,28 @@ public class AllForDealFrame extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel20;
+    private javax.swing.JLabel jLabel21;
+    private javax.swing.JLabel jLabel22;
+    private javax.swing.JLabel jLabel23;
+    private javax.swing.JLabel jLabel24;
+    private javax.swing.JLabel jLabel25;
+    private javax.swing.JLabel jLabel26;
+    private javax.swing.JLabel jLabel27;
+    private javax.swing.JLabel jLabel28;
+    private javax.swing.JLabel jLabel29;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel30;
+    private javax.swing.JLabel jLabel31;
+    private javax.swing.JLabel jLabel32;
+    private javax.swing.JLabel jLabel33;
+    private javax.swing.JLabel jLabel34;
+    private javax.swing.JLabel jLabel35;
+    private javax.swing.JLabel jLabel36;
+    private javax.swing.JLabel jLabel37;
+    private javax.swing.JLabel jLabel38;
+    private javax.swing.JLabel jLabel39;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel40;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
@@ -1403,12 +2525,22 @@ public class AllForDealFrame extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel6;
     private javax.swing.JPanel jPanel7;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane10;
+    private javax.swing.JScrollPane jScrollPane11;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JScrollPane jScrollPane5;
+    private javax.swing.JScrollPane jScrollPane6;
+    private javax.swing.JScrollPane jScrollPane7;
+    private javax.swing.JScrollPane jScrollPane8;
+    private javax.swing.JScrollPane jScrollPane9;
     private javax.swing.JTabbedPane jTabbedPane1;
+    private javax.swing.JLabel lMsg;
+    private javax.swing.JLabel lTitreRechercheS;
+    private javax.swing.JLabel lTitreRechercheS2;
     private javax.swing.JLabel labelId;
+    private javax.swing.JLabel labelId1;
     private javax.swing.JLabel lbonus;
     private javax.swing.JLabel lbonus1;
     private javax.swing.JLabel lbonus2;
@@ -1421,6 +2553,7 @@ public class AllForDealFrame extends javax.swing.JFrame {
     private javax.swing.JLabel lcat3;
     private javax.swing.JLabel lcat4;
     private javax.swing.JLabel lcat5;
+    private javax.swing.JLabel lerror;
     private javax.swing.JLabel limage;
     private javax.swing.JLabel limage1;
     private javax.swing.JLabel limage2;
@@ -1451,13 +2584,34 @@ public class AllForDealFrame extends javax.swing.JFrame {
     private javax.swing.JPanel p4;
     private javax.swing.JPanel p5;
     private javax.swing.JPanel p6;
+    private javax.swing.JPanel pAjoutS;
+    private javax.swing.JPanel pAllServices;
+    private javax.swing.JPanel pConsulterS;
+    private javax.swing.JPanel pConsulterS2;
+    private javax.swing.JPanel pMap;
+    private javax.swing.JPanel pMesServices;
+    private javax.swing.JPanel pRechercheS;
     private javax.swing.JTextArea taDescription;
     private javax.swing.JTextArea taDescription1;
+    private javax.swing.JTable tbCommentService;
     private static javax.swing.JTable tbProduits;
     private static javax.swing.JTable tbRecherche;
+    private javax.swing.JTable tblAllServices;
     private static javax.swing.JTable tblMesProduits;
+    private javax.swing.JTable tblMesServices;
+    private javax.swing.JTable tblRechercheS;
+    private javax.swing.JTable tblRechercheS2;
+    private javax.swing.JTable tblService;
+    private javax.swing.JTextField tfDescription;
+    private javax.swing.JTextField tfDescription1;
+    private javax.swing.JTextField tfDescription2;
+    private javax.swing.JTextField tfDescription4;
     private javax.swing.JTextField tfNomP;
     private javax.swing.JTextField tfNomP1;
+    private javax.swing.JTextField tfNomS;
+    private javax.swing.JTextField tfNomService;
+    private javax.swing.JTextField tfNomService1;
+    private javax.swing.JTextField tfNomService3;
     private javax.swing.JTextField tfPhoto;
     private javax.swing.JTextField tfPointBonus;
     private javax.swing.JTextField tfPointBonus1;
@@ -1465,9 +2619,11 @@ public class AllForDealFrame extends javax.swing.JFrame {
     private javax.swing.JTextField tfPrix1;
     private javax.swing.JTextField tfQuantite;
     private javax.swing.JTextField tfQuantite1;
+    private javax.swing.JTextField tfRechercheS;
     private javax.swing.JTextField tfReduction;
     private javax.swing.JTextField tfReduction1;
     private javax.swing.JTextField tfTVA;
     private javax.swing.JTextField tfTVA1;
+    private javax.swing.JTabbedPane tpService;
     // End of variables declaration//GEN-END:variables
 }

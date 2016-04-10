@@ -25,7 +25,7 @@ public class ServiceByCategorieModel extends AbstractTableModel{
     public ServiceByCategorieModel() {
         
         ServiceDao pdao = new ServiceDao();
-       l = pdao.findAllByCategorie(FrameAfficherServiceAll.getCategorie());
+       l = pdao.findAllByCategorie(FrameAfficherServiceAll.getCategorie(),FrameAfficherServiceAll.getNomS());
    
     }
 // test git 

@@ -1058,7 +1058,7 @@ public class FrameAfficherServiceAll extends javax.swing.JFrame {
         categorie = cbRechercheCat.getSelectedItem().toString();
         System.out.println(categorie);
         ServiceDao pdao = new ServiceDao();
-        pdao.findAllByCategorie(categorie);
+           pdao.findAllByCategorie(nomS, categorie);
         tblRechercheS.setModel(new ServiceByCategorieModel());
     }//GEN-LAST:event_bntRechercheSActionPerformed
 

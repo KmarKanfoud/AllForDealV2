@@ -5,6 +5,7 @@
  */
 package utils;
 
+import GUI.MailForm;
 import java.util.Properties;
 import javax.mail.Message;
 import javax.mail.MessagingException;
@@ -30,15 +31,6 @@ public class SendEmailUsingGMailSMTP {
         UserDao u = new UserDao();
       List  listeTo = new ArrayList();
       listeTo= u.findAllEmail();
-      
-//     
-//      for (Object o : listeTo) {
-//         to = (String)o;
-//        }
-//      
-      
-      
-     
 
         String from = "allfordealpi@gmail.com";
         final String username = "allfordealpi@gmail.com";
@@ -79,7 +71,7 @@ public class SendEmailUsingGMailSMTP {
            
             message.setSubject("Testing Subject");
 
-            message.setText(" Sahar testing APImail to sent a message to all users");
+            message.setText(MailForm.mail);
 
             // Send message
             Transport.send(message);

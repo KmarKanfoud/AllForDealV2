@@ -52,6 +52,11 @@ public class FrameListCommentaire extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         ListComment.setModel(new CommentModel());
+        ListComment.addComponentListener(new java.awt.event.ComponentAdapter() {
+            public void componentShown(java.awt.event.ComponentEvent evt) {
+                ListCommentComponentShown(evt);
+            }
+        });
         jScrollPane1.setViewportView(ListComment);
 
         BtnSupprimer.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/delete.jpg"))); // NOI18N
@@ -152,6 +157,11 @@ public class FrameListCommentaire extends javax.swing.JFrame {
         frame.setLocation(screenWidth / 4, screenHeight / 4);
     }//GEN-LAST:event_BtnModifierActionPerformed
 
+    private void ListCommentComponentShown(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_ListCommentComponentShown
+        // TODO add your handling code here:
+     
+    }//GEN-LAST:event_ListCommentComponentShown
+
     /**
      * @param args the command line arguments
      */
@@ -201,6 +211,9 @@ public class FrameListCommentaire extends javax.swing.JFrame {
 
                 fl.setSize(screenWidth / 2, screenHeight / 2);
                 fl.setLocation(screenWidth / 4, screenHeight / 4);
+                   ListComment.getColumnModel().getColumn(0).setMinWidth(0);
+        ListComment.getColumnModel().getColumn(0).setMaxWidth(0);
+        ListComment.getColumnModel().getColumn(0).setWidth(0);
             }
         });
     }

@@ -9,8 +9,10 @@ import GUI.FrameAccueil;
 import GUI.FrameGestionProduitAdmin;
 import dao.CommentDao;
 import dao.MessageDao;
+import dao.UserDao;
 import entite.Comment;
 import entite.Message;
+import entite.User;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.time.Clock;
@@ -61,8 +63,11 @@ public class CommentTest {
 //        pr = mdao.findBySender("sahar");
 //        System.out.println(pr);
 
-     
-       
+    User u = new User();
+    UserDao udao=new UserDao();
+    u=udao.findByUserName("sahar");
+        System.out.println(u);
+    
 
     }
 

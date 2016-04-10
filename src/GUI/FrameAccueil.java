@@ -6,13 +6,14 @@
 package GUI;
 
 import java.io.*;
-
+import utils.*;
 import dao.MessageDao;
 import dao.ReclamationDao;
 import dao.UserDao;
 import entite.Message;
 import entite.Reclamation;
 import entite.User;
+import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.Image;
 import java.awt.Toolkit;
@@ -23,7 +24,9 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -35,9 +38,13 @@ import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.Mixer;
 import javax.sound.sampled.UnsupportedAudioFileException;
 import sun.applet.Main;
+import java.lang.String;
 
 import javax.imageio.*;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import uk.co.caprica.vlcj.player.embedded.EmbeddedMediaPlayer;
 
 import utils.*;
 
@@ -51,6 +58,10 @@ public class FrameAccueil extends javax.swing.JFrame {
     /**
      * Creates new form FrameAccueil
      */
+  
+    PanelVideo pv = new PanelVideo();
+   
+    VideoPlayer v = new VideoPlayer();
     public static Mixer mixer;
     public static Clip clip;
     Image img;
@@ -73,6 +84,10 @@ public class FrameAccueil extends javax.swing.JFrame {
         u = udao.findById(user_id);
         String iu = u.getImage();
         System.out.println(iu);
+        //pv.add(v);
+        Service.add(pv, "Video");
+        VideoPlayer v = new VideoPlayer();
+        
 
         try {
             URL url = new URL(iu);
@@ -702,67 +717,80 @@ public class FrameAccueil extends javax.swing.JFrame {
 
         ParentPanel.add(msgEnvoye, "card4");
 
-        Service.addTab("test msg", ParentPanel);
+        Service.addTab("Messages", ParentPanel);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(Service, javax.swing.GroupLayout.DEFAULT_SIZE, 613, Short.MAX_VALUE)
+            .addComponent(Service)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(Service, javax.swing.GroupLayout.DEFAULT_SIZE, 750, Short.MAX_VALUE)
+                .addComponent(Service)
                 .addContainerGap())
         );
 
         setBounds(0, 0, 629, 486);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void EnvoyerReclamationBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EnvoyerReclamationBtnActionPerformed
-        Reclamation r = new Reclamation();
-        erreur1.setText(" ");
-        // erreur2.setText(" ");
-        if (!TFSujet.getText().equals("") || TFDescription.getText().equals(" ")) {
-            r.setSujet(TFSujet.getText());
-            r.setDescription(TFDescription.getText());
+    private void btnBack2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBack2ActionPerformed
+        ParentPanel.removeAll();
+        ParentPanel.add(msgR);
+        ParentPanel.repaint();
+        ParentPanel.revalidate();
+    }//GEN-LAST:event_btnBack2ActionPerformed
+
+    private void tfObjetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfObjetActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_tfObjetActionPerformed
+
+    private void btnEnvMsgActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEnvMsgActionPerformed
+        UserDao udao = new UserDao();
+        MessageDao mdao = new MessageDao();
+        Message m = new Message();
+        String test = tfDest.getText();
+        System.out.println(test);
+        User u = udao.findByUserName(test);
+        if (u.getUsername().equals(test) == true) {
+            m.setTo(tfDest.getText());
+            System.out.println(tfDest.getText());
+            m.setSujet(tfObjet.getText());
+            m.setTexte(taMsg.getText());
+            m.setFrom(LoginForm.getUserName());
             Date date = new java.sql.Date(System.currentTimeMillis());
-            r.setDate(date);
-            ReclamationDao pdao = new ReclamationDao();
-            pdao.add(r);
-            TFSujet.setText("");
-            TFDescription.setText("");
+            m.setDate_envoi(date);
+            mdao.add(m);
+            tfDest.setText("");
+            tfObjet.setText("");
+            taMsg.setText("");
         } else {
-            erreur1.setText("Veuiller introduire votre sujet");
-            //  erreur2.setText("Veuiller introduire votre description de réclamation");
+            JOptionPane.showMessageDialog(msgRediger, "Cet utilisateur n existe pas");
         }
+    }//GEN-LAST:event_btnEnvMsgActionPerformed
 
+    private void btnBack1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBack1ActionPerformed
+        ParentPanel.removeAll();
+        ParentPanel.add(msgR);
+        ParentPanel.repaint();
+    }//GEN-LAST:event_btnBack1ActionPerformed
 
-    }//GEN-LAST:event_EnvoyerReclamationBtnActionPerformed
-
-    private void TFSujetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TFSujetActionPerformed
+    private void btnTestMsg2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTestMsg2ActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_TFSujetActionPerformed
+        ParentPanel.removeAll();
+        ParentPanel.add(msgEnvoye);
+        ParentPanel.repaint();
+        ParentPanel.revalidate();
+    }//GEN-LAST:event_btnTestMsg2ActionPerformed
 
-    private void ProposerPBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ProposerPBtnActionPerformed
-        FrameAjouterProduit faP = new FrameAjouterProduit();
-        faP.setVisible(true);
-    }//GEN-LAST:event_ProposerPBtnActionPerformed
-
-    private void AcheterBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AcheterBtnActionPerformed
+    private void btnTestMsgActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTestMsgActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_AcheterBtnActionPerformed
-
-    private void ConsulterBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ConsulterBtnActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_ConsulterBtnActionPerformed
-
-    private void ProposerServiceBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ProposerServiceBtnActionPerformed
-        FrameAfficherServiceAll faSA = new FrameAfficherServiceAll();
-        faSA.setVisible(true);
-
-    }//GEN-LAST:event_ProposerServiceBtnActionPerformed
+        ParentPanel.removeAll();
+        ParentPanel.add(msgRediger);
+        ParentPanel.repaint();
+        ParentPanel.revalidate();
+    }//GEN-LAST:event_btnTestMsgActionPerformed
 
     private void jPanel1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel1MouseClicked
         try {
@@ -794,7 +822,6 @@ public class FrameAccueil extends javax.swing.JFrame {
         } catch (IOException ex) {
             Logger.getLogger(FrameAccueil.class.getName()).log(Level.SEVERE, null, ex);
         }
-
     }//GEN-LAST:event_jPanel1MouseClicked
 
     private void btnEnvoyerRecActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEnvoyerRecActionPerformed
@@ -809,53 +836,47 @@ public class FrameAccueil extends javax.swing.JFrame {
         taDescriptionRec.setText("");
     }//GEN-LAST:event_btnEnvoyerRecActionPerformed
 
-    private void btnTestMsgActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTestMsgActionPerformed
+    private void EnvoyerReclamationBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EnvoyerReclamationBtnActionPerformed
+        Reclamation r = new Reclamation();
+        erreur1.setText(" ");
+        // erreur2.setText(" ");
+        if (!TFSujet.getText().equals("") || TFDescription.getText().equals(" ")) {
+            r.setSujet(TFSujet.getText());
+            r.setDescription(TFDescription.getText());
+            Date date = new java.sql.Date(System.currentTimeMillis());
+            r.setDate(date);
+            ReclamationDao pdao = new ReclamationDao();
+            pdao.add(r);
+            TFSujet.setText("");
+            TFDescription.setText("");
+        } else {
+            erreur1.setText("Veuiller introduire votre sujet");
+            //  erreur2.setText("Veuiller introduire votre description de réclamation");
+        }
+
+    }//GEN-LAST:event_EnvoyerReclamationBtnActionPerformed
+
+    private void TFSujetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TFSujetActionPerformed
         // TODO add your handling code here:
-        ParentPanel.removeAll();
-        ParentPanel.add(msgRediger);
-        ParentPanel.repaint();
-        ParentPanel.revalidate();
-    }//GEN-LAST:event_btnTestMsgActionPerformed
+    }//GEN-LAST:event_TFSujetActionPerformed
 
-    private void btnTestMsg2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTestMsg2ActionPerformed
+    private void ProposerServiceBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ProposerServiceBtnActionPerformed
+        FrameAfficherServiceAll faSA = new FrameAfficherServiceAll();
+        faSA.setVisible(true);
+    }//GEN-LAST:event_ProposerServiceBtnActionPerformed
+
+    private void ConsulterBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ConsulterBtnActionPerformed
         // TODO add your handling code here:
-        ParentPanel.removeAll();
-        ParentPanel.add(msgEnvoye);
-        ParentPanel.repaint();
-        ParentPanel.revalidate();
-    }//GEN-LAST:event_btnTestMsg2ActionPerformed
+    }//GEN-LAST:event_ConsulterBtnActionPerformed
 
-    private void btnBack2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBack2ActionPerformed
-        ParentPanel.removeAll();
-        ParentPanel.add(msgR);
-        ParentPanel.repaint();
-        ParentPanel.revalidate();
-    }//GEN-LAST:event_btnBack2ActionPerformed
+    private void ProposerPBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ProposerPBtnActionPerformed
+        FrameAjouterProduit faP = new FrameAjouterProduit();
+        faP.setVisible(true);
+    }//GEN-LAST:event_ProposerPBtnActionPerformed
 
-    private void btnBack1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBack1ActionPerformed
-        ParentPanel.removeAll();
-        ParentPanel.add(msgR);
-        ParentPanel.repaint();
-        ParentPanel.revalidate();    }//GEN-LAST:event_btnBack1ActionPerformed
-
-    private void tfObjetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfObjetActionPerformed
+    private void AcheterBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AcheterBtnActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_tfObjetActionPerformed
-
-    private void btnEnvMsgActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEnvMsgActionPerformed
-            Message m = new Message();
-        m.setTo(tfDest.getText());
-        m.setSujet(tfObjet.getText());
-        m.setTexte(taMsg.getText());
-        m.setFrom(LoginForm.getUserName());
-        Date date = new java.sql.Date(System.currentTimeMillis());
-        m.setDate_envoi(date);
-        MessageDao mdao = new MessageDao();
-        mdao.add(m);
-        tfDest.setText("");
-       tfObjet.setText("");
-        taMsg.setText("");
-    }//GEN-LAST:event_btnEnvMsgActionPerformed
+    }//GEN-LAST:event_AcheterBtnActionPerformed
 
     /**
      * @param args the command line arguments
@@ -913,10 +934,10 @@ public class FrameAccueil extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
+    
                 FrameAccueil fa = new FrameAccueil();
                 fa.setVisible(true);
                 fa.setResizable(false);
-
                 fa.setSize(screenWidth / 2, screenHeight / 2);
                 fa.setLocation(screenWidth / 4, screenHeight / 4);
             }
@@ -933,6 +954,8 @@ public class FrameAccueil extends javax.swing.JFrame {
 
         } while (clip.isActive());
     }
+    
+  
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton AcheterBtn;

@@ -208,20 +208,17 @@ public class UserDao implements Idao.IDao<User> {
         }
     }
     
-    public List<String> findAllUsers() {
-        List<String> listUsers = new ArrayList<>();
-        String req = "select  user from fos_user_user ";
-        try {
-
-            pst = connection.prepareStatement(req);
-            ResultSet resultat = pst.executeQuery(req);
-
+    public User findByUserName(String n) {
+        User u = new User();
+        String req = "SELECT username FROM `fos_user_user` WHERE username_canonical= ?  ";
+           try {
+            PreparedStatement ps = connection.prepareStatement(req);
+            ps.setString(1, n);
+            ResultSet resultat = ps.executeQuery();
             while (resultat.next()) {
-                String s;
-                s = resultat.getString(1);
-                listUsers.add(s);
+                u.setUsername(resultat.getString(1));
             }
-            return listUsers;
+            return u;
         } catch (SQLException ex) {
             Logger.getLogger(UserDao.class.getName()).log(Level.SEVERE, null, ex);
             return null;

@@ -1257,28 +1257,28 @@ public class AllForDealFrame extends javax.swing.JFrame {
 
     private void bntConsulterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bntConsulterActionPerformed
 
-        int i = tblMesProduits.getSelectedRow();
-        Object l = tblMesProduits.getValueAt(i, 0);
-        prod_id = (int) l;
-        // System.out.println(prod_id);
-        TableModel model = tblMesProduits.getModel();
-        // System.out.println(tfNomP1.getText().toString());
-        FrameDetailsProduit fDP = new FrameDetailsProduit();
-        fDP.tfNomProduit2.setText(tfNomP1.getText());
-        fDP.cbCategorie2.setSelectedItem(cbCategorie1.getSelectedItem());
-        fDP.tfQuantite2.setText(tfQuantite1.getText());
-        fDP.taDescription2.setText(taDescription1.getText());
-        fDP.tfPrix2.setText(tfPrix1.getText());
-        fDP.tfPointBonus2.setText(tfPointBonus1.getText());
-        fDP.cbZone2.setSelectedItem(cbZone1.getSelectedItem());
-        fDP.tfTVA2.setText(tfTVA1.getText());
-        fDP.tfReduction2.setText(tfReduction1.getText());
-        fDP.setVisible(true);
+//        int i = tblMesProduits.getSelectedRow();
+//        Object l = tblMesProduits.getValueAt(i, 0);
+//        prod_id = (int) l;
+//        // System.out.println(prod_id);
+//        TableModel model = tblMesProduits.getModel();
+//        // System.out.println(tfNomP1.getText().toString());
+//        FrameDetailsProduit fDP = new FrameDetailsProduit();
+//        fDP.tfNomProduit2.setText(tfNomP1.getText());
+//        fDP.cbCategorie2.setSelectedItem(cbCategorie1.getSelectedItem());
+//        fDP.tfQuantite2.setText(tfQuantite1.getText());
+//        fDP.taDescription2.setText(taDescription1.getText());
+//        fDP.tfPrix2.setText(tfPrix1.getText());
+//        fDP.tfPointBonus2.setText(tfPointBonus1.getText());
+//        fDP.cbZone2.setSelectedItem(cbZone1.getSelectedItem());
+//        fDP.tfTVA2.setText(tfTVA1.getText());
+//        fDP.tfReduction2.setText(tfReduction1.getText());
+//        fDP.setVisible(true);
 
     }//GEN-LAST:event_bntConsulterActionPerformed
 
     private void btnSupprimerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSupprimerActionPerformed
-        FrameGestionProduitClient fGPC = new FrameGestionProduitClient();
+        AllForDealFrame fGPC = new AllForDealFrame();
         int i = tblMesProduits.getSelectedRow();
         Object l = tblMesProduits.getValueAt(i, 0);
 

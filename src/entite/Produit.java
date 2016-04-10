@@ -44,6 +44,7 @@ public class Produit {
     private float reduction;
     private Date dateAjout;
     private int rating;
+    private String photo;
     private List<Evaluation> evaluations;
 
     public Produit(int id, int zone, String categorie, int quantite, String nomP, String description, float prix, int prix1, int prix2, float tva, float reduction, int rating) {
@@ -100,9 +101,37 @@ public class Produit {
         this.dateAjout = dateAjout;
         this.rating = rating;
     }
+
+    public Produit(String zoneName, int id, int zone, int user, int media, String categorie, int quantite, int ptbonus, String nomP, String description, float prix, int prix1, int prix2, float tva, Date dateAjout, int rating, String photo) {
+        this.zoneName = zoneName;
+        this.id = id;
+        this.zone = zone;
+        this.user = user;
+        this.media = media;
+        this.categorie = categorie;
+        this.quantite = quantite;
+        this.ptbonus = ptbonus;
+        this.nomP = nomP;
+        this.description = description;
+        this.prix = prix;
+        this.prix1 = prix1;
+        this.prix2 = prix2;
+        this.tva = tva;
+        this.dateAjout = dateAjout;
+        this.rating = rating;
+        this.photo = photo;
+    }
     
 
     public Produit() {
+    }
+
+    public String getPhoto() {
+        return photo;
+    }
+
+    public void setPhoto(String photo) {
+        this.photo = photo;
     }
 
     public int getId() {

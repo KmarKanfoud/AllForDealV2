@@ -331,4 +331,42 @@ public class ProduitDao implements IDao<Produit> {
             return listeProduits;
         }
     }
+ 
+ 
+  public List<Produit> findAllByCategorie(String cat ) {
+        List<Produit> ProduitByCategorieModel = new ArrayList<>();
+
+        String req = "select * from produit where categorie like '%" +cat+"%'";
+
+        try {
+            pst = connection.prepareStatement(req);
+            ResultSet resultat = pst.executeQuery(req);
+
+            while (resultat.next()) {
+
+                Produit p = new Produit();
+
+                 p.setId(resultat.getInt(1));
+                p.setZone(resultat.getInt(2));
+                 p.setCategorie(resultat.getString(3));
+                  p.setDescription(resultat.getString(4));
+                  p.setPrix(resultat.getInt(5));
+                p.setUser(resultat.getInt(6));
+               p.setQuantite(resultat.getInt(7));
+                p.setPtbonus(resultat.getInt(8));
+                p.setNomP(resultat.getString(9));
+               p.setPrix1(resultat.getInt(10));
+                p.setPrix2(resultat.getInt(11));
+                p.setTva(resultat.getInt(12));
+                p.setReduction(resultat.getInt(13));
+               p.setDateAjout(resultat.getDate(14));
+               ProduitByCategorieModel.add(p);
+
+            }
+            return ProduitByCategorieModel;
+        } catch (SQLException ex) {
+            System.out.println("erreur" + ex.getMessage());
+            return ProduitByCategorieModel;
+        }
+    }
 }

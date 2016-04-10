@@ -44,7 +44,7 @@ import javax.imageio.*;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import uk.co.caprica.vlcj.player.embedded.EmbeddedMediaPlayer;
+//import uk.co.caprica.vlcj.player.embedded.EmbeddedMediaPlayer;
 
 import utils.*;
 

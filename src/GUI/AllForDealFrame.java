@@ -244,14 +244,17 @@ public class AllForDealFrame extends javax.swing.JFrame {
         btnPanier.setText("jButton2");
         btnPanier.setPreferredSize(new java.awt.Dimension(50, 40));
 
+        btnProfile.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/user.png"))); // NOI18N
         btnProfile.setPreferredSize(new java.awt.Dimension(50, 40));
 
         btnReclam.setText("jButton2");
         btnReclam.setOpaque(false);
         btnReclam.setPreferredSize(new java.awt.Dimension(50, 40));
 
+        btnMessage.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/mail.png"))); // NOI18N
         btnMessage.setPreferredSize(new java.awt.Dimension(50, 40));
 
+        btnNotif.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/flag.png"))); // NOI18N
         btnNotif.setPreferredSize(new java.awt.Dimension(50, 40));
 
         btnServices.setText("jButton2");
@@ -259,7 +262,7 @@ public class AllForDealFrame extends javax.swing.JFrame {
         btnServices.setOpaque(false);
         btnServices.setPreferredSize(new java.awt.Dimension(50, 40));
 
-        btnProduits.setText("jButton2");
+        btnProduits.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/store.png"))); // NOI18N
         btnProduits.setBorder(null);
         btnProduits.setPreferredSize(new java.awt.Dimension(50, 40));
         btnProduits.addActionListener(new java.awt.event.ActionListener() {
@@ -268,6 +271,7 @@ public class AllForDealFrame extends javax.swing.JFrame {
             }
         });
 
+        btnAccueil.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/home.png"))); // NOI18N
         btnAccueil.setPreferredSize(new java.awt.Dimension(50, 40));
         btnAccueil.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -547,7 +551,7 @@ public class AllForDealFrame extends javax.swing.JFrame {
         );
 
         jPanel3.add(jPanel5);
-        jPanel5.setBounds(1072, 430, 0, 0);
+        jPanel5.setBounds(1072, 430, 300, 36);
 
         tblMesProduits.setBackground(Color.BLUE);
         tblMesProduits.setModel(new ProduitClientModel());
@@ -1328,6 +1332,16 @@ public class AllForDealFrame extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new AllForDealFrame().setVisible(true);
+                tbProduits.getColumnModel().getColumn(0).setMinWidth(0);
+        tbProduits.getColumnModel().getColumn(0).setMaxWidth(0);
+        tbProduits.getColumnModel().getColumn(0).setWidth(0);
+                tblMesProduits.getColumnModel().getColumn(0).setMinWidth(0);
+        tblMesProduits.getColumnModel().getColumn(0).setMaxWidth(0);
+        tblMesProduits.getColumnModel().getColumn(0).setWidth(0);
+                tbRecherche.getColumnModel().getColumn(0).setMinWidth(0);
+        tbRecherche.getColumnModel().getColumn(0).setMaxWidth(0);
+        tbRecherche.getColumnModel().getColumn(0).setWidth(0);
+                
             }
         });
     }
@@ -1439,9 +1453,9 @@ public class AllForDealFrame extends javax.swing.JFrame {
     private javax.swing.JPanel p6;
     private javax.swing.JTextArea taDescription;
     private javax.swing.JTextArea taDescription1;
-    private javax.swing.JTable tbProduits;
-    private javax.swing.JTable tbRecherche;
-    private javax.swing.JTable tblMesProduits;
+    private static javax.swing.JTable tbProduits;
+    private static javax.swing.JTable tbRecherche;
+    private static javax.swing.JTable tblMesProduits;
     private javax.swing.JTextField tfNomP;
     private javax.swing.JTextField tfNomP1;
     private javax.swing.JTextField tfPhoto;

@@ -6,22 +6,28 @@
 package GUI;
 
 import static GUI.FrameGestionProduitAdmin.prod_id;
-import com.teamdev.jxbrowser.chromium.Browser;
-import com.teamdev.jxbrowser.chromium.swing.BrowserView;
+//import com.teamdev.jxbrowser.chromium.Browser;
+//import com.teamdev.jxbrowser.chromium.swing.BrowserView;
 import com.restfb.DefaultFacebookClient;
 import com.restfb.FacebookClient;
 import com.restfb.Parameter;
 import com.restfb.types.FacebookType;
 import com.restfb.types.Page;
 import com.restfb.types.User;
-import com.teamdev.jxbrowser.chromium.Browser;
-import com.teamdev.jxbrowser.chromium.swing.BrowserView;
+//import com.teamdev.jxbrowser.chromium.Browser;
+//import com.teamdev.jxbrowser.chromium.swing.BrowserView;
+import dao.MessageDao;
 import dao.ProduitDao;
+import dao.ReclamationDao;
 import dao.ServiceDao;
+import dao.UserDao;
 import dao.ZoneDao;
+import entite.Message;
 import entite.Produit;
+import entite.Reclamation;
 import entite.Service;
 import entite.Zone;
+import java.awt.BorderLayout;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -46,61 +52,67 @@ import java.util.List;
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
+import static javax.swing.JFrame.EXIT_ON_CLOSE;
 import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.table.DefaultTableModel;
 import utils.*;
 import utils.Map;
 
-
 /**
  *
  * @author Lilya Thebti
  */
 public class AllForDealFrame extends javax.swing.JFrame {
-    //kmar
-     Toolkit tk = Toolkit.getDefaultToolkit();
+
+    Toolkit tk = Toolkit.getDefaultToolkit();
     Dimension screenSize = tk.getScreenSize();
     int screenHeight = screenSize.height;
     int screenWidth = screenSize.width;
+    PanelVideo pv = new PanelVideo();
 
     //private static int categorie;
     private static int service_id;
     private Connection conn = null;
     private PreparedStatement pst = null;
-   
+
     ResultSet rsNom = null;
-    
+
     ServiceDao sdao = new ServiceDao();
     ZoneDao zoneDAO = new ZoneDao();
-    
+
     private static String nomS;
     //kmar
 
     /**
      * Creates new form AllForDealFrame
      */
-    
     // partie Lilya
     static Connection con;
     static ResultSet res;
     static PreparedStatement ps;
     static Statement stm;
-     ResultSet rs = null;
-    ResultSet rsId = null;   
+    ResultSet rs = null;
+    ResultSet rsId = null;
     private static String categorie;
     String im;
 
-   public static String getCategorie() {
+    public static String getCategorie() {
         return categorie;
     }
     ProduitDao pdao = new ProduitDao();
     ZoneDao zdao = new ZoneDao();
-    
+
     //fin Partie Lilya
     public AllForDealFrame() {
         initComponents();
-        
+
+        accueillabel.setVisible(false);
+        produitsLabel.setVisible(false);    
+        servicesLabel.setVisible(false);  
+        reclamationLabel.setVisible(false);  
+
+
         btnProduits.setOpaque(false);
         btnProduits.setContentAreaFilled(false);
         btnProduits.setBorderPainted(false);
@@ -108,32 +120,30 @@ public class AllForDealFrame extends javax.swing.JFrame {
         btnAccueil.setOpaque(false);
         btnAccueil.setContentAreaFilled(false);
         btnAccueil.setBorderPainted(false);
-        
+
         btnPanier.setOpaque(false);
         btnPanier.setContentAreaFilled(false);
         btnPanier.setBorderPainted(false);
-        
+
         btnMessage.setOpaque(false);
         btnMessage.setContentAreaFilled(false);
         btnMessage.setBorderPainted(false);
-        
+
         btnNotif.setOpaque(false);
         btnNotif.setContentAreaFilled(false);
         btnNotif.setBorderPainted(false);
-        
+
         btnServices.setOpaque(false);
         btnServices.setContentAreaFilled(false);
         btnServices.setBorderPainted(false);
-        
+
         btnReclam.setOpaque(false);
         btnReclam.setContentAreaFilled(false);
         btnReclam.setBorderPainted(false);
-        
+
         btnProfile.setOpaque(false);
         btnProfile.setContentAreaFilled(false);
         btnProfile.setBorderPainted(false);
-        
-        
 
     }
 
@@ -155,8 +165,15 @@ public class AllForDealFrame extends javax.swing.JFrame {
         btnServices = new javax.swing.JButton();
         btnProduits = new javax.swing.JButton();
         btnAccueil = new javax.swing.JButton();
+        accueillabel = new javax.swing.JLabel();
+        produitsLabel = new javax.swing.JLabel();
+        servicesLabel = new javax.swing.JLabel();
+        reclamationLabel = new javax.swing.JLabel();
         ParentPanel = new javax.swing.JPanel();
         AccueilPanel = new javax.swing.JPanel();
+        videoPlayer = new javax.swing.JInternalFrame();
+        pauseBtn = new javax.swing.JButton();
+        playBtn = new javax.swing.JButton();
         ProduitPanel = new javax.swing.JPanel();
         jTabbedPane1 = new javax.swing.JTabbedPane();
         jPanel2 = new javax.swing.JPanel();
@@ -348,6 +365,38 @@ public class AllForDealFrame extends javax.swing.JFrame {
         jScrollPane11 = new javax.swing.JScrollPane();
         tblRechercheS2 = new javax.swing.JTable();
         PanierReclamation = new javax.swing.JPanel();
+        MessagesPanel = new javax.swing.JPanel();
+        msgRediger = new javax.swing.JPanel();
+        lMsg1 = new javax.swing.JLabel();
+        btnBack1 = new javax.swing.JButton();
+        btnEnvMsg = new javax.swing.JButton();
+        tfDest = new javax.swing.JTextField();
+        tfObjet = new javax.swing.JTextField();
+        jScrollPane13 = new javax.swing.JScrollPane();
+        taMsg = new javax.swing.JTextArea();
+        jLabel41 = new javax.swing.JLabel();
+        jLabel42 = new javax.swing.JLabel();
+        jLabel43 = new javax.swing.JLabel();
+        msgEnvoye = new javax.swing.JPanel();
+        jLabel44 = new javax.swing.JLabel();
+        btnBack2 = new javax.swing.JButton();
+        jScrollPane14 = new javax.swing.JScrollPane();
+        tbMsgEnvs = new javax.swing.JTable();
+        msgR = new javax.swing.JPanel();
+        btnTestMsg = new javax.swing.JButton();
+        btnTestMsg2 = new javax.swing.JButton();
+        jScrollPane12 = new javax.swing.JScrollPane();
+        tbMesMsgR = new javax.swing.JTable();
+        ReclamationPanel = new javax.swing.JPanel();
+        erreur1 = new javax.swing.JLabel();
+        erreur2 = new javax.swing.JLabel();
+        tfSujetRec = new javax.swing.JTextField();
+        jScrollPane15 = new javax.swing.JScrollPane();
+        taDescriptionRec = new javax.swing.JTextArea();
+        jLabel47 = new javax.swing.JLabel();
+        jLabel48 = new javax.swing.JLabel();
+        jLabel49 = new javax.swing.JLabel();
+        btnEnvoyerRec = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -360,17 +409,42 @@ public class AllForDealFrame extends javax.swing.JFrame {
         btnReclam.setText("jButton2");
         btnReclam.setOpaque(false);
         btnReclam.setPreferredSize(new java.awt.Dimension(50, 40));
+        btnReclam.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnReclamMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnReclamMouseExited(evt);
+            }
+        });
+        btnReclam.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnReclamActionPerformed(evt);
+            }
+        });
 
         btnMessage.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/mail.png"))); // NOI18N
         btnMessage.setPreferredSize(new java.awt.Dimension(50, 40));
+        btnMessage.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnMessageActionPerformed(evt);
+            }
+        });
 
         btnNotif.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/flag.png"))); // NOI18N
         btnNotif.setPreferredSize(new java.awt.Dimension(50, 40));
 
-        btnServices.setIcon(new javax.swing.ImageIcon("C:\\Users\\Super Moon\\Downloads\\free-service-icon.png")); // NOI18N
         btnServices.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         btnServices.setOpaque(false);
         btnServices.setPreferredSize(new java.awt.Dimension(50, 40));
+        btnServices.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnServicesMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnServicesMouseExited(evt);
+            }
+        });
         btnServices.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnServicesActionPerformed(evt);
@@ -380,6 +454,14 @@ public class AllForDealFrame extends javax.swing.JFrame {
         btnProduits.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/store.png"))); // NOI18N
         btnProduits.setBorder(null);
         btnProduits.setPreferredSize(new java.awt.Dimension(50, 40));
+        btnProduits.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnProduitsMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnProduitsMouseExited(evt);
+            }
+        });
         btnProduits.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnProduitsActionPerformed(evt);
@@ -388,47 +470,85 @@ public class AllForDealFrame extends javax.swing.JFrame {
 
         btnAccueil.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/home.png"))); // NOI18N
         btnAccueil.setPreferredSize(new java.awt.Dimension(50, 40));
+        btnAccueil.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnAccueilMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnAccueilMouseExited(evt);
+            }
+        });
         btnAccueil.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnAccueilActionPerformed(evt);
             }
         });
 
+        accueillabel.setText("Accueil");
+
+        produitsLabel.setText("Produits");
+
+        servicesLabel.setText("Services");
+
+        reclamationLabel.setText("Réclamation");
+
         javax.swing.GroupLayout MenuPanelLayout = new javax.swing.GroupLayout(MenuPanel);
         MenuPanel.setLayout(MenuPanelLayout);
         MenuPanelLayout.setHorizontalGroup(
             MenuPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, MenuPanelLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(btnPanier, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnNotif, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(btnMessage, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(btnProfile, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(9, 9, 9))
             .addGroup(MenuPanelLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(btnAccueil, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(MenuPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btnAccueil, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(accueillabel))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnProduits, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(MenuPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(MenuPanelLayout.createSequentialGroup()
+                        .addComponent(btnProduits, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(btnServices, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(MenuPanelLayout.createSequentialGroup()
+                        .addGap(8, 8, 8)
+                        .addComponent(produitsLabel)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(servicesLabel)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(btnServices, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(btnReclam, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(MenuPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(MenuPanelLayout.createSequentialGroup()
+                        .addComponent(reclamationLabel)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnPanier, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnNotif, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(btnMessage, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(btnProfile, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(9, 9, 9))
+                    .addGroup(MenuPanelLayout.createSequentialGroup()
+                        .addComponent(btnReclam, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
         MenuPanelLayout.setVerticalGroup(
             MenuPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(MenuPanelLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(MenuPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnPanier, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnMessage, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnNotif, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnProfile, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(MenuPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(MenuPanelLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addGroup(MenuPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(btnPanier, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnMessage, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnNotif, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnProfile, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, MenuPanelLayout.createSequentialGroup()
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(MenuPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(accueillabel)
+                            .addComponent(produitsLabel)
+                            .addComponent(servicesLabel)
+                            .addComponent(reclamationLabel))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
                 .addGroup(MenuPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnReclam, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnServices, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -439,6 +559,41 @@ public class AllForDealFrame extends javax.swing.JFrame {
         ParentPanel.setLayout(new java.awt.CardLayout());
 
         AccueilPanel.setLayout(null);
+
+        videoPlayer.setVisible(true);
+
+        javax.swing.GroupLayout videoPlayerLayout = new javax.swing.GroupLayout(videoPlayer.getContentPane());
+        videoPlayer.getContentPane().setLayout(videoPlayerLayout);
+        videoPlayerLayout.setHorizontalGroup(
+            videoPlayerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
+        videoPlayerLayout.setVerticalGroup(
+            videoPlayerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
+
+        AccueilPanel.add(videoPlayer);
+        videoPlayer.setBounds(70, 140, 700, 290);
+
+        pauseBtn.setText("pause");
+        pauseBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                pauseBtnActionPerformed(evt);
+            }
+        });
+        AccueilPanel.add(pauseBtn);
+        pauseBtn.setBounds(260, 70, 61, 23);
+
+        playBtn.setText("play");
+        playBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                playBtnActionPerformed(evt);
+            }
+        });
+        AccueilPanel.add(playBtn);
+        playBtn.setBounds(170, 70, 53, 23);
+
         ParentPanel.add(AccueilPanel, "card3");
 
         ProduitPanel.setPreferredSize(new java.awt.Dimension(790, 399));
@@ -538,7 +693,7 @@ public class AllForDealFrame extends javax.swing.JFrame {
                     .addComponent(btnRechercher))
                 .addGap(31, 31, 31)
                 .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(249, Short.MAX_VALUE))
+                .addContainerGap(364, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Rechercher un produit", jPanel4);
@@ -1166,7 +1321,7 @@ public class AllForDealFrame extends javax.swing.JFrame {
             .addGroup(ProduitPanelLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 799, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(294, Short.MAX_VALUE))
+                .addContainerGap(251, Short.MAX_VALUE))
         );
         ProduitPanelLayout.setVerticalGroup(
             ProduitPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1345,11 +1500,11 @@ public class AllForDealFrame extends javax.swing.JFrame {
         pMap.setLayout(pMapLayout);
         pMapLayout.setHorizontalGroup(
             pMapLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1260, Short.MAX_VALUE)
+            .addGap(0, 1055, Short.MAX_VALUE)
         );
         pMapLayout.setVerticalGroup(
             pMapLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 788, Short.MAX_VALUE)
+            .addGap(0, 629, Short.MAX_VALUE)
         );
 
         ParentPanel2.add(pMap, "card4");
@@ -1447,7 +1602,7 @@ public class AllForDealFrame extends javax.swing.JFrame {
                         .addGap(38, 38, 38)
                         .addComponent(bntMap))
                     .addComponent(jScrollPane8, javax.swing.GroupLayout.PREFERRED_SIZE, 365, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(576, Short.MAX_VALUE))
+                .addContainerGap(371, Short.MAX_VALUE))
         );
         pConsulterS2Layout.setVerticalGroup(
             pConsulterS2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1486,7 +1641,7 @@ public class AllForDealFrame extends javax.swing.JFrame {
                     .addComponent(btnBackS2)
                     .addComponent(btnVoirComm)
                     .addComponent(bntMap))
-                .addContainerGap(353, Short.MAX_VALUE))
+                .addContainerGap(194, Short.MAX_VALUE))
         );
 
         ParentPanel2.add(pConsulterS2, "card3");
@@ -1688,7 +1843,7 @@ public class AllForDealFrame extends javax.swing.JFrame {
                     .addGroup(pConsulterSLayout.createSequentialGroup()
                         .addGap(61, 61, 61)
                         .addComponent(btnMap)))
-                .addContainerGap(345, Short.MAX_VALUE))
+                .addContainerGap(186, Short.MAX_VALUE))
         );
 
         ParentPanel1.add(pConsulterS, "card3");
@@ -1770,7 +1925,7 @@ public class AllForDealFrame extends javax.swing.JFrame {
                             .addComponent(jScrollPane11, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(lTitreRechercheS2)
                             .addComponent(tfRechercheS, javax.swing.GroupLayout.PREFERRED_SIZE, 332, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(261, Short.MAX_VALUE))
+                .addContainerGap(56, Short.MAX_VALUE))
         );
         pRechercheSLayout.setVerticalGroup(
             pRechercheSLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1787,7 +1942,7 @@ public class AllForDealFrame extends javax.swing.JFrame {
                 .addGroup(pRechercheSLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(bntRechercheS2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(bntRechercheS, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 200, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 41, Short.MAX_VALUE)
                 .addGroup(pRechercheSLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jScrollPane11)
                     .addComponent(jScrollPane10))
@@ -1813,14 +1968,248 @@ public class AllForDealFrame extends javax.swing.JFrame {
         PanierReclamation.setLayout(PanierReclamationLayout);
         PanierReclamationLayout.setHorizontalGroup(
             PanierReclamationLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1103, Short.MAX_VALUE)
+            .addGap(0, 1060, Short.MAX_VALUE)
         );
         PanierReclamationLayout.setVerticalGroup(
             PanierReclamationLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 542, Short.MAX_VALUE)
+            .addGap(0, 657, Short.MAX_VALUE)
         );
 
         ParentPanel.add(PanierReclamation, "card5");
+
+        MessagesPanel.setLayout(new java.awt.CardLayout());
+
+        lMsg1.setText("Ecrire un message");
+
+        btnBack1.setText("Back");
+        btnBack1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBack1ActionPerformed(evt);
+            }
+        });
+
+        btnEnvMsg.setText("Envoyer");
+        btnEnvMsg.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEnvMsgActionPerformed(evt);
+            }
+        });
+
+        tfObjet.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                tfObjetActionPerformed(evt);
+            }
+        });
+
+        taMsg.setColumns(20);
+        taMsg.setRows(5);
+        jScrollPane13.setViewportView(taMsg);
+
+        jLabel41.setText(" À");
+
+        jLabel42.setText("Objet");
+
+        jLabel43.setText("Message");
+
+        javax.swing.GroupLayout msgRedigerLayout = new javax.swing.GroupLayout(msgRediger);
+        msgRediger.setLayout(msgRedigerLayout);
+        msgRedigerLayout.setHorizontalGroup(
+            msgRedigerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, msgRedigerLayout.createSequentialGroup()
+                .addContainerGap(758, Short.MAX_VALUE)
+                .addComponent(btnBack1)
+                .addGap(74, 74, 74)
+                .addComponent(btnEnvMsg)
+                .addGap(100, 100, 100))
+            .addGroup(msgRedigerLayout.createSequentialGroup()
+                .addGroup(msgRedigerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(msgRedigerLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(lMsg1, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(msgRedigerLayout.createSequentialGroup()
+                        .addGap(54, 54, 54)
+                        .addGroup(msgRedigerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel41)
+                            .addComponent(jLabel42)
+                            .addComponent(jLabel43))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(msgRedigerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(tfDest)
+                            .addComponent(tfObjet)
+                            .addComponent(jScrollPane13, javax.swing.GroupLayout.DEFAULT_SIZE, 360, Short.MAX_VALUE))))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        msgRedigerLayout.setVerticalGroup(
+            msgRedigerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(msgRedigerLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(lMsg1, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(msgRedigerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(tfDest, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel41))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(msgRedigerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(tfObjet, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel42))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(msgRedigerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane13, javax.swing.GroupLayout.PREFERRED_SIZE, 201, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel43))
+                .addGap(40, 40, 40)
+                .addGroup(msgRedigerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnBack1)
+                    .addComponent(btnEnvMsg))
+                .addContainerGap(261, Short.MAX_VALUE))
+        );
+
+        MessagesPanel.add(msgRediger, "card3");
+
+        jLabel44.setText("Les messages envoyés");
+
+        btnBack2.setText("Back");
+        btnBack2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBack2ActionPerformed(evt);
+            }
+        });
+
+        tbMsgEnvs.setModel(new MessagesEnvoyesModel());
+        jScrollPane14.setViewportView(tbMsgEnvs);
+
+        javax.swing.GroupLayout msgEnvoyeLayout = new javax.swing.GroupLayout(msgEnvoye);
+        msgEnvoye.setLayout(msgEnvoyeLayout);
+        msgEnvoyeLayout.setHorizontalGroup(
+            msgEnvoyeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(msgEnvoyeLayout.createSequentialGroup()
+                .addGap(19, 19, 19)
+                .addComponent(jLabel44)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, msgEnvoyeLayout.createSequentialGroup()
+                .addContainerGap(467, Short.MAX_VALUE)
+                .addGroup(msgEnvoyeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jScrollPane14, javax.swing.GroupLayout.PREFERRED_SIZE, 525, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnBack2))
+                .addGap(68, 68, 68))
+        );
+        msgEnvoyeLayout.setVerticalGroup(
+            msgEnvoyeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(msgEnvoyeLayout.createSequentialGroup()
+                .addGap(21, 21, 21)
+                .addComponent(jLabel44)
+                .addGap(61, 61, 61)
+                .addComponent(jScrollPane14, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(182, 182, 182)
+                .addComponent(btnBack2)
+                .addContainerGap(248, Short.MAX_VALUE))
+        );
+
+        MessagesPanel.add(msgEnvoye, "card4");
+
+        msgR.setLayout(null);
+
+        btnTestMsg.setText("Ecrire");
+        btnTestMsg.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnTestMsgActionPerformed(evt);
+            }
+        });
+        msgR.add(btnTestMsg);
+        btnTestMsg.setBounds(350, 340, 100, 30);
+
+        btnTestMsg2.setText("Mes Messages");
+        btnTestMsg2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnTestMsg2ActionPerformed(evt);
+            }
+        });
+        msgR.add(btnTestMsg2);
+        btnTestMsg2.setBounds(460, 340, 110, 30);
+
+        tbMesMsgR.setModel( new MessageReçuModel ());
+        jScrollPane12.setViewportView(tbMesMsgR);
+
+        msgR.add(jScrollPane12);
+        jScrollPane12.setBounds(10, 70, 540, 180);
+
+        MessagesPanel.add(msgR, "card2");
+
+        ParentPanel.add(MessagesPanel, "card6");
+
+        erreur1.setForeground(new java.awt.Color(255, 0, 0));
+
+        erreur2.setForeground(new java.awt.Color(255, 0, 0));
+
+        taDescriptionRec.setColumns(20);
+        taDescriptionRec.setRows(5);
+        jScrollPane15.setViewportView(taDescriptionRec);
+
+        jLabel47.setText("Objet");
+
+        jLabel48.setText("Description");
+
+        jLabel49.setText("Envoyer une réclamation");
+
+        btnEnvoyerRec.setText("Envoyer");
+        btnEnvoyerRec.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEnvoyerRecActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout ReclamationPanelLayout = new javax.swing.GroupLayout(ReclamationPanel);
+        ReclamationPanel.setLayout(ReclamationPanelLayout);
+        ReclamationPanelLayout.setHorizontalGroup(
+            ReclamationPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(ReclamationPanelLayout.createSequentialGroup()
+                .addGroup(ReclamationPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(ReclamationPanelLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jLabel49, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(ReclamationPanelLayout.createSequentialGroup()
+                        .addGap(52, 52, 52)
+                        .addGroup(ReclamationPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, ReclamationPanelLayout.createSequentialGroup()
+                                .addComponent(jLabel47)
+                                .addGap(18, 18, 18)
+                                .addComponent(tfSujetRec, javax.swing.GroupLayout.PREFERRED_SIZE, 368, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(btnEnvoyerRec, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, ReclamationPanelLayout.createSequentialGroup()
+                                .addComponent(jLabel48)
+                                .addGap(18, 18, 18)
+                                .addComponent(jScrollPane15, javax.swing.GroupLayout.PREFERRED_SIZE, 368, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(ReclamationPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(erreur1)
+                    .addComponent(erreur2))
+                .addContainerGap(565, Short.MAX_VALUE))
+        );
+        ReclamationPanelLayout.setVerticalGroup(
+            ReclamationPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(ReclamationPanelLayout.createSequentialGroup()
+                .addGroup(ReclamationPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(ReclamationPanelLayout.createSequentialGroup()
+                        .addGap(22, 22, 22)
+                        .addComponent(jLabel49, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(31, 31, 31)
+                        .addGroup(ReclamationPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(tfSujetRec, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel47))
+                        .addGap(18, 18, 18)
+                        .addGroup(ReclamationPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jScrollPane15, javax.swing.GroupLayout.PREFERRED_SIZE, 248, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel48))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(btnEnvoyerRec))
+                    .addGroup(ReclamationPanelLayout.createSequentialGroup()
+                        .addGap(40, 40, 40)
+                        .addComponent(erreur1)
+                        .addGap(98, 98, 98)
+                        .addComponent(erreur2)))
+                .addContainerGap(251, Short.MAX_VALUE))
+        );
+
+        ParentPanel.add(ReclamationPanel, "card7");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -1886,9 +2275,9 @@ public class AllForDealFrame extends javax.swing.JFrame {
         int rating = (int) tbProduits.getValueAt(ligneSelectionne, 11);
 
         fbClient.publish("10208045352675324" + "/feed", FacebookType.class, Parameter.with("message", "nom du produit : " + nom
-            + "\nCategorie : " + categorie + "\nQuantite : " + quantite + "\nDescription : " + description+"\nPrix : "+prix+"\nPoint Bonus: "+pointBonus+"\nGouvernorat : "+zone+"\n Date Ajout :"+dateAjout+"TVA : "+TVA+"\nRéduction : "+reduction+"\rating"+rating ));
+                + "\nCategorie : " + categorie + "\nQuantite : " + quantite + "\nDescription : " + description + "\nPrix : " + prix + "\nPoint Bonus: " + pointBonus + "\nGouvernorat : " + zone + "\n Date Ajout :" + dateAjout + "TVA : " + TVA + "\nRéduction : " + reduction + "\rating" + rating));
 
-    JOptionPane.showMessageDialog(null, "Shared Succefully on Facebook!");
+        JOptionPane.showMessageDialog(null, "Shared Succefully on Facebook!");
     }//GEN-LAST:event_btnPartagerActionPerformed
 
     private void btnRechercherActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRechercherActionPerformed
@@ -1959,7 +2348,7 @@ public class AllForDealFrame extends javax.swing.JFrame {
         JFileChooser chooser = new JFileChooser();
 
         FileNameExtensionFilter filter = new FileNameExtensionFilter(
-            "JPG & GIF Images", "jpg", "gif");
+                "JPG & GIF Images", "jpg", "gif");
         chooser.setFileFilter(filter);
         int returnVal = chooser.showOpenDialog(btnParcourir);
         if (returnVal == JFileChooser.APPROVE_OPTION) {
@@ -2035,7 +2424,7 @@ public class AllForDealFrame extends javax.swing.JFrame {
 
     private void btnServicesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnServicesActionPerformed
         // TODO add your handling code here:
-          ParentPanel.removeAll();
+        ParentPanel.removeAll();
         ParentPanel.add(PanelService);
         ParentPanel.repaint();
         ParentPanel.revalidate();
@@ -2177,7 +2566,7 @@ public class AllForDealFrame extends javax.swing.JFrame {
 
         Service s = sdao.findById(service_id);
         //System.out.println("test zone"+s.getZone());
-        Map map = new Map() ;
+        Map map = new Map();
         ParentPanel2.add(pMap);
         //         ParentPanel2.add(map.maps(s.getZone()));
         map.maps(s.getZone());
@@ -2315,8 +2704,8 @@ public class AllForDealFrame extends javax.swing.JFrame {
         ParentPanel2.repaint();
         ParentPanel2.revalidate();
 
-        Browser browser = new Browser();
-        BrowserView view = new BrowserView(browser);
+        //Browser browser = new Browser();
+        //BrowserView view = new BrowserView(browser);
         double x;
         double y;
         java.util.List<Zone> obj = new ArrayList();
@@ -2325,7 +2714,7 @@ public class AllForDealFrame extends javax.swing.JFrame {
         for (Object o : obj) {
             x = ((Zone) o).getLat();
             y = ((Zone) o).getLon();
-            browser.loadURL("https://maps.googleapis.com/maps/api/staticmap?center=" + x + "," + y + "&zoom=12&size=700x500&maptype=roadmap&markers=icone%7Clabel:S%7C" + x + "," + y);
+            //browser.loadURL("https://maps.googleapis.com/maps/api/staticmap?center=" + x + "," + y + "&zoom=12&size=700x500&maptype=roadmap&markers=icone%7Clabel:S%7C" + x + "," + y);
         }
     }//GEN-LAST:event_btnMapActionPerformed
 
@@ -2376,10 +2765,151 @@ public class AllForDealFrame extends javax.swing.JFrame {
         tblAllServices.setModel(new ListeService());
     }//GEN-LAST:event_tpServiceMouseClicked
 
+    private void btnTestMsgActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTestMsgActionPerformed
+        // TODO add your handling code here:
+        MessagesPanel.removeAll();
+        MessagesPanel.add(msgRediger);
+        MessagesPanel.repaint();
+        MessagesPanel.revalidate();
+    }//GEN-LAST:event_btnTestMsgActionPerformed
+
+    private void btnTestMsg2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTestMsg2ActionPerformed
+        // TODO add your handling code here:
+        MessagesPanel.removeAll();
+        MessagesPanel.add(msgEnvoye);
+        MessagesPanel.repaint();
+        MessagesPanel.revalidate();
+    }//GEN-LAST:event_btnTestMsg2ActionPerformed
+
+    private void btnBack1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBack1ActionPerformed
+        MessagesPanel.removeAll();
+        MessagesPanel.add(msgR);
+        MessagesPanel.repaint();
+    }//GEN-LAST:event_btnBack1ActionPerformed
+
+    private void btnEnvMsgActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEnvMsgActionPerformed
+        UserDao udao = new UserDao();
+        MessageDao mdao = new MessageDao();
+        Message m = new Message();
+        String test = tfDest.getText();
+        System.out.println(test);
+        entite.User u = udao.findByUserName(test);
+        if (u.getUsername().equals(test) == true) {
+            m.setTo(tfDest.getText());
+            System.out.println(tfDest.getText());
+            m.setSujet(tfObjet.getText());
+            m.setTexte(taMsg.getText());
+            m.setFrom(LoginForm.getUserName());
+            Date date = new java.sql.Date(System.currentTimeMillis());
+            m.setDate_envoi(date);
+            mdao.add(m);
+            tfDest.setText("");
+            tfObjet.setText("");
+            taMsg.setText("");
+        } else {
+            JOptionPane.showMessageDialog(msgRediger, "Cet utilisateur n existe pas");
+        }
+    }//GEN-LAST:event_btnEnvMsgActionPerformed
+
+    private void tfObjetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfObjetActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_tfObjetActionPerformed
+
+    private void btnBack2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBack2ActionPerformed
+        MessagesPanel.removeAll();
+        MessagesPanel.add(msgR);
+        MessagesPanel.repaint();
+        MessagesPanel.revalidate();
+    }//GEN-LAST:event_btnBack2ActionPerformed
+
+    private void btnMessageActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMessageActionPerformed
+        ParentPanel.removeAll();
+        ParentPanel.add(MessagesPanel);
+        ParentPanel.repaint();
+        ParentPanel.revalidate();
+    }//GEN-LAST:event_btnMessageActionPerformed
+
+    private void pauseBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pauseBtnActionPerformed
+        pv.pause("C:\\Users\\SaharS\\Downloads\\Video\\Suite.MP4");
+    }//GEN-LAST:event_pauseBtnActionPerformed
+
+    private void btnAccueilMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAccueilMouseEntered
+        // TODO add your handling code here:
+        accueillabel.setVisible(true);
+    }//GEN-LAST:event_btnAccueilMouseEntered
+
+    private void btnAccueilMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAccueilMouseExited
+        accueillabel.setVisible(false);    }//GEN-LAST:event_btnAccueilMouseExited
+
+    private void btnProduitsMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnProduitsMouseEntered
+ produitsLabel.setVisible(true);    }//GEN-LAST:event_btnProduitsMouseEntered
+
+    private void btnProduitsMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnProduitsMouseExited
+produitsLabel.setVisible(false);      }//GEN-LAST:event_btnProduitsMouseExited
+
+    private void btnServicesMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnServicesMouseExited
+        servicesLabel.setVisible(false);  
+    }//GEN-LAST:event_btnServicesMouseExited
+
+    private void btnServicesMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnServicesMouseEntered
+        servicesLabel.setVisible(true);  
+    }//GEN-LAST:event_btnServicesMouseEntered
+
+    private void btnReclamMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnReclamMouseEntered
+        reclamationLabel.setVisible(true);  
+    }//GEN-LAST:event_btnReclamMouseEntered
+
+    private void btnReclamMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnReclamMouseExited
+        reclamationLabel.setVisible(false);  
+    }//GEN-LAST:event_btnReclamMouseExited
+
+    private void btnEnvoyerRecActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEnvoyerRecActionPerformed
+        if (!tfSujetRec.getText().equals("") || taDescriptionRec.getText().equals(" ")){
+        Reclamation r = new Reclamation();
+        r.setSujet(tfSujetRec.getText());
+        r.setDescription(taDescriptionRec.getText());
+        Date date = new java.sql.Date(System.currentTimeMillis());
+        r.setDate(date);
+        ReclamationDao rdao = new ReclamationDao();
+        rdao.add(r);
+        tfSujetRec.setText("");
+        taDescriptionRec.setText("");}
+        else{
+             JOptionPane.showMessageDialog(ParentPanel, "Veuillez remplir tous les champs");
+        }
+    }//GEN-LAST:event_btnEnvoyerRecActionPerformed
+
+    private void btnReclamActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReclamActionPerformed
+   ParentPanel.removeAll();
+        ParentPanel.add(ReclamationPanel);
+        ParentPanel.repaint();
+        ParentPanel.revalidate();
+    }//GEN-LAST:event_btnReclamActionPerformed
+
+    private void playBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_playBtnActionPerformed
+   videoPlayer.setTitle("Swing Video Player");
+        videoPlayer.setDefaultCloseOperation(EXIT_ON_CLOSE);
+        videoPlayer.setLayout(new BorderLayout());
+        videoPlayer.setSize(640, 480);
+        videoPlayer.add(pv, BorderLayout.CENTER);
+        videoPlayer.validate();
+        videoPlayer.setVisible(true);
+        pv.play("C:\\Users\\SaharS\\Downloads\\Video\\Suite.MP4");        
+        
+        
+        
+        
+        
+    }//GEN-LAST:event_playBtnActionPerformed
+
     /**
      * @param args the command line arguments
      */
     public static void main(String args[]) {
+        Toolkit tk = Toolkit.getDefaultToolkit();
+        Dimension screenSize = tk.getScreenSize();
+        int screenHeight = screenSize.height;
+        int screenWidth = screenSize.width;
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
@@ -2407,17 +2937,33 @@ public class AllForDealFrame extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new AllForDealFrame().setVisible(true);
+
+                AllForDealFrame fa = new AllForDealFrame();
+                fa.setVisible(true);
+                fa.setResizable(false);
+                //fa.setSize(screenWidth*2/3 , screenHeight*2/3 );
+                //fa.setLocation(screenWidth / 4, screenHeight / 4);
+
                 tbProduits.getColumnModel().getColumn(0).setMinWidth(0);
-        tbProduits.getColumnModel().getColumn(0).setMaxWidth(0);
-        tbProduits.getColumnModel().getColumn(0).setWidth(0);
+                tbProduits.getColumnModel().getColumn(0).setMaxWidth(0);
+                tbProduits.getColumnModel().getColumn(0).setWidth(0);
+
                 tblMesProduits.getColumnModel().getColumn(0).setMinWidth(0);
-        tblMesProduits.getColumnModel().getColumn(0).setMaxWidth(0);
-        tblMesProduits.getColumnModel().getColumn(0).setWidth(0);
+                tblMesProduits.getColumnModel().getColumn(0).setMaxWidth(0);
+                tblMesProduits.getColumnModel().getColumn(0).setWidth(0);
+
                 tbRecherche.getColumnModel().getColumn(0).setMinWidth(0);
-        tbRecherche.getColumnModel().getColumn(0).setMaxWidth(0);
-        tbRecherche.getColumnModel().getColumn(0).setWidth(0);
-                
+                tbRecherche.getColumnModel().getColumn(0).setMaxWidth(0);
+                tbRecherche.getColumnModel().getColumn(0).setWidth(0);
+
+                tbMesMsgR.getColumnModel().getColumn(0).setMinWidth(0);
+                tbMesMsgR.getColumnModel().getColumn(0).setMaxWidth(0);
+                tbMesMsgR.getColumnModel().getColumn(0).setWidth(0);
+
+                tbMsgEnvs.getColumnModel().getColumn(0).setMinWidth(0);
+                tbMsgEnvs.getColumnModel().getColumn(0).setMaxWidth(0);
+                tbMsgEnvs.getColumnModel().getColumn(0).setWidth(0);
+
             }
         });
     }
@@ -2428,12 +2974,15 @@ public class AllForDealFrame extends javax.swing.JFrame {
     private javax.swing.JButton AjouterProduitPanier;
     private javax.swing.JTextField LAlerte;
     private javax.swing.JPanel MenuPanel;
+    private javax.swing.JPanel MessagesPanel;
     private javax.swing.JPanel PanelService;
     private javax.swing.JPanel PanierReclamation;
     private javax.swing.JPanel ParentPanel;
     private javax.swing.JPanel ParentPanel1;
     private javax.swing.JPanel ParentPanel2;
     private javax.swing.JPanel ProduitPanel;
+    private javax.swing.JPanel ReclamationPanel;
+    private javax.swing.JLabel accueillabel;
     private javax.swing.JButton bntConsulter;
     private javax.swing.JButton bntMap;
     private javax.swing.JButton bntRechercheS;
@@ -2442,10 +2991,14 @@ public class AllForDealFrame extends javax.swing.JFrame {
     private javax.swing.JButton btnAccueil;
     private javax.swing.JButton btnAjoutS;
     private javax.swing.JButton btnAjouter;
+    private javax.swing.JButton btnBack1;
+    private javax.swing.JButton btnBack2;
     private javax.swing.JButton btnBackS;
     private javax.swing.JButton btnBackS2;
     private javax.swing.JButton btnConsulterS;
     private javax.swing.JButton btnConsulterS1;
+    private javax.swing.JButton btnEnvMsg;
+    private javax.swing.JButton btnEnvoyerRec;
     private javax.swing.JButton btnMap;
     private javax.swing.JButton btnMessage;
     private javax.swing.JButton btnModifier;
@@ -2459,6 +3012,8 @@ public class AllForDealFrame extends javax.swing.JFrame {
     private javax.swing.JButton btnReclam;
     private javax.swing.JButton btnServices;
     private javax.swing.JButton btnSupprimer;
+    private javax.swing.JButton btnTestMsg;
+    private javax.swing.JButton btnTestMsg2;
     private javax.swing.JButton btnVoirComm;
     private javax.swing.JComboBox cbCat;
     private javax.swing.JComboBox cbCat1;
@@ -2477,6 +3032,8 @@ public class AllForDealFrame extends javax.swing.JFrame {
     private javax.swing.JComboBox cbZone3;
     private javax.swing.JComboBox cbZone4;
     private javax.swing.JComboBox cbZone5;
+    private javax.swing.JLabel erreur1;
+    private javax.swing.JLabel erreur2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -2512,6 +3069,13 @@ public class AllForDealFrame extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel39;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel40;
+    private javax.swing.JLabel jLabel41;
+    private javax.swing.JLabel jLabel42;
+    private javax.swing.JLabel jLabel43;
+    private javax.swing.JLabel jLabel44;
+    private javax.swing.JLabel jLabel47;
+    private javax.swing.JLabel jLabel48;
+    private javax.swing.JLabel jLabel49;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
@@ -2527,6 +3091,10 @@ public class AllForDealFrame extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane10;
     private javax.swing.JScrollPane jScrollPane11;
+    private javax.swing.JScrollPane jScrollPane12;
+    private javax.swing.JScrollPane jScrollPane13;
+    private javax.swing.JScrollPane jScrollPane14;
+    private javax.swing.JScrollPane jScrollPane15;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
@@ -2537,6 +3105,7 @@ public class AllForDealFrame extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane9;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JLabel lMsg;
+    private javax.swing.JLabel lMsg1;
     private javax.swing.JLabel lTitreRechercheS;
     private javax.swing.JLabel lTitreRechercheS2;
     private javax.swing.JLabel labelId;
@@ -2578,6 +3147,9 @@ public class AllForDealFrame extends javax.swing.JFrame {
     private javax.swing.JLabel lquantite3;
     private javax.swing.JLabel lquantite4;
     private javax.swing.JLabel lquantite5;
+    private javax.swing.JPanel msgEnvoye;
+    private javax.swing.JPanel msgR;
+    private javax.swing.JPanel msgRediger;
     private javax.swing.JPanel p1;
     private javax.swing.JPanel p2;
     private javax.swing.JPanel p3;
@@ -2591,9 +3163,18 @@ public class AllForDealFrame extends javax.swing.JFrame {
     private javax.swing.JPanel pMap;
     private javax.swing.JPanel pMesServices;
     private javax.swing.JPanel pRechercheS;
+    private javax.swing.JButton pauseBtn;
+    private javax.swing.JButton playBtn;
+    private javax.swing.JLabel produitsLabel;
+    private javax.swing.JLabel reclamationLabel;
+    private javax.swing.JLabel servicesLabel;
     private javax.swing.JTextArea taDescription;
     private javax.swing.JTextArea taDescription1;
+    private javax.swing.JTextArea taDescriptionRec;
+    private javax.swing.JTextArea taMsg;
     private javax.swing.JTable tbCommentService;
+    private static javax.swing.JTable tbMesMsgR;
+    private static javax.swing.JTable tbMsgEnvs;
     private static javax.swing.JTable tbProduits;
     private static javax.swing.JTable tbRecherche;
     private javax.swing.JTable tblAllServices;
@@ -2606,12 +3187,14 @@ public class AllForDealFrame extends javax.swing.JFrame {
     private javax.swing.JTextField tfDescription1;
     private javax.swing.JTextField tfDescription2;
     private javax.swing.JTextField tfDescription4;
+    private javax.swing.JTextField tfDest;
     private javax.swing.JTextField tfNomP;
     private javax.swing.JTextField tfNomP1;
     private javax.swing.JTextField tfNomS;
     private javax.swing.JTextField tfNomService;
     private javax.swing.JTextField tfNomService1;
     private javax.swing.JTextField tfNomService3;
+    private javax.swing.JTextField tfObjet;
     private javax.swing.JTextField tfPhoto;
     private javax.swing.JTextField tfPointBonus;
     private javax.swing.JTextField tfPointBonus1;
@@ -2622,8 +3205,10 @@ public class AllForDealFrame extends javax.swing.JFrame {
     private javax.swing.JTextField tfRechercheS;
     private javax.swing.JTextField tfReduction;
     private javax.swing.JTextField tfReduction1;
+    private javax.swing.JTextField tfSujetRec;
     private javax.swing.JTextField tfTVA;
     private javax.swing.JTextField tfTVA1;
     private javax.swing.JTabbedPane tpService;
+    private javax.swing.JInternalFrame videoPlayer;
     // End of variables declaration//GEN-END:variables
 }

@@ -123,22 +123,6 @@ public class FrameAccueil extends javax.swing.JFrame {
         jPanel10 = new javax.swing.JPanel();
         ConsulterBtn = new javax.swing.JButton();
         ProposerServiceBtn = new javax.swing.JButton();
-        ReclamationPanel = new javax.swing.JPanel();
-        jPanel6 = new javax.swing.JPanel();
-        TFSujet = new javax.swing.JTextField();
-        jLabel3 = new javax.swing.JLabel();
-        TFDescription = new javax.swing.JTextField();
-        jLabel4 = new javax.swing.JLabel();
-        EnvoyerReclamationBtn = new javax.swing.JButton();
-        erreur1 = new javax.swing.JLabel();
-        erreur2 = new javax.swing.JLabel();
-        tfSujetRec = new javax.swing.JTextField();
-        jScrollPane4 = new javax.swing.JScrollPane();
-        taDescriptionRec = new javax.swing.JTextArea();
-        jLabel11 = new javax.swing.JLabel();
-        jLabel12 = new javax.swing.JLabel();
-        jLabel13 = new javax.swing.JLabel();
-        btnEnvoyerRec = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
         lUserName = new javax.swing.JLabel();
         lEmail = new javax.swing.JLabel();
@@ -178,6 +162,22 @@ public class FrameAccueil extends javax.swing.JFrame {
         btnBack2 = new javax.swing.JButton();
         jScrollPane6 = new javax.swing.JScrollPane();
         tbMsgEnvs = new javax.swing.JTable();
+        ReclamationPanel = new javax.swing.JPanel();
+        jPanel6 = new javax.swing.JPanel();
+        TFSujet = new javax.swing.JTextField();
+        jLabel3 = new javax.swing.JLabel();
+        TFDescription = new javax.swing.JTextField();
+        jLabel4 = new javax.swing.JLabel();
+        EnvoyerReclamationBtn = new javax.swing.JButton();
+        erreur1 = new javax.swing.JLabel();
+        erreur2 = new javax.swing.JLabel();
+        tfSujetRec = new javax.swing.JTextField();
+        jScrollPane4 = new javax.swing.JScrollPane();
+        taDescriptionRec = new javax.swing.JTextArea();
+        jLabel11 = new javax.swing.JLabel();
+        jLabel12 = new javax.swing.JLabel();
+        jLabel13 = new javax.swing.JLabel();
+        btnEnvoyerRec = new javax.swing.JButton();
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
@@ -299,147 +299,6 @@ public class FrameAccueil extends javax.swing.JFrame {
         );
 
         Service.addTab("Service", ServicePanel);
-
-        TFSujet.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                TFSujetActionPerformed(evt);
-            }
-        });
-
-        jLabel3.setText("Sujet");
-
-        jLabel4.setText("Description");
-
-        EnvoyerReclamationBtn.setText("Envoyer");
-        EnvoyerReclamationBtn.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                EnvoyerReclamationBtnActionPerformed(evt);
-            }
-        });
-
-        javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
-        jPanel6.setLayout(jPanel6Layout);
-        jPanel6Layout.setHorizontalGroup(
-            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel6Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel6Layout.createSequentialGroup()
-                        .addGap(0, 18, Short.MAX_VALUE)
-                        .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(jPanel6Layout.createSequentialGroup()
-                                .addComponent(EnvoyerReclamationBtn)
-                                .addGap(19, 19, 19))
-                            .addGroup(jPanel6Layout.createSequentialGroup()
-                                .addComponent(jLabel3)
-                                .addGap(18, 18, 18)
-                                .addComponent(TFSujet, javax.swing.GroupLayout.PREFERRED_SIZE, 293, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addContainerGap())))
-                    .addGroup(jPanel6Layout.createSequentialGroup()
-                        .addComponent(jLabel4)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel6Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(TFDescription, javax.swing.GroupLayout.PREFERRED_SIZE, 294, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
-        );
-        jPanel6Layout.setVerticalGroup(
-            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel6Layout.createSequentialGroup()
-                .addGap(23, 23, 23)
-                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel3)
-                    .addComponent(TFSujet, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addComponent(jLabel4)
-                .addGap(5, 5, 5)
-                .addComponent(TFDescription, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(27, 27, 27)
-                .addComponent(EnvoyerReclamationBtn)
-                .addContainerGap(56, Short.MAX_VALUE))
-        );
-
-        erreur1.setForeground(new java.awt.Color(255, 0, 0));
-
-        erreur2.setForeground(new java.awt.Color(255, 0, 0));
-
-        taDescriptionRec.setColumns(20);
-        taDescriptionRec.setRows(5);
-        jScrollPane4.setViewportView(taDescriptionRec);
-
-        jLabel11.setText("Sujet");
-
-        jLabel12.setText("Description");
-
-        jLabel13.setText("Envoyer une réclamation");
-
-        btnEnvoyerRec.setText("Envoyer");
-        btnEnvoyerRec.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnEnvoyerRecActionPerformed(evt);
-            }
-        });
-
-        javax.swing.GroupLayout ReclamationPanelLayout = new javax.swing.GroupLayout(ReclamationPanel);
-        ReclamationPanel.setLayout(ReclamationPanelLayout);
-        ReclamationPanelLayout.setHorizontalGroup(
-            ReclamationPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(ReclamationPanelLayout.createSequentialGroup()
-                .addGroup(ReclamationPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(ReclamationPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(ReclamationPanelLayout.createSequentialGroup()
-                            .addGroup(ReclamationPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addGroup(ReclamationPanelLayout.createSequentialGroup()
-                                    .addGap(65, 65, 65)
-                                    .addComponent(jLabel11)
-                                    .addGap(33, 33, 33))
-                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, ReclamationPanelLayout.createSequentialGroup()
-                                    .addContainerGap()
-                                    .addComponent(jLabel12)
-                                    .addGap(18, 18, 18)))
-                            .addGroup(ReclamationPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(tfSujetRec, javax.swing.GroupLayout.PREFERRED_SIZE, 280, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 368, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addComponent(btnEnvoyerRec, javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addGroup(ReclamationPanelLayout.createSequentialGroup()
-                            .addContainerGap()
-                            .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(ReclamationPanelLayout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jLabel13, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(ReclamationPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(erreur1)
-                    .addComponent(erreur2))
-                .addContainerGap(113, Short.MAX_VALUE))
-        );
-        ReclamationPanelLayout.setVerticalGroup(
-            ReclamationPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, ReclamationPanelLayout.createSequentialGroup()
-                .addGap(22, 22, 22)
-                .addComponent(jLabel13, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addGroup(ReclamationPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(tfSujetRec, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel11))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(ReclamationPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 248, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel12))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(btnEnvoyerRec)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(21, 21, 21))
-            .addGroup(ReclamationPanelLayout.createSequentialGroup()
-                .addGap(40, 40, 40)
-                .addComponent(erreur1)
-                .addGap(98, 98, 98)
-                .addComponent(erreur2)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-
-        Service.addTab("Réclamation", ReclamationPanel);
 
         jPanel1.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -718,6 +577,147 @@ public class FrameAccueil extends javax.swing.JFrame {
         ParentPanel.add(msgEnvoye, "card4");
 
         Service.addTab("Messages", ParentPanel);
+
+        TFSujet.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                TFSujetActionPerformed(evt);
+            }
+        });
+
+        jLabel3.setText("Sujet");
+
+        jLabel4.setText("Description");
+
+        EnvoyerReclamationBtn.setText("Envoyer");
+        EnvoyerReclamationBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                EnvoyerReclamationBtnActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
+        jPanel6.setLayout(jPanel6Layout);
+        jPanel6Layout.setHorizontalGroup(
+            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel6Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel6Layout.createSequentialGroup()
+                        .addGap(0, 18, Short.MAX_VALUE)
+                        .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(jPanel6Layout.createSequentialGroup()
+                                .addComponent(EnvoyerReclamationBtn)
+                                .addGap(19, 19, 19))
+                            .addGroup(jPanel6Layout.createSequentialGroup()
+                                .addComponent(jLabel3)
+                                .addGap(18, 18, 18)
+                                .addComponent(TFSujet, javax.swing.GroupLayout.PREFERRED_SIZE, 293, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addContainerGap())))
+                    .addGroup(jPanel6Layout.createSequentialGroup()
+                        .addComponent(jLabel4)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel6Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(TFDescription, javax.swing.GroupLayout.PREFERRED_SIZE, 294, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
+        );
+        jPanel6Layout.setVerticalGroup(
+            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel6Layout.createSequentialGroup()
+                .addGap(23, 23, 23)
+                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel3)
+                    .addComponent(TFSujet, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addComponent(jLabel4)
+                .addGap(5, 5, 5)
+                .addComponent(TFDescription, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(27, 27, 27)
+                .addComponent(EnvoyerReclamationBtn)
+                .addContainerGap(56, Short.MAX_VALUE))
+        );
+
+        erreur1.setForeground(new java.awt.Color(255, 0, 0));
+
+        erreur2.setForeground(new java.awt.Color(255, 0, 0));
+
+        taDescriptionRec.setColumns(20);
+        taDescriptionRec.setRows(5);
+        jScrollPane4.setViewportView(taDescriptionRec);
+
+        jLabel11.setText("Sujet");
+
+        jLabel12.setText("Description");
+
+        jLabel13.setText("Envoyer une réclamation");
+
+        btnEnvoyerRec.setText("Envoyer");
+        btnEnvoyerRec.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEnvoyerRecActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout ReclamationPanelLayout = new javax.swing.GroupLayout(ReclamationPanel);
+        ReclamationPanel.setLayout(ReclamationPanelLayout);
+        ReclamationPanelLayout.setHorizontalGroup(
+            ReclamationPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(ReclamationPanelLayout.createSequentialGroup()
+                .addGroup(ReclamationPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(ReclamationPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(ReclamationPanelLayout.createSequentialGroup()
+                            .addGroup(ReclamationPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(ReclamationPanelLayout.createSequentialGroup()
+                                    .addGap(65, 65, 65)
+                                    .addComponent(jLabel11)
+                                    .addGap(33, 33, 33))
+                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, ReclamationPanelLayout.createSequentialGroup()
+                                    .addContainerGap()
+                                    .addComponent(jLabel12)
+                                    .addGap(18, 18, 18)))
+                            .addGroup(ReclamationPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(tfSujetRec, javax.swing.GroupLayout.PREFERRED_SIZE, 280, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 368, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(btnEnvoyerRec, javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addGroup(ReclamationPanelLayout.createSequentialGroup()
+                            .addContainerGap()
+                            .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(ReclamationPanelLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jLabel13, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(ReclamationPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(erreur1)
+                    .addComponent(erreur2))
+                .addContainerGap(113, Short.MAX_VALUE))
+        );
+        ReclamationPanelLayout.setVerticalGroup(
+            ReclamationPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, ReclamationPanelLayout.createSequentialGroup()
+                .addGap(22, 22, 22)
+                .addComponent(jLabel13, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addGroup(ReclamationPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(tfSujetRec, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel11))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(ReclamationPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 248, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel12))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(btnEnvoyerRec)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(21, 21, 21))
+            .addGroup(ReclamationPanelLayout.createSequentialGroup()
+                .addGap(40, 40, 40)
+                .addComponent(erreur1)
+                .addGap(98, 98, 98)
+                .addComponent(erreur2)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        Service.addTab("Réclamation", ReclamationPanel);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);

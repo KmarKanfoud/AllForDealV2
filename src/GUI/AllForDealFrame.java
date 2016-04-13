@@ -111,13 +111,16 @@ public class AllForDealFrame extends javax.swing.JFrame {
     }
     ProduitDao pdao = new ProduitDao();
     ZoneDao zdao = new ZoneDao();
-
+ Browser browser = new Browser();
+        BrowserView view = new BrowserView(browser);
     //fin Partie Lilya
     public AllForDealFrame() throws UnsupportedLookAndFeelException, ParseException, java.text.ParseException {
         UIManager.setLookAndFeel(new SyntheticaBlueLightLookAndFeel());
         initComponents();
         loadAllVille();
         loadAllCategorie();
+        
+        
         labelId.setVisible(false);
 
         accueillabel.setVisible(false);
@@ -2516,7 +2519,7 @@ public class AllForDealFrame extends javax.swing.JFrame {
         TableModel model = tblAllServices.getModel();
         Object l = tblAllServices.getValueAt(i, 0);
         service_id = (int) l;
-
+        System.out.println(service_id);
         lNomSAll.setText(model.getValueAt(i, 1).toString());
         lDescriptionSAll.setText(model.getValueAt(i, 2).toString());
         lCategorieServiceAll.setText(tblAllServices.getValueAt(i, 3).toString());
@@ -2524,15 +2527,10 @@ public class AllForDealFrame extends javax.swing.JFrame {
         lZoneSAll.setText(model.getValueAt(i, 5).toString());
         
           Service s = sdao.findById(service_id);
-        System.out.println(s.getNomService());
-        Browser browser = new Browser();
-        BrowserView view = new BrowserView(browser);
-        pShowMap.setLayout(new BorderLayout());
+        
+        System.out.println(s.getZone());
+    pShowMap.setLayout(new BorderLayout());
         pShowMap.add(view.getComponent(0), BorderLayout.CENTER);
-        pShowMap.removeAll();
-       
-       // pShowMap.paint();
-        pShowMap.validate();
         java.util.List<Zone> obj = new ArrayList();
        
         obj = sdao.findByZone(s.getZone());
@@ -2541,7 +2539,7 @@ public class AllForDealFrame extends javax.swing.JFrame {
         for (Object o : obj) {
             x = ((Zone) o).getLat();
             y = ((Zone) o).getLon();
-            System.out.println(((Zone)o).getNom());
+            System.out.println(x+"dddddddddd"+y);
             browser.loadURL("https://maps.googleapis.com/maps/api/staticmap?center=" + x + "," + y + "&zoom=12&size=700x500&maptype=roadmap&markers=icone%7Clabel:S%7C" + x + "," + y);
         }
         

@@ -41,20 +41,12 @@ public class PanelVideo extends javax.swing.JPanel {
     }
     
     public void pause(String media){
-        player.prepareMedia(media);
-        player.parseMedia();
+      
         player.pause();
         
     }
     
-        public void start(String media){
-        player.prepareMedia(media);
-        player.parseMedia();
-        player.setPlaySubItems(true);
-        
-    }
-
-    
+   
 
     /**
      * This method is called from within the constructor to initialize the form.

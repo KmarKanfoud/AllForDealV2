@@ -945,14 +945,7 @@ public class FrameAccueil extends javax.swing.JFrame {
 
         clip.start();
 
-        do {
-            try {
-                Thread.sleep(50);
-            } catch (InterruptedException ie) {
-                ie.printStackTrace();
-            }
-
-        } while (clip.isActive());
+       
     }
     
   

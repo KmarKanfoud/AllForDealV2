@@ -14,6 +14,7 @@ import java.util.List;
 import java.util.Set;
 import javax.swing.JOptionPane;
 import utils.CommentModel;
+import utils.CommentSModel;
 
 /**
  *
@@ -51,7 +52,7 @@ public class FrameListCommentaire extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        ListComment.setModel(new CommentModel());
+        ListComment.setModel(new CommentSModel());
         ListComment.addComponentListener(new java.awt.event.ComponentAdapter() {
             public void componentShown(java.awt.event.ComponentEvent evt) {
                 ListCommentComponentShown(evt);
@@ -59,7 +60,6 @@ public class FrameListCommentaire extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(ListComment);
 
-        BtnSupprimer.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/delete.jpg"))); // NOI18N
         BtnSupprimer.setText("Supprimer");
         BtnSupprimer.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -204,6 +204,7 @@ public class FrameListCommentaire extends javax.swing.JFrame {
             int screenWidth = screenSize.width;
 
             public void run() {
+                
 
                 FrameListCommentaire fl = new FrameListCommentaire();
                 fl.setVisible(true);
@@ -211,9 +212,10 @@ public class FrameListCommentaire extends javax.swing.JFrame {
 
                 fl.setSize(screenWidth / 2, screenHeight / 2);
                 fl.setLocation(screenWidth / 4, screenHeight / 4);
-                   ListComment.getColumnModel().getColumn(0).setMinWidth(0);
+                 ListComment.getColumnModel().getColumn(0).setMinWidth(0);
         ListComment.getColumnModel().getColumn(0).setMaxWidth(0);
         ListComment.getColumnModel().getColumn(0).setWidth(0);
+                  
             }
         });
     }

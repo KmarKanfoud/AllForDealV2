@@ -16,46 +16,47 @@ import javax.swing.table.AbstractTableModel;
  * @author SaharS
  */
 public class MessagesEnvoyesModel extends AbstractTableModel {
-     List<Message> msgs;
-    String[] colonnes = { "De la part de", "Sujet", "Messgae","Réçu le"};
+
+    List<Message> msgs;
+    String[] colonnes = {"id", "De la part de", "Sujet", "Messgae", "Réçu le"};
 
     public MessagesEnvoyesModel() {
         MessageDao mdao = new MessageDao();
-        msgs= mdao.findBySender(LoginForm.getUserName());
+        msgs = mdao.findBySender(LoginForm.getUserName());
     }
-    
-    
 
     @Override
     public int getRowCount() {
-   return msgs.size();
+        return msgs.size();
     }
 
     @Override
     public int getColumnCount() {
-              return colonnes.length;
+        return colonnes.length;
     }
 
     @Override
     public Object getValueAt(int rowIndex, int columnIndex) {
- switch (columnIndex) {
+        switch (columnIndex) {
+
             case 0:
-                return msgs.get(rowIndex).getFrom();
+                return msgs.get(rowIndex).getId_message();
             case 1:
-                return msgs.get(rowIndex).getSujet();
+                return msgs.get(rowIndex).getFrom();
             case 2:
-                return msgs.get(rowIndex).getTexte();
+                return msgs.get(rowIndex).getSujet();
             case 3:
+                return msgs.get(rowIndex).getTexte();
+            case 4:
                 return msgs.get(rowIndex).getDate_envoi();
-           
 
             default:
                 return null;
         }
     }
-    
+
     public String getColumnName(int i) {
         return colonnes[i];
     }
-    
+
 }

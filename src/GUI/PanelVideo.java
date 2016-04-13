@@ -29,6 +29,7 @@ public class PanelVideo extends javax.swing.JPanel {
         EmbeddedMediaPlayerComponent videoCanvas = new EmbeddedMediaPlayerComponent();
         this.setLayout(new BorderLayout());
         this.add(videoCanvas, BorderLayout.CENTER);
+        this.setSize(640,420);
         this.player = videoCanvas.getMediaPlayer();
         
         

@@ -6,6 +6,7 @@
 package GUI;
 
 import static GUI.FrameGestionProduitAdmin.prod_id;
+
 //import com.teamdev.jxbrowser.chromium.Browser;
 //import com.teamdev.jxbrowser.chromium.swing.BrowserView;
 import com.restfb.DefaultFacebookClient;
@@ -91,6 +92,7 @@ public class AllForDealFrame extends javax.swing.JFrame {
     int screenHeight = screenSize.height;
     int screenWidth = screenSize.width;
     PanelVideo pv = new PanelVideo();
+    ///////////////AUDIO
      public static Mixer mixer ;
     public static Clip clip ;
 
@@ -447,6 +449,7 @@ public class AllForDealFrame extends javax.swing.JFrame {
         btnSupNotification = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setSize(new java.awt.Dimension(1000, 1000));
 
         btnPanier.setText("jButton2");
         btnPanier.setPreferredSize(new java.awt.Dimension(50, 40));
@@ -702,7 +705,7 @@ public class AllForDealFrame extends javax.swing.JFrame {
         );
 
         AccueilPanel2.add(videoPlayer);
-        videoPlayer.setBounds(60, 110, 970, 300);
+        videoPlayer.setBounds(60, 110, 580, 420);
 
         btnPause.setText("Pause");
         btnPause.addActionListener(new java.awt.event.ActionListener() {
@@ -812,7 +815,7 @@ public class AllForDealFrame extends javax.swing.JFrame {
                     .addComponent(btnRechercher))
                 .addGap(31, 31, 31)
                 .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(386, Short.MAX_VALUE))
+                .addContainerGap(414, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Rechercher un produit", jPanel4);
@@ -1440,7 +1443,7 @@ public class AllForDealFrame extends javax.swing.JFrame {
             .addGroup(ProduitPanelLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 799, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(394, Short.MAX_VALUE))
+                .addContainerGap(372, Short.MAX_VALUE))
         );
         ProduitPanelLayout.setVerticalGroup(
             ProduitPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1451,6 +1454,8 @@ public class AllForDealFrame extends javax.swing.JFrame {
         );
 
         ParentPanel.add(ProduitPanel, "card2");
+
+        PanelService.setPreferredSize(new java.awt.Dimension(1100, 707));
 
         tpService.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -1495,7 +1500,7 @@ public class AllForDealFrame extends javax.swing.JFrame {
         jLabel25.setText("Gouvernorat :");
 
         btnAjoutS.setBackground(new java.awt.Color(255, 204, 204));
-        btnAjoutS.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/add.png"))); // NOI18N
+        btnAjoutS.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Plus.png"))); // NOI18N
         btnAjoutS.setText("Ajouter Service");
         btnAjoutS.setAlignmentX(10.1F);
         btnAjoutS.addActionListener(new java.awt.event.ActionListener() {
@@ -1524,7 +1529,7 @@ public class AllForDealFrame extends javax.swing.JFrame {
         pAjoutSLayout.setHorizontalGroup(
             pAjoutSLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pAjoutSLayout.createSequentialGroup()
-                .addGroup(pAjoutSLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(pAjoutSLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jLabel25)
                     .addGroup(pAjoutSLayout.createSequentialGroup()
                         .addGap(10, 10, 10)
@@ -1532,14 +1537,16 @@ public class AllForDealFrame extends javax.swing.JFrame {
                             .addComponent(jLabel22)
                             .addComponent(jLabel23)
                             .addComponent(jLabel24)))
-                    .addComponent(btnAjoutS, javax.swing.GroupLayout.PREFERRED_SIZE, 179, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pAjoutSLayout.createSequentialGroup()
                         .addGap(80, 80, 80)
                         .addGroup(pAjoutSLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(cbCat, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(tfDescription)
                             .addComponent(tfNomS, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(cbZone2, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(cbZone2, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pAjoutSLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(btnAjoutS, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addGroup(pAjoutSLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(pAjoutSLayout.createSequentialGroup()
                         .addGap(44, 44, 44)
@@ -1562,6 +1569,11 @@ public class AllForDealFrame extends javax.swing.JFrame {
                 .addGap(7, 7, 7)
                 .addGroup(pAjoutSLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(pAjoutSLayout.createSequentialGroup()
+                        .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 232, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 169, Short.MAX_VALUE)
+                        .addComponent(lerror, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(141, 141, 141))
+                    .addGroup(pAjoutSLayout.createSequentialGroup()
                         .addComponent(tfNomS, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(10, 10, 10)
                         .addComponent(jLabel23)
@@ -1576,11 +1588,8 @@ public class AllForDealFrame extends javax.swing.JFrame {
                         .addGap(9, 9, 9)
                         .addComponent(cbZone2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(52, 52, 52)
-                        .addComponent(btnAjoutS, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 232, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(lerror, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(141, 141, 141))
+                        .addComponent(btnAjoutS, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
 
         tpService.addTab("Ajouter Un Service", pAjoutS);
@@ -1702,7 +1711,7 @@ public class AllForDealFrame extends javax.swing.JFrame {
                             .addComponent(lZoneSAll)
                             .addComponent(lEtatSAll)
                             .addComponent(lCategorieServiceAll))))
-                .addContainerGap(85, Short.MAX_VALUE))
+                .addContainerGap(68, Short.MAX_VALUE))
         );
         pDetailSLayout.setVerticalGroup(
             pDetailSLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1748,27 +1757,31 @@ public class AllForDealFrame extends javax.swing.JFrame {
         pConsulterS2Layout.setHorizontalGroup(
             pConsulterS2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pConsulterS2Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(pConsulterS2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(pDetailS, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(bntMap))
-                .addGap(18, 18, 18)
-                .addComponent(pShowMap, javax.swing.GroupLayout.DEFAULT_SIZE, 323, Short.MAX_VALUE)
                 .addGroup(pConsulterS2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(pConsulterS2Layout.createSequentialGroup()
-                        .addGap(85, 85, 85)
-                        .addComponent(jScrollPane8, javax.swing.GroupLayout.PREFERRED_SIZE, 480, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(134, 134, 134)
+                        .addComponent(bntMap))
                     .addGroup(pConsulterS2Layout.createSequentialGroup()
-                        .addGap(133, 133, 133)
-                        .addComponent(btnCommenter1, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(27, 27, 27)
-                        .addComponent(btnSupprimerCommentaire))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pConsulterS2Layout.createSequentialGroup()
-                        .addGap(85, 85, 85)
+                        .addContainerGap()
+                        .addComponent(pDetailS, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(18, 18, 18)
+                .addComponent(pShowMap, javax.swing.GroupLayout.PREFERRED_SIZE, 346, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(pConsulterS2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(pConsulterS2Layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(pConsulterS2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(tfComment, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 480, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btnBackS2, javax.swing.GroupLayout.Alignment.TRAILING))))
-                .addGap(43, 43, 43))
+                            .addComponent(jScrollPane8, javax.swing.GroupLayout.PREFERRED_SIZE, 480, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(tfComment, javax.swing.GroupLayout.PREFERRED_SIZE, 419, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pConsulterS2Layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(pConsulterS2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(btnBackS2)
+                            .addGroup(pConsulterS2Layout.createSequentialGroup()
+                                .addComponent(btnCommenter1, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(btnSupprimerCommentaire)))
+                        .addGap(344, 344, 344))))
         );
         pConsulterS2Layout.setVerticalGroup(
             pConsulterS2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1789,13 +1802,13 @@ public class AllForDealFrame extends javax.swing.JFrame {
                                 .addComponent(jScrollPane8, javax.swing.GroupLayout.PREFERRED_SIZE, 286, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
                                 .addComponent(tfComment, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(43, 43, 43)
+                        .addGap(32, 32, 32)
                         .addGroup(pConsulterS2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(btnSupprimerCommentaire)
                             .addComponent(btnCommenter1))
-                        .addGap(30, 30, 30)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(btnBackS2)
-                        .addGap(0, 109, Short.MAX_VALUE)))
+                        .addGap(0, 167, Short.MAX_VALUE)))
                 .addContainerGap())
         );
 
@@ -1828,7 +1841,7 @@ public class AllForDealFrame extends javax.swing.JFrame {
             }
         });
         pMesServices.add(btnModifier);
-        btnModifier.setBounds(10, 440, 120, 35);
+        btnModifier.setBounds(10, 440, 120, 30);
 
         bntSupprimer.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/rubbish-bin.png"))); // NOI18N
         bntSupprimer.setText("Supprimer");
@@ -1968,7 +1981,7 @@ public class AllForDealFrame extends javax.swing.JFrame {
                         .addComponent(btnMap)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(btnBackS, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(931, Short.MAX_VALUE))
+                .addContainerGap(1028, Short.MAX_VALUE))
         );
         pConsulterSLayout.setVerticalGroup(
             pConsulterSLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -2001,7 +2014,7 @@ public class AllForDealFrame extends javax.swing.JFrame {
                 .addGroup(pConsulterSLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnMap)
                     .addComponent(btnBackS))
-                .addContainerGap(190, Short.MAX_VALUE))
+                .addContainerGap(218, Short.MAX_VALUE))
         );
 
         ParentPanel1.add(pConsulterS, "card3");
@@ -2062,7 +2075,7 @@ public class AllForDealFrame extends javax.swing.JFrame {
                     .addGroup(pRechercheSLayout.createSequentialGroup()
                         .addGap(321, 321, 321)
                         .addComponent(bntRechercheS)))
-                .addContainerGap(462, Short.MAX_VALUE))
+                .addContainerGap(559, Short.MAX_VALUE))
         );
         pRechercheSLayout.setVerticalGroup(
             pRechercheSLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -2077,7 +2090,7 @@ public class AllForDealFrame extends javax.swing.JFrame {
                 .addComponent(bntRechercheS)
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(81, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         tpService.addTab("Rechercher Un Service", pRechercheS);
@@ -2099,11 +2112,11 @@ public class AllForDealFrame extends javax.swing.JFrame {
         PanierReclamation.setLayout(PanierReclamationLayout);
         PanierReclamationLayout.setHorizontalGroup(
             PanierReclamationLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1203, Short.MAX_VALUE)
+            .addGap(0, 1181, Short.MAX_VALUE)
         );
         PanierReclamationLayout.setVerticalGroup(
             PanierReclamationLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 679, Short.MAX_VALUE)
+            .addGap(0, 707, Short.MAX_VALUE)
         );
 
         ParentPanel.add(PanierReclamation, "card5");
@@ -2127,7 +2140,7 @@ public class AllForDealFrame extends javax.swing.JFrame {
             }
         });
         msgR.add(btnTestMsg);
-        btnTestMsg.setBounds(510, 350, 81, 40);
+        btnTestMsg.setBounds(510, 350, 80, 50);
 
         btnTestMsg2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Mail_forward.png"))); // NOI18N
         btnTestMsg2.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -2144,7 +2157,7 @@ public class AllForDealFrame extends javax.swing.JFrame {
             }
         });
         msgR.add(btnTestMsg2);
-        btnTestMsg2.setBounds(620, 350, 81, 40);
+        btnTestMsg2.setBounds(620, 350, 80, 50);
 
         tbMesMsgR.setModel( new MessageReçuModel ());
         jScrollPane12.setViewportView(tbMesMsgR);
@@ -2228,7 +2241,7 @@ public class AllForDealFrame extends javax.swing.JFrame {
                                 .addComponent(btnEnvMsg, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(btnBack1)))
-                .addContainerGap(615, Short.MAX_VALUE))
+                .addContainerGap(593, Short.MAX_VALUE))
         );
         msgRedigerLayout.setVerticalGroup(
             msgRedigerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -2254,7 +2267,7 @@ public class AllForDealFrame extends javax.swing.JFrame {
                 .addGroup(msgRedigerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(btnEnvMsg, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                     .addComponent(btnBack1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(208, Short.MAX_VALUE))
+                .addContainerGap(236, Short.MAX_VALUE))
         );
 
         MessagesPanel.add(msgRediger, "card3");
@@ -2286,7 +2299,7 @@ public class AllForDealFrame extends javax.swing.JFrame {
                         .addGroup(msgEnvoyeLayout.createSequentialGroup()
                             .addGap(19, 19, 19)
                             .addComponent(jLabel44, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(540, Short.MAX_VALUE))
+                .addContainerGap(518, Short.MAX_VALUE))
         );
         msgEnvoyeLayout.setVerticalGroup(
             msgEnvoyeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -2297,7 +2310,7 @@ public class AllForDealFrame extends javax.swing.JFrame {
                 .addComponent(jScrollPane14, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(57, 57, 57)
                 .addComponent(btnBack2, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(381, Short.MAX_VALUE))
+                .addContainerGap(409, Short.MAX_VALUE))
         );
 
         MessagesPanel.add(msgEnvoye, "card4");
@@ -2350,7 +2363,7 @@ public class AllForDealFrame extends javax.swing.JFrame {
                 .addGroup(ReclamationPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(erreur1)
                     .addComponent(erreur2))
-                .addContainerGap(708, Short.MAX_VALUE))
+                .addContainerGap(686, Short.MAX_VALUE))
         );
         ReclamationPanelLayout.setVerticalGroup(
             ReclamationPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -2374,7 +2387,7 @@ public class AllForDealFrame extends javax.swing.JFrame {
                         .addComponent(erreur1)
                         .addGap(98, 98, 98)
                         .addComponent(erreur2)))
-                .addContainerGap(273, Short.MAX_VALUE))
+                .addContainerGap(301, Short.MAX_VALUE))
         );
 
         ParentPanel.add(ReclamationPanel, "card7");
@@ -2411,7 +2424,7 @@ public class AllForDealFrame extends javax.swing.JFrame {
                     .addGroup(NotificationPanelLayout.createSequentialGroup()
                         .addGap(83, 83, 83)
                         .addComponent(labelNotification, javax.swing.GroupLayout.PREFERRED_SIZE, 322, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(485, Short.MAX_VALUE))
+                .addContainerGap(463, Short.MAX_VALUE))
         );
         NotificationPanelLayout.setVerticalGroup(
             NotificationPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -2425,7 +2438,7 @@ public class AllForDealFrame extends javax.swing.JFrame {
                     .addGroup(NotificationPanelLayout.createSequentialGroup()
                         .addGap(17, 17, 17)
                         .addComponent(btnSupNotification)))
-                .addContainerGap(465, Short.MAX_VALUE))
+                .addContainerGap(493, Short.MAX_VALUE))
         );
 
         ParentPanel.add(NotificationPanel, "card8");
@@ -3272,12 +3285,33 @@ produitsLabel.setVisible(false);      }//GEN-LAST:event_btnProduitsMouseExited
 
     private void btnSonOffActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSonOffActionPerformed
         // TODO add your handling code here:
+        clip.stop();
+        
     }//GEN-LAST:event_btnSonOffActionPerformed
 
     private void btnSonOnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSonOnActionPerformed
         // TODO add your handling code here:
-         
-          
+        Mixer.Info[] mixInfo = AudioSystem.getMixerInfo(); 
+          mixer = AudioSystem.getMixer(mixInfo[0]);
+          DataLine.Info dataLine = new DataLine.Info(Clip.class, null);
+  try{
+      clip = (Clip)mixer.getLine(dataLine);}
+      catch(LineUnavailableException ex){
+          ex.printStackTrace();
+      }
+ try
+ {
+     URL soundURL = this.getClass().getResource("/images/The_Eagles-Hotel_California_acoustic_live_www.wav");
+      AudioInputStream audioImput = AudioSystem.getAudioInputStream(soundURL);
+     clip.open(audioImput);
+     
+ }catch(LineUnavailableException ex){
+          ex.printStackTrace();
+      }
+ catch(UnsupportedAudioFileException exp){exp.printStackTrace(); }
+  catch(IOException io){io.printStackTrace(); }
+
+      clip.start();
     }//GEN-LAST:event_btnSonOnActionPerformed
 
     /**
@@ -3319,9 +3353,12 @@ produitsLabel.setVisible(false);      }//GEN-LAST:event_btnProduitsMouseExited
                 try {
                     AllForDealFrame fa = new AllForDealFrame();
                     fa.setVisible(true);
-                    fa.setResizable(false);
-                    //fa.setSize(screenWidth*2/3 , screenHeight*2/3 );
-                    //fa.setLocation(screenWidth / 4, screenHeight / 4);
+                    //fa.setResizable(false);
+                    fa.setSize(1200 ,700 );
+                    //fa.setLocation(screenWidth/2 , screenHeight/2 );
+                     tbCommentairesService.getColumnModel().getColumn(0).setMinWidth(0);
+                    tbCommentairesService.getColumnModel().getColumn(0).setMaxWidth(0);
+                    tbCommentairesService.getColumnModel().getColumn(0).setWidth(0);
 
                     tbProduits.getColumnModel().getColumn(0).setMinWidth(0);
                     tbProduits.getColumnModel().getColumn(0).setMaxWidth(0);
@@ -3342,6 +3379,8 @@ produitsLabel.setVisible(false);      }//GEN-LAST:event_btnProduitsMouseExited
                     tbMsgEnvs.getColumnModel().getColumn(0).setMinWidth(0);
                     tbMsgEnvs.getColumnModel().getColumn(0).setMaxWidth(0);
                     tbMsgEnvs.getColumnModel().getColumn(0).setWidth(0);
+                    
+                   
 
                 } catch (UnsupportedLookAndFeelException ex) {
                     Logger.getLogger(AllForDealFrame.class.getName()).log(Level.SEVERE, null, ex);
@@ -3610,7 +3649,7 @@ produitsLabel.setVisible(false);      }//GEN-LAST:event_btnProduitsMouseExited
     private javax.swing.JTextArea taDescription1;
     private javax.swing.JTextArea taDescriptionRec;
     private javax.swing.JTextArea taMsg;
-    private javax.swing.JTable tbCommentairesService;
+    private static javax.swing.JTable tbCommentairesService;
     private static javax.swing.JTable tbMesMsgR;
     private static javax.swing.JTable tbMsgEnvs;
     private javax.swing.JTable tbNotification;

@@ -7,10 +7,12 @@ package GUI;
 
 import static GUI.FrameGestionProduitAdmin.prod_id;
 import dao.CommentDao;
+import dao.NotificationDao;
 import utils.*;
 import dao.ServiceDao;
 import dao.ZoneDao;
 import entite.Comment;
+import entite.Notification;
 import entite.Service;
 import java.awt.Dimension;
 import java.awt.Toolkit;
@@ -1058,7 +1060,7 @@ public class FrameAfficherServiceAll extends javax.swing.JFrame {
         categorie = cbRechercheCat.getSelectedItem().toString();
         System.out.println(categorie);
         ServiceDao pdao = new ServiceDao();
-           pdao.findAllByCategorie(nomS, categorie);
+       // pdao.findAllByCategorie(categorie);
         tblRechercheS.setModel(new ServiceByCategorieModel());
     }//GEN-LAST:event_bntRechercheSActionPerformed
 
@@ -1140,6 +1142,9 @@ public class FrameAfficherServiceAll extends javax.swing.JFrame {
 
     private void btnCommenterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCommenterActionPerformed
         Comment c = new Comment();
+          Notification n = new Notification();
+        NotificationDao ndao = new NotificationDao();
+       
         c.setBody(tfComment.getText());
         java.util.Date date = new java.sql.Date(System.currentTimeMillis());
         c.setCreated_at(date);
@@ -1149,6 +1154,9 @@ public class FrameAfficherServiceAll extends javax.swing.JFrame {
         c.setUser_id(FrameAccueil.getUserId());
         CommentDao pdao = new CommentDao();
         pdao.addS(c);
+         n.setId_service(FrameAfficherServiceAll.getService_id());
+        n.setId_user(FrameAccueil.getUserId());
+        ndao.add(n);
         tbCommentService.setModel(new CommentSModel());
         tfComment.setText("");
     }//GEN-LAST:event_btnCommenterActionPerformed
@@ -1202,6 +1210,7 @@ public class FrameAfficherServiceAll extends javax.swing.JFrame {
 
     private void btnCommentServActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCommentServActionPerformed
         Comment c = new Comment();
+        
         c.setBody(tfCommentS.getText());
         java.util.Date date = new java.sql.Date(System.currentTimeMillis());
         c.setCreated_at(date);
@@ -1211,6 +1220,7 @@ public class FrameAfficherServiceAll extends javax.swing.JFrame {
         c.setUser_id(FrameAccueil.getUserId());
         CommentDao pdao = new CommentDao();
         pdao.addS(c);
+      
         tbCommentMesServices.setModel(new CommentSModel());
         tfCommentS.setText("");
     }//GEN-LAST:event_btnCommentServActionPerformed
@@ -1288,6 +1298,10 @@ public class FrameAfficherServiceAll extends javax.swing.JFrame {
         //</editor-fold>
         //</editor-fold>
         //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
@@ -1298,6 +1312,9 @@ public class FrameAfficherServiceAll extends javax.swing.JFrame {
                 fa.setResizable(true);
                 fa.setSize(screenWidth / 2, screenHeight / 2);
                 fa.setLocation(screenWidth / 4, screenHeight / 4);
+                 tbCommentService.getColumnModel().getColumn(0).setMinWidth(0);
+                     tbCommentService.getColumnModel().getColumn(0).setMaxWidth(0);
+                     tbCommentService.getColumnModel().getColumn(0).setWidth(0);
 
             }
         });
@@ -1333,6 +1350,7 @@ public class FrameAfficherServiceAll extends javax.swing.JFrame {
                 cbCat4.addItem(res.getString(1));
                 cbRechercheCat.addItem(res.getString(1));
                 // System.out.println(res.getString(1));
+                
 
             }
         } catch (SQLException ex) {
@@ -1409,7 +1427,7 @@ public class FrameAfficherServiceAll extends javax.swing.JFrame {
     private javax.swing.JPanel pMesServices;
     private javax.swing.JPanel pRechercheS;
     private javax.swing.JTable tbCommentMesServices;
-    private javax.swing.JTable tbCommentService;
+    private static javax.swing.JTable tbCommentService;
     private javax.swing.JTable tblAllServices;
     private javax.swing.JTable tblMesServices;
     private javax.swing.JTable tblRechercheS;

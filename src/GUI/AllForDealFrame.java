@@ -98,6 +98,11 @@ public class AllForDealFrame extends javax.swing.JFrame {
 
     //private static int categorie;
     private static int service_id;
+    private static int user_id;
+
+    public static int getUser_id() {
+        return user_id;
+    }
     private Connection conn = null;
     private PreparedStatement pst = null;
 
@@ -136,7 +141,10 @@ public class AllForDealFrame extends javax.swing.JFrame {
     BrowserView view = new BrowserView(browser);
 
     //fin Partie Lilya
-
+ public AllForDealFrame(int user_id) {
+     this.user_id=user_id;
+     
+ }
     public AllForDealFrame() throws UnsupportedLookAndFeelException, ParseException, java.text.ParseException {
         UIManager.setLookAndFeel(new SyntheticaBlueLightLookAndFeel());
         initComponents();

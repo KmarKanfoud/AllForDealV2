@@ -130,8 +130,10 @@ public class LoginForm extends javax.swing.JFrame {
                     Framedashboard fd = new Framedashboard();
                     fd.setVisible(true);
                 } else {
-                    FrameAccueil fa = new FrameAccueil(u.getId());
-                    fa.setVisible(true);
+//                    FrameAccueil fa = new FrameAccueil(u.getId());
+//                    fa.setVisible(true);
+                    AllForDealFrame af=new AllForDealFrame(u.getId());
+                    af.setVisible(true);
 
                 }
                 }

@@ -3025,7 +3025,7 @@ public class AllForDealFrame extends javax.swing.JFrame {
         Message m = new Message();
         String test = tfDest.getText();
         System.out.println(test);
-        entite.User u = udao.findByUserName(test);
+        entite.User u = udao.findByUserNameI(test);
         if (u.getUsername().equals(test) == true) {
             m.setTo(tfDest.getText());
             System.out.println(tfDest.getText());
@@ -3275,12 +3275,12 @@ produitsLabel.setVisible(false);      }//GEN-LAST:event_btnProduitsMouseExited
         videoPlayer.add(pv, BorderLayout.CENTER);
         videoPlayer.validate();
         videoPlayer.setVisible(true);
-        pv.play("C:\\Users\\SaharS\\Desktop\\JAVA.MP4");
+        pv.play("C:\\Users\\maroo\\Desktop\\JAVA.MP4");
     }//GEN-LAST:event_btnPlay2ActionPerformed
 
     private void btnPauseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPauseActionPerformed
         // TODO add your handling code here:
-        pv.pause("C:\\Users\\SaharS\\Desktop\\JAVA.MP4");
+        pv.pause("C:\\Users\\maroo\\Desktop\\JAVA.MP4");
     }//GEN-LAST:event_btnPauseActionPerformed
 
     private void btnSonOffActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSonOffActionPerformed

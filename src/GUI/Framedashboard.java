@@ -15,9 +15,24 @@ import static java.util.Collections.list;
 import java.util.List;
 import javax.swing.JCheckBox;
 import GUI.UserModel;
+import java.awt.Color;
+import java.util.Locale;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 import javax.swing.SingleSelectionModel;
+
+import org.jfree.chart.ChartFactory;
+import org.jfree.chart.ChartPanel;
+import org.jfree.chart.JFreeChart;
+import org.jfree.chart.plot.CategoryPlot;
+import org.jfree.chart.plot.PiePlot;
+import org.jfree.chart.plot.PlotOrientation;
+import org.jfree.data.category.DefaultCategoryDataset;
+import org.jfree.data.general.DefaultPieDataset;
+import utils.Statestique;
+
 import utils.*;
+
 
 /**
  *
@@ -31,6 +46,7 @@ public class Framedashboard extends javax.swing.JFrame {
     
     public Framedashboard() {
         initComponents();
+        stat();
     }
 
     /**
@@ -46,12 +62,10 @@ public class Framedashboard extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         tfusername = new javax.swing.JTextField();
         tfemail = new javax.swing.JTextField();
-        tfmdp = new javax.swing.JTextField();
         tflastname = new javax.swing.JTextField();
         tffirstname = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         chbenabled = new javax.swing.JCheckBox();
@@ -71,10 +85,12 @@ public class Framedashboard extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         taadress = new javax.swing.JTextArea();
-        jPanel2 = new javax.swing.JPanel();
-        jScrollPane3 = new javax.swing.JScrollPane();
-        tbReclamations = new javax.swing.JTable();
-        jTabbedPane2 = new javax.swing.JTabbedPane();
+        jPanel3 = new javax.swing.JPanel();
+        jPanel4 = new javax.swing.JPanel();
+        jPanel5 = new javax.swing.JPanel();
+        jPanel6 = new javax.swing.JPanel();
+        jPanel7 = new javax.swing.JPanel();
+        jLabel11 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -87,8 +103,6 @@ public class Framedashboard extends javax.swing.JFrame {
         jLabel2.setText("Nom D'utilisateur :");
 
         jLabel3.setText("Email :");
-
-        jLabel4.setText("Mot de Passe :");
 
         jLabel5.setText("Genre :");
 
@@ -179,40 +193,35 @@ public class Framedashboard extends javax.swing.JFrame {
                         .addComponent(btnSup)
                         .addGap(18, 18, 18)
                         .addComponent(jToggleButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addContainerGap(888, Short.MAX_VALUE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel2)
+                            .addComponent(jLabel3)
+                            .addComponent(jLabel5)
+                            .addComponent(jLabel8)
+                            .addComponent(jLabel6)
+                            .addComponent(jLabel9)
+                            .addComponent(jLabel7)
+                            .addComponent(jLabel10)
+                            .addComponent(jLabel1))
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(chbenabled)
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel2)
-                                    .addComponent(jLabel3)
-                                    .addComponent(jLabel4)
-                                    .addComponent(jLabel5)
-                                    .addComponent(jLabel8)
-                                    .addComponent(jLabel6)
-                                    .addComponent(jLabel9)
-                                    .addComponent(jLabel7)
-                                    .addComponent(jLabel10)
-                                    .addComponent(jLabel1))
-                                .addGap(18, 18, 18)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                        .addComponent(tfemail)
-                                        .addComponent(tfusername)
-                                        .addComponent(tfmdp)
-                                        .addComponent(cboxgender, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(tflastname)
-                                        .addComponent(tffirstname)
-                                        .addComponent(tfphone)
-                                        .addComponent(tfbonus)
-                                        .addComponent(cbrole, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED, 31, Short.MAX_VALUE))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                                .addGap(0, 0, Short.MAX_VALUE)
-                                .addComponent(chbenabled)
-                                .addGap(96, 96, 96)))
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 507, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(jScrollPane1)
+                                    .addComponent(tfemail)
+                                    .addComponent(tfusername)
+                                    .addComponent(cboxgender, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(tflastname)
+                                    .addComponent(tfbonus)
+                                    .addComponent(cbrole, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(tfphone)
+                                    .addComponent(tffirstname))
+                                .addGap(83, 83, 83)
+                                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 649, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(0, 0, Short.MAX_VALUE))))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -229,11 +238,7 @@ public class Framedashboard extends javax.swing.JFrame {
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(tfemail, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(jLabel3))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(tfmdp, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel4))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addGap(36, 36, 36)
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                     .addComponent(cboxgender, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(jLabel5))
@@ -258,48 +263,52 @@ public class Framedashboard extends javax.swing.JFrame {
                             .addComponent(jLabel10))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jLabel1)
-                                .addGap(33, 135, Short.MAX_VALUE))
+                            .addComponent(jLabel1)
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(chbenabled)
-                                .addGap(18, 18, 18)))
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jToggleButton4)
-                            .addComponent(btnSup)
-                            .addComponent(btnupdate)))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                                .addGap(29, 29, 29)
+                                .addComponent(chbenabled))))
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 63, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jToggleButton4)
+                    .addComponent(btnSup)
+                    .addComponent(btnupdate))
                 .addContainerGap())
         );
 
         jTabbedPane1.addTab("Gestion Utilisateur ", jPanel1);
 
-        tbReclamations.setModel(new ReclamationModel());
-        jScrollPane3.setViewportView(tbReclamations);
+        jPanel4.setLayout(null);
 
-        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(116, 116, 116)
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(251, Short.MAX_VALUE))
+        jPanel5.setLayout(new java.awt.BorderLayout());
+        jPanel4.add(jPanel5);
+        jPanel5.setBounds(10, 0, 540, 280);
+
+        jPanel6.setLayout(new java.awt.BorderLayout());
+        jPanel4.add(jPanel6);
+        jPanel6.setBounds(600, 0, 570, 280);
+
+        jPanel7.setLayout(new java.awt.BorderLayout());
+        jPanel4.add(jPanel7);
+        jPanel7.setBounds(20, 290, 530, 220);
+
+        jLabel11.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/bg.jpg"))); // NOI18N
+        jPanel4.add(jLabel11);
+        jLabel11.setBounds(0, 0, 1180, 520);
+
+        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
+        jPanel3.setLayout(jPanel3Layout);
+        jPanel3Layout.setHorizontalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(89, 89, 89)
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(248, Short.MAX_VALUE))
+        jPanel3Layout.setVerticalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
-        jTabbedPane1.addTab("Réclamation", jPanel2);
-        jTabbedPane1.addTab("tab2", jTabbedPane2);
+        jTabbedPane1.addTab("Statestique", jPanel3);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -309,7 +318,9 @@ public class Framedashboard extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jTabbedPane1)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 551, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
 
         pack();
@@ -366,7 +377,7 @@ public class Framedashboard extends javax.swing.JFrame {
         u.setEmail(tfemail.getText());
         u.setEmailCanonical(tfemail.getText());
        
-        u.setPassword(tfmdp.getText());
+       // u.setPassword(tfmdp.getText());
       
        if(chbenabled.isSelected())
         u.setEnabled(1);
@@ -420,7 +431,7 @@ public class Framedashboard extends javax.swing.JFrame {
        u=udao.findById(s);
        tfusername.setText(u.getUsername());
        tfemail.setText(u.getEmail());
-       tfmdp.setText(u.getPassword());
+       //tfmdp.setText(u.getPassword());
        //tfemail.setText(u.getEmail());
        tffirstname.setText(u.getFirstname());
        tflastname.setText(u.getLastname());
@@ -432,7 +443,7 @@ public class Framedashboard extends javax.swing.JFrame {
     private void jToggleButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButton4ActionPerformed
        tfusername.setText("");
        tfemail.setText("");
-       tfmdp.setText("");
+       //tfmdp.setText("");
        //tfemail.setText(u.getEmail());
        tffirstname.setText("");
        tflastname.setText("");
@@ -441,6 +452,54 @@ public class Framedashboard extends javax.swing.JFrame {
        tfbonus.setText(""); // TODO add your handling code here:
     }//GEN-LAST:event_jToggleButton4ActionPerformed
 
+    public void stat(){
+         Statestique st =new Statestique();
+        int u = st.nbUser();
+        int f = st.nbfemme();
+        int h = u-f;
+        int p =st.nbProduit();
+        int s =st.nbService();
+        int c = st.nbComment();
+        int pp= st.nbPauP();
+        
+        DefaultCategoryDataset dataset=new DefaultCategoryDataset();
+            dataset.setValue(s, "", "Service");
+            dataset.setValue(p, "", "Produit");
+          
+           
+            JFreeChart chart = ChartFactory.createBarChart("Service et Produit", null, null, dataset, PlotOrientation.VERTICAL, false, false, false);
+            CategoryPlot cp=chart.getCategoryPlot();
+         //   cp.setRangeGridlinePaint(Color.BLACK);
+            ChartPanel chp = new ChartPanel(chart);
+           jPanel5.removeAll();
+           jPanel5.add(chp);
+           jPanel5.validate();
+           
+           
+           
+            DefaultCategoryDataset ds=new DefaultCategoryDataset();
+            ds.setValue(pp, "", "Commande");
+            ds.setValue(c, "", "Commentaire");
+            JFreeChart cht = ChartFactory.createBarChart("Graphe de Commentaire & Commande", null, null, ds, PlotOrientation.VERTICAL, false, false, false);
+            CategoryPlot catp=chart.getCategoryPlot();
+           // catp.setRangeGridlinePaint(Color.BLACK);
+            ChartPanel chartp = new ChartPanel(cht);
+            jPanel6.removeAll();
+           jPanel6.add(chartp);
+           jPanel6.validate();
+            
+           DefaultPieDataset pds =new DefaultPieDataset();
+            pds.setValue("Femme", new Integer(f));
+           pds.setValue("Homme", new Integer(h));
+          
+             JFreeChart chartpie = ChartFactory.createPieChart("Genre", pds, true, true, false);
+              PiePlot plot = (PiePlot) chartpie.getPlot();
+              ChartPanel chartpiepanel = new ChartPanel(chartpie);
+                 jPanel7.removeAll();
+           jPanel7.add(chartpiepanel);
+           jPanel7.validate();
+          
+    }
     /**
      * @param args the command line arguments
      */
@@ -468,7 +527,9 @@ public class Framedashboard extends javax.swing.JFrame {
         }
         //</editor-fold>
         //</editor-fold>
-
+        //</editor-fold>
+        //</editor-fold>
+            
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
@@ -485,30 +546,30 @@ public class Framedashboard extends javax.swing.JFrame {
     private javax.swing.JCheckBox chbenabled;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel3;
+    private javax.swing.JPanel jPanel4;
+    private javax.swing.JPanel jPanel5;
+    private javax.swing.JPanel jPanel6;
+    private javax.swing.JPanel jPanel7;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JTabbedPane jTabbedPane1;
-    private javax.swing.JTabbedPane jTabbedPane2;
     private javax.swing.JTable jTable1;
     private javax.swing.JToggleButton jToggleButton4;
     private javax.swing.JTextArea taadress;
-    private javax.swing.JTable tbReclamations;
     private javax.swing.JTextField tfbonus;
     private javax.swing.JTextField tfemail;
     private javax.swing.JTextField tffirstname;
     private javax.swing.JTextField tflastname;
-    private javax.swing.JTextField tfmdp;
     private javax.swing.JTextField tfphone;
     private javax.swing.JTextField tfusername;
     // End of variables declaration//GEN-END:variables

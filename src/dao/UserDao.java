@@ -62,7 +62,7 @@ public class UserDao implements Idao.IDao<User> {
 
     @Override
     public void update(User t) {
-        String req = "update fos_user_user set username=? , username_canonical=?, email=? , email_canonical=? , enabled= ?, password=? , gender=? , phone=?, firstname=?, lastname=? , roles=? , updated_at=? ,bonus=? , adress=? where id=?";
+        String req = "update fos_user_user set username=? , username_canonical=?, email=? , email_canonical=? , enabled= ?,  gender=? , phone=?, firstname=?, lastname=? , roles=? , updated_at=? ,bonus=? , adress=? where id=?";
         try {
 
             pst = connection.prepareStatement(req);
@@ -72,18 +72,44 @@ public class UserDao implements Idao.IDao<User> {
             pst.setString(3, t.getEmail());
             pst.setString(4, t.getEmailCanonical());
             pst.setInt(5, t.getEnabled());
-            pst.setString(6, t.getPassword());
+           
 
-            pst.setString(7, t.getGender());
-            pst.setString(8, t.getPhone());
-            pst.setString(9, t.getFirstname());
-            pst.setString(10, t.getLastname());
-            pst.setString(11, t.getRoles());
-            pst.setDate(12, (Date) t.getUpdated_at());
-            pst.setInt(13, t.getBonus());
-            pst.setString(14, t.getAdress());
-            pst.setInt(15, t.getId());
+            pst.setString(6, t.getGender());
+            pst.setString(7, t.getPhone());
+            pst.setString(8, t.getFirstname());
+            pst.setString(9, t.getLastname());
+            pst.setString(10, t.getRoles());
+            pst.setDate(11, (Date) t.getUpdated_at());
+            pst.setInt(12, t.getBonus());
+            pst.setString(13, t.getAdress());
+            
+            pst.setInt(14, t.getId());
             pst.executeUpdate();
+        } catch (SQLException ex) {
+            Logger.getLogger(UserDao.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    public void updateme(User t) {
+        String req = "update fos_user_user set username=? , username_canonical=?, email=? , email_canonical=? , password=? , gender=? , phone=?, firstname=?, lastname=? , updated_at=? , adress=? , roles=? where id=?";
+        try {
+
+            pst = connection.prepareStatement(req);
+
+            pst.setString(1, t.getUsername());
+            pst.setString(2, t.getUsernameCanonical());
+            pst.setString(3, t.getEmail());
+            pst.setString(4, t.getEmailCanonical());
+            pst.setString(5, t.getPassword());
+            pst.setString(6, t.getGender());
+            pst.setString(7, t.getPhone());
+            pst.setString(8, t.getFirstname());
+            pst.setString(9, t.getLastname());
+            pst.setDate(10, (Date) t.getUpdated_at());
+            pst.setString(11, t.getAdress());
+            pst.setString(12, t.getRoles());
+            pst.setInt(13, t.getId());
+            pst.executeUpdate();
+            System.out.println("DONE UPDATE");
         } catch (SQLException ex) {
             Logger.getLogger(UserDao.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -97,6 +123,19 @@ public class UserDao implements Idao.IDao<User> {
             ps.setInt(1, id);
             ps.executeUpdate();
             System.out.println("Personne supprimé");
+        } catch (SQLException ex) {
+            Logger.getLogger(UserDao.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+     public void upImage(User u) {
+        String requete = "update fos_user_user set photo=? where id=?";
+        try {
+            PreparedStatement ps = connection.prepareStatement(requete);
+            
+            ps.setString(1, u.getImage());
+            ps.setInt(2, u.getId());
+            ps.executeUpdate();
+            System.out.println("update profile picture !!! :D");
         } catch (SQLException ex) {
             Logger.getLogger(UserDao.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -208,20 +247,62 @@ public class UserDao implements Idao.IDao<User> {
         }
     }
     
-    public User findByUserName(String n) {
+    public List<String> findAllUsers() {
+        List<String> listUsers = new ArrayList<>();
+        String req = "select  user from fos_user_user ";
+        try {
+
+            pst = connection.prepareStatement(req);
+            ResultSet resultat = pst.executeQuery(req);
+
+            while (resultat.next()) {
+                String s;
+                s = resultat.getString(1);
+                listUsers.add(s);
+            }
+            return listUsers;
+        } catch (SQLException ex) {
+            Logger.getLogger(UserDao.class.getName()).log(Level.SEVERE, null, ex);
+            return null;
+        }
+    }
+    public User findByUserNameI(String username){
         User u = new User();
-        String req = "SELECT username FROM `fos_user_user` WHERE username_canonical= ?  ";
-           try {
+        String req = "select username from fos_user_user where username=?  ";
+        try {
             PreparedStatement ps = connection.prepareStatement(req);
-            ps.setString(1, n);
+            ps.setString(1, username);
+           
             ResultSet resultat = ps.executeQuery();
             while (resultat.next()) {
                 u.setUsername(resultat.getString(1));
+               
             }
             return u;
         } catch (SQLException ex) {
             Logger.getLogger(UserDao.class.getName()).log(Level.SEVERE, null, ex);
-            return null;
+             u.setUsername("a");
+            return u;
+        }
+    }
+    
+    public User findByEmail(String email){
+        User u = new User();
+        String req = "select email from fos_user_user where email=? ";
+        try {
+            PreparedStatement ps = connection.prepareStatement(req);
+            ps.setString(1, email);
+           
+            ResultSet resultat = ps.executeQuery();
+            while (resultat.next()) {
+                u.setEmail(resultat.getString(1));
+               
+            }
+            return u;
+        } catch (SQLException ex) {
+            Logger.getLogger(UserDao.class.getName()).log(Level.SEVERE, null, ex);
+            u.setEmail("a");
+            return u;
         }
     }
     

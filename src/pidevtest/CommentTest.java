@@ -65,7 +65,7 @@ public class CommentTest {
 
     User u = new User();
     UserDao udao=new UserDao();
-    u=udao.findByUserName("sahar");
+    u=udao.findByUserNameI("sahar");
         System.out.println(u);
     
 

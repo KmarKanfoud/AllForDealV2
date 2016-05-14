@@ -33,7 +33,7 @@ ProduitDao pdao = new ProduitDao();
     public FrameListerProduits() {
         initComponents();
          loadAllVille();
-        loadAllCollection();
+//        loadAllCollection();
     }
 
     /**
@@ -428,23 +428,23 @@ private void loadAllVille() {
 
             }
         } catch (SQLException ex) {
-            Logger.getLogger(FrameAjouterProduit.class.getName()).log(Level.SEVERE, null, ex);
+//            Logger.getLogger(FrameAjouterProduit.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    private void loadAllCollection() {
-        try {
-            ResultSet res = pdao.getCategories();
-
-            while (res.next()) {
-
-                cbCategorie.addItem(res.getString(1));
-              // System.out.println(res.getString(1));
-
-            }
-        } catch (SQLException ex) {
-            Logger.getLogger(FrameAjouterProduit.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }
+//    private void loadAllCollection() {
+//        try {
+//         //   ResultSet res = pdao.getCategories();
+//
+//            while (res.next()) {
+//
+//                cbCategorie.addItem(res.getString(1));
+//              // System.out.println(res.getString(1));
+//
+//            }
+//        } catch (SQLException ex) {
+//            Logger.getLogger(FrameAjouterProduit.class.getName()).log(Level.SEVERE, null, ex);
+//        }
+//    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton bntModifier;
     private javax.swing.JButton btnSupprimer;

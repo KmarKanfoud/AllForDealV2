@@ -5,7 +5,7 @@
  */
 package GUI;
 
-import static GUI.FrameGestionProduitAdmin.prod_id;
+//import static GUI.FrameGestionProduitAdmin.prod_id;
 import dao.CommentDao;
 import dao.NotificationDao;
 import utils.*;
@@ -1354,7 +1354,7 @@ public class FrameAfficherServiceAll extends javax.swing.JFrame {
 
             }
         } catch (SQLException ex) {
-            Logger.getLogger(FrameAjouterProduit.class.getName()).log(Level.SEVERE, null, ex);
+//            Logger.getLogger(FrameAjouterProduit.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 

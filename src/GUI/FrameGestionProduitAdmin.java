@@ -47,7 +47,7 @@ public class FrameGestionProduitAdmin extends javax.swing.JFrame {
     public FrameGestionProduitAdmin() {
         initComponents();
         labelId.setVisible(false);
-        loadAllCollection();
+//        loadAllCollection();
         loadAllVille();
     }
 
@@ -810,7 +810,7 @@ public class FrameGestionProduitAdmin extends javax.swing.JFrame {
             p.setNomP(tfNomProduit1.getText());
             p.setQuantite(Integer.parseInt(tfQuantite1.getText()));
             p.setDescription(taDescription1.getText());
-            p.setCategorie(cbCategorie1.getSelectedItem().toString());
+          //  p.setCategorie(cbCategorie1.getSelectedItem().toString());
             try {
                 rsNom = zdao.getZoneByName(cbZone.getSelectedItem().toString());
                 while (rsNom.next()) {
@@ -917,6 +917,8 @@ if(rb5.isSelected()){
         }
         //</editor-fold>
         //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
@@ -937,24 +939,11 @@ if(rb5.isSelected()){
 
             }
         } catch (SQLException ex) {
-            Logger.getLogger(FrameAjouterProduit.class.getName()).log(Level.SEVERE, null, ex);
+//            Logger.getLogger(FrameAjouterProduit.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
-    private void loadAllCollection() {
-        try {
-            ResultSet res = pdao.getCategories();
-
-            while (res.next()) {
-
-                cbCategorie.addItem(res.getString(1));
-                // System.out.println(res.getString(1));
-
-            }
-        } catch (SQLException ex) {
-            Logger.getLogger(FrameAjouterProduit.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }
+  
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton BtnAime;
     private javax.swing.JButton BtnAimepas;

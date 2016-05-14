@@ -901,8 +901,8 @@ public class FrameAccueil extends javax.swing.JFrame {
     }//GEN-LAST:event_ConsulterBtnActionPerformed
 
     private void ProposerPBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ProposerPBtnActionPerformed
-        FrameAjouterProduit faP = new FrameAjouterProduit();
-        faP.setVisible(true);
+//        FrameAjouterProduit faP = new FrameAjouterProduit();
+  //      faP.setVisible(true);
     }//GEN-LAST:event_ProposerPBtnActionPerformed
 
     private void AcheterBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AcheterBtnActionPerformed

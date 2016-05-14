@@ -269,6 +269,14 @@ public class User {
     public String toString() {
         return "User{" + "id=" + id + ", username=" + username + ", usernameCanonical=" + usernameCanonical + ", email=" + email + ", emailCanonical=" + emailCanonical + ", enabled=" + enabled + ", password=" + password + ", plainPassword=" + plainPassword + ", lastLogin=" + lastLogin + ", locked=" + locked + ", gender=" + gender + ", phone=" + phone + ", firstname=" + firstname + ", lastname=" + lastname + ", roles=" + roles + ", created_at=" + created_at + ", updated_at=" + updated_at + ", bonus=" + bonus + '}';
     }
+
+    public boolean getName() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    public boolean getBirthday() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
     
     
 

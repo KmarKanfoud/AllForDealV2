@@ -39,7 +39,7 @@ public class FrameAjouterService extends javax.swing.JFrame {
 
         initComponents();
         loadAllVille();
-        loadAllCategorie();
+//        loadAllCategorie();
 
     }
 
@@ -312,20 +312,20 @@ public class FrameAjouterService extends javax.swing.JFrame {
         }
     }
 
-    private void loadAllCategorie() {
-        try {
-            ResultSet res = pdao.getCategorie();
-
-            while (res.next()) {
-
-                cbCat.addItem(res.getString(1));
-                // System.out.println(res.getString(1));
-
-            }
-        } catch (SQLException ex) {
-            Logger.getLogger(FrameAjouterProduit.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }
+//    private void loadAllCategorie() {
+//        try {
+//            ResultSet res = pdao.getCategorie();
+//
+//            while (res.next()) {
+//
+//                cbCat.addItem(res.getString(1));
+//                // System.out.println(res.getString(1));
+//
+//            }
+//        } catch (SQLException ex) {
+//            Logger.getLogger(FrameAjouterProduit.class.getName()).log(Level.SEVERE, null, ex);
+//        }
+//    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAjoutS;
     private javax.swing.JComboBox cbCat;

@@ -6,7 +6,6 @@
 package dao;
 
 import GUI.FrameAccueil;
-import GUI.FrameAjouterProduit;
 import Idao.IDao;
 import entite.Comment;
 import utils.DataSource;
@@ -39,13 +38,13 @@ public class ProduitDao implements IDao<Produit> {
 
     @Override
     public void add(Produit p) {
-        String req = "insert into produit (id,zone_id,categorie,quantite,user_id,ptbonus,nomP,description,prix,prix1,prix2,tva, reduction, dateAjout) values (?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+        String req = "insert into produit (id,zone_id,categorie_id,quantite,user_id,ptbonus,nomP,description,prix,prix1,prix2,tva, reduction, dateAjout,photo) values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
         try {
             pst = connection.prepareStatement(req);
 
             pst.setString(1, p.getId() + "");
             pst.setInt(2, p.getZone());
-            pst.setString(3, p.getCategorie());
+            pst.setInt(3, p.getCategorie());
             pst.setString(4, p.getQuantite() + "");
             pst.setInt(5, p.getUser());
             pst.setString(6, p.getPtbonus() + "");
@@ -57,7 +56,7 @@ public class ProduitDao implements IDao<Produit> {
             pst.setString(12, p.getTva() + "");
             pst.setString(13, p.getReduction() + "");
             pst.setDate(14, (java.sql.Date) p.getDateAjout());
-
+            pst.setString(15, p.getPhoto()+ "");
             pst.executeUpdate();
         } catch (SQLException ex) {
             Logger.getLogger(ProduitDao.class.getName()).log(Level.SEVERE, null, ex);
@@ -67,14 +66,14 @@ public class ProduitDao implements IDao<Produit> {
 
     @Override
     public void update(Produit p) {
-        String req = "update produit set  zone_id=?,categorie=?,quantite=? ,ptBonus=?,nomP=?,description=?,prix=?,prix1=?,prix2=?,tva=?,reduction=? where id=?";
+        String req = "update produit set  zone_id=?,categorie_id=?,quantite=? ,ptBonus=?,nomP=?,description=?,prix=?,prix1=?,prix2=?,tva=?,reduction=? where id=?";
 
         try {
             pst = connection.prepareStatement(req);
            
            pst.setString(1, p.getZone() + "");
             //pst.setString(2, p.getUser() + "");
-           pst.setString(2, p.getCategorie());
+           pst.setInt(2, p.getCategorie());
            pst.setString(3, p.getQuantite() + "");
            pst.setString(4, p.getPtbonus() + "");
             pst.setString(5, p.getNomP());
@@ -137,21 +136,27 @@ public class ProduitDao implements IDao<Produit> {
 
                 p.setId(resultat.getInt(1));
                 p.setZone(resultat.getInt(2));
-                 p.setCategorie(resultat.getString(3));
-                  p.setDescription(resultat.getString(4));
-                  p.setPrix(resultat.getInt(5));
-                p.setUser(resultat.getInt(6));
+                 p.setCategorie(resultat.getInt(3));
+                 p.setQuantite(resultat.getInt(4));
+                 p.setUser(resultat.getInt(5));
+                 p.setPtbonus(resultat.getInt(6));
+                  p.setNomP(resultat.getString(7)); 
+                 p.setDescription(resultat.getString(8));
+                  p.setPrix(resultat.getInt(9));
+                 p.setPrix1(resultat.getInt(10));
+                p.setPrix2(resultat.getInt(11));
+               p.setTva(resultat.getInt(12));
+               p.setReduction(resultat.getInt(13));
+               p.setDateAjout(resultat.getDate(14)); 
+              p.setRating(resultat.getInt(15));
+               p.setPhoto(resultat.getString(16));
                
-                p.setQuantite(resultat.getInt(7));
-                p.setPtbonus(resultat.getInt(8));
-                p.setNomP(resultat.getString(9));
                
                 
-                p.setPrix1(resultat.getInt(10));
-                p.setPrix2(resultat.getInt(11));
-                p.setTva(resultat.getInt(12));
-                p.setReduction(resultat.getInt(13));
-               p.setDateAjout(resultat.getDate(14));
+               
+                
+                
+               
 
                 listeProduit.add(p);
 
@@ -180,7 +185,7 @@ public class ProduitDao implements IDao<Produit> {
                 p.setId(resultat.getInt(1));
                 //p.setZone(resultat.getInt(2));
                 p.setUser(resultat.getInt(3));
-                p.setCategorie(resultat.getString(5));
+                p.setCategorie(resultat.getInt(5));
                 p.setQuantite(resultat.getInt(6));
                 p.setPtbonus(resultat.getInt(7));
                 p.setNomP(resultat.getString(8));
@@ -213,18 +218,18 @@ public class ProduitDao implements IDao<Produit> {
         return null;
     }
 
-    public ResultSet getCategories() {
-
-        try {
-            pst = connection.prepareStatement("SELECT name FROM classification__category;");
-            ResultSet allAdmin = pst.executeQuery();
-            return allAdmin;
-
-        } catch (SQLException ex) {
-            Logger.getLogger(ProduitDao.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        return null;
-    }
+//    public ResultSet getCategories() {
+//
+//        try {
+//            pst = connection.prepareStatement("SELECT name FROM classification__category;");
+//            ResultSet allAdmin = pst.executeQuery();
+//            return allAdmin;
+//
+//        } catch (SQLException ex) {
+//            Logger.getLogger(ProduitDao.class.getName()).log(Level.SEVERE, null, ex);
+//        }
+//        return null;
+//    }
 
     @Override
     public Produit findById(int id) {
@@ -238,7 +243,7 @@ public class ProduitDao implements IDao<Produit> {
                 p.setId(resultat.getInt(1));
                 //p.setZone(resultat.getInt(2));
                 p.setUser(resultat.getInt(3));
-                p.setCategorie(resultat.getString(5));
+                p.setCategorie(resultat.getInt(5));
                 p.setQuantite(resultat.getInt(6));
                 p.setPtbonus(resultat.getInt(7));
                 p.setNomP(resultat.getString(8));
@@ -305,7 +310,7 @@ public class ProduitDao implements IDao<Produit> {
                 Produit p = new Produit();
   p.setId(resultat.getInt(1));
                 p.setZone(resultat.getInt(2));
-                 p.setCategorie(resultat.getString(3));
+                 p.setCategorie(resultat.getInt(3));
                   p.setDescription(resultat.getString(4));
                   p.setPrix(resultat.getInt(5));
                 p.setUser(resultat.getInt(6));
@@ -336,7 +341,7 @@ public class ProduitDao implements IDao<Produit> {
   public List<Produit> findAllByCategorie(String cat ) {
         List<Produit> ProduitByCategorieModel = new ArrayList<>();
 
-        String req = "select * from produit where categorie like '%" +cat+"%'";
+        String req = "select * from produit where categorie_id like '%" +cat+"%'";
 
         try {
             pst = connection.prepareStatement(req);
@@ -348,7 +353,7 @@ public class ProduitDao implements IDao<Produit> {
 
                  p.setId(resultat.getInt(1));
                 p.setZone(resultat.getInt(2));
-                 p.setCategorie(resultat.getString(3));
+                 p.setCategorie(resultat.getInt(3));
                   p.setDescription(resultat.getString(4));
                   p.setPrix(resultat.getInt(5));
                 p.setUser(resultat.getInt(6));

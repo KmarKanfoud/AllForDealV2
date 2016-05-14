@@ -5,8 +5,10 @@
  */
 package entite;
 
+import GUI.AllForDealFrame;
 import GUI.FrameAccueil;
-import GUI.FrameGestionProduitAdmin;
+import GUI.LoginForm;
+
 import dao.ZoneDao;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -32,7 +34,7 @@ public class Produit {
     private int zone;
     private int user;
     private int media;
-    private String categorie;
+    private int categorie;
     private int quantite;
     private int ptbonus;
     private String nomP;
@@ -47,7 +49,7 @@ public class Produit {
     private String photo;
     private List<Evaluation> evaluations;
 
-    public Produit(int id, int zone, String categorie, int quantite, String nomP, String description, float prix, int prix1, int prix2, float tva, float reduction, int rating) {
+    public Produit(int id, int zone, int categorie, int quantite, String nomP, String description, float prix, int prix1, int prix2, float tva, float reduction, int rating) {
         this.id = id;
         this.zone = zone;
         this.categorie = categorie;
@@ -63,7 +65,7 @@ public class Produit {
     }
 
     
-    public Produit(int id, int zone, int user, int media, String categorie, int quantite, int ptbonus, String nomP, String description, float prix, int prix1, int prix2, float tva, float reduction, Date dateAjout) {
+    public Produit(int id, int zone, int user, int media, int categorie, int quantite, int ptbonus, String nomP, String description, float prix, int prix1, int prix2, float tva, float reduction, Date dateAjout) {
         this.id = id;
         this.zone = zone;
         this.user = user;
@@ -82,7 +84,7 @@ public class Produit {
         this.rating = rating;
     }
 
-    public Produit(String zoneName, int id, int zone, int user, int media, String categorie, int quantite, int ptbonus, String nomP, String description, float prix, int prix1, int prix2, float tva, float reduction, Date dateAjout, int rating) {
+    public Produit(String zoneName, int id, int zone, int user, int media, int categorie, int quantite, int ptbonus, String nomP, String description, float prix, int prix1, int prix2, float tva, float reduction, Date dateAjout, int rating) {
         this.zoneName = zoneName;
         this.id = id;
         this.zone = zone;
@@ -102,7 +104,7 @@ public class Produit {
         this.rating = rating;
     }
 
-    public Produit(String zoneName, int id, int zone, int user, int media, String categorie, int quantite, int ptbonus, String nomP, String description, float prix, int prix1, int prix2, float tva, Date dateAjout, int rating, String photo) {
+    public Produit(String zoneName, int id, int zone, int user, int media, int categorie, int quantite, int ptbonus, String nomP, String description, float prix, int prix1, int prix2, float tva, Date dateAjout, int rating, String photo) {
         this.zoneName = zoneName;
         this.id = id;
         this.zone = zone;
@@ -159,11 +161,11 @@ public class Produit {
     }
 
     public int getUser() {
-        return FrameAccueil.getUserId();
+        return LoginForm.getUser_id();
     }
 
     public void setUser(int user) {
-        this.user = user;
+        this.user = LoginForm.getUser_id();
     }
 
     public String getNomP() {
@@ -182,11 +184,11 @@ public class Produit {
         this.prix1 = prix1;
     }
 
-    public String getCategorie() {
+    public int getCategorie() {
         return categorie;
     }
 
-    public void setCategorie(String categorie) {
+    public void setCategorie(int categorie) {
         this.categorie = categorie;
     }
 
@@ -277,7 +279,7 @@ public class Produit {
 
             }//this.setResizable(false);
         } catch (SQLException ex) {
-            Logger.getLogger(FrameGestionProduitAdmin.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(AllForDealFrame.class.getName()).log(Level.SEVERE, null, ex);
         }
         return zoneName;
 

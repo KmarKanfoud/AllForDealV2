@@ -29,16 +29,16 @@ public class ProduitTest {
         
         ProduitDao pdao = new ProduitDao();
         Produit p =new Produit();
-      Produit p2 = new Produit(32, 2, 2, 10, "fcghbjn", 2, 20, "pontalon", "cfvgbhjnk,l;nhbugvyfct", 12000, 156, 1566 ,31  , 50  , date);
-     pdao.add(p2);
+   //   Produit p2 = new Produit(32, 2, 2, 10, "fcghbjn", 2, 20, "pontalon", "cfvgbhjnk,l;nhbugvyfct", 12000, 156, 1566 ,31  , 50  , date);
+  //   pdao.add(p2);
        // pdao.add(p3);
         
 //       p2.setNomP("lilya");
 //      pdao.update(p2);
        
    //    pdao.removeById(1);
-//     List<Produit>LP = new ArrayList();
-//        LP = pdao.DisplayById(7);
+    List<Produit>LP = new ArrayList();
+       LP = pdao.findAll();
 //        System.out.println(LP);
 //        
 

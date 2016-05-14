@@ -11,13 +11,17 @@ package GUI;
  */
 import dao.*;
 import entite.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.UnsupportedLookAndFeelException;
+import org.apache.http.ParseException;
 public class LoginForm extends javax.swing.JFrame {
 
     /**
      * Creates new form LoginForm
      */
     private static String userName;
-
+private static int user_id ;
     public static String getUserName() {
         return userName;
     }
@@ -25,11 +29,27 @@ public class LoginForm extends javax.swing.JFrame {
     public static void setUserName(String userName) {
         LoginForm.userName = userName;
     }
+
+    public static int getUser_id() {
+        return user_id;
+    }
+
+    public static void setUser_id(int user_id) {
+        LoginForm.user_id = user_id;
+    }
+
+   
+
+    
+    
     public LoginForm() {
         initComponents();
         this.setLocationRelativeTo(null);
     }
 
+    
+    
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -122,17 +142,21 @@ public class LoginForm extends javax.swing.JFrame {
             if ((u.getUsername().equals(l) == true) && (u.getPassword().equals(m) == true) ) {
 
               String  userName = u.getUsername();
+              user_id=u.getId();
+              
                 System.out.println(userName);
+                System.out.println(user_id);
+             
                 
                 lerror.setText("Connecté");
                 if((u.getEnabled() == 1)){
                 if (u.getRoles().equals("ROLE_ADMIN")) {
-                    Framedashboard fd = new Framedashboard();
+                    DashbordAdminFrame fd = new DashbordAdminFrame();
                     fd.setVisible(true);
                 } else {
 //                    FrameAccueil fa = new FrameAccueil(u.getId());
 //                    fa.setVisible(true);
-                    AllForDealFrame af=new AllForDealFrame(u.getId());
+                    AllForDealFrame af=new AllForDealFrame();
                     af.setVisible(true);
 
                 }
@@ -143,6 +167,12 @@ public class LoginForm extends javax.swing.JFrame {
             }
         } catch (NullPointerException ex) {
             lerror.setText("UserName ou Mot de passe Invalide!!");
+        } catch (UnsupportedLookAndFeelException ex) {
+            Logger.getLogger(LoginForm.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ParseException ex) {
+            Logger.getLogger(LoginForm.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (java.text.ParseException ex) {
+            Logger.getLogger(LoginForm.class.getName()).log(Level.SEVERE, null, ex);
         }        // TODO add your handling code here:
     }//GEN-LAST:event_jButton1ActionPerformed
 

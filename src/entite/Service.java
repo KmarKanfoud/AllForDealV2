@@ -5,8 +5,9 @@
  */
 package entite;
 
+import GUI.AllForDealFrame;
 import GUI.FrameAccueil;
-import GUI.FrameAjouterService;
+import GUI.LoginForm;
 import dao.ZoneDao;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -14,6 +15,7 @@ import java.util.Date;
 import java.util.Objects;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import dao.CollectionDao;
 
 /**
  *
@@ -22,21 +24,24 @@ import java.util.logging.Logger;
 public class Service {
 
     ZoneDao zoneDAO = new ZoneDao();
+    CollectionDao colDAO = new CollectionDao();
     ResultSet rsName = null;
+    ResultSet rsNameType = null;
     private int id;
     private int userId;
     private String nomService;
     private String description;
-    private String type;
+    private int type;
     private String etat;
     private Date dateAjout;
     private int zone;
     private String zoneName;
+    private String TypeName;
 
     public Service() {
     }
 
-    public Service(int id,int userId, String nomService, String description, String type, String etat, Date dateAjout, int zone) {
+    public Service(int id,int userId, String nomService, String description, int type, String etat, Date dateAjout, int zone) {
         this.id = id;
         this.userId = userId;
         this.nomService = nomService;
@@ -47,7 +52,7 @@ public class Service {
         this.zone = zone;
     }
 
-    public Service(int id, String nomService, String description, String type, String etat, Date dateAjout) {
+    public Service(int id, String nomService, String description, int type, String etat, Date dateAjout) {
         this.id = id;
         this.nomService = nomService;
         this.description = description;
@@ -56,12 +61,14 @@ public class Service {
         this.dateAjout = dateAjout;
     }
 
+   
+
     public int getUserId() {
-        return FrameAccueil.getUserId();
+        return LoginForm.getUser_id();
     }
 
     public void setUserId(int userId) {
-        this.userId = userId;
+        this.userId = LoginForm.getUser_id();
     }
 
     
@@ -89,11 +96,11 @@ public class Service {
         this.description = description;
     }
 
-    public String getType() {
+    public int getType() {
         return type;
     }
 
-    public void setType(String type) {
+    public void setType(int type) {
         this.type = type;
     }
 
@@ -121,13 +128,26 @@ public class Service {
         try {
             rsName = zoneDAO.getZoneById(zone);
             while (rsName.next()) {
-                zoneName = rsName.getNString(1);
+                zoneName = rsName.getString(1);
 
             }//this.setResizable(false);
         } catch (SQLException ex) {
-            Logger.getLogger(FrameAjouterService.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(AllForDealFrame.class.getName()).log(Level.SEVERE, null, ex);
         }
         return zoneName;
+
+    }
+    public String getTypeName() {
+        try {
+            rsNameType = colDAO.getCollectionById(type);
+            while (rsNameType.next()) {
+                TypeName = rsNameType.getString(1);
+
+            }//this.setResizable(false);
+        } catch (SQLException ex) {
+            Logger.getLogger(AllForDealFrame.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return TypeName;
 
     }
 

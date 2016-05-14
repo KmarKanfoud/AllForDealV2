@@ -6,7 +6,7 @@
 package dao;
 
 
-import GUI.FrameAfficherServiceAll;
+
 import GUI.*;
 import Idao.IDao;
 import entite.Comment;
@@ -65,7 +65,7 @@ public class CommentDao implements IDao<Comment> {
             //pst.setInt(1, c.getId());
             pst.setString(1, c.getBody());
             pst.setDate(2, (Date) c.getCreated_at());
-            pst.setInt(3, FrameAfficherServiceAll.getService_id());
+            pst.setInt(3, AllForDealFrame.getService_id());
             pst.setInt(4, FrameAccueil.getUserId());
 
             pst.executeUpdate();

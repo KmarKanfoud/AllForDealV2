@@ -5,6 +5,7 @@
  */
 package GUI;
 
+import dao.CollectionDao;
 import static GUI.FrameGestionProduitAdmin.prod_id;
 
 //import com.teamdev.jxbrowser.chromium.Browser;
@@ -25,6 +26,7 @@ import dao.MessageDao;
 import dao.NotificationDao;
 import dao.ProduitDao;
 import dao.ReclamationDao;
+import utils.ServiceByZoneModel;
 import dao.ServiceDao;
 import dao.UserDao;
 import dao.ZoneDao;
@@ -94,14 +96,12 @@ public class AllForDealFrame extends javax.swing.JFrame {
     int screenWidth = screenSize.width;
     PanelVideo pv = new PanelVideo();
     ///////////////AUDIO
-     public static Mixer mixer ;
-    public static Clip clip ;
+    public static Mixer mixer;
+    public static Clip clip;
 
     //private static int categorie;
     private static int service_id;
-   
 
-    
     private Connection conn = null;
     private PreparedStatement pst = null;
 
@@ -116,7 +116,6 @@ public class AllForDealFrame extends javax.swing.JFrame {
     /**
      * Creates new form AllForDealFrame
      */
-   
     static Connection con;
     static ResultSet res;
     static PreparedStatement ps;
@@ -124,11 +123,26 @@ public class AllForDealFrame extends javax.swing.JFrame {
     ResultSet rs = null;
     ResultSet rsId = null;
     ResultSet rsIdC = null;
+    ResultSet rsIdCol = null;
+
     private static String categorie;
+    private static String collection;
     String im;
+
+    public static String getNomS() {
+        return nomS;
+    }
+
+    public static void setNomS(String nomS) {
+        AllForDealFrame.nomS = nomS;
+    }
 
     public static String getCategorie() {
         return categorie;
+    }
+
+    public static String getCollection() {
+        return collection;
     }
 
     public static int getService_id() {
@@ -138,17 +152,18 @@ public class AllForDealFrame extends javax.swing.JFrame {
     ProduitDao pdao = new ProduitDao();
     ZoneDao zdao = new ZoneDao();
     CategorieDao cdao = new CategorieDao();
+    CollectionDao coldao = new CollectionDao();
 //    Browser browser = new Browser();
-   // BrowserView view = new BrowserView(browser);
+    // BrowserView view = new BrowserView(browser);
 
     //fin Partie Lilya
-
     public AllForDealFrame() throws UnsupportedLookAndFeelException, ParseException, java.text.ParseException {
         UIManager.setLookAndFeel(new SyntheticaBlueLightLookAndFeel());
         initComponents();
         loadAllVille();
         loadAllCategories();
-        
+        loadAllCollection();
+
         // System.out.println(user_id);
         labelId.setVisible(false);
 
@@ -378,6 +393,9 @@ public class AllForDealFrame extends javax.swing.JFrame {
         pShowMap = new javax.swing.JPanel();
         tfComment = new javax.swing.JTextField();
         btnCommenter1 = new javax.swing.JButton();
+        jLabel57 = new javax.swing.JLabel();
+        pShowMap1 = new javax.swing.JPanel();
+        jLabel56 = new javax.swing.JLabel();
         ParentPanel1 = new javax.swing.JPanel();
         pMesServices = new javax.swing.JPanel();
         jScrollPane9 = new javax.swing.JScrollPane();
@@ -385,7 +403,7 @@ public class AllForDealFrame extends javax.swing.JFrame {
         lMsg = new javax.swing.JLabel();
         btnModifier = new javax.swing.JButton();
         bntSupprimer = new javax.swing.JButton();
-        cbZone3 = new javax.swing.JComboBox();
+        cbZoneX = new javax.swing.JComboBox();
         jLabel31 = new javax.swing.JLabel();
         jLabel32 = new javax.swing.JLabel();
         cbEtat = new javax.swing.JComboBox();
@@ -412,11 +430,13 @@ public class AllForDealFrame extends javax.swing.JFrame {
         btnMap = new javax.swing.JButton();
         pRechercheS = new javax.swing.JPanel();
         lTitreRechercheS = new javax.swing.JLabel();
-        cbRechercheCat = new javax.swing.JComboBox();
         jScrollPane10 = new javax.swing.JScrollPane();
         tblRechercheS = new javax.swing.JTable();
         bntRechercheS = new javax.swing.JButton();
         tfRechercheS = new javax.swing.JTextField();
+        rbNom = new javax.swing.JRadioButton();
+        rbCat = new javax.swing.JRadioButton();
+        rbZone = new javax.swing.JRadioButton();
         PanierReclamation = new javax.swing.JPanel();
         MessagesPanel = new javax.swing.JPanel();
         msgR = new javax.swing.JPanel();
@@ -1461,7 +1481,7 @@ public class AllForDealFrame extends javax.swing.JFrame {
                         .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(btnback)
                             .addComponent(btnext))
-                        .addContainerGap(133, Short.MAX_VALUE))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel7Layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(AjouterProduitPanier)
@@ -1492,7 +1512,7 @@ public class AllForDealFrame extends javax.swing.JFrame {
             .addGroup(ProduitPanelLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 1009, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(281, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         ProduitPanelLayout.setVerticalGroup(
             ProduitPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1798,6 +1818,8 @@ public class AllForDealFrame extends javax.swing.JFrame {
             }
         });
 
+        jLabel57.setIcon(new javax.swing.ImageIcon("C:\\Users\\Super Moon\\Downloads\\terre-gondwana_0.jpg")); // NOI18N
+
         pConsulterS2.add(jScrollPane5);
         jScrollPane5.setBounds(55, 11, 452, 402);
 
@@ -1813,55 +1835,74 @@ public class AllForDealFrame extends javax.swing.JFrame {
                     .addGroup(pConsulterS2Layout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(pDetailS, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(18, 18, 18)
-                .addComponent(pShowMap, javax.swing.GroupLayout.PREFERRED_SIZE, 346, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGroup(pConsulterS2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(pConsulterS2Layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(pConsulterS2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jScrollPane8, javax.swing.GroupLayout.PREFERRED_SIZE, 480, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(tfComment, javax.swing.GroupLayout.PREFERRED_SIZE, 419, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pConsulterS2Layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGroup(pConsulterS2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(btnBackS2)
-                            .addGroup(pConsulterS2Layout.createSequentialGroup()
+                        .addComponent(btnBackS2)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(pConsulterS2Layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 162, Short.MAX_VALUE)
+                        .addGroup(pConsulterS2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pConsulterS2Layout.createSequentialGroup()
+                                .addComponent(jLabel57, javax.swing.GroupLayout.PREFERRED_SIZE, 424, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(42, 42, 42)
+                                .addGroup(pConsulterS2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(tfComment, javax.swing.GroupLayout.PREFERRED_SIZE, 419, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jScrollPane8, javax.swing.GroupLayout.PREFERRED_SIZE, 480, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(31, 31, 31))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pConsulterS2Layout.createSequentialGroup()
                                 .addComponent(btnCommenter1, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
-                                .addComponent(btnSupprimerCommentaire)))
-                        .addGap(344, 344, 344))))
+                                .addComponent(btnSupprimerCommentaire)
+                                .addGap(204, 204, 204))))))
+            .addGroup(pConsulterS2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(pConsulterS2Layout.createSequentialGroup()
+                    .addGap(432, 432, 432)
+                    .addComponent(pShowMap, javax.swing.GroupLayout.PREFERRED_SIZE, 430, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(501, Short.MAX_VALUE)))
         );
         pConsulterS2Layout.setVerticalGroup(
             pConsulterS2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pConsulterS2Layout.createSequentialGroup()
                 .addGroup(pConsulterS2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(pConsulterS2Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(pShowMap, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(23, 23, 23)
+                        .addComponent(pDetailS, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(26, 26, 26)
+                        .addComponent(bntMap))
                     .addGroup(pConsulterS2Layout.createSequentialGroup()
+                        .addContainerGap()
                         .addGroup(pConsulterS2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel57, javax.swing.GroupLayout.PREFERRED_SIZE, 437, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(pConsulterS2Layout.createSequentialGroup()
-                                .addGap(23, 23, 23)
-                                .addComponent(pDetailS, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(26, 26, 26)
-                                .addComponent(bntMap))
-                            .addGroup(pConsulterS2Layout.createSequentialGroup()
-                                .addGap(27, 27, 27)
                                 .addComponent(jScrollPane8, javax.swing.GroupLayout.PREFERRED_SIZE, 286, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
-                                .addComponent(tfComment, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(32, 32, 32)
-                        .addGroup(pConsulterS2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(btnSupprimerCommentaire)
-                            .addComponent(btnCommenter1))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(btnBackS2)
-                        .addGap(0, 167, Short.MAX_VALUE)))
-                .addContainerGap())
+                                .addComponent(tfComment, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                .addGroup(pConsulterS2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(pConsulterS2Layout.createSequentialGroup()
+                        .addGap(18, 18, 18)
+                        .addComponent(btnSupprimerCommentaire))
+                    .addGroup(pConsulterS2Layout.createSequentialGroup()
+                        .addGap(26, 26, 26)
+                        .addComponent(btnCommenter1)))
+                .addGap(32, 32, 32)
+                .addComponent(btnBackS2)
+                .addContainerGap(91, Short.MAX_VALUE))
+            .addGroup(pConsulterS2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(pConsulterS2Layout.createSequentialGroup()
+                    .addGap(111, 111, 111)
+                    .addComponent(pShowMap, javax.swing.GroupLayout.PREFERRED_SIZE, 457, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(111, Short.MAX_VALUE)))
         );
 
         ParentPanel2.add(pConsulterS2, "card3");
+
+        pShowMap1.setLayout(new java.awt.BorderLayout());
+
+        jLabel56.setIcon(new javax.swing.ImageIcon("C:\\Users\\Super Moon\\Downloads\\terre-gondwana_0.jpg")); // NOI18N
+        pShowMap1.add(jLabel56, java.awt.BorderLayout.CENTER);
+
+        ParentPanel2.add(pShowMap1, "card4");
 
         tpService.addTab("Les offres", ParentPanel2);
 
@@ -1902,8 +1943,8 @@ public class AllForDealFrame extends javax.swing.JFrame {
         pMesServices.add(bntSupprimer);
         bntSupprimer.setBounds(140, 440, 120, 30);
 
-        pMesServices.add(cbZone3);
-        cbZone3.setBounds(80, 367, 156, 20);
+        pMesServices.add(cbZoneX);
+        cbZoneX.setBounds(140, 370, 170, 30);
 
         jLabel31.setText("Zone :");
         pMesServices.add(jLabel31);
@@ -1915,10 +1956,10 @@ public class AllForDealFrame extends javax.swing.JFrame {
 
         cbEtat.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "EnCours", "n'est Plus valide" }));
         pMesServices.add(cbEtat);
-        cbEtat.setBounds(80, 314, 156, 20);
+        cbEtat.setBounds(150, 310, 156, 20);
 
         pMesServices.add(cbCat1);
-        cbCat1.setBounds(80, 250, 156, 20);
+        cbCat1.setBounds(150, 240, 156, 20);
 
         jLabel33.setText("Catégorie :");
         pMesServices.add(jLabel33);
@@ -1928,7 +1969,7 @@ public class AllForDealFrame extends javax.swing.JFrame {
         pMesServices.add(jLabel34);
         jLabel34.setBounds(10, 120, 60, 14);
         pMesServices.add(tfDescription1);
-        tfDescription1.setBounds(80, 133, 156, 62);
+        tfDescription1.setBounds(150, 130, 156, 62);
 
         tfNomService.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -1936,7 +1977,7 @@ public class AllForDealFrame extends javax.swing.JFrame {
             }
         });
         pMesServices.add(tfNomService);
-        tfNomService.setBounds(80, 60, 156, 20);
+        tfNomService.setBounds(150, 60, 156, 20);
 
         jLabel35.setText("Nom Service :");
         pMesServices.add(jLabel35);
@@ -2030,7 +2071,7 @@ public class AllForDealFrame extends javax.swing.JFrame {
                         .addComponent(btnMap)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(btnBackS, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(1028, Short.MAX_VALUE))
+                .addContainerGap(1096, Short.MAX_VALUE))
         );
         pConsulterSLayout.setVerticalGroup(
             pConsulterSLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -2073,25 +2114,12 @@ public class AllForDealFrame extends javax.swing.JFrame {
         lTitreRechercheS.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         lTitreRechercheS.setText("Choisir une catégorie ou un nom de service: ");
 
-        cbRechercheCat.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                cbRechercheCatMouseClicked(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                cbRechercheCatMouseExited(evt);
-            }
-        });
-        cbRechercheCat.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cbRechercheCatActionPerformed(evt);
-            }
-        });
-
         tblRechercheS.setModel(new ServiceByCategorieModel()
 
         );
         jScrollPane10.setViewportView(tblRechercheS);
 
+        bntRechercheS.setIcon(new javax.swing.ImageIcon("C:\\Users\\Super Moon\\Downloads\\Compressed\\icone\\icone\\toolbar-icons\\search.png")); // NOI18N
         bntRechercheS.setText("Rechercher");
         bntRechercheS.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -2099,10 +2127,31 @@ public class AllForDealFrame extends javax.swing.JFrame {
             }
         });
 
-        tfRechercheS.setText("Nom de Service");
+        tfRechercheS.setText("Nom ou Categorie ou Zone");
         tfRechercheS.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 tfRechercheSActionPerformed(evt);
+            }
+        });
+
+        rbNom.setText("Par Nom");
+        rbNom.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rbNomActionPerformed(evt);
+            }
+        });
+
+        rbCat.setText("Par Categorie");
+        rbCat.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rbCatActionPerformed(evt);
+            }
+        });
+
+        rbZone.setText("Par zone");
+        rbZone.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rbZoneActionPerformed(evt);
             }
         });
 
@@ -2111,20 +2160,21 @@ public class AllForDealFrame extends javax.swing.JFrame {
         pRechercheSLayout.setHorizontalGroup(
             pRechercheSLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pRechercheSLayout.createSequentialGroup()
+                .addGap(26, 26, 26)
                 .addGroup(pRechercheSLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(pRechercheSLayout.createSequentialGroup()
-                        .addGap(26, 26, 26)
-                        .addGroup(pRechercheSLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(lTitreRechercheS)
-                            .addGroup(pRechercheSLayout.createSequentialGroup()
-                                .addComponent(cbRechercheCat, javax.swing.GroupLayout.PREFERRED_SIZE, 332, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(46, 46, 46)
-                                .addComponent(tfRechercheS, javax.swing.GroupLayout.PREFERRED_SIZE, 332, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jScrollPane10)))
+                        .addComponent(rbNom)
+                        .addGap(18, 18, 18)
+                        .addComponent(rbCat)
+                        .addGap(18, 18, 18)
+                        .addComponent(rbZone))
                     .addGroup(pRechercheSLayout.createSequentialGroup()
-                        .addGap(321, 321, 321)
-                        .addComponent(bntRechercheS)))
-                .addContainerGap(559, Short.MAX_VALUE))
+                        .addComponent(bntRechercheS)
+                        .addGap(18, 18, 18)
+                        .addComponent(tfRechercheS, javax.swing.GroupLayout.PREFERRED_SIZE, 332, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(lTitreRechercheS)
+                    .addComponent(jScrollPane10, javax.swing.GroupLayout.PREFERRED_SIZE, 710, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(627, Short.MAX_VALUE))
         );
         pRechercheSLayout.setVerticalGroup(
             pRechercheSLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -2133,13 +2183,16 @@ public class AllForDealFrame extends javax.swing.JFrame {
                 .addComponent(lTitreRechercheS)
                 .addGap(18, 18, 18)
                 .addGroup(pRechercheSLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(cbRechercheCat, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(rbNom)
+                    .addComponent(rbCat)
+                    .addComponent(rbZone))
+                .addGap(25, 25, 25)
+                .addGroup(pRechercheSLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(bntRechercheS)
                     .addComponent(tfRechercheS, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(27, 27, 27)
-                .addComponent(bntRechercheS)
-                .addGap(18, 18, 18)
                 .addComponent(jScrollPane10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(91, Short.MAX_VALUE))
         );
 
         tpService.addTab("Rechercher Un Service", pRechercheS);
@@ -2522,7 +2575,7 @@ public class AllForDealFrame extends javax.swing.JFrame {
 
     private void btnAccueilActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAccueilActionPerformed
         // TODO add your handling code here:
-         ParentPanel.removeAll();
+        ParentPanel.removeAll();
         ParentPanel.add(AccueilPanel2);
         ParentPanel.repaint();
         ParentPanel.revalidate();
@@ -2573,7 +2626,7 @@ public class AllForDealFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_btnRechercherActionPerformed
 
     private void btnAjouterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAjouterActionPerformed
-   
+
         Produit p = new Produit();
         Date date = new java.sql.Date(System.currentTimeMillis());
         p.setDateAjout(date);
@@ -2582,10 +2635,8 @@ public class AllForDealFrame extends javax.swing.JFrame {
         p.setTva(Integer.parseInt(tfTVA.getText()));
         p.setReduction(Integer.parseInt(tfReduction.getText()));
         p.setNomP(tfNomP.getText());
-            p.setUser(LoginForm.getUser_id());
-       
-        
-        
+        p.setUser(LoginForm.getUser_id());
+
         try {
             rsId = zdao.getZoneByName(cbZone.getSelectedItem().toString());
             while (rsId.next()) {
@@ -2757,27 +2808,48 @@ public class AllForDealFrame extends javax.swing.JFrame {
 
         Service s = new Service();
         Date date = new java.sql.Date(System.currentTimeMillis());
+        s.setUserId(LoginForm.getUser_id());
         if (!tfNomS.getText().trim().equals("")) {
             s.setNomService(tfNomS.getText());
             try {
-                rsId = zoneDAO.getZoneByName(cbZone.getSelectedItem().toString());
+
+                rsId = zoneDAO.getZoneByName(cbZone2.getSelectedItem().toString());
                 while (rsId.next()) {
                     s.setZone(rsId.getInt(1));
 
-                }//this.setResizable(false);
+                }
             } catch (SQLException ex) {
-                Logger.getLogger(FrameAjouterService.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(AllForDealFrame.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
+            try {
+                rsIdCol = coldao.getCollectionByName(cbCat.getSelectedItem().toString());
+                while (rsIdCol.next()) {
+                    s.setType(rsIdCol.getInt(1));
+
+                }
+            } catch (SQLException ex) {
+                Logger.getLogger(AllForDealFrame.class.getName()).log(Level.SEVERE, null, ex);
             }
 
             s.setDescription(tfDescription.getText());
-            s.setType(cbCat.getSelectedItem().toString());
+            // s.setType(cbCat.getSelectedItem());
             //s.setZone((int) cbZone.getSelectedItem());
             s.setDateAjout(date);
             s.setEtat("EnCours");
-            ServiceDao pdao = new ServiceDao();
-            pdao.add(s);
+            ServiceDao sdao = new ServiceDao();
+            System.out.println(rsIdCol);
+            sdao.add(s);
+
             DefaultTableModel model = (DefaultTableModel) tblService.getModel();
             model.addRow(new Object[]{tfNomS.getText(), tfDescription.getText(), cbCat.getSelectedItem().toString(), s.getDateAjout(), s.getEtat()});
+
+            tfNomS.setText(null);
+            tfDescription.setText(null);
+
+            cbCat.setSelectedItem(null);
+            cbZone2.setSelectedItem(null);
+
         } else {
             lerror.setText(" Veuiller enter le nom de votre service SVP !");
             tblAllServices.setModel(new ListeService());
@@ -2870,7 +2942,7 @@ public class AllForDealFrame extends javax.swing.JFrame {
             comm.removeById((int) l);
             tbCommentairesService.setModel(new CommentSModel());
         }
-       // } else {
+        // } else {
         //JOptionPane.showMessageDialog(ParentPanel, "Ce commentaire est ajouté par " + s + ". Vous ne pouvez pas le supprimer");
         //}
 
@@ -2892,8 +2964,10 @@ public class AllForDealFrame extends javax.swing.JFrame {
         tfDescription1.setText(model.getValueAt(i, 2).toString());
 
         cbCat1.setSelectedItem(tblMesServices.getValueAt(i, 3));
+        cbZoneX.setSelectedItem(tblMesServices.getValueAt(i, 5));
         cbEtat.setSelectedItem(tblMesServices.getValueAt(i, 4));
-        cbZone1.setSelectedItem(model.getValueAt(i, 5).toString());
+
+
     }//GEN-LAST:event_tblMesServicesMouseClicked
 
     private void btnModifierActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModifierActionPerformed
@@ -2906,20 +2980,32 @@ public class AllForDealFrame extends javax.swing.JFrame {
             s.setId(Integer.parseInt(labelId.getText()));
             s.setNomService(tfNomService.getText());
             s.setDescription(tfDescription1.getText());
-            s.setType(cbCat1.getSelectedItem().toString());
+            // s.setType(cbCat1.getSelectedItem().toString());
+
             try {
-                rsNom = zoneDAO.getZoneByName(cbZone1.getSelectedItem().toString());
-                while (rsNom.next()) {
-                    s.setZone(rsNom.getInt(1));
-                    System.out.println(rsNom.getInt(1));
-                }//this.setResizable(false);
+                rsIdCol = coldao.getCollectionByName(cbCat1.getSelectedItem().toString());
+                while (rsIdCol.next()) {
+                    s.setType(rsIdCol.getInt(1));
+
+                }
             } catch (SQLException ex) {
-                Logger.getLogger(FrameAjouterService.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(AllForDealFrame.class.getName()).log(Level.SEVERE, null, ex);
             }
+            try {
+
+                rsId = zoneDAO.getZoneByName(cbZoneX.getSelectedItem().toString());
+                while (rsId.next()) {
+                    s.setZone(rsId.getInt(1));
+
+                }
+            } catch (SQLException ex) {
+                Logger.getLogger(AllForDealFrame.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
             s.setDateAjout(date);
             s.setEtat(cbEtat.getSelectedItem().toString());
-            ServiceDao pdao = new ServiceDao();
-            pdao.update(s);
+            ServiceDao sdao = new ServiceDao();
+            sdao.update(s);
             //jScrollPane1.setViewportView(tblService);
 
         } else {
@@ -2931,21 +3017,28 @@ public class AllForDealFrame extends javax.swing.JFrame {
     private void bntSupprimerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bntSupprimerActionPerformed
         // TODO add your handling code here:
 
-        FrameAfficherServiceAdmin f = new FrameAfficherServiceAdmin();
+        // FrameAfficherServiceAdmin f = new FrameAfficherServiceAdmin();
         int i = tblMesServices.getSelectedRow();
         Object l = tblMesServices.getValueAt(i, 0);
 
-        ServiceDao pdao = new ServiceDao();
+        ServiceDao sdao = new ServiceDao();
 
         int j = JOptionPane.showConfirmDialog(null, "la suppression est irréversible. Etes-vous sur de vouloir continuer?", "Veuillez confirmer votre choix", JOptionPane.YES_NO_OPTION);
 
         if (j == 0) {
-            pdao.removeById((int) l);
-
+            sdao.removeById((int) l);
             tblMesServices.setModel(new ServiceByUserIdModel());
+            jScrollPane9.setViewportView(tblMesServices);
+            labelId.setText(null);
+            tfNomService.setText(null);
+            tfDescription1.setText(null);
 
-            jScrollPane3.setViewportView(tblMesServices);
+            cbCat1.setSelectedItem(null);
+            cbZoneX.setSelectedItem(null);
+            cbEtat.setSelectedItem(null);
+
         }
+
     }//GEN-LAST:event_bntSupprimerActionPerformed
 
     private void tfNomServiceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfNomServiceActionPerformed
@@ -3017,39 +3110,6 @@ public class AllForDealFrame extends javax.swing.JFrame {
             y = ((Zone) o).getLon();
         }
     }//GEN-LAST:event_btnMapActionPerformed
-
-    private void cbRechercheCatMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cbRechercheCatMouseClicked
-        // TODO add your handling code here:
-
-    }//GEN-LAST:event_cbRechercheCatMouseClicked
-
-    private void cbRechercheCatMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cbRechercheCatMouseExited
-        // TODO add your handling code here:
-    }//GEN-LAST:event_cbRechercheCatMouseExited
-
-    private void cbRechercheCatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbRechercheCatActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_cbRechercheCatActionPerformed
-
-    private void bntRechercheSActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bntRechercheSActionPerformed
-        // TODO add your handling code here:
-        ServiceDao pdao = new ServiceDao();
-        tblRechercheS.setModel(new ServiceByCategorieModel());
-        nomS = tfRechercheS.getText();
-        categorie = cbRechercheCat.getSelectedItem().toString();
-        // System.out.println(nomS);
-        //        ServiceDao pdao = new ServiceDao();
-        pdao.findAllByCategorie(nomS, categorie);
-        tblRechercheS.setModel(new ServiceByCategorieModel());
-
-        //System.out.println(categorie);
-        //pdao.findAllByCategorie(categorie);
-        // tblRechercheS.setModel(new ServiceByCategorieModel());
-    }//GEN-LAST:event_bntRechercheSActionPerformed
-
-    private void tfRechercheSActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfRechercheSActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_tfRechercheSActionPerformed
 
     private void tpServiceMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tpServiceMouseClicked
         // TODO add your handling code here:
@@ -3345,139 +3405,188 @@ produitsLabel.setVisible(false);      }//GEN-LAST:event_btnProduitsMouseExited
     private void btnSonOffActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSonOffActionPerformed
         // TODO add your handling code here:
         clip.stop();
-        
+
     }//GEN-LAST:event_btnSonOffActionPerformed
 
     private void btnSonOnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSonOnActionPerformed
         // TODO add your handling code here:
-        Mixer.Info[] mixInfo = AudioSystem.getMixerInfo(); 
-          mixer = AudioSystem.getMixer(mixInfo[0]);
-          DataLine.Info dataLine = new DataLine.Info(Clip.class, null);
-  try{
-      clip = (Clip)mixer.getLine(dataLine);}
-      catch(LineUnavailableException ex){
-          ex.printStackTrace();
-      }
- try
- {
-     URL soundURL = this.getClass().getResource("/images/The_Eagles-Hotel_California_acoustic_live_www.wav");
-      AudioInputStream audioImput = AudioSystem.getAudioInputStream(soundURL);
-     clip.open(audioImput);
-     
- }catch(LineUnavailableException ex){
-          ex.printStackTrace();
-      }
- catch(UnsupportedAudioFileException exp){exp.printStackTrace(); }
-  catch(IOException io){io.printStackTrace(); }
+        Mixer.Info[] mixInfo = AudioSystem.getMixerInfo();
+        mixer = AudioSystem.getMixer(mixInfo[0]);
+        DataLine.Info dataLine = new DataLine.Info(Clip.class, null);
+        try {
+            clip = (Clip) mixer.getLine(dataLine);
+        } catch (LineUnavailableException ex) {
+            ex.printStackTrace();
+        }
+        try {
+            URL soundURL = this.getClass().getResource("/images/The_Eagles-Hotel_California_acoustic_live_www.wav");
+            AudioInputStream audioImput = AudioSystem.getAudioInputStream(soundURL);
+            clip.open(audioImput);
 
-      clip.start();
+        } catch (LineUnavailableException ex) {
+            ex.printStackTrace();
+        } catch (UnsupportedAudioFileException exp) {
+            exp.printStackTrace();
+        } catch (IOException io) {
+            io.printStackTrace();
+        }
+
+        clip.start();
     }//GEN-LAST:event_btnSonOnActionPerformed
 
     private void cbZoneActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbZoneActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_cbZoneActionPerformed
-int i=0;
-List<Produit> lp=pdao.findAll();
+    int i = 0;
+    List<Produit> lp = pdao.findAll();
     private void btnbackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnbackActionPerformed
-        
+
         System.out.println(lp);
-        
-       Produit p1=lp.get(i);
+
+        Produit p1 = lp.get(i);
         lnom.setText(p1.getNomP());
-        lprix.setText(""+p1.getPrix());
-        lbonus.setText(""+p1.getPtbonus());
-        lquantite.setText(""+p1.getQuantite());
-        lcat.setText(""+p1.getCategorie());
+        lprix.setText("" + p1.getPrix());
+        lbonus.setText("" + p1.getPtbonus());
+        lquantite.setText("" + p1.getQuantite());
+        lcat.setText("" + p1.getCategorie());
         /*-------------------------*/
-        Produit p2=lp.get(i-1);
+        Produit p2 = lp.get(i - 1);
         lnom1.setText(p2.getNomP());
-        lprix1.setText(""+p2.getPrix());
-        lbonus1.setText(""+p2.getPtbonus());
-        lquantite1.setText(""+p2.getQuantite());
-        lcat1.setText(""+p2.getCategorie());
+        lprix1.setText("" + p2.getPrix());
+        lbonus1.setText("" + p2.getPtbonus());
+        lquantite1.setText("" + p2.getQuantite());
+        lcat1.setText("" + p2.getCategorie());
         /*-------------------------*/
-        Produit p3=lp.get(i-2);
+        Produit p3 = lp.get(i - 2);
         lnom2.setText(p3.getNomP());
-        lprix2.setText(""+p3.getPrix());
-        lbonus2.setText(""+p3.getPtbonus());
-        lquantite2.setText(""+p3.getQuantite());
-        lcat2.setText(""+p3.getCategorie());
+        lprix2.setText("" + p3.getPrix());
+        lbonus2.setText("" + p3.getPtbonus());
+        lquantite2.setText("" + p3.getQuantite());
+        lcat2.setText("" + p3.getCategorie());
 
         /*-------------------------*/
-        Produit p4=lp.get(i-3);
+        Produit p4 = lp.get(i - 3);
         lnom3.setText(p4.getNomP());
-        lprix3.setText(""+p4.getPrix());
-        lbonus3.setText(""+p4.getPtbonus());
-        lquantite3.setText(""+p4.getQuantite());
-        lcat3.setText(""+p4.getCategorie());
+        lprix3.setText("" + p4.getPrix());
+        lbonus3.setText("" + p4.getPtbonus());
+        lquantite3.setText("" + p4.getQuantite());
+        lcat3.setText("" + p4.getCategorie());
         /*-------------------------*/
-        Produit p5=lp.get(i-4);
+        Produit p5 = lp.get(i - 4);
         lnom4.setText(p5.getNomP());
-        lprix4.setText(""+p4.getPrix());
-        lbonus4.setText(""+p5.getPtbonus());
-        lquantite4.setText(""+p5.getQuantite());
-        lcat4.setText(""+p5.getCategorie());
+        lprix4.setText("" + p4.getPrix());
+        lbonus4.setText("" + p5.getPtbonus());
+        lquantite4.setText("" + p5.getQuantite());
+        lcat4.setText("" + p5.getCategorie());
         /*-------------------------*/
-        Produit p6=lp.get(i-5);
-        lnom5.setText(""+p6.getNomP());
-        lprix5.setText(""+p6.getPrix());
-        lbonus5.setText(""+p6.getPtbonus());
-        lquantite5.setText(""+p6.getQuantite());
-        lcat5.setText(""+p6.getCategorie());
+        Produit p6 = lp.get(i - 5);
+        lnom5.setText("" + p6.getNomP());
+        lprix5.setText("" + p6.getPrix());
+        lbonus5.setText("" + p6.getPtbonus());
+        lquantite5.setText("" + p6.getQuantite());
+        lcat5.setText("" + p6.getCategorie());
         /*-------------------------*/
-        i-=6;
+        i -= 6;
     }//GEN-LAST:event_btnbackActionPerformed
 
     private void btnextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnextActionPerformed
 
-        
         System.out.println(lp);
-      Produit p1=lp.get(i);
+        Produit p1 = lp.get(i);
         lnom.setText(p1.getNomP());
-        lprix.setText(""+p1.getPrix());
-        lbonus.setText(""+p1.getPtbonus());
-        lquantite.setText(""+p1.getQuantite());
-        lcat.setText(""+p1.getCategorie());
+        lprix.setText("" + p1.getPrix());
+        lbonus.setText("" + p1.getPtbonus());
+        lquantite.setText("" + p1.getQuantite());
+        lcat.setText("" + p1.getCategorie());
         /*-------------------------*/
-        Produit p2=lp.get(i+1);
+        Produit p2 = lp.get(i + 1);
         lnom1.setText(p2.getNomP());
-        lprix1.setText(""+p2.getPrix());
-        lbonus1.setText(""+p2.getPtbonus());
-        lquantite1.setText(""+p2.getQuantite());
-        lcat1.setText(""+p2.getCategorie());
+        lprix1.setText("" + p2.getPrix());
+        lbonus1.setText("" + p2.getPtbonus());
+        lquantite1.setText("" + p2.getQuantite());
+        lcat1.setText("" + p2.getCategorie());
         /*-------------------------*/
-        Produit p3=lp.get(i+2);
+        Produit p3 = lp.get(i + 2);
         lnom2.setText(p3.getNomP());
-        lprix2.setText(""+p3.getPrix());
-        lbonus2.setText(""+p3.getPtbonus());
-        lquantite2.setText(""+p3.getQuantite());
-        lcat2.setText(""+p3.getCategorie());
+        lprix2.setText("" + p3.getPrix());
+        lbonus2.setText("" + p3.getPtbonus());
+        lquantite2.setText("" + p3.getQuantite());
+        lcat2.setText("" + p3.getCategorie());
 
         /*-------------------------*/
-        Produit p4=lp.get(i+3);
+        Produit p4 = lp.get(i + 3);
         lnom3.setText(p4.getNomP());
-        lprix3.setText(""+p4.getPrix());
-        lbonus3.setText(""+p4.getPtbonus());
-        lquantite3.setText(""+p4.getQuantite());
-        lcat3.setText(""+p4.getCategorie());
+        lprix3.setText("" + p4.getPrix());
+        lbonus3.setText("" + p4.getPtbonus());
+        lquantite3.setText("" + p4.getQuantite());
+        lcat3.setText("" + p4.getCategorie());
         /*-------------------------*/
-        Produit p5=lp.get(i+4);
+        Produit p5 = lp.get(i + 4);
         lnom4.setText(p5.getNomP());
-        lprix4.setText(""+p4.getPrix());
-        lbonus4.setText(""+p5.getPtbonus());
-        lquantite4.setText(""+p5.getQuantite());
-        lcat4.setText(""+p5.getCategorie());
+        lprix4.setText("" + p4.getPrix());
+        lbonus4.setText("" + p5.getPtbonus());
+        lquantite4.setText("" + p5.getQuantite());
+        lcat4.setText("" + p5.getCategorie());
         /*-------------------------*/
-        Produit p6=lp.get(i+5);
+        Produit p6 = lp.get(i + 5);
         lnom5.setText(p6.getNomP());
-        lprix5.setText(""+p6.getPrix());
-        lbonus5.setText(""+p6.getPtbonus());
-        lquantite5.setText(""+p6.getQuantite());
-        lcat5.setText(""+p6.getCategorie());
+        lprix5.setText("" + p6.getPrix());
+        lbonus5.setText("" + p6.getPtbonus());
+        lquantite5.setText("" + p6.getQuantite());
+        lcat5.setText("" + p6.getCategorie());
 
         /*-------------------------*/
-        i+=6;
+        i += 6;
     }//GEN-LAST:event_btnextActionPerformed
+
+    private void bntRechercheSActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bntRechercheSActionPerformed
+        // TODO add your handling code here:
+        ServiceDao sdao = new ServiceDao();
+        tblRechercheS.setModel(new ServiceByCategorieModel());
+        nomS = tfRechercheS.getText();
+        if (rbNom.isSelected()) {
+            sdao.findByName(nomS);
+            tblRechercheS.setModel(new ServiceByNomModel());
+        }
+        if (rbCat.isSelected()) {
+            sdao.findAllByCategorie(nomS);
+            tblRechercheS.setModel(new ServiceByCategorieModel());
+        }
+        if (rbZone.isSelected()) {
+            sdao.findByZone2(nomS);
+            tblRechercheS.setModel(new ServiceByZoneModel());
+        }
+       
+    }//GEN-LAST:event_bntRechercheSActionPerformed
+
+    private void tfRechercheSActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfRechercheSActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_tfRechercheSActionPerformed
+
+    private void rbNomActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbNomActionPerformed
+        // TODO add your handling code here:
+        if (rbNom.isSelected()) {
+            rbCat.setSelected(false);
+        }
+        rbZone.setSelected(false);
+
+    }//GEN-LAST:event_rbNomActionPerformed
+
+    private void rbCatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbCatActionPerformed
+        // TODO add your handling code here:
+        if (rbCat.isSelected()) {
+            rbNom.setSelected(false);
+        }
+        rbZone.setSelected(false);
+    }//GEN-LAST:event_rbCatActionPerformed
+
+    private void rbZoneActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbZoneActionPerformed
+        // TODO add your handling code here:
+        if (rbZone.isSelected()) {
+            rbCat.setSelected(false);
+        }
+        rbNom.setSelected(false);
+    }//GEN-LAST:event_rbZoneActionPerformed
 
     /**
      * @param args the command line arguments
@@ -3519,9 +3628,9 @@ List<Produit> lp=pdao.findAll();
                     AllForDealFrame fa = new AllForDealFrame();
                     fa.setVisible(true);
                     //fa.setResizable(false);
-                    fa.setSize(1200 ,700 );
+                    fa.setSize(1200, 700);
                     //fa.setLocation(screenWidth/2 , screenHeight/2 );
-                     tbCommentairesService.getColumnModel().getColumn(0).setMinWidth(0);
+                    tbCommentairesService.getColumnModel().getColumn(0).setMinWidth(0);
                     tbCommentairesService.getColumnModel().getColumn(0).setMaxWidth(0);
                     tbCommentairesService.getColumnModel().getColumn(0).setWidth(0);
 
@@ -3544,8 +3653,6 @@ List<Produit> lp=pdao.findAll();
                     tbMsgEnvs.getColumnModel().getColumn(0).setMinWidth(0);
                     tbMsgEnvs.getColumnModel().getColumn(0).setMaxWidth(0);
                     tbMsgEnvs.getColumnModel().getColumn(0).setWidth(0);
-                    
-                   
 
                 } catch (UnsupportedLookAndFeelException ex) {
                     Logger.getLogger(AllForDealFrame.class.getName()).log(Level.SEVERE, null, ex);
@@ -3568,6 +3675,7 @@ List<Produit> lp=pdao.findAll();
                 cbZone.addItem(res.getString(1));
                 cbZone1.addItem(res.getString(1));
                 cbZone2.addItem(res.getString(1));
+                cbZoneX.addItem(res.getString(1));
                 //cbZone4.addItem(res.getString(1));
 
                 // System.out.println(res.getString(1));
@@ -3576,13 +3684,14 @@ List<Produit> lp=pdao.findAll();
             Logger.getLogger(AllForDealFrame.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-     private void loadAllCategories() {
+
+    private void loadAllCategories() {
         try {
             ResultSet res = cdao.getCategories();
 
             while (res.next()) {
 
-                cbCategorie.addItem(res.getString(1));   
+                cbCategorie.addItem(res.getString(1));
 
             }
         } catch (SQLException ex) {
@@ -3590,9 +3699,9 @@ List<Produit> lp=pdao.findAll();
         }
     }
 
-    private void loadAllCategorie() {
+    private void loadAllCollection() {
         try {
-            ResultSet res = sdao.getCategorie();
+            ResultSet res = coldao.getCollection();
 
             while (res.next()) {
 
@@ -3600,15 +3709,13 @@ List<Produit> lp=pdao.findAll();
                 cbCat1.addItem(res.getString(1));
                 cbCat2.addItem(res.getString(1));
 //                cbCat4.addItem(res.getString(1));
-                cbRechercheCat.addItem(res.getString(1));
-                // System.out.println(res.getString(1));
 
+                // System.out.println(res.getString(1));
             }
         } catch (SQLException ex) {
             Logger.getLogger(AllForDealFrame.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-   
 
 //    private void loadMap() {
 //
@@ -3676,12 +3783,11 @@ List<Produit> lp=pdao.findAll();
     private javax.swing.JComboBox cbCategorieR;
     private javax.swing.JComboBox cbEtat;
     private javax.swing.JComboBox cbEtat1;
-    private javax.swing.JComboBox cbRechercheCat;
     private javax.swing.JComboBox cbZone;
     private javax.swing.JComboBox cbZone1;
     private javax.swing.JComboBox cbZone2;
-    private javax.swing.JComboBox cbZone3;
     private javax.swing.JComboBox cbZone5;
+    private javax.swing.JComboBox cbZoneX;
     private javax.swing.JLabel ecrireMsgLabel;
     private javax.swing.JLabel erreur1;
     private javax.swing.JLabel erreur2;
@@ -3732,6 +3838,12 @@ List<Produit> lp=pdao.findAll();
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel50;
     private javax.swing.JLabel jLabel51;
+    private javax.swing.JLabel jLabel52;
+    private javax.swing.JLabel jLabel53;
+    private javax.swing.JLabel jLabel54;
+    private javax.swing.JLabel jLabel55;
+    private javax.swing.JLabel jLabel56;
+    private javax.swing.JLabel jLabel57;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
@@ -3818,6 +3930,8 @@ List<Produit> lp=pdao.findAll();
     private javax.swing.JPanel p5;
     private javax.swing.JPanel p6;
     private javax.swing.JPanel pAjoutS;
+    private javax.swing.JPanel pAjoutS1;
+    private javax.swing.JPanel pAjoutS2;
     private javax.swing.JPanel pAllServices;
     private javax.swing.JPanel pConsulterS;
     private javax.swing.JPanel pConsulterS2;
@@ -3825,7 +3939,11 @@ List<Produit> lp=pdao.findAll();
     private javax.swing.JPanel pMesServices;
     private javax.swing.JPanel pRechercheS;
     private javax.swing.JPanel pShowMap;
+    private javax.swing.JPanel pShowMap1;
     private javax.swing.JLabel produitsLabel;
+    private javax.swing.JRadioButton rbCat;
+    private javax.swing.JRadioButton rbNom;
+    private javax.swing.JRadioButton rbZone;
     private javax.swing.JLabel reclamationLabel;
     private javax.swing.JLabel servicesLabel;
     private javax.swing.JTextArea taDescription;
@@ -3851,6 +3969,8 @@ List<Produit> lp=pdao.findAll();
     private javax.swing.JTextField tfNomP;
     private javax.swing.JTextField tfNomP1;
     private javax.swing.JTextField tfNomS;
+    private javax.swing.JTextField tfNomS1;
+    private javax.swing.JTextField tfNomS2;
     private javax.swing.JTextField tfNomService;
     private javax.swing.JTextField tfNomService1;
     private javax.swing.JTextField tfObjet;
@@ -3868,6 +3988,8 @@ List<Produit> lp=pdao.findAll();
     private javax.swing.JTextField tfTVA;
     private javax.swing.JTextField tfTVA1;
     private javax.swing.JTabbedPane tpService;
+    private javax.swing.JTabbedPane tpService1;
+    private javax.swing.JTabbedPane tpService2;
     private javax.swing.JInternalFrame videoPlayer;
     // End of variables declaration//GEN-END:variables
 }

@@ -7,8 +7,11 @@
 package utils;
 
 import GUI.AllForDealFrame;
-
 import dao.ServiceDao;
+import dao.ServiceDao;
+import dao.ServiceDao;
+import dao.ZoneDao;
+import dao.ZoneDao;
 import dao.ZoneDao;
 import entite.Service;
 import java.util.List;
@@ -18,15 +21,15 @@ import javax.swing.table.AbstractTableModel;
  *
  * @author Super
  */
-public class ServiceByCategorieModel extends AbstractTableModel{
+public class ServiceByZoneModel extends AbstractTableModel{
 
     List<Service> l;
     String[] colonnes = {"id", "nom Service", "Description", "Catégorie", "etat", "zone", "Ajouté le"};
     ZoneDao zoneDAO = new ZoneDao();
-    public ServiceByCategorieModel() {
+    public ServiceByZoneModel() {
         
         ServiceDao pdao = new ServiceDao();
-       l = pdao.findAllByCategorie(AllForDealFrame.getCollection(),AllForDealFrame.getNomS());
+       l = pdao.findByZone2(AllForDealFrame.getNomS());
    
     }
 // test git 
@@ -51,7 +54,7 @@ public class ServiceByCategorieModel extends AbstractTableModel{
             case 2:
                 return l.get(rowIndex).getDescription();
             case 3:
-                return l.get(rowIndex).getTypeName();
+                return l.get(rowIndex).getType();
             case 4:
                 return l.get(rowIndex).getEtat();
             case 5:
@@ -70,4 +73,5 @@ public class ServiceByCategorieModel extends AbstractTableModel{
     }
 
 }
+
 

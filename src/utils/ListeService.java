@@ -5,6 +5,7 @@
  */
 package utils;
 
+import dao.CollectionDao;
 import dao.ServiceDao;
 import dao.ZoneDao;
 import entite.Service;
@@ -20,11 +21,12 @@ public class ListeService extends AbstractTableModel {
     List<Service> l;
     String[] colonnes = {"id", "nom Service", "Description", "Catégorie", "etat", "zone", "Ajouté le"};
     ZoneDao zoneDAO = new ZoneDao();
+    CollectionDao colDao = new CollectionDao();
     public ListeService() {
         
-        ServiceDao pdao = new ServiceDao();
+        ServiceDao sdao = new ServiceDao();
        // l = pdao.findAllByUser(1); // userID
-       l = pdao.findAll(); // ALL
+       l = sdao.findAll(); // ALL
     }
 // test git 
     @Override
@@ -48,7 +50,7 @@ public class ListeService extends AbstractTableModel {
             case 2:
                 return l.get(rowIndex).getDescription();
             case 3:
-                return l.get(rowIndex).getType();
+                return l.get(rowIndex).getTypeName();
             case 4:
                 return l.get(rowIndex).getEtat();
             case 5:

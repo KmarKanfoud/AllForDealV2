@@ -10,11 +10,21 @@ import com.restfb.FacebookClient;
 import com.restfb.Parameter;
 import com.restfb.types.FacebookType;
 import com.restfb.types.Page;
+import dao.CommentDao;
+import dao.ServiceDao;
 import dao.UserDao;
+import entite.Comment;
+import entite.Service;
 import entite.User;
+import entite.Zone;
+import java.awt.BorderLayout;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.Date;
 import javax.swing.JOptionPane;
+import javax.swing.table.TableModel;
+import utils.CommentSModel;
+import utils.ListeService;
 import utils.ProduitModel;
 
 /**
@@ -22,7 +32,10 @@ import utils.ProduitModel;
  * @author Lilya Thebti
  */
 public class DashbordAdminFrame extends javax.swing.JFrame {
-
+ private static int service_id;
+ 
+    ServiceDao sdao = new ServiceDao();
+ 
     /**
      * Creates new form DashbordAdminFrame
      */
@@ -48,32 +61,6 @@ public class DashbordAdminFrame extends javax.swing.JFrame {
         btnGReclamation = new javax.swing.JButton();
         btnStatistique = new javax.swing.JButton();
         ContentPanel = new javax.swing.JPanel();
-        GestionUtilisateurPanel = new javax.swing.JPanel();
-        tfusername = new javax.swing.JTextField();
-        tfemail = new javax.swing.JTextField();
-        tflastname = new javax.swing.JTextField();
-        tffirstname = new javax.swing.JTextField();
-        jLabel2 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
-        jLabel5 = new javax.swing.JLabel();
-        jLabel6 = new javax.swing.JLabel();
-        chbenabled = new javax.swing.JCheckBox();
-        cboxgender = new javax.swing.JComboBox();
-        jLabel8 = new javax.swing.JLabel();
-        tfphone = new javax.swing.JTextField();
-        jLabel9 = new javax.swing.JLabel();
-        jLabel7 = new javax.swing.JLabel();
-        cbrole = new javax.swing.JComboBox();
-        jToggleButton4 = new javax.swing.JToggleButton();
-        tfbonus = new javax.swing.JTextField();
-        jLabel10 = new javax.swing.JLabel();
-        jScrollPane2 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
-        btnSup = new javax.swing.JButton();
-        btnupdate = new javax.swing.JButton();
-        jLabel1 = new javax.swing.JLabel();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        taadress = new javax.swing.JTextArea();
         statistiquePanel = new javax.swing.JPanel();
         jPanel5 = new javax.swing.JPanel();
         jPanel6 = new javax.swing.JPanel();
@@ -82,6 +69,35 @@ public class DashbordAdminFrame extends javax.swing.JFrame {
         produitPanel = new javax.swing.JPanel();
         jScrollPane3 = new javax.swing.JScrollPane();
         tbProduits = new javax.swing.JTable();
+        ServicePanel = new javax.swing.JPanel();
+        pAllServices = new javax.swing.JPanel();
+        jScrollPane7 = new javax.swing.JScrollPane();
+        tblAllServices = new javax.swing.JTable();
+        btnConsulterS1 = new javax.swing.JButton();
+        bntSupprimer = new javax.swing.JButton();
+        pConsulterS2 = new javax.swing.JPanel();
+        btnBackS2 = new javax.swing.JButton();
+        jScrollPane5 = new javax.swing.JScrollPane();
+        tbCommentairesService = new javax.swing.JTable();
+        btnSupprimerCommentaire = new javax.swing.JButton();
+        bntMap = new javax.swing.JButton();
+        pDetailS = new javax.swing.JPanel();
+        jLabel26 = new javax.swing.JLabel();
+        lNomSAll = new javax.swing.JLabel();
+        lDescriptionSAll = new javax.swing.JLabel();
+        jLabel27 = new javax.swing.JLabel();
+        jLabel28 = new javax.swing.JLabel();
+        lCategorieServiceAll = new javax.swing.JLabel();
+        lEtatSAll = new javax.swing.JLabel();
+        jLabel29 = new javax.swing.JLabel();
+        jLabel30 = new javax.swing.JLabel();
+        lZoneSAll = new javax.swing.JLabel();
+        pShowMap = new javax.swing.JPanel();
+        tfComment = new javax.swing.JTextField();
+        btnCommenter1 = new javax.swing.JButton();
+        jLabel57 = new javax.swing.JLabel();
+        pShowMap1 = new javax.swing.JPanel();
+        jLabel56 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -163,191 +179,6 @@ public class DashbordAdminFrame extends javax.swing.JFrame {
 
         ContentPanel.setLayout(new java.awt.CardLayout());
 
-        tfusername.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                tfusernameActionPerformed(evt);
-            }
-        });
-
-        jLabel2.setText("Nom D'utilisateur :");
-
-        jLabel3.setText("Email :");
-
-        jLabel5.setText("Genre :");
-
-        jLabel6.setText("Prenom :");
-
-        chbenabled.setText("Activer");
-        chbenabled.addChangeListener(new javax.swing.event.ChangeListener() {
-            public void stateChanged(javax.swing.event.ChangeEvent evt) {
-                chbenabledStateChanged(evt);
-            }
-        });
-        chbenabled.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                chbenabledActionPerformed(evt);
-            }
-        });
-
-        cboxgender.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Homme", "Femme" }));
-        cboxgender.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cboxgenderActionPerformed(evt);
-            }
-        });
-
-        jLabel8.setText("Nom :");
-
-        jLabel9.setText("N° Tel");
-
-        jLabel7.setText("Role");
-
-        cbrole.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "ROLE_ADMIN", "ROLE_USER", "ROLE_FOURNISSEUR", " " }));
-
-        jToggleButton4.setText("Annuler");
-        jToggleButton4.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jToggleButton4ActionPerformed(evt);
-            }
-        });
-
-        tfbonus.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                tfbonusActionPerformed(evt);
-            }
-        });
-
-        jLabel10.setText("Bonus :");
-
-        jTable1.setModel(new UserModel());
-        jTable1.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jTable1MouseClicked(evt);
-            }
-        });
-        jScrollPane2.setViewportView(jTable1);
-
-        btnSup.setText("Supprimer");
-        btnSup.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnSupActionPerformed(evt);
-            }
-        });
-
-        btnupdate.setText("Modifier");
-        btnupdate.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnupdateActionPerformed(evt);
-            }
-        });
-
-        jLabel1.setText("Adresse");
-
-        taadress.setColumns(20);
-        taadress.setRows(5);
-        taadress.setPreferredSize(new java.awt.Dimension(130, 94));
-        jScrollPane1.setViewportView(taadress);
-
-        javax.swing.GroupLayout GestionUtilisateurPanelLayout = new javax.swing.GroupLayout(GestionUtilisateurPanel);
-        GestionUtilisateurPanel.setLayout(GestionUtilisateurPanelLayout);
-        GestionUtilisateurPanelLayout.setHorizontalGroup(
-            GestionUtilisateurPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(GestionUtilisateurPanelLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(GestionUtilisateurPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(GestionUtilisateurPanelLayout.createSequentialGroup()
-                        .addGap(21, 21, 21)
-                        .addComponent(btnupdate)
-                        .addGap(18, 18, 18)
-                        .addComponent(btnSup)
-                        .addGap(18, 18, 18)
-                        .addComponent(jToggleButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(GestionUtilisateurPanelLayout.createSequentialGroup()
-                        .addGroup(GestionUtilisateurPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel2)
-                            .addComponent(jLabel3)
-                            .addComponent(jLabel5)
-                            .addComponent(jLabel8)
-                            .addComponent(jLabel6)
-                            .addComponent(jLabel9)
-                            .addComponent(jLabel7)
-                            .addComponent(jLabel10)
-                            .addComponent(jLabel1))
-                        .addGap(18, 18, 18)
-                        .addGroup(GestionUtilisateurPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(chbenabled)
-                            .addGroup(GestionUtilisateurPanelLayout.createSequentialGroup()
-                                .addGroup(GestionUtilisateurPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(jScrollPane1)
-                                    .addComponent(tfemail)
-                                    .addComponent(tfusername)
-                                    .addComponent(cboxgender, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(tflastname)
-                                    .addComponent(tfbonus)
-                                    .addComponent(cbrole, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(tfphone)
-                                    .addComponent(tffirstname))
-                                .addGap(83, 83, 83)
-                                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 649, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(0, 0, Short.MAX_VALUE))))
-        );
-        GestionUtilisateurPanelLayout.setVerticalGroup(
-            GestionUtilisateurPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(GestionUtilisateurPanelLayout.createSequentialGroup()
-                .addGroup(GestionUtilisateurPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(GestionUtilisateurPanelLayout.createSequentialGroup()
-                        .addContainerGap()
-                        .addGroup(GestionUtilisateurPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(GestionUtilisateurPanelLayout.createSequentialGroup()
-                                .addGroup(GestionUtilisateurPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(tfusername, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel2))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addGroup(GestionUtilisateurPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(tfemail, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel3))
-                                .addGap(36, 36, 36)
-                                .addGroup(GestionUtilisateurPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(cboxgender, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel5))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addGroup(GestionUtilisateurPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(tflastname, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel8))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addGroup(GestionUtilisateurPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(tffirstname, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel6))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addGroup(GestionUtilisateurPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(tfphone, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel9))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jLabel7))
-                            .addComponent(cbrole, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(GestionUtilisateurPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(tfbonus, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel10))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(GestionUtilisateurPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel1)
-                            .addGroup(GestionUtilisateurPanelLayout.createSequentialGroup()
-                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(29, 29, 29)
-                                .addComponent(chbenabled))))
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 6, Short.MAX_VALUE)
-                .addGroup(GestionUtilisateurPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jToggleButton4)
-                    .addComponent(btnSup)
-                    .addComponent(btnupdate))
-                .addContainerGap())
-        );
-
-        ContentPanel.add(GestionUtilisateurPanel, "card2");
-
         statistiquePanel.setLayout(null);
 
         jPanel5.setLayout(new java.awt.BorderLayout());
@@ -386,17 +217,270 @@ public class DashbordAdminFrame extends javax.swing.JFrame {
             .addGroup(produitPanelLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 904, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(99, Short.MAX_VALUE))
+                .addContainerGap(316, Short.MAX_VALUE))
         );
         produitPanelLayout.setVerticalGroup(
             produitPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(produitPanelLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 444, Short.MAX_VALUE)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 577, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
         ContentPanel.add(produitPanel, "card4");
+
+        ServicePanel.setLayout(new java.awt.CardLayout());
+
+        pAllServices.setLayout(null);
+
+        tblAllServices.setModel((new ListeService()));
+        tblAllServices.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblAllServicesMouseClicked(evt);
+            }
+        });
+        jScrollPane7.setViewportView(tblAllServices);
+
+        pAllServices.add(jScrollPane7);
+        jScrollPane7.setBounds(55, 11, 452, 402);
+
+        btnConsulterS1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/forward.png"))); // NOI18N
+        btnConsulterS1.setText("Consulter");
+        btnConsulterS1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnConsulterS1MouseClicked(evt);
+            }
+        });
+        btnConsulterS1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnConsulterS1ActionPerformed(evt);
+            }
+        });
+        pAllServices.add(btnConsulterS1);
+        btnConsulterS1.setBounds(50, 450, 180, 41);
+
+        bntSupprimer.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/rubbish-bin.png"))); // NOI18N
+        bntSupprimer.setText("Supprimer");
+        bntSupprimer.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bntSupprimerActionPerformed(evt);
+            }
+        });
+        pAllServices.add(bntSupprimer);
+        bntSupprimer.setBounds(250, 450, 180, 40);
+
+        ServicePanel.add(pAllServices, "card3");
+
+        btnBackS2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/back.png"))); // NOI18N
+        btnBackS2.setText("Back");
+        btnBackS2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBackS2ActionPerformed(evt);
+            }
+        });
+
+        tbCommentairesService.setModel( new CommentSModel());
+        tbCommentairesService.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tbCommentairesServiceMouseClicked(evt);
+            }
+        });
+        jScrollPane5.setViewportView(tbCommentairesService);
+
+        btnSupprimerCommentaire.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/rubbish-bin.png"))); // NOI18N
+        btnSupprimerCommentaire.setText("Supprimer Commentaire");
+        btnSupprimerCommentaire.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSupprimerCommentaireActionPerformed(evt);
+            }
+        });
+
+        bntMap.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/map-2.png"))); // NOI18N
+        bntMap.setText("voir maps");
+        bntMap.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bntMapActionPerformed(evt);
+            }
+        });
+
+        pDetailS.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED, new java.awt.Color(0, 153, 255), new java.awt.Color(0, 153, 255), new java.awt.Color(0, 153, 255), new java.awt.Color(0, 153, 255)));
+
+        jLabel26.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel26.setText("Nom Service :");
+
+        lNomSAll.setText("nom");
+
+        lDescriptionSAll.setText("des");
+
+        jLabel27.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel27.setText("Description :");
+
+        jLabel28.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel28.setText("Catégorie :");
+
+        lCategorieServiceAll.setText("cat");
+
+        lEtatSAll.setText("etat");
+
+        jLabel29.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel29.setText("Etat :");
+
+        jLabel30.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel30.setText("Zone :");
+
+        lZoneSAll.setText("zone");
+
+        javax.swing.GroupLayout pDetailSLayout = new javax.swing.GroupLayout(pDetailS);
+        pDetailS.setLayout(pDetailSLayout);
+        pDetailSLayout.setHorizontalGroup(
+            pDetailSLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pDetailSLayout.createSequentialGroup()
+                .addGap(42, 42, 42)
+                .addGroup(pDetailSLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(pDetailSLayout.createSequentialGroup()
+                        .addComponent(jLabel27)
+                        .addGap(18, 18, 18)
+                        .addComponent(lDescriptionSAll))
+                    .addGroup(pDetailSLayout.createSequentialGroup()
+                        .addComponent(jLabel26)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(lNomSAll))
+                    .addGroup(pDetailSLayout.createSequentialGroup()
+                        .addGap(6, 6, 6)
+                        .addGroup(pDetailSLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel28)
+                            .addComponent(jLabel29)
+                            .addComponent(jLabel30))
+                        .addGap(18, 18, 18)
+                        .addGroup(pDetailSLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lZoneSAll)
+                            .addComponent(lEtatSAll)
+                            .addComponent(lCategorieServiceAll))))
+                .addContainerGap(68, Short.MAX_VALUE))
+        );
+        pDetailSLayout.setVerticalGroup(
+            pDetailSLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pDetailSLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(pDetailSLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel26)
+                    .addComponent(lNomSAll))
+                .addGap(26, 26, 26)
+                .addGroup(pDetailSLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel27)
+                    .addComponent(lDescriptionSAll))
+                .addGap(30, 30, 30)
+                .addGroup(pDetailSLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel28)
+                    .addComponent(lCategorieServiceAll))
+                .addGap(28, 28, 28)
+                .addGroup(pDetailSLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel29)
+                    .addComponent(lEtatSAll))
+                .addGap(18, 18, 18)
+                .addGroup(pDetailSLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel30)
+                    .addComponent(lZoneSAll))
+                .addContainerGap(84, Short.MAX_VALUE))
+        );
+
+        pShowMap.setLayout(new java.awt.BorderLayout());
+
+        btnCommenter1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/comment_1.png"))); // NOI18N
+        btnCommenter1.setText("Commenter");
+        btnCommenter1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCommenter1ActionPerformed(evt);
+            }
+        });
+
+        jLabel57.setIcon(new javax.swing.ImageIcon("C:\\Users\\Super Moon\\Downloads\\terre-gondwana_0.jpg")); // NOI18N
+
+        pConsulterS2.add(jScrollPane5);
+        jScrollPane5.setBounds(55, 11, 452, 402);
+
+        javax.swing.GroupLayout pConsulterS2Layout = new javax.swing.GroupLayout(pConsulterS2);
+        pConsulterS2.setLayout(pConsulterS2Layout);
+        pConsulterS2Layout.setHorizontalGroup(
+            pConsulterS2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pConsulterS2Layout.createSequentialGroup()
+                .addGroup(pConsulterS2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(pConsulterS2Layout.createSequentialGroup()
+                        .addGap(134, 134, 134)
+                        .addComponent(bntMap))
+                    .addGroup(pConsulterS2Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(pDetailS, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGroup(pConsulterS2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(pConsulterS2Layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnBackS2)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(pConsulterS2Layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 162, Short.MAX_VALUE)
+                        .addGroup(pConsulterS2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pConsulterS2Layout.createSequentialGroup()
+                                .addComponent(jLabel57, javax.swing.GroupLayout.PREFERRED_SIZE, 424, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(42, 42, 42)
+                                .addGroup(pConsulterS2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(tfComment, javax.swing.GroupLayout.PREFERRED_SIZE, 419, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 480, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(31, 31, 31))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pConsulterS2Layout.createSequentialGroup()
+                                .addComponent(btnCommenter1, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(btnSupprimerCommentaire)
+                                .addGap(204, 204, 204))))))
+            .addGroup(pConsulterS2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(pConsulterS2Layout.createSequentialGroup()
+                    .addGap(432, 432, 432)
+                    .addComponent(pShowMap, javax.swing.GroupLayout.PREFERRED_SIZE, 430, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(368, Short.MAX_VALUE)))
+        );
+        pConsulterS2Layout.setVerticalGroup(
+            pConsulterS2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pConsulterS2Layout.createSequentialGroup()
+                .addGroup(pConsulterS2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(pConsulterS2Layout.createSequentialGroup()
+                        .addGap(23, 23, 23)
+                        .addComponent(pDetailS, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(26, 26, 26)
+                        .addComponent(bntMap))
+                    .addGroup(pConsulterS2Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addGroup(pConsulterS2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel57, javax.swing.GroupLayout.PREFERRED_SIZE, 437, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(pConsulterS2Layout.createSequentialGroup()
+                                .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 286, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(tfComment, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                .addGroup(pConsulterS2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(pConsulterS2Layout.createSequentialGroup()
+                        .addGap(18, 18, 18)
+                        .addComponent(btnSupprimerCommentaire))
+                    .addGroup(pConsulterS2Layout.createSequentialGroup()
+                        .addGap(26, 26, 26)
+                        .addComponent(btnCommenter1)))
+                .addGap(32, 32, 32)
+                .addComponent(btnBackS2)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(pConsulterS2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(pConsulterS2Layout.createSequentialGroup()
+                    .addGap(111, 111, 111)
+                    .addComponent(pShowMap, javax.swing.GroupLayout.PREFERRED_SIZE, 457, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(31, Short.MAX_VALUE)))
+        );
+
+        ServicePanel.add(pConsulterS2, "card3");
+
+        pShowMap1.setLayout(new java.awt.BorderLayout());
+
+        jLabel56.setIcon(new javax.swing.ImageIcon("C:\\Users\\Super Moon\\Downloads\\terre-gondwana_0.jpg")); // NOI18N
+        pShowMap1.add(jLabel56, java.awt.BorderLayout.CENTER);
+
+        ServicePanel.add(pShowMap1, "card4");
+
+        ContentPanel.add(ServicePanel, "card5");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -411,7 +495,7 @@ public class DashbordAdminFrame extends javax.swing.JFrame {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(menu, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(ContentPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                        .addComponent(ContentPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 1230, Short.MAX_VALUE))))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -443,134 +527,11 @@ public class DashbordAdminFrame extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnGUserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGUserActionPerformed
-       ContentPanel.removeAll();
-        ContentPanel.add(GestionUtilisateurPanel);
-        ContentPanel.repaint();
-        ContentPanel.revalidate();
+//       ContentPanel.removeAll();
+//        ContentPanel.add(GestionUtilisateurPanel);
+//        ContentPanel.repaint();
+//        ContentPanel.revalidate();
     }//GEN-LAST:event_btnGUserActionPerformed
-
-    private void tfusernameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfusernameActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_tfusernameActionPerformed
-
-    private void chbenabledStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_chbenabledStateChanged
-        // TODO add your handling code here:
-    }//GEN-LAST:event_chbenabledStateChanged
-
-    private void chbenabledActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chbenabledActionPerformed
-
-        // TODO add your handling code here:
-    }//GEN-LAST:event_chbenabledActionPerformed
-
-    private void cboxgenderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cboxgenderActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_cboxgenderActionPerformed
-
-    private void jToggleButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButton4ActionPerformed
-        tfusername.setText("");
-        tfemail.setText("");
-        //tfmdp.setText("");
-        //tfemail.setText(u.getEmail());
-        tffirstname.setText("");
-        tflastname.setText("");
-        tfphone.setText("");
-        //tfemail.setText(u.getEmail());
-        tfbonus.setText(""); // TODO add your handling code here:
-    }//GEN-LAST:event_jToggleButton4ActionPerformed
-
-    private void tfbonusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfbonusActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_tfbonusActionPerformed
-
-    private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
-        UserDao udao=new UserDao();
-        User u=new User();
-        int i= jTable1.getSelectedRow();
-
-        int s=(int) jTable1.getModel().getValueAt(i, 0);
-        u=udao.findById(s);
-        tfusername.setText(u.getUsername());
-        tfemail.setText(u.getEmail());
-        //tfmdp.setText(u.getPassword());
-        //tfemail.setText(u.getEmail());
-        tffirstname.setText(u.getFirstname());
-        tflastname.setText(u.getLastname());
-        tfphone.setText(u.getPhone());
-        //tfemail.setText(u.getEmail());
-        tfbonus.setText(""+(u.getBonus()));// TODO add your handling code here:
-    }//GEN-LAST:event_jTable1MouseClicked
-
-    private void btnSupActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSupActionPerformed
-        UserDao udao=new UserDao();
-        try{
-            int i= jTable1.getSelectedRow();
-
-            int s=(int) jTable1.getModel().getValueAt(i, 0);
-            System.out.println(s);
-
-            udao.removeById(s);
-
-        }
-        catch (ArrayIndexOutOfBoundsException exp)
-        {
-            JOptionPane.showMessageDialog(null, "Veuillez selectionner un Utilisateur à supprimer");
-        }
-    }//GEN-LAST:event_btnSupActionPerformed
-
-    private void btnupdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnupdateActionPerformed
-        User u =new User();
-        UserDao udao=new UserDao();
-        int i= jTable1.getSelectedRow();
-
-        int s=(int) jTable1.getModel().getValueAt(i, 0);
-        u.setId(s);
-        u.setUsername(tfusername.getText());
-        u.setUsernameCanonical(tfusername.getText());
-        u.setEmail(tfemail.getText());
-        u.setEmailCanonical(tfemail.getText());
-
-        // u.setPassword(tfmdp.getText());
-
-        if(chbenabled.isSelected())
-        u.setEnabled(1);
-        else{
-            u.setEnabled(0);
-        }
-        if(cboxgender.getSelectedIndex()==0){
-            u.setGender("m");
-        }
-        else {
-            u.setGender("f");
-        }
-
-        u.setPhone(tfphone.getText());
-
-        u.setLastname(tflastname.getText());
-        u.setFirstname(tffirstname.getText());
-
-        if(cbrole.getSelectedIndex()==0){
-            u.setRoles("ROLE_ADMIN");
-        }
-        if(cbrole.getSelectedIndex()==1) {
-            u.setRoles("ROLE_USER");
-        }
-        else{
-            u.setRoles("ROLE_FOURNISSEUR");
-        }
-        try{
-            u.setBonus(Integer.parseInt(tfbonus.getText()));
-        }
-        catch(NumberFormatException ex ){
-            System.out.println("erreur"+ex);
-        }
-        java.sql.Date d = java.sql.Date.valueOf(LocalDate.now());
-        u.setUpdated_at(d);
-        u.setAdress(taadress.getText());
-        udao.update(u);
-        jTable1.setModel(new UserModel());
-        // TODO add your handling code here:
-
-    }//GEN-LAST:event_btnupdateActionPerformed
 
     private void btnStatistiqueActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnStatistiqueActionPerformed
         // TODO add your handling code here:
@@ -589,17 +550,129 @@ public class DashbordAdminFrame extends javax.swing.JFrame {
 
     private void btnGServiceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGServiceActionPerformed
         ContentPanel.removeAll();
-        ContentPanel.add(produitPanel);
+        ContentPanel.add(ServicePanel);
         ContentPanel.repaint();
         ContentPanel.revalidate();
     }//GEN-LAST:event_btnGServiceActionPerformed
 
     private void btnGReclamationActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGReclamationActionPerformed
-       ContentPanel.removeAll();
-        ContentPanel.add(GestionUtilisateurPanel);
-        ContentPanel.repaint();
-        ContentPanel.revalidate();
+//       ContentPanel.removeAll();
+//        ContentPanel.add(GestionUtilisateurPanel);
+//        ContentPanel.repaint();
+//        ContentPanel.revalidate();
     }//GEN-LAST:event_btnGReclamationActionPerformed
+
+    private void tblAllServicesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblAllServicesMouseClicked
+        int i = tblAllServices.getSelectedRow();
+        Object l = tblAllServices.getValueAt(i, 0);
+        service_id = (int) l;
+        System.out.println("ID" + service_id);
+    }//GEN-LAST:event_tblAllServicesMouseClicked
+
+    private void btnConsulterS1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnConsulterS1MouseClicked
+
+    }//GEN-LAST:event_btnConsulterS1MouseClicked
+
+    private void btnConsulterS1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConsulterS1ActionPerformed
+        // TODO add your handling code here:
+        int i = tblAllServices.getSelectedRow();
+        TableModel model = tblAllServices.getModel();
+        Object l = tblAllServices.getValueAt(i, 0);
+        service_id = (int) l;
+        System.out.println(service_id);
+        tbCommentairesService.setModel(new CommentSModel());
+        tbCommentairesService.setVisible(true);
+        lNomSAll.setText(model.getValueAt(i, 1).toString());
+        lDescriptionSAll.setText(model.getValueAt(i, 2).toString());
+        lCategorieServiceAll.setText(tblAllServices.getValueAt(i, 3).toString());
+        lEtatSAll.setText(tblAllServices.getValueAt(i, 4).toString());
+        lZoneSAll.setText(model.getValueAt(i, 5).toString());
+
+        Service s = sdao.findById(service_id);
+
+        System.out.println(s.getZone());
+        pShowMap.setLayout(new BorderLayout());
+        //pShowMap.add(view.getComponent(0), BorderLayout.CENTER);
+        java.util.List<Zone> obj = new ArrayList();
+
+        obj = sdao.findByZone(s.getZone());
+        double x;
+        double y;
+        for (Object o : obj) {
+            x = ((Zone) o).getLat();
+            y = ((Zone) o).getLon();
+            System.out.println(x + "dddddddddd" + y);
+            //browser.loadURL("https://maps.googleapis.com/maps/api/staticmap?center=" + x + "," + y + "&zoom=12&size=700x500&maptype=roadmap&markers=icone%7Clabel:S%7C" + x + "," + y);
+        }
+
+        ServicePanel.removeAll();
+        ServicePanel.add(pConsulterS2);
+        ServicePanel.repaint();
+        ServicePanel.revalidate();
+    }//GEN-LAST:event_btnConsulterS1ActionPerformed
+
+    private void btnBackS2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackS2ActionPerformed
+        // TODO add your handling code here:
+        ServicePanel.removeAll();
+        ServicePanel.add(pAllServices);
+        ServicePanel.repaint();
+        ServicePanel.revalidate();
+    }//GEN-LAST:event_btnBackS2ActionPerformed
+
+    private void tbCommentairesServiceMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbCommentairesServiceMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_tbCommentairesServiceMouseClicked
+
+    private void btnSupprimerCommentaireActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSupprimerCommentaireActionPerformed
+        Comment c = new Comment();
+        CommentDao comm = new CommentDao();
+        int ligneSelectionne = tbCommentairesService.getSelectedRow();
+        Object l = tbCommentairesService.getValueAt(ligneSelectionne, 0);
+        System.out.println(l);
+        c = comm.findById((int) l);
+        String s = (String) tbCommentairesService.getValueAt(ligneSelectionne, 3);
+        System.out.println(s);
+        //if (FrameAccueil.getUserId() == c.getUser_id()) {
+            int i = JOptionPane.showConfirmDialog(null, "La suppression est irréversible. Êtes-vous sûr de vouloir continuer?",
+                "Veuillez confirmer votre choix",
+                JOptionPane.YES_NO_OPTION);
+
+            if (i == 0) {
+                comm.removeById((int) l);
+                tbCommentairesService.setModel(new CommentSModel());
+            }
+            // } else {
+            //JOptionPane.showMessageDialog(ParentPanel, "Ce commentaire est ajouté par " + s + ". Vous ne pouvez pas le supprimer");
+            //}
+    }//GEN-LAST:event_btnSupprimerCommentaireActionPerformed
+
+    private void bntMapActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bntMapActionPerformed
+
+    }//GEN-LAST:event_bntMapActionPerformed
+
+    private void btnCommenter1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCommenter1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnCommenter1ActionPerformed
+
+    private void bntSupprimerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bntSupprimerActionPerformed
+        // TODO add your handling code here:
+
+        // FrameAfficherServiceAdmin f = new FrameAfficherServiceAdmin();
+        int i = tblAllServices.getSelectedRow();
+        Object l = tblAllServices.getValueAt(i, 0);
+
+        ServiceDao sdao = new ServiceDao();
+
+        int j = JOptionPane.showConfirmDialog(null, "la suppression est irréversible. Etes-vous sur de vouloir continuer?", "Veuillez confirmer votre choix", JOptionPane.YES_NO_OPTION);
+
+        if (j == 0) {
+            sdao.removeById((int) l);
+            tblAllServices.setModel(new ListeService());
+            jScrollPane7.setViewportView(tblAllServices);
+          
+
+        }
+    }//GEN-LAST:event_bntSupprimerActionPerformed
 
     /**
      * @param args the command line arguments
@@ -639,47 +712,50 @@ public class DashbordAdminFrame extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel ContentPanel;
-    private javax.swing.JPanel GestionUtilisateurPanel;
     private javax.swing.JPanel HeadPanel;
+    private javax.swing.JPanel ServicePanel;
+    private javax.swing.JButton bntMap;
+    private javax.swing.JButton bntSupprimer;
+    private javax.swing.JButton btnBackS2;
+    private javax.swing.JButton btnCommenter1;
+    private javax.swing.JButton btnConsulterS1;
     private javax.swing.JButton btnGProduits;
     private javax.swing.JButton btnGReclamation;
     private javax.swing.JButton btnGService;
     private javax.swing.JButton btnGUser;
     private javax.swing.JButton btnStatistique;
-    private javax.swing.JButton btnSup;
-    private javax.swing.JButton btnupdate;
-    private javax.swing.JComboBox cboxgender;
-    private javax.swing.JComboBox cbrole;
-    private javax.swing.JCheckBox chbenabled;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel10;
+    private javax.swing.JButton btnSupprimerCommentaire;
     private javax.swing.JLabel jLabel11;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabel8;
-    private javax.swing.JLabel jLabel9;
+    private javax.swing.JLabel jLabel26;
+    private javax.swing.JLabel jLabel27;
+    private javax.swing.JLabel jLabel28;
+    private javax.swing.JLabel jLabel29;
+    private javax.swing.JLabel jLabel30;
+    private javax.swing.JLabel jLabel56;
+    private javax.swing.JLabel jLabel57;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel6;
     private javax.swing.JPanel jPanel7;
-    private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
-    private javax.swing.JTable jTable1;
-    private javax.swing.JToggleButton jToggleButton4;
+    private javax.swing.JScrollPane jScrollPane5;
+    private javax.swing.JScrollPane jScrollPane7;
+    private javax.swing.JLabel lCategorieServiceAll;
+    private javax.swing.JLabel lDescriptionSAll;
+    private javax.swing.JLabel lEtatSAll;
+    private javax.swing.JLabel lNomSAll;
+    private javax.swing.JLabel lZoneSAll;
     private javax.swing.JPanel menu;
+    private javax.swing.JPanel pAllServices;
+    private javax.swing.JPanel pConsulterS2;
+    private javax.swing.JPanel pDetailS;
+    private javax.swing.JPanel pShowMap;
+    private javax.swing.JPanel pShowMap1;
     private javax.swing.JPanel produitPanel;
     private javax.swing.JPanel statistiquePanel;
-    private javax.swing.JTextArea taadress;
-    private javax.swing.JTable tbProduits;
-    private javax.swing.JTextField tfbonus;
-    private javax.swing.JTextField tfemail;
-    private javax.swing.JTextField tffirstname;
-    private javax.swing.JTextField tflastname;
-    private javax.swing.JTextField tfphone;
-    private javax.swing.JTextField tfusername;
+    private static javax.swing.JTable tbCommentairesService;
+    private static javax.swing.JTable tbProduits;
+    private javax.swing.JTable tblAllServices;
+    private javax.swing.JTextField tfComment;
     // End of variables declaration//GEN-END:variables
 }

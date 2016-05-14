@@ -6,6 +6,7 @@
 package utils;
 
 import GUI.FrameAccueil;
+import GUI.LoginForm;
 import dao.ServiceDao;
 import dao.ZoneDao;
 import entite.Service;
@@ -20,11 +21,11 @@ public class ServiceByUserIdModel extends AbstractTableModel {
 
     List<Service> l;
     String[] colonnes = {"id", "nom Service", "Description", "Catégorie", "etat", "zone", "Ajouté le"};
-    ZoneDao zoneDAO = new ZoneDao();
+   ZoneDao zoneDAO = new ZoneDao();
     public ServiceByUserIdModel() {
         
-        ServiceDao pdao = new ServiceDao();
-       l = pdao.findAllByUser(FrameAccueil.getUserId()); // userID
+        ServiceDao sdao = new ServiceDao();
+       l = sdao.findAllByUser(LoginForm.getUser_id()); // userID
         //l = pdao.findAll(); // ALL
     }
 // test git 
@@ -49,7 +50,7 @@ public class ServiceByUserIdModel extends AbstractTableModel {
             case 2:
                 return l.get(rowIndex).getDescription();
             case 3:
-                return l.get(rowIndex).getType();
+                return l.get(rowIndex).getTypeName();
             case 4:
                 return l.get(rowIndex).getEtat();
             case 5:

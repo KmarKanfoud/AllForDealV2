@@ -6,7 +6,7 @@
  */
 package utils;
 
-import GUI.FrameAfficherServiceAll;
+import GUI.AllForDealFrame;
 import dao.ServiceDao;
 import dao.ZoneDao;
 import entite.Service;
@@ -24,8 +24,8 @@ public class ServiceByNomModel extends AbstractTableModel{
     ZoneDao zoneDAO = new ZoneDao();
     public ServiceByNomModel() {
         
-        ServiceDao pdao = new ServiceDao();
-       l = pdao.findByName(FrameAfficherServiceAll.getNomS());
+        ServiceDao sdao = new ServiceDao();
+       l = sdao.findByName(AllForDealFrame.getNomS());
    
     }
 // test git 
@@ -50,7 +50,7 @@ public class ServiceByNomModel extends AbstractTableModel{
             case 2:
                 return l.get(rowIndex).getDescription();
             case 3:
-                return l.get(rowIndex).getType();
+                return l.get(rowIndex).getTypeName();
             case 4:
                 return l.get(rowIndex).getEtat();
             case 5:

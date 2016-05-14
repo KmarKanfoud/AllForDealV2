@@ -44,20 +44,21 @@ public class ServiceDao implements IDao<Service> {
 
     @Override
     public void add(Service t) {
-        String req = "insert into service (id,nomService,description,type,etat,dateAjout,zone_id,user_id) values (?,?,?,?,?,?,?,?)";
+        String req = "insert into service (id,zone_id,nomService,description,etat,dateAjout,user_id,type_id) values (?,?,?,?,?,?,?,?)";
         try {
             pst = connection.prepareStatement(req);
 
             pst.setInt(1, t.getId());
-            //pst.setInt(2, t.getZone());
-            pst.setString(2, t.getNomService());
-            pst.setString(3, t.getDescription());
-            pst.setString(4, t.getType());
+            pst.setInt(2, t.getZone());
+            pst.setString(3, t.getNomService());
+            pst.setString(4, t.getDescription());
+           
             pst.setString(5, t.getEtat());
+            
             pst.setDate(6, (Date) t.getDateAjout());
 
-            pst.setInt(7, t.getZone());
-            pst.setInt(8, t.getUserId());
+            pst.setInt(7, t.getUserId());
+             pst.setInt(8, t.getType());
 
             //pst.setDate(7 s.DateAjout());
             pst.executeUpdate();
@@ -68,13 +69,13 @@ public class ServiceDao implements IDao<Service> {
 
     @Override
     public void update(Service t) {
-        String req = "UPDATE service SET nomService = ?,description = ? ,type = ?,etat = ?,dateAjout = ?, zone_id=? WHERE id =?";
+        String req = "UPDATE service SET nomService = ?,description = ? ,type_id = ?,etat = ?,dateAjout = ?, zone_id=? WHERE id =?";
         try {
             pst = connection.prepareStatement(req);
 
             pst.setString(1, t.getNomService());
             pst.setString(2, t.getDescription());
-            pst.setString(3, t.getType());
+            pst.setInt(3, t.getType());
             pst.setString(4, t.getEtat());
             pst.setDate(5, (Date) t.getDateAjout());
             pst.setInt(6, t.getZone());
@@ -116,9 +117,9 @@ public class ServiceDao implements IDao<Service> {
                 s.setZone(resultat.getInt(2));
                 s.setNomService(resultat.getString(3));
                 s.setDescription(resultat.getString(4));
-                s.setType(resultat.getString(5));
-                s.setEtat(resultat.getString(6));
-                s.setDateAjout(resultat.getDate(7));
+                s.setEtat(resultat.getString(5));
+                s.setDateAjout(resultat.getDate(6));
+                s.setType(resultat.getInt(8));
 
                 listeService.add(s);
 
@@ -147,10 +148,10 @@ public class ServiceDao implements IDao<Service> {
                 s.setZone(resultat.getInt(2));
                 s.setNomService(resultat.getString(3));
                 s.setDescription(resultat.getString(4));
-                s.setType(resultat.getString(5));
-                s.setEtat(resultat.getString(6));
-                s.setDateAjout(resultat.getDate(7));
 
+                s.setEtat(resultat.getString(5));
+                s.setDateAjout(resultat.getDate(6));
+                s.setType(resultat.getInt(8));
                 ServiceByUserIdModel.add(s);
 
             }
@@ -164,7 +165,7 @@ public class ServiceDao implements IDao<Service> {
     public List<Service> findAllByCategorie(String cat, String nom) {
         List<Service> ServiceByCategorieModel = new ArrayList<>();
 
-        String req = "select * from service where type like '%" + cat + "%' OR nomService like '%" + nom + "%'";
+        String req = "select * from service where nomService like '%" + nom + "%'";
 
         try {
             pst = connection.prepareStatement(req);
@@ -174,13 +175,14 @@ public class ServiceDao implements IDao<Service> {
 
                 Service s = new Service();
 
-                s.setId(resultat.getInt(1));
+                 s.setId(resultat.getInt(1));
                 s.setZone(resultat.getInt(2));
                 s.setNomService(resultat.getString(3));
                 s.setDescription(resultat.getString(4));
-                s.setType(resultat.getString(5));
-                s.setEtat(resultat.getString(6));
-                s.setDateAjout(resultat.getDate(7));
+                 s.setEtat(resultat.getString(5));
+                  s.setDateAjout(resultat.getDate(6));
+                  
+                s.setType(resultat.getInt(8));
 
                 ServiceByCategorieModel.add(s);
 
@@ -208,9 +210,12 @@ public class ServiceDao implements IDao<Service> {
                 s.setZone(resultat.getInt(2));
                 s.setNomService(resultat.getString(3));
                 s.setDescription(resultat.getString(4));
-                s.setType(resultat.getString(5));
-                s.setEtat(resultat.getString(6));
-                s.setDateAjout(resultat.getDate(7));
+                 s.setEtat(resultat.getString(5));
+                  s.setDateAjout(resultat.getDate(6));
+                  s.setUserId(resultat.getInt(7));
+                s.setType(resultat.getInt(8));
+                
+               
 
                 ServiceByNomModel.add(s);
 
@@ -258,18 +263,7 @@ public class ServiceDao implements IDao<Service> {
         return null;
     }
 
-    public ResultSet getCategorie() {
-
-        try {
-            pst = connection.prepareStatement("SELECT name FROM classification__category;");
-            ResultSet allAdmin = pst.executeQuery();
-            return allAdmin;
-
-        } catch (SQLException ex) {
-            Logger.getLogger(ServiceDao.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        return null;
-    }
+   
 
     public List<Zone> findByZone(int z) {
         List<Zone> Map = new ArrayList<>();
@@ -296,5 +290,66 @@ public class ServiceDao implements IDao<Service> {
             return Map;
         }
     }
+    
+     public List<Service> findAllByCategorie(String cat) {
+        List<Service> ServiceByCategorieModel = new ArrayList<>();
+
+        String req = "select * from service where type like '%" + cat +  "%'";
+
+        try {
+            pst = connection.prepareStatement(req);
+            ResultSet resultat = pst.executeQuery(req);
+
+            while (resultat.next()) {
+
+                Service s = new Service();
+
+                s.setId(resultat.getInt(1));
+                s.setZone(resultat.getInt(2));
+                s.setNomService(resultat.getString(3));
+                s.setDescription(resultat.getString(4));
+                s.setType(resultat.getInt(5));
+                s.setEtat(resultat.getString(6));
+                s.setDateAjout(resultat.getDate(7));
+
+                ServiceByCategorieModel.add(s);
+
+            }
+            return ServiceByCategorieModel;
+        } catch (SQLException ex) {
+            System.out.println("erreur" + ex.getMessage());
+            return ServiceByCategorieModel;
+        }
+    }
+       public List<Service> findByZone2(String name) {
+       List<Service> ServiceByNomModel = new ArrayList<>();
+        String req = "SELECT s.id,s.nomService,s.description,s.type,s.etat,z.nom,s.dateAjout from service s inner join zone z on (s.zone_id = z.id) where z.nom=" + name + ";";
+
+        try {
+            pst = connection.prepareStatement(req);
+            ResultSet resultat = pst.executeQuery(req);
+
+            while (resultat.next()) {
+
+                Service s = new Service();
+
+                s.setId(resultat.getInt(1));
+                s.setZone(resultat.getInt(2));
+                s.setNomService(resultat.getString(3));
+                s.setDescription(resultat.getString(4));
+                s.setType(resultat.getInt(5));
+                s.setEtat(resultat.getString(6));
+                s.setDateAjout(resultat.getDate(7));
+
+                ServiceByNomModel.add(s);
+
+            }
+            return ServiceByNomModel;
+        } catch (SQLException ex) {
+            System.out.println("erreur" + ex.getMessage());
+            return ServiceByNomModel;
+        }
+    }
+
 
 }

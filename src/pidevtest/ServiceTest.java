@@ -33,10 +33,10 @@ public class ServiceTest {
        // s2.setNomService("Maison");
        // pdao.update(s2);
         //pdao.removeById(6);
-//          List<Service>LS = new ArrayList();
-//        LS = pdao.findAll();
-//        System.out.println(LS);
-        System.out.println(pdao.findByName("sahar"));
+        List<Service>LS = new ArrayList();   
+        LS = pdao.findAll();
+       System.out.println(LS);
+        //System.out.println(pdao.findByName("sahar"));
 
     }
 }

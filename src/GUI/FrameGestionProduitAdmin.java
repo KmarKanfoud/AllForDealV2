@@ -818,7 +818,7 @@ public class FrameGestionProduitAdmin extends javax.swing.JFrame {
                     System.out.println(rsNom.getInt(1));
                 }//this.setResizable(false);
             } catch (SQLException ex) {
-                Logger.getLogger(FrameAjouterService.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(AllForDealFrame.class.getName()).log(Level.SEVERE, null, ex);
             }
             p.setDateAjout(date);
             p.setPrix(Integer.parseInt(tfPrix1.getText()));

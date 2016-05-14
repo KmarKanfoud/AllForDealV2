@@ -892,8 +892,8 @@ public class FrameAccueil extends javax.swing.JFrame {
     }//GEN-LAST:event_TFSujetActionPerformed
 
     private void ProposerServiceBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ProposerServiceBtnActionPerformed
-        FrameAfficherServiceAll faSA = new FrameAfficherServiceAll();
-        faSA.setVisible(true);
+       // AllForDealFrame faSA = new AllForDealFrame();
+       // faSA.setVisible(true);
     }//GEN-LAST:event_ProposerServiceBtnActionPerformed
 
     private void ConsulterBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ConsulterBtnActionPerformed

@@ -7,6 +7,7 @@ package GUI;
 
 import dao.CollectionDao;
 import static GUI.FrameGestionProduitAdmin.prod_id;
+import com.itextpdf.text.Document;
 
 //import com.teamdev.jxbrowser.chromium.Browser;
 //import com.teamdev.jxbrowser.chromium.swing.BrowserView;
@@ -24,6 +25,7 @@ import dao.CommentDao;
 //import com.teamdev.jxbrowser.chromium.swing.BrowserView;
 import dao.MessageDao;
 import dao.NotificationDao;
+import dao.PanierDao;
 import dao.ProduitDao;
 import dao.ReclamationDao;
 import utils.ServiceByZoneModel;
@@ -34,6 +36,7 @@ import de.javasoft.plaf.synthetica.SyntheticaBlueLightLookAndFeel;
 import entite.Comment;
 import entite.Message;
 import entite.Notification;
+import entite.Panier;
 import entite.Produit;
 import entite.Reclamation;
 import entite.Service;
@@ -111,8 +114,8 @@ public class AllForDealFrame extends javax.swing.JFrame {
 
     ServiceDao sdao = new ServiceDao();
     ZoneDao zoneDAO = new ZoneDao();
-      Browser browser = new Browser();
-    BrowserView view = new BrowserView(browser);
+//      Browser browser = new Browser();
+    //BrowserView view = new BrowserView(browser);
 
     private static String nomS;
     //kmar
@@ -546,6 +549,11 @@ public class AllForDealFrame extends javax.swing.JFrame {
             }
             public void mouseExited(java.awt.event.MouseEvent evt) {
                 btnPanierMouseExited(evt);
+            }
+        });
+        btnPanier.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnPanierActionPerformed(evt);
             }
         });
 
@@ -2175,7 +2183,7 @@ public class AllForDealFrame extends javax.swing.JFrame {
                     .addGroup(pConsulterS2Layout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(pDetailS, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 35, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 17, Short.MAX_VALUE)
                 .addGroup(pConsulterS2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(pConsulterS2Layout.createSequentialGroup()
                         .addComponent(btnCommenter1, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -3233,7 +3241,7 @@ public class AllForDealFrame extends javax.swing.JFrame {
         TableModel model = tblAllServices.getModel();
         Object l = tblAllServices.getValueAt(i, 0);
         service_id = (int) l;
-           browser.reload();
+           //browser.reload();
         loadMap2();
 
 
@@ -4111,10 +4119,22 @@ produitsLabel.setVisible(false);      }//GEN-LAST:event_btnProduitsMouseExited
 
     private void AjoutPanierActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AjoutPanierActionPerformed
         // TODO add your handling code here:
+        Panier p= new Panier();
+        PanierDao pdao = new PanierDao();
+            pdao.add(p);
+            
+        
+        
+        
+        
     }//GEN-LAST:event_AjoutPanierActionPerformed
 
     private void tfCommentPActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfCommentPActionPerformed
         // TODO add your handling code here:
+        
+        
+        
+        
     }//GEN-LAST:event_tfCommentPActionPerformed
 
     private void btnCommenterPActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCommenterPActionPerformed
@@ -4180,6 +4200,20 @@ produitsLabel.setVisible(false);      }//GEN-LAST:event_btnProduitsMouseExited
         ParentPanel2.repaint();
         ParentPanel2.revalidate();
     }//GEN-LAST:event_btnBackS3ActionPerformed
+
+    private void btnPanierActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPanierActionPerformed
+        // TODO add your handling code here:
+        
+        FrameUserPanier FUP = new FrameUserPanier();
+        FUP.setVisible(true);
+        //FUP.setVisible(false);
+        
+        
+//         ParentPanel.removeAll();
+//        ParentPanel.add(PanierPanel);
+//        ParentPanel.repaint();
+//        ParentPanel.revalidate();
+    }//GEN-LAST:event_btnPanierActionPerformed
 
     /**
      * @param args the command line arguments
@@ -4314,7 +4348,7 @@ produitsLabel.setVisible(false);      }//GEN-LAST:event_btnProduitsMouseExited
 
         pShowMap.setLayout(new BorderLayout());
         int i = 0;
-        pShowMap.add(view, BorderLayout.CENTER);
+        //pShowMap.add(view, BorderLayout.CENTER);
         java.util.List<Zone> obj = sdao.findByZone(s.getZone());
 
         double x;
@@ -4323,7 +4357,7 @@ produitsLabel.setVisible(false);      }//GEN-LAST:event_btnProduitsMouseExited
             x = ((Zone) o).getLat();
             y = ((Zone) o).getLon();
             System.out.println(x + "dddddddddd" + y);
-            browser.loadURL("https://maps.googleapis.com/maps/api/staticmap?center=" + x + "," + y + "&zoom=12&size=700x500&maptype=roadmap&markers=icone%7Clabel:S%7C" + x + "," + y);
+            //browser.loadURL("https://maps.googleapis.com/maps/api/staticmap?center=" + x + "," + y + "&zoom=12&size=700x500&maptype=roadmap&markers=icone%7Clabel:S%7C" + x + "," + y);
     
         }
 

@@ -63,8 +63,8 @@ public class DashbordAdminFrame extends javax.swing.JFrame {
 
     ServiceDao sdao = new ServiceDao();
     ProduitDao pdao = new ProduitDao();
-    Browser browser = new Browser();
-    BrowserView view = new BrowserView(browser);
+   // Browser browser = new Browser();
+    //BrowserView view = new BrowserView(browser);
 
     public static int getService_id() {
         return service_id;
@@ -108,6 +108,7 @@ public class DashbordAdminFrame extends javax.swing.JFrame {
         btnMail = new javax.swing.JButton();
         btnStatistique = new javax.swing.JButton();
         btnReclam = new javax.swing.JButton();
+        btnPanier = new javax.swing.JButton();
         ContentPanel = new javax.swing.JPanel();
         statistiquePanel = new javax.swing.JPanel();
         jPanel5 = new javax.swing.JPanel();
@@ -226,6 +227,13 @@ public class DashbordAdminFrame extends javax.swing.JFrame {
             }
         });
 
+        btnPanier.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/panier.png"))); // NOI18N
+        btnPanier.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnPanierActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout menuLayout = new javax.swing.GroupLayout(menu);
         menu.setLayout(menuLayout);
         menuLayout.setHorizontalGroup(
@@ -238,7 +246,8 @@ public class DashbordAdminFrame extends javax.swing.JFrame {
                     .addComponent(btnGProduits, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btnGService, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btnMail, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnReclam, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(btnReclam, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnPanier, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap(26, Short.MAX_VALUE))
         );
         menuLayout.setVerticalGroup(
@@ -256,6 +265,8 @@ public class DashbordAdminFrame extends javax.swing.JFrame {
                 .addComponent(btnStatistique, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnReclam, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnPanier, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -612,7 +623,7 @@ public class DashbordAdminFrame extends javax.swing.JFrame {
                         .addComponent(bntMap)))
                 .addGroup(pConsulterS2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(pConsulterS2Layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 595, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(btnCommenter1, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(btnSupprimerCommentaire)
@@ -647,9 +658,7 @@ public class DashbordAdminFrame extends javax.swing.JFrame {
                                 .addComponent(tfComment, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                 .addGap(87, 87, 87)
                 .addGroup(pConsulterS2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(pConsulterS2Layout.createSequentialGroup()
-                        .addGap(18, 18, 18)
-                        .addComponent(btnSupprimerCommentaire))
+                    .addComponent(btnSupprimerCommentaire)
                     .addGroup(pConsulterS2Layout.createSequentialGroup()
                         .addGap(26, 26, 26)
                         .addComponent(btnCommenter1)))
@@ -758,7 +767,7 @@ public class DashbordAdminFrame extends javax.swing.JFrame {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(menu, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(ContentPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 1230, Short.MAX_VALUE))))
+                        .addComponent(ContentPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 1230, Short.MAX_VALUE))))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -918,7 +927,7 @@ public class DashbordAdminFrame extends javax.swing.JFrame {
         TableModel model = tblAllServices.getModel();
         Object l = tblAllServices.getValueAt(i, 0);
         service_id = (int) l;
-        browser.reload();
+        //browser.reload();
         loadMap2();
 
 
@@ -1102,6 +1111,12 @@ public class DashbordAdminFrame extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_btnSupprimerReclamActionPerformed
 
+    private void btnPanierActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPanierActionPerformed
+        // TODO add your handling code here:
+        FramePanierAdmin FPA = new   FramePanierAdmin ();
+        FPA.setVisible(true);
+    }//GEN-LAST:event_btnPanierActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -1154,7 +1169,7 @@ public class DashbordAdminFrame extends javax.swing.JFrame {
 
         pShowMap.setLayout(new BorderLayout());
         int i = 0;
-        pShowMap.add(view, BorderLayout.CENTER);
+        //pShowMap.add(view, BorderLayout.CENTER);
         java.util.List<Zone> obj = sdao.findByZone(s.getZone());
 
         double x;
@@ -1163,7 +1178,7 @@ public class DashbordAdminFrame extends javax.swing.JFrame {
             x = ((Zone) o).getLat();
             y = ((Zone) o).getLon();
             System.out.println(x + "dddddddddd" + y);
-            browser.loadURL("https://maps.googleapis.com/maps/api/staticmap?center=" + x + "," + y + "&zoom=12&size=700x500&maptype=roadmap&markers=icone%7Clabel:S%7C" + x + "," + y);
+           // browser.loadURL("https://maps.googleapis.com/maps/api/staticmap?center=" + x + "," + y + "&zoom=12&size=700x500&maptype=roadmap&markers=icone%7Clabel:S%7C" + x + "," + y);
 
         }
 
@@ -1189,6 +1204,7 @@ public class DashbordAdminFrame extends javax.swing.JFrame {
     private javax.swing.JButton btnGService;
     private javax.swing.JButton btnGUser;
     private javax.swing.JButton btnMail;
+    private javax.swing.JButton btnPanier;
     private javax.swing.JButton btnPartager;
     private javax.swing.JButton btnReclam;
     private javax.swing.JButton btnStatistique;

@@ -6,7 +6,7 @@
 package GUI;
 
 import dao.CollectionDao;
-import static GUI.FrameGestionProduitAdmin.prod_id;
+
 import com.itextpdf.text.Document;
 
 //import com.teamdev.jxbrowser.chromium.Browser;

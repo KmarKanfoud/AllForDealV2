@@ -453,8 +453,8 @@ public class FrameInscription extends javax.swing.JFrame {
         
             User u = new User();
             PostFile pf = new PostFile();
-            u.setId(FrameAccueil.getUserId());
-            System.out.println(FrameAccueil.getUserId());
+            u.setId(LoginForm.getUser_id());
+           
             u.setUsername(tfusername.getText());
             u.setUsernameCanonical(tfusername.getText());
             String mail = tfemail.getText();

@@ -5,7 +5,7 @@
  */
 package GUI;
 
-import static GUI.MailForm.taMail;
+
 import com.restfb.DefaultFacebookClient;
 import com.restfb.FacebookClient;
 import com.restfb.Parameter;

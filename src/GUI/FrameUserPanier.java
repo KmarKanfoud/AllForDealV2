@@ -289,7 +289,7 @@ public class FrameUserPanier extends javax.swing.JFrame {
         int j = JOptionPane.showConfirmDialog(null, " Etes-vous sur de vouloir continuer?", "Veuillez confirmer votre choix", JOptionPane.YES_NO_OPTION);
 
         if (j == 0) {
-            pdao.removeProduit((int) l, FrameAccueil.getUserId());
+            pdao.removeProduit((int) l, LoginForm.getUser_id());
 
             TablePanier.setModel(new PanieruserModel());
 

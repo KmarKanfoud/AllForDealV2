@@ -113,7 +113,7 @@ public class Uploadphoto extends javax.swing.JFrame {
     private void btnuploadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnuploadActionPerformed
       UserDao udao=new UserDao();
        PostFile pf = new PostFile();
-        User u=udao.findById(FrameAccueil.getUserId());
+        User u=udao.findById(LoginForm.getUser_id());
         
         JFileChooser chooser = new JFileChooser();
 

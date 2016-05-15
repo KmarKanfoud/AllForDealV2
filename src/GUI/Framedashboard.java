@@ -291,7 +291,7 @@ public class Framedashboard extends javax.swing.JFrame {
 
         jPanel7.setLayout(new java.awt.BorderLayout());
         jPanel4.add(jPanel7);
-        jPanel7.setBounds(20, 290, 530, 220);
+        jPanel7.setBounds(10, 290, 540, 220);
 
         jLabel11.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/bg.jpg"))); // NOI18N
         jPanel4.add(jLabel11);

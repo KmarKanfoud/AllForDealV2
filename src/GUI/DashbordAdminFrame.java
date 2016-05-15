@@ -11,9 +11,11 @@ import com.restfb.Parameter;
 import com.restfb.types.FacebookType;
 import com.restfb.types.Page;
 import dao.CommentDao;
+import dao.ProduitDao;
 import dao.ServiceDao;
 import dao.UserDao;
 import entite.Comment;
+import entite.Produit;
 import entite.Service;
 import entite.User;
 import entite.Zone;
@@ -35,6 +37,11 @@ public class DashbordAdminFrame extends javax.swing.JFrame {
  private static int service_id;
  
     ServiceDao sdao = new ServiceDao();
+    ProduitDao pdao = new ProduitDao();
+    
+    
+    
+    private static int produit_id;
  
     /**
      * Creates new form DashbordAdminFrame
@@ -67,8 +74,22 @@ public class DashbordAdminFrame extends javax.swing.JFrame {
         jPanel7 = new javax.swing.JPanel();
         jLabel11 = new javax.swing.JLabel();
         produitPanel = new javax.swing.JPanel();
+        OffresProduitsTableauPanel = new javax.swing.JPanel();
         jScrollPane3 = new javax.swing.JScrollPane();
         tbProduits = new javax.swing.JTable();
+        btnPartager = new javax.swing.JButton();
+        btnConsulterProduit = new javax.swing.JButton();
+        ConsultationPanel = new javax.swing.JPanel();
+        lNomProduit = new javax.swing.JLabel();
+        lCategorie = new javax.swing.JLabel();
+        lQuantite = new javax.swing.JLabel();
+        lDescription = new javax.swing.JLabel();
+        lPrix = new javax.swing.JLabel();
+        lPointBonus = new javax.swing.JLabel();
+        lZone = new javax.swing.JLabel();
+        lTVA = new javax.swing.JLabel();
+        lReduction = new javax.swing.JLabel();
+        btnBackP = new javax.swing.JButton();
         ServicePanel = new javax.swing.JPanel();
         pAllServices = new javax.swing.JPanel();
         jScrollPane7 = new javax.swing.JScrollPane();
@@ -210,21 +231,153 @@ public class DashbordAdminFrame extends javax.swing.JFrame {
         });
         jScrollPane3.setViewportView(tbProduits);
 
+        btnPartager.setText("Partager");
+        btnPartager.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnPartagerActionPerformed(evt);
+            }
+        });
+
+        btnConsulterProduit.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/forward.png"))); // NOI18N
+        btnConsulterProduit.setText("Consulter");
+        btnConsulterProduit.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnConsulterProduitMouseClicked(evt);
+            }
+        });
+        btnConsulterProduit.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnConsulterProduitActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout OffresProduitsTableauPanelLayout = new javax.swing.GroupLayout(OffresProduitsTableauPanel);
+        OffresProduitsTableauPanel.setLayout(OffresProduitsTableauPanelLayout);
+        OffresProduitsTableauPanelLayout.setHorizontalGroup(
+            OffresProduitsTableauPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(OffresProduitsTableauPanelLayout.createSequentialGroup()
+                .addGroup(OffresProduitsTableauPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(OffresProduitsTableauPanelLayout.createSequentialGroup()
+                        .addGap(63, 63, 63)
+                        .addComponent(btnConsulterProduit, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(282, 282, 282)
+                        .addComponent(btnPartager))
+                    .addGroup(OffresProduitsTableauPanelLayout.createSequentialGroup()
+                        .addGap(51, 51, 51)
+                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 777, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(176, Short.MAX_VALUE))
+        );
+        OffresProduitsTableauPanelLayout.setVerticalGroup(
+            OffresProduitsTableauPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(OffresProduitsTableauPanelLayout.createSequentialGroup()
+                .addGap(39, 39, 39)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 297, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(69, 69, 69)
+                .addGroup(OffresProduitsTableauPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE, false)
+                    .addComponent(btnConsulterProduit, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnPartager))
+                .addContainerGap(211, Short.MAX_VALUE))
+        );
+
+        lNomProduit.setText("jLabel10");
+
+        lCategorie.setText("jLabel11");
+
+        lQuantite.setText("jLabel12");
+
+        lDescription.setText("jLabel13");
+
+        lPrix.setText("jLabel14");
+
+        lPointBonus.setText("jLabel15");
+
+        lZone.setText("jLabel16");
+
+        lTVA.setText("jLabel17");
+
+        lReduction.setText("jLabel10");
+
+        btnBackP.setText("Back");
+        btnBackP.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBackPActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout ConsultationPanelLayout = new javax.swing.GroupLayout(ConsultationPanel);
+        ConsultationPanel.setLayout(ConsultationPanelLayout);
+        ConsultationPanelLayout.setHorizontalGroup(
+            ConsultationPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(ConsultationPanelLayout.createSequentialGroup()
+                .addGap(211, 211, 211)
+                .addGroup(ConsultationPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(btnBackP)
+                    .addComponent(lReduction)
+                    .addComponent(lTVA)
+                    .addComponent(lZone)
+                    .addComponent(lPointBonus)
+                    .addComponent(lPrix)
+                    .addComponent(lDescription)
+                    .addComponent(lQuantite)
+                    .addComponent(lCategorie)
+                    .addComponent(lNomProduit))
+                .addContainerGap(738, Short.MAX_VALUE))
+        );
+        ConsultationPanelLayout.setVerticalGroup(
+            ConsultationPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(ConsultationPanelLayout.createSequentialGroup()
+                .addGap(46, 46, 46)
+                .addComponent(lNomProduit)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(lCategorie)
+                .addGap(18, 18, 18)
+                .addComponent(lQuantite)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(lDescription)
+                .addGap(18, 18, 18)
+                .addComponent(lPrix)
+                .addGap(18, 18, 18)
+                .addComponent(lPointBonus)
+                .addGap(18, 18, 18)
+                .addComponent(lZone)
+                .addGap(18, 18, 18)
+                .addComponent(lTVA)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(lReduction)
+                .addGap(47, 47, 47)
+                .addComponent(btnBackP)
+                .addContainerGap(292, Short.MAX_VALUE))
+        );
+
         javax.swing.GroupLayout produitPanelLayout = new javax.swing.GroupLayout(produitPanel);
         produitPanel.setLayout(produitPanelLayout);
         produitPanelLayout.setHorizontalGroup(
             produitPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(produitPanelLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 904, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(316, Short.MAX_VALUE))
+            .addGap(0, 1230, Short.MAX_VALUE)
+            .addGroup(produitPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(produitPanelLayout.createSequentialGroup()
+                    .addGap(0, 0, Short.MAX_VALUE)
+                    .addComponent(OffresProduitsTableauPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(0, 0, Short.MAX_VALUE)))
+            .addGroup(produitPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(produitPanelLayout.createSequentialGroup()
+                    .addGap(0, 0, Short.MAX_VALUE)
+                    .addComponent(ConsultationPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(0, 0, Short.MAX_VALUE)))
         );
         produitPanelLayout.setVerticalGroup(
             produitPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(produitPanelLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 577, Short.MAX_VALUE)
-                .addContainerGap())
+            .addGap(0, 657, Short.MAX_VALUE)
+            .addGroup(produitPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(produitPanelLayout.createSequentialGroup()
+                    .addGap(0, 0, Short.MAX_VALUE)
+                    .addComponent(OffresProduitsTableauPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(0, 0, Short.MAX_VALUE)))
+            .addGroup(produitPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(produitPanelLayout.createSequentialGroup()
+                    .addGap(0, 0, Short.MAX_VALUE)
+                    .addComponent(ConsultationPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(0, 0, Short.MAX_VALUE)))
         );
 
         ContentPanel.add(produitPanel, "card4");
@@ -394,8 +547,6 @@ public class DashbordAdminFrame extends javax.swing.JFrame {
             }
         });
 
-        jLabel57.setIcon(new javax.swing.ImageIcon("C:\\Users\\Super Moon\\Downloads\\terre-gondwana_0.jpg")); // NOI18N
-
         pConsulterS2.add(jScrollPane5);
         jScrollPane5.setBounds(55, 11, 452, 402);
 
@@ -468,14 +619,12 @@ public class DashbordAdminFrame extends javax.swing.JFrame {
                 .addGroup(pConsulterS2Layout.createSequentialGroup()
                     .addGap(111, 111, 111)
                     .addComponent(pShowMap, javax.swing.GroupLayout.PREFERRED_SIZE, 457, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(31, Short.MAX_VALUE)))
+                    .addContainerGap(89, Short.MAX_VALUE)))
         );
 
         ServicePanel.add(pConsulterS2, "card3");
 
         pShowMap1.setLayout(new java.awt.BorderLayout());
-
-        jLabel56.setIcon(new javax.swing.ImageIcon("C:\\Users\\Super Moon\\Downloads\\terre-gondwana_0.jpg")); // NOI18N
         pShowMap1.add(jLabel56, java.awt.BorderLayout.CENTER);
 
         ServicePanel.add(pShowMap1, "card4");
@@ -536,10 +685,6 @@ public class DashbordAdminFrame extends javax.swing.JFrame {
     private void btnStatistiqueActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnStatistiqueActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_btnStatistiqueActionPerformed
-
-    private void tbProduitsMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbProduitsMouseClicked
-
-    }//GEN-LAST:event_tbProduitsMouseClicked
 
     private void btnGProduitsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGProduitsActionPerformed
         ContentPanel.removeAll();
@@ -674,6 +819,82 @@ public class DashbordAdminFrame extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_bntSupprimerActionPerformed
 
+    private void tbProduitsMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbProduitsMouseClicked
+
+    }//GEN-LAST:event_tbProduitsMouseClicked
+
+    private void btnPartagerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPartagerActionPerformed
+        int ligneSelectionne = tbProduits.getSelectedRow();
+        //on récupére la valeur de la première colonne de la ligne sélectionné
+
+        Object l = tbProduits.getValueAt(ligneSelectionne, 0);
+
+        String accessToken = "CAACEdEose0cBAMDBjsGZBTLZB8BIfLGJGbjs0YZA3tCD3PXrq4sPnLsWYMlcAQzVRESOhmiAcmujhVZAtZAVYGylTOrXfBkHTZAnqsESaJo6Bb1AryqRB08XUmjp2gfvE2W4LJfdhvmJPhyEcFvEIRYgloJgUNcO1tMpOBpAThu7GO7VGaZCYCZCYFZAENcOlfCyUjQJc2qwA9gZDZD";
+        FacebookClient fbClient = new DefaultFacebookClient(accessToken);
+        User me = fbClient.fetchObject("me", User.class);
+        Page userPgae = fbClient.fetchObject("10208045352675324", Page.class);
+
+        System.out.println(me.getName());
+        System.out.println(me.getBirthday());
+
+        String nom = (String) tbProduits.getValueAt(ligneSelectionne, 1);
+        String categorie = (String) tbProduits.getValueAt(ligneSelectionne, 2);
+        int quantite = (int) tbProduits.getValueAt(ligneSelectionne, 3);
+        String description = (String) tbProduits.getValueAt(ligneSelectionne, 4);
+        float prix = (float) tbProduits.getValueAt(ligneSelectionne, 5);
+        int pointBonus = (int) tbProduits.getValueAt(ligneSelectionne, 6);
+        String zone = (String) tbProduits.getValueAt(ligneSelectionne, 7);
+        Date dateAjout = (Date) tbProduits.getValueAt(ligneSelectionne, 8);
+        float TVA = (float) tbProduits.getValueAt(ligneSelectionne, 9);
+        float reduction = (float) tbProduits.getValueAt(ligneSelectionne, 10);
+        int rating = (int) tbProduits.getValueAt(ligneSelectionne, 11);
+
+        fbClient.publish("10208045352675324" + "/feed", FacebookType.class, Parameter.with("message", "nom du produit : " + nom
+            + "\nCategorie : " + categorie + "\nQuantite : " + quantite + "\nDescription : " + description + "\nPrix : " + prix + "\nPoint Bonus: " + pointBonus + "\nGouvernorat : " + zone + "\n Date Ajout :" + dateAjout + "TVA : " + TVA + "\nRéduction : " + reduction + "\rating" + rating));
+
+    JOptionPane.showMessageDialog(null, "Shared Succefully on Facebook!");
+    }//GEN-LAST:event_btnPartagerActionPerformed
+
+    private void btnConsulterProduitMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnConsulterProduitMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnConsulterProduitMouseClicked
+
+    private void btnConsulterProduitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConsulterProduitActionPerformed
+ int i = tbProduits.getSelectedRow();
+        TableModel model = tbProduits.getModel();
+        Object l = tbProduits.getValueAt(i, 0);
+        produit_id = (int) l;
+        System.out.println(tbProduits);
+       
+        lNomProduit.setText(model.getValueAt(i, 1).toString());
+        lCategorie.setText(model.getValueAt(i, 2).toString());
+        lQuantite.setText(model.getValueAt(i, 3).toString());
+        lDescription.setText(model.getValueAt(i, 4).toString());
+        lPrix.setText(model.getValueAt(i, 5).toString());
+        lPointBonus.setText(model.getValueAt(i, 6).toString());
+        lZone.setText(model.getValueAt(i, 7).toString());
+        lTVA.setText(model.getValueAt(i, 9).toString());
+        lReduction.setText(model.getValueAt(i, 10).toString());   
+
+        Produit p = pdao.findById(produit_id);
+
+        OffresProduitsTableauPanel.removeAll();
+        OffresProduitsTableauPanel.add(ConsultationPanel);
+        OffresProduitsTableauPanel.repaint();
+        OffresProduitsTableauPanel.revalidate();
+        
+        
+        
+        
+    }//GEN-LAST:event_btnConsulterProduitActionPerformed
+
+    private void btnBackPActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackPActionPerformed
+        produitPanel.removeAll();
+        produitPanel.add(OffresProduitsTableauPanel);
+        produitPanel.repaint();
+        produitPanel.revalidate();
+    }//GEN-LAST:event_btnBackPActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -711,18 +932,23 @@ public class DashbordAdminFrame extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JPanel ConsultationPanel;
     private javax.swing.JPanel ContentPanel;
     private javax.swing.JPanel HeadPanel;
+    private javax.swing.JPanel OffresProduitsTableauPanel;
     private javax.swing.JPanel ServicePanel;
     private javax.swing.JButton bntMap;
     private javax.swing.JButton bntSupprimer;
+    private javax.swing.JButton btnBackP;
     private javax.swing.JButton btnBackS2;
     private javax.swing.JButton btnCommenter1;
+    private javax.swing.JButton btnConsulterProduit;
     private javax.swing.JButton btnConsulterS1;
     private javax.swing.JButton btnGProduits;
     private javax.swing.JButton btnGReclamation;
     private javax.swing.JButton btnGService;
     private javax.swing.JButton btnGUser;
+    private javax.swing.JButton btnPartager;
     private javax.swing.JButton btnStatistique;
     private javax.swing.JButton btnSupprimerCommentaire;
     private javax.swing.JLabel jLabel11;
@@ -740,10 +966,19 @@ public class DashbordAdminFrame extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane5;
     private javax.swing.JScrollPane jScrollPane7;
+    private javax.swing.JLabel lCategorie;
     private javax.swing.JLabel lCategorieServiceAll;
+    private javax.swing.JLabel lDescription;
     private javax.swing.JLabel lDescriptionSAll;
     private javax.swing.JLabel lEtatSAll;
+    private javax.swing.JLabel lNomProduit;
     private javax.swing.JLabel lNomSAll;
+    private javax.swing.JLabel lPointBonus;
+    private javax.swing.JLabel lPrix;
+    private javax.swing.JLabel lQuantite;
+    private javax.swing.JLabel lReduction;
+    private javax.swing.JLabel lTVA;
+    private javax.swing.JLabel lZone;
     private javax.swing.JLabel lZoneSAll;
     private javax.swing.JPanel menu;
     private javax.swing.JPanel pAllServices;

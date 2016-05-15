@@ -66,7 +66,7 @@ public class ProduitDao implements IDao<Produit> {
 
     @Override
     public void update(Produit p) {
-        String req = "update produit set  zone_id=?,categorie_id=?,quantite=? ,ptBonus=?,nomP=?,description=?,prix=?,prix1=?,prix2=?,tva=?,reduction=? where id=?";
+        String req = "update produit set  zone_id=?,categorie_id=?,quantite=? ,ptBonus=?,nomP=?,description=?,prix=?,tva=?,reduction=? where id=?";
 
         try {
             pst = connection.prepareStatement(req);
@@ -79,12 +79,10 @@ public class ProduitDao implements IDao<Produit> {
             pst.setString(5, p.getNomP());
             pst.setString(6, p.getDescription());
             pst.setString(7, p.getPrix() + "");
-            pst.setString(8, p.getPrix1() + "");
-            pst.setString(9, p.getPrix2() + "");
-            pst.setString(10, p.getTva() + "");
-           pst.setString(11, p.getReduction() + "");
+            pst.setString(8, p.getTva() + "");
+           pst.setString(9, p.getReduction() + "");
          
-          pst.setInt(12, p.getId());
+          pst.setInt(10, p.getId());
             
 //             pst.setString(1, p.getCategorie());
 //            pst.setString(2, p.getQuantite() + "");
@@ -308,18 +306,16 @@ public class ProduitDao implements IDao<Produit> {
             while (resultat.next()) {
 
                 Produit p = new Produit();
-  p.setId(resultat.getInt(1));
+                p.setId(resultat.getInt(1));
                 p.setZone(resultat.getInt(2));
                  p.setCategorie(resultat.getInt(3));
-                  p.setDescription(resultat.getString(4));
-                  p.setPrix(resultat.getInt(5));
-                p.setUser(resultat.getInt(6));
+                  p.setQuantite(resultat.getInt(4));
+                  p.setUser(resultat.getInt(5));
+                   p.setPtbonus(resultat.getInt(6));
+                   p.setNomP(resultat.getString(7));
+                  p.setDescription(resultat.getString(8));
+                  p.setPrix(resultat.getInt(9));
                
-                p.setQuantite(resultat.getInt(7));
-                p.setPtbonus(resultat.getInt(8));
-                p.setNomP(resultat.getString(9));
-               
-                
                 p.setPrix1(resultat.getInt(10));
                 p.setPrix2(resultat.getInt(11));
                 p.setTva(resultat.getInt(12));

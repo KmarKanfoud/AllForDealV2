@@ -21,7 +21,7 @@ public class ProduitClientModel extends AbstractTableModel{
 String [] colonnes={"id","nom","Categorie","Quantité","Description","prix","point Bonus","Zone","Ajouté le","TVA","Réduction"};
     public ProduitClientModel() {
        ProduitDao pdao = new ProduitDao();
-       l = pdao.findAllByUser(FrameAccueil.getUserId());
+       l = pdao.findAllByUser(LoginForm.getUser_id());
     }
 
     @Override
@@ -37,7 +37,7 @@ return l.size();    }
 switch (columnIndex){
     case 0: return l.get(rowIndex).getId();
     case 1: return l.get(rowIndex).getNomP();
-    case 2: return l.get(rowIndex).getCategorie();
+    case 2: return l.get(rowIndex).getCategorieName();
     case 3: return l.get(rowIndex).getQuantite();
     case 4: return l.get(rowIndex).getDescription();
     case 5: return l.get(rowIndex).getPrix();

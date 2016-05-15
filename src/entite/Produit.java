@@ -8,6 +8,7 @@ package entite;
 import GUI.AllForDealFrame;
 import GUI.FrameAccueil;
 import GUI.LoginForm;
+import dao.CategorieDao;
 
 import dao.ZoneDao;
 import java.sql.ResultSet;
@@ -27,8 +28,11 @@ public class Produit {
 
 
     ZoneDao zoneDAO =new ZoneDao();
+    CategorieDao catDao =new CategorieDao();
     ResultSet rsName=null;
+    ResultSet rsNameCategorie=null;
     private String zoneName;
+    private String categorieName;
     
     private int id;
     private int zone;
@@ -275,13 +279,26 @@ public class Produit {
         try {
             rsName = zoneDAO.getZoneById(zone);
             while (rsName.next()) {
-                zoneName = rsName.getNString(1);
+                zoneName = rsName.getString(1);
 
             }//this.setResizable(false);
         } catch (SQLException ex) {
             Logger.getLogger(AllForDealFrame.class.getName()).log(Level.SEVERE, null, ex);
         }
         return zoneName;
+
+    }
+  public String getCategorieName() {
+        try {
+            rsNameCategorie = catDao.getCategorieById(categorie);
+            while (rsNameCategorie.next()) {
+                categorieName = rsNameCategorie.getString(1);
+
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(AllForDealFrame.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return categorieName;
 
     }
 

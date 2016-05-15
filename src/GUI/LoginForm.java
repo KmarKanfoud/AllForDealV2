@@ -141,7 +141,7 @@ private static int user_id ;
 
             if ((u.getUsername().equals(l) == true) && (u.getPassword().equals(m) == true) ) {
 
-              String  userName = u.getUsername();
+           userName = u.getUsername();
               user_id=u.getId();
               
                 System.out.println(userName);

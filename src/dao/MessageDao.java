@@ -36,12 +36,12 @@ public class MessageDao implements IDao<Message> {
     
     @Override
     public void add(Message m) {
-        String req = "INSERT INTO message( fromu, tou, sujet, texte,date_envoi) values (?,?,?,?,?)";
+        String req = "INSERT INTO message( fromU, toU, sujet, texte,date_envoi) values (?,?,?,?,?)";
         try {
             pst = connection.prepareStatement(req);
             
-            pst.setString(1, LoginForm.getUserName());
-            //pst.setString(1, m.getFrom());
+            //pst.setString(1, LoginForm.getUserName());
+            pst.setString(1, m.getFrom());
             pst.setString(2, m.getTo());
             pst.setString(3, m.getSujet());
             pst.setString(4, m.getTexte());
@@ -125,7 +125,7 @@ public class MessageDao implements IDao<Message> {
             while (resultat.next()) {
                   Message msg = new Message();
                 msg.setId_message(resultat.getInt(1));
-                msg.setFrom(resultat.getString(2));
+               // msg.setFrom(resultat.getString(2));
                 msg.setTo(resultat.getString(3));
                 msg.setSujet(resultat.getString(4));
                 msg.setTexte(resultat.getString(5));                

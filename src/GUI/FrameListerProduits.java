@@ -17,7 +17,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.table.TableModel;
-import utils.CommentModel;
+import utils.CommentDPModel;
 import utils.ProduitModel;
 
 /**

@@ -37,6 +37,7 @@ public class Service {
     private int zone;
     private String zoneName;
     private String TypeName;
+    private int enable;
 
     public Service() {
     }
@@ -61,15 +62,17 @@ public class Service {
         this.dateAjout = dateAjout;
     }
 
-   
-
     public int getUserId() {
-        return LoginForm.getUser_id();
+        return userId;
     }
 
     public void setUserId(int userId) {
-        this.userId = LoginForm.getUser_id();
+        this.userId = userId;
     }
+
+   
+
+   
 
     
     public int getId() {
@@ -155,6 +158,15 @@ public class Service {
         this.zone = zone;
     }
 
+    public int getEnable() {
+        return enable;
+    }
+
+    public void setEnable(int enable) {
+        this.enable = enable;
+    }
+    
+
     @Override
     public int hashCode() {
         int hash = 5;
@@ -196,7 +208,8 @@ public class Service {
 
     @Override
     public String toString() {
-        return "Service{" + "id=" + id + ", nomService=" + nomService + ", description=" + description + ", type=" + type + ", etat=" + etat + ", dateAjout=" + dateAjout + ", zone=" + zone + '}';
+        return "Service{" + "zoneDAO=" + zoneDAO + ", colDAO=" + colDAO + ", rsName=" + rsName + ", rsNameType=" + rsNameType + ", id=" + id + ", userId=" + userId + ", nomService=" + nomService + ", description=" + description + ", type=" + type + ", etat=" + etat + ", dateAjout=" + dateAjout + ", zone=" + zone + ", zoneName=" + zoneName + ", TypeName=" + TypeName + ", enable=" + enable + '}';
     }
+
 
 }

@@ -57,7 +57,8 @@ public class ListeService extends AbstractTableModel {
                 return l.get(rowIndex).getZoneName();
             case 6:
                 return l.get(rowIndex).getDateAjout();
-
+//             case 7:
+//                return l.get(rowIndex).getUserId();
             default:
                 return null;
         }

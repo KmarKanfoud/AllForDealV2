@@ -44,7 +44,7 @@ public class ServiceDao implements IDao<Service> {
 
     @Override
     public void add(Service t) {
-        String req = "insert into service (id,zone_id,nomService,description,etat,dateAjout,user_id,type_id) values (?,?,?,?,?,?,?,?)";
+        String req = "insert into service (id,zone_id,nomService,description,etat,dateAjout,user_id,type_id,enable) values (?,?,?,?,?,?,?,?,?)";
         try {
             pst = connection.prepareStatement(req);
 
@@ -59,6 +59,7 @@ public class ServiceDao implements IDao<Service> {
 
             pst.setInt(7, t.getUserId());
              pst.setInt(8, t.getType());
+               pst.setInt(9, 0);
 
             //pst.setDate(7 s.DateAjout());
             pst.executeUpdate();
@@ -119,6 +120,7 @@ public class ServiceDao implements IDao<Service> {
                 s.setDescription(resultat.getString(4));
                 s.setEtat(resultat.getString(5));
                 s.setDateAjout(resultat.getDate(6));
+                s.setUserId(resultat.getInt(7));
                 s.setType(resultat.getInt(8));
 
                 listeService.add(s);

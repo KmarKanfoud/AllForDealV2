@@ -6,6 +6,7 @@
 package dao;
 
 import GUI.FrameAccueil;
+import GUI.LoginForm;
 import Idao.IDao;
 import entite.Comment;
 import entite.Reclamation;
@@ -43,7 +44,7 @@ public class ReclamationDao implements IDao<Reclamation> {
             pst.setDate(1, (java.sql.Date) r.getDate());
             pst.setString(2, r.getDescription());
             pst.setString(3, r.getSujet());
-            pst.setInt(4, FrameAccueil.getUserId());
+            pst.setInt(4, LoginForm.getUser_id());
             pst.executeUpdate();
 
         } catch (SQLException ex) {
@@ -68,10 +69,10 @@ public class ReclamationDao implements IDao<Reclamation> {
 
     @Override
     public void removeById(int id_reclamation) {
-        String requete = "delete from reclamation where id_reclamation=?";
+        String requete = "delete from reclamation where id_reclamation="+id_reclamation;
         try {
             PreparedStatement ps = connection.prepareStatement(requete);
-            ps.setInt(1, id_reclamation);
+            //ps.setInt(1, id_reclamation);
             ps.executeUpdate();
             System.out.println("Réclamation supprimée");
         } catch (SQLException ex) {

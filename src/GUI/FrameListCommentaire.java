@@ -13,7 +13,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Set;
 import javax.swing.JOptionPane;
-import utils.CommentModel;
+import utils.CommentDPModel;
 import utils.CommentSModel;
 
 /**
@@ -131,7 +131,7 @@ public class FrameListCommentaire extends javax.swing.JFrame {
            // Object o = ListComment.getValueAt(ligneSelectionne, 3);
            // System.out.println(o);
             comm.removeById((int) l);
-            ListComment.setModel(new CommentModel());
+            ListComment.setModel(new CommentDPModel());
             jScrollPane1.setViewportView(ListComment);
         }
     }//GEN-LAST:event_BtnSupprimerActionPerformed

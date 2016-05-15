@@ -6,6 +6,7 @@
 package utils;
 
 import GUI.FrameAccueil;
+import GUI.LoginForm;
 import dao.NotificationDao;
 import entite.Notification;
 import java.util.List;
@@ -21,7 +22,7 @@ public class NotificationModel extends AbstractTableModel {
     
     public  NotificationModel(){
         NotificationDao ndao = new NotificationDao();
-        note = ndao.findNotificationService(FrameAccueil.getUserId());
+        note = ndao.findNotificationService(LoginForm.getUser_id());
     }
     @Override
     public int getRowCount() {

@@ -165,12 +165,13 @@ public class Produit {
     }
 
     public int getUser() {
-        return LoginForm.getUser_id();
+        return user;
     }
 
     public void setUser(int user) {
-        this.user = LoginForm.getUser_id();
+        this.user = user;
     }
+
 
     public String getNomP() {
         return nomP;

@@ -5,6 +5,7 @@
  */
 package GUI;
 
+import static GUI.MailForm.taMail;
 import com.restfb.DefaultFacebookClient;
 import com.restfb.FacebookClient;
 import com.restfb.Parameter;
@@ -12,10 +13,12 @@ import com.restfb.types.FacebookType;
 import com.restfb.types.Page;
 import dao.CommentDao;
 import dao.ProduitDao;
+import dao.ReclamationDao;
 import dao.ServiceDao;
 import dao.UserDao;
 import entite.Comment;
 import entite.Produit;
+import entite.Reclamation;
 import entite.Service;
 import entite.User;
 import entite.Zone;
@@ -23,11 +26,23 @@ import java.awt.BorderLayout;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
+import java.util.Properties;
+import javax.mail.Message;
+import javax.mail.MessagingException;
+import javax.mail.PasswordAuthentication;
+import javax.mail.Session;
+import javax.mail.Transport;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeMessage;
 import javax.swing.JOptionPane;
 import javax.swing.table.TableModel;
+import utils.CommentDPModel;
+import utils.CommentDSModel;
 import utils.CommentSModel;
 import utils.ListeService;
 import utils.ProduitModel;
+import utils.ReclamationModel;
 
 /**
  *
@@ -35,13 +50,31 @@ import utils.ProduitModel;
  */
 public class DashbordAdminFrame extends javax.swing.JFrame {
  private static int service_id;
+ private static int produit_id;
  
     ServiceDao sdao = new ServiceDao();
     ProduitDao pdao = new ProduitDao();
+
+    public static int getService_id() {
+        return service_id;
+    }
+
+    public static void setService_id(int service_id) {
+        DashbordAdminFrame.service_id = service_id;
+    }
+
+    public static int getProduit_id() {
+        return produit_id;
+    }
+
+    public static void setProduit_id(int produit_id) {
+        DashbordAdminFrame.produit_id = produit_id;
+    }
     
     
     
-    private static int produit_id;
+    
+    
  
     /**
      * Creates new form DashbordAdminFrame
@@ -65,8 +98,9 @@ public class DashbordAdminFrame extends javax.swing.JFrame {
         btnGUser = new javax.swing.JButton();
         btnGProduits = new javax.swing.JButton();
         btnGService = new javax.swing.JButton();
-        btnGReclamation = new javax.swing.JButton();
+        btnMail = new javax.swing.JButton();
         btnStatistique = new javax.swing.JButton();
+        btnReclam = new javax.swing.JButton();
         ContentPanel = new javax.swing.JPanel();
         statistiquePanel = new javax.swing.JPanel();
         jPanel5 = new javax.swing.JPanel();
@@ -90,6 +124,8 @@ public class DashbordAdminFrame extends javax.swing.JFrame {
         lTVA = new javax.swing.JLabel();
         lReduction = new javax.swing.JLabel();
         btnBackP = new javax.swing.JButton();
+        jScrollPane4 = new javax.swing.JScrollPane();
+        tbCommProd = new javax.swing.JTable();
         ServicePanel = new javax.swing.JPanel();
         pAllServices = new javax.swing.JPanel();
         jScrollPane7 = new javax.swing.JScrollPane();
@@ -119,6 +155,15 @@ public class DashbordAdminFrame extends javax.swing.JFrame {
         jLabel57 = new javax.swing.JLabel();
         pShowMap1 = new javax.swing.JPanel();
         jLabel56 = new javax.swing.JLabel();
+        MailPanel = new javax.swing.JPanel();
+        tfObjet = new javax.swing.JTextField();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        taContenu = new javax.swing.JTextArea();
+        btnEnvMail = new javax.swing.JButton();
+        ReclamPanel = new javax.swing.JPanel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        tbReclam = new javax.swing.JTable();
+        btnSupprimerReclam = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -154,10 +199,10 @@ public class DashbordAdminFrame extends javax.swing.JFrame {
             }
         });
 
-        btnGReclamation.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/comment_1.png"))); // NOI18N
-        btnGReclamation.addActionListener(new java.awt.event.ActionListener() {
+        btnMail.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/mail.png"))); // NOI18N
+        btnMail.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnGReclamationActionPerformed(evt);
+                btnMailActionPerformed(evt);
             }
         });
 
@@ -165,6 +210,13 @@ public class DashbordAdminFrame extends javax.swing.JFrame {
         btnStatistique.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnStatistiqueActionPerformed(evt);
+            }
+        });
+
+        btnReclam.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/reclamation.png"))); // NOI18N
+        btnReclam.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnReclamActionPerformed(evt);
             }
         });
 
@@ -179,7 +231,8 @@ public class DashbordAdminFrame extends javax.swing.JFrame {
                     .addComponent(btnGUser, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btnGProduits, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btnGService, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnGReclamation, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(btnMail, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnReclam, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap(26, Short.MAX_VALUE))
         );
         menuLayout.setVerticalGroup(
@@ -192,9 +245,11 @@ public class DashbordAdminFrame extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnGService, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnGReclamation, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnMail, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnStatistique, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnReclam, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -219,6 +274,8 @@ public class DashbordAdminFrame extends javax.swing.JFrame {
         jLabel11.setBounds(0, 0, 1180, 520);
 
         ContentPanel.add(statistiquePanel, "card3");
+
+        produitPanel.setLayout(new java.awt.CardLayout());
 
         jScrollPane3.setSize(500, 600);
 
@@ -265,7 +322,7 @@ public class DashbordAdminFrame extends javax.swing.JFrame {
                     .addGroup(OffresProduitsTableauPanelLayout.createSequentialGroup()
                         .addGap(51, 51, 51)
                         .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 777, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(176, Short.MAX_VALUE))
+                .addContainerGap(402, Short.MAX_VALUE))
         );
         OffresProduitsTableauPanelLayout.setVerticalGroup(
             OffresProduitsTableauPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -273,11 +330,13 @@ public class DashbordAdminFrame extends javax.swing.JFrame {
                 .addGap(39, 39, 39)
                 .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 297, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(69, 69, 69)
-                .addGroup(OffresProduitsTableauPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE, false)
-                    .addComponent(btnConsulterProduit, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnPartager))
-                .addContainerGap(211, Short.MAX_VALUE))
+                .addGroup(OffresProduitsTableauPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btnConsulterProduit)
+                    .addComponent(btnPartager, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(153, Short.MAX_VALUE))
         );
+
+        produitPanel.add(OffresProduitsTableauPanel, "card2");
 
         lNomProduit.setText("jLabel10");
 
@@ -304,6 +363,9 @@ public class DashbordAdminFrame extends javax.swing.JFrame {
             }
         });
 
+        tbCommProd.setModel(new CommentDPModel());
+        jScrollPane4.setViewportView(tbCommProd);
+
         javax.swing.GroupLayout ConsultationPanelLayout = new javax.swing.GroupLayout(ConsultationPanel);
         ConsultationPanel.setLayout(ConsultationPanelLayout);
         ConsultationPanelLayout.setHorizontalGroup(
@@ -321,64 +383,42 @@ public class DashbordAdminFrame extends javax.swing.JFrame {
                     .addComponent(lQuantite)
                     .addComponent(lCategorie)
                     .addComponent(lNomProduit))
-                .addContainerGap(738, Short.MAX_VALUE))
+                .addGap(44, 44, 44)
+                .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(468, Short.MAX_VALUE))
         );
         ConsultationPanelLayout.setVerticalGroup(
             ConsultationPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(ConsultationPanelLayout.createSequentialGroup()
-                .addGap(46, 46, 46)
-                .addComponent(lNomProduit)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(lCategorie)
-                .addGap(18, 18, 18)
-                .addComponent(lQuantite)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(lDescription)
-                .addGap(18, 18, 18)
-                .addComponent(lPrix)
-                .addGap(18, 18, 18)
-                .addComponent(lPointBonus)
-                .addGap(18, 18, 18)
-                .addComponent(lZone)
-                .addGap(18, 18, 18)
-                .addComponent(lTVA)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(lReduction)
-                .addGap(47, 47, 47)
-                .addComponent(btnBackP)
-                .addContainerGap(292, Short.MAX_VALUE))
+                .addGroup(ConsultationPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(ConsultationPanelLayout.createSequentialGroup()
+                        .addGap(46, 46, 46)
+                        .addComponent(lNomProduit)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(lCategorie)
+                        .addGap(18, 18, 18)
+                        .addComponent(lQuantite)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(lDescription)
+                        .addGap(18, 18, 18)
+                        .addComponent(lPrix)
+                        .addGap(18, 18, 18)
+                        .addComponent(lPointBonus)
+                        .addGap(18, 18, 18)
+                        .addComponent(lZone)
+                        .addGap(18, 18, 18)
+                        .addComponent(lTVA)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(lReduction)
+                        .addGap(47, 47, 47)
+                        .addComponent(btnBackP))
+                    .addGroup(ConsultationPanelLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(186, Short.MAX_VALUE))
         );
 
-        javax.swing.GroupLayout produitPanelLayout = new javax.swing.GroupLayout(produitPanel);
-        produitPanel.setLayout(produitPanelLayout);
-        produitPanelLayout.setHorizontalGroup(
-            produitPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1230, Short.MAX_VALUE)
-            .addGroup(produitPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(produitPanelLayout.createSequentialGroup()
-                    .addGap(0, 0, Short.MAX_VALUE)
-                    .addComponent(OffresProduitsTableauPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(0, 0, Short.MAX_VALUE)))
-            .addGroup(produitPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(produitPanelLayout.createSequentialGroup()
-                    .addGap(0, 0, Short.MAX_VALUE)
-                    .addComponent(ConsultationPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(0, 0, Short.MAX_VALUE)))
-        );
-        produitPanelLayout.setVerticalGroup(
-            produitPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 657, Short.MAX_VALUE)
-            .addGroup(produitPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(produitPanelLayout.createSequentialGroup()
-                    .addGap(0, 0, Short.MAX_VALUE)
-                    .addComponent(OffresProduitsTableauPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(0, 0, Short.MAX_VALUE)))
-            .addGroup(produitPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(produitPanelLayout.createSequentialGroup()
-                    .addGap(0, 0, Short.MAX_VALUE)
-                    .addComponent(ConsultationPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(0, 0, Short.MAX_VALUE)))
-        );
+        produitPanel.add(ConsultationPanel, "card3");
 
         ContentPanel.add(produitPanel, "card4");
 
@@ -432,7 +472,7 @@ public class DashbordAdminFrame extends javax.swing.JFrame {
             }
         });
 
-        tbCommentairesService.setModel( new CommentSModel());
+        tbCommentairesService.setModel( new CommentDSModel());
         tbCommentairesService.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 tbCommentairesServiceMouseClicked(evt);
@@ -586,7 +626,7 @@ public class DashbordAdminFrame extends javax.swing.JFrame {
                 .addGroup(pConsulterS2Layout.createSequentialGroup()
                     .addGap(432, 432, 432)
                     .addComponent(pShowMap, javax.swing.GroupLayout.PREFERRED_SIZE, 430, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(368, Short.MAX_VALUE)))
+                    .addContainerGap(526, Short.MAX_VALUE)))
         );
         pConsulterS2Layout.setVerticalGroup(
             pConsulterS2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -619,7 +659,7 @@ public class DashbordAdminFrame extends javax.swing.JFrame {
                 .addGroup(pConsulterS2Layout.createSequentialGroup()
                     .addGap(111, 111, 111)
                     .addComponent(pShowMap, javax.swing.GroupLayout.PREFERRED_SIZE, 457, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(89, Short.MAX_VALUE)))
+                    .addContainerGap(31, Short.MAX_VALUE)))
         );
 
         ServicePanel.add(pConsulterS2, "card3");
@@ -630,6 +670,86 @@ public class DashbordAdminFrame extends javax.swing.JFrame {
         ServicePanel.add(pShowMap1, "card4");
 
         ContentPanel.add(ServicePanel, "card5");
+
+        tfObjet.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                tfObjetActionPerformed(evt);
+            }
+        });
+
+        taContenu.setColumns(20);
+        taContenu.setRows(5);
+        jScrollPane1.setViewportView(taContenu);
+
+        btnEnvMail.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Mail_reply.png"))); // NOI18N
+        btnEnvMail.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEnvMailActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout MailPanelLayout = new javax.swing.GroupLayout(MailPanel);
+        MailPanel.setLayout(MailPanelLayout);
+        MailPanelLayout.setHorizontalGroup(
+            MailPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(MailPanelLayout.createSequentialGroup()
+                .addGap(135, 135, 135)
+                .addGroup(MailPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(btnEnvMail, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(MailPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 385, Short.MAX_VALUE)
+                        .addComponent(tfObjet)))
+                .addContainerGap(710, Short.MAX_VALUE))
+        );
+        MailPanelLayout.setVerticalGroup(
+            MailPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(MailPanelLayout.createSequentialGroup()
+                .addGap(39, 39, 39)
+                .addComponent(tfObjet, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(30, 30, 30)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 224, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(31, 31, 31)
+                .addComponent(btnEnvMail, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(198, Short.MAX_VALUE))
+        );
+
+        ContentPanel.add(MailPanel, "card5");
+
+        tbReclam.setModel(new ReclamationModel());
+        jScrollPane2.setViewportView(tbReclam);
+
+        btnSupprimerReclam.setText("Supprimer");
+        btnSupprimerReclam.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSupprimerReclamActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout ReclamPanelLayout = new javax.swing.GroupLayout(ReclamPanel);
+        ReclamPanel.setLayout(ReclamPanelLayout);
+        ReclamPanelLayout.setHorizontalGroup(
+            ReclamPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(ReclamPanelLayout.createSequentialGroup()
+                .addGroup(ReclamPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(ReclamPanelLayout.createSequentialGroup()
+                        .addGap(87, 87, 87)
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(ReclamPanelLayout.createSequentialGroup()
+                        .addGap(568, 568, 568)
+                        .addComponent(btnSupprimerReclam)))
+                .addContainerGap(581, Short.MAX_VALUE))
+        );
+        ReclamPanelLayout.setVerticalGroup(
+            ReclamPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(ReclamPanelLayout.createSequentialGroup()
+                .addGap(24, 24, 24)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(9, 9, 9)
+                .addComponent(btnSupprimerReclam)
+                .addContainerGap(141, Short.MAX_VALUE))
+        );
+
+        ContentPanel.add(ReclamPanel, "card6");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -700,12 +820,12 @@ public class DashbordAdminFrame extends javax.swing.JFrame {
         ContentPanel.revalidate();
     }//GEN-LAST:event_btnGServiceActionPerformed
 
-    private void btnGReclamationActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGReclamationActionPerformed
-//       ContentPanel.removeAll();
-//        ContentPanel.add(GestionUtilisateurPanel);
-//        ContentPanel.repaint();
-//        ContentPanel.revalidate();
-    }//GEN-LAST:event_btnGReclamationActionPerformed
+    private void btnMailActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMailActionPerformed
+       ContentPanel.removeAll();
+        ContentPanel.add(MailPanel);
+        ContentPanel.repaint();
+        ContentPanel.revalidate();
+    }//GEN-LAST:event_btnMailActionPerformed
 
     private void tblAllServicesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblAllServicesMouseClicked
         int i = tblAllServices.getSelectedRow();
@@ -749,7 +869,14 @@ public class DashbordAdminFrame extends javax.swing.JFrame {
             System.out.println(x + "dddddddddd" + y);
             //browser.loadURL("https://maps.googleapis.com/maps/api/staticmap?center=" + x + "," + y + "&zoom=12&size=700x500&maptype=roadmap&markers=icone%7Clabel:S%7C" + x + "," + y);
         }
-
+  tbCommentairesService.setModel(new CommentDSModel());
+        tbCommentairesService.setVisible(true);
+        tbCommentairesService.getColumnModel().getColumn(0).setMinWidth(0);
+        tbCommentairesService.getColumnModel().getColumn(0).setMaxWidth(0);
+        tbCommentairesService.getColumnModel().getColumn(0).setWidth(0);
+        
+        
+        
         ServicePanel.removeAll();
         ServicePanel.add(pConsulterS2);
         ServicePanel.repaint();
@@ -877,11 +1004,15 @@ public class DashbordAdminFrame extends javax.swing.JFrame {
         lReduction.setText(model.getValueAt(i, 10).toString());   
 
         Produit p = pdao.findById(produit_id);
-
-        OffresProduitsTableauPanel.removeAll();
-        OffresProduitsTableauPanel.add(ConsultationPanel);
-        OffresProduitsTableauPanel.repaint();
-        OffresProduitsTableauPanel.revalidate();
+        tbCommProd.setModel(new CommentDPModel());
+        tbCommProd.setVisible(true);
+        tbCommProd.getColumnModel().getColumn(0).setMinWidth(0);
+        tbCommProd.getColumnModel().getColumn(0).setMaxWidth(0);
+        tbCommProd.getColumnModel().getColumn(0).setWidth(0);
+        produitPanel.removeAll();
+        produitPanel.add(ConsultationPanel);
+        produitPanel.repaint();
+        produitPanel.revalidate();
         
         
         
@@ -894,6 +1025,87 @@ public class DashbordAdminFrame extends javax.swing.JFrame {
         produitPanel.repaint();
         produitPanel.revalidate();
     }//GEN-LAST:event_btnBackPActionPerformed
+
+    private void tfObjetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfObjetActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_tfObjetActionPerformed
+
+    private void btnEnvMailActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEnvMailActionPerformed
+        // TODO add your handling code here:
+        String to = null ;
+        UserDao u = new UserDao();
+      List  listeTo = new ArrayList();
+      listeTo= u.findAllEmail();
+
+        String from = "allfordealpi@gmail.com";
+        final String username = "allfordealpi@gmail.com";
+        final String password = "pidev2016";
+
+        String host = "smtp.gmail.com";
+
+        Properties props = new Properties();
+        props.put("mail.smtp.auth", "true");
+        props.put("mail.smtp.starttls.enable", "true");
+        props.put("mail.smtp.host", host);
+        props.put("mail.smtp.port", "587");
+
+        // Get the Session object.
+        Session session = Session.getInstance(props,
+                new javax.mail.Authenticator() {
+                    protected PasswordAuthentication getPasswordAuthentication() {
+                        return new PasswordAuthentication(username, password);
+                    }
+                });
+
+        try {
+
+            Message message = new MimeMessage(session);
+
+            message.setFrom(new InternetAddress(from));
+            
+           for (Object o : listeTo) {
+                
+                   to = (String)o;
+                      System.out.println(to);
+            message.setRecipients(Message.RecipientType.TO,
+                    InternetAddress.parse(to));
+            
+                 
+          
+       
+           
+            message.setSubject(tfObjet.getText());
+
+            message.setText(taContenu.getText());
+
+            // Send message
+            Transport.send(message);
+           }
+            System.out.println("Sent message successfully....");
+
+        } catch (MessagingException e) {
+            throw new RuntimeException(e);
+        }
+        
+    }//GEN-LAST:event_btnEnvMailActionPerformed
+
+    private void btnReclamActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReclamActionPerformed
+        // TODO add your handling code here:
+         ContentPanel.removeAll();
+        ContentPanel.add(ReclamPanel);
+        ContentPanel.repaint();
+        ContentPanel.revalidate();
+        ReclamationDao rdao = new ReclamationDao();
+        Reclamation r = new Reclamation();
+          int ligneSelectionne = tbReclam.getSelectedRow();
+        Object l = tbReclam.getValueAt(ligneSelectionne, 0);
+        System.out.println(l);
+       //r = rdao.removeById((int) l);
+    }//GEN-LAST:event_btnReclamActionPerformed
+
+    private void btnSupprimerReclamActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSupprimerReclamActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnSupprimerReclamActionPerformed
 
     /**
      * @param args the command line arguments
@@ -935,7 +1147,9 @@ public class DashbordAdminFrame extends javax.swing.JFrame {
     private javax.swing.JPanel ConsultationPanel;
     private javax.swing.JPanel ContentPanel;
     private javax.swing.JPanel HeadPanel;
+    private javax.swing.JPanel MailPanel;
     private javax.swing.JPanel OffresProduitsTableauPanel;
+    private javax.swing.JPanel ReclamPanel;
     private javax.swing.JPanel ServicePanel;
     private javax.swing.JButton bntMap;
     private javax.swing.JButton bntSupprimer;
@@ -944,13 +1158,16 @@ public class DashbordAdminFrame extends javax.swing.JFrame {
     private javax.swing.JButton btnCommenter1;
     private javax.swing.JButton btnConsulterProduit;
     private javax.swing.JButton btnConsulterS1;
+    private javax.swing.JButton btnEnvMail;
     private javax.swing.JButton btnGProduits;
-    private javax.swing.JButton btnGReclamation;
     private javax.swing.JButton btnGService;
     private javax.swing.JButton btnGUser;
+    private javax.swing.JButton btnMail;
     private javax.swing.JButton btnPartager;
+    private javax.swing.JButton btnReclam;
     private javax.swing.JButton btnStatistique;
     private javax.swing.JButton btnSupprimerCommentaire;
+    private javax.swing.JButton btnSupprimerReclam;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel26;
     private javax.swing.JLabel jLabel27;
@@ -963,7 +1180,10 @@ public class DashbordAdminFrame extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel6;
     private javax.swing.JPanel jPanel7;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JScrollPane jScrollPane5;
     private javax.swing.JScrollPane jScrollPane7;
     private javax.swing.JLabel lCategorie;
@@ -988,9 +1208,13 @@ public class DashbordAdminFrame extends javax.swing.JFrame {
     private javax.swing.JPanel pShowMap1;
     private javax.swing.JPanel produitPanel;
     private javax.swing.JPanel statistiquePanel;
+    private javax.swing.JTextArea taContenu;
+    private javax.swing.JTable tbCommProd;
     private static javax.swing.JTable tbCommentairesService;
     private static javax.swing.JTable tbProduits;
+    private javax.swing.JTable tbReclam;
     private javax.swing.JTable tblAllServices;
     private javax.swing.JTextField tfComment;
+    private javax.swing.JTextField tfObjet;
     // End of variables declaration//GEN-END:variables
 }

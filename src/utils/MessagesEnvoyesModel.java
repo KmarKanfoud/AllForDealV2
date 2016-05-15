@@ -18,7 +18,7 @@ import javax.swing.table.AbstractTableModel;
 public class MessagesEnvoyesModel extends AbstractTableModel {
 
     List<Message> msgs;
-    String[] colonnes = {"id", "De la part de", "Sujet", "Messgae", "Réçu le"};
+    String[] colonnes = {"id", "A", "Sujet", "Messgae", "Envoyé le"};
 
     public MessagesEnvoyesModel() {
         MessageDao mdao = new MessageDao();
@@ -42,7 +42,7 @@ public class MessagesEnvoyesModel extends AbstractTableModel {
             case 0:
                 return msgs.get(rowIndex).getId_message();
             case 1:
-                return msgs.get(rowIndex).getFrom();
+                return msgs.get(rowIndex).getTo();
             case 2:
                 return msgs.get(rowIndex).getSujet();
             case 3:

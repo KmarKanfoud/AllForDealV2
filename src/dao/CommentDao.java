@@ -9,6 +9,7 @@ package dao;
 
 import GUI.*;
 import Idao.IDao;
+import com.sun.xml.internal.ws.util.Constants;
 import entite.Comment;
 import java.sql.Connection;
 import java.sql.Date;
@@ -45,8 +46,8 @@ public class CommentDao implements IDao<Comment> {
             //pst.setInt(1, c.getId());
             pst.setString(1, c.getBody());
             pst.setDate(2, (Date) c.getCreated_at());
-            pst.setInt(3, FrameGestionProduitAdmin.getProd_id());
-            pst.setInt(4, FrameAccueil.getUserId());
+            pst.setInt(3, AllForDealFrame.getProduit_id());
+            pst.setInt(4, LoginForm.getUser_id());
 
             pst.executeUpdate();
 
@@ -62,11 +63,10 @@ public class CommentDao implements IDao<Comment> {
         try {
             pst = connection.prepareStatement(req);
 
-            //pst.setInt(1, c.getId());
             pst.setString(1, c.getBody());
             pst.setDate(2, (Date) c.getCreated_at());
             pst.setInt(3, AllForDealFrame.getService_id());
-            pst.setInt(4, FrameAccueil.getUserId());
+            pst.setInt(4, LoginForm.getUser_id());
 
             pst.executeUpdate();
 
@@ -191,7 +191,7 @@ public class CommentDao implements IDao<Comment> {
     
          public   List<Comment> DisplayCommentProduit(int num) {
         List<Comment> commentaires = new ArrayList<>();
-        String req = "SELECT u.username,c.body,c.created_at,c.produit_id FROM fos_user_user u inner join comment c on (c.user_id = u.id) and c.produit_id=" + num;
+        String req = "SELECT c.id,u.username,c.body,c.created_at,c.produit_id FROM fos_user_user u inner join comment c on (c.user_id = u.id) and c.produit_id=" + num;
         try {
            
             PreparedStatement ps = connection.prepareStatement(req);
@@ -200,11 +200,11 @@ public class CommentDao implements IDao<Comment> {
 
             while (resultat.next()) {
                 Comment c = new Comment();
-             
-                c.setUsername(resultat.getString(1));
-                c.setBody(resultat.getString(2));
-                c.setCreated_at((Date) resultat.getDate(3));
-                c.setProduit_id(resultat.getInt(4));
+                c.setId(resultat.getInt(1));
+                c.setUsername(resultat.getString(2));
+                c.setBody(resultat.getString(3));
+                c.setCreated_at((Date) resultat.getDate(4));
+                c.setProduit_id(resultat.getInt(5));
 
                 commentaires.add(c);
             }return commentaires;

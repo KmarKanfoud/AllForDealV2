@@ -39,7 +39,7 @@ public class ProduitTest {
    //    pdao.removeById(1);
     List<Produit>LP = new ArrayList();
        LP = pdao.findAll();
-//        System.out.println(LP);
+      System.out.println(LP);
 //        
 
 //            p2.setRating(p2.getRating() +1);

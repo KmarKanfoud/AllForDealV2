@@ -111,6 +111,8 @@ public class AllForDealFrame extends javax.swing.JFrame {
 
     ServiceDao sdao = new ServiceDao();
     ZoneDao zoneDAO = new ZoneDao();
+      Browser browser = new Browser();
+    BrowserView view = new BrowserView(browser);
 
     private static String nomS;
     //kmar
@@ -445,6 +447,7 @@ public class AllForDealFrame extends javax.swing.JFrame {
         pShowMap = new javax.swing.JPanel();
         tfComment = new javax.swing.JTextField();
         btnCommenter1 = new javax.swing.JButton();
+        btnBackS3 = new javax.swing.JButton();
         pShowMap1 = new javax.swing.JPanel();
         jLabel56 = new javax.swing.JLabel();
         ParentPanel1 = new javax.swing.JPanel();
@@ -2109,7 +2112,7 @@ public class AllForDealFrame extends javax.swing.JFrame {
                             .addComponent(lZoneSAll)
                             .addComponent(lEtatSAll)
                             .addComponent(lCategorieServiceAll))))
-                .addContainerGap(57, Short.MAX_VALUE))
+                .addContainerGap(102, Short.MAX_VALUE))
         );
         pDetailSLayout.setVerticalGroup(
             pDetailSLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -2147,6 +2150,14 @@ public class AllForDealFrame extends javax.swing.JFrame {
             }
         });
 
+        btnBackS3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/back.png"))); // NOI18N
+        btnBackS3.setText("Back");
+        btnBackS3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBackS3ActionPerformed(evt);
+            }
+        });
+
         pConsulterS2.add(jScrollPane5);
         jScrollPane5.setBounds(55, 11, 452, 402);
 
@@ -2157,13 +2168,14 @@ public class AllForDealFrame extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pConsulterS2Layout.createSequentialGroup()
                 .addGroup(pConsulterS2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(pConsulterS2Layout.createSequentialGroup()
+                        .addGap(18, 18, 18)
+                        .addGroup(pConsulterS2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(bntMap, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btnBackS3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addGroup(pConsulterS2Layout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(pDetailS, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pConsulterS2Layout.createSequentialGroup()
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(bntMap)
-                        .addGap(60, 60, 60)))
-                .addGap(18, 18, 18)
+                        .addComponent(pDetailS, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 35, Short.MAX_VALUE)
                 .addGroup(pConsulterS2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(pConsulterS2Layout.createSequentialGroup()
                         .addComponent(btnCommenter1, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -2186,20 +2198,24 @@ public class AllForDealFrame extends javax.swing.JFrame {
             pConsulterS2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pConsulterS2Layout.createSequentialGroup()
                 .addGroup(pConsulterS2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pConsulterS2Layout.createSequentialGroup()
+                        .addComponent(pShowMap, javax.swing.GroupLayout.PREFERRED_SIZE, 374, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(91, 91, 91))
                     .addGroup(pConsulterS2Layout.createSequentialGroup()
-                        .addGap(23, 23, 23)
-                        .addComponent(pDetailS, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(30, 30, 30)
-                        .addComponent(bntMap))
-                    .addGroup(pConsulterS2Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 286, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(tfComment, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(pConsulterS2Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(pShowMap, javax.swing.GroupLayout.PREFERRED_SIZE, 457, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(8, 8, 8)
+                        .addGroup(pConsulterS2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(pConsulterS2Layout.createSequentialGroup()
+                                .addContainerGap()
+                                .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 286, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(tfComment, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(pConsulterS2Layout.createSequentialGroup()
+                                .addGap(23, 23, 23)
+                                .addComponent(pDetailS, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(bntMap)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(btnBackS3)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 78, Short.MAX_VALUE)))
                 .addGroup(pConsulterS2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnCommenter1)
                     .addComponent(btnSupprimerCommentaire))
@@ -3097,6 +3113,7 @@ public class AllForDealFrame extends javax.swing.JFrame {
 
             cbCat.setSelectedItem(null);
             cbZone2.setSelectedItem(null);
+             tblMesServices.setModel(new ServiceByUserIdModel());
 
         } else {
             lerror.setText(" Veuiller enter le nom de votre service SVP !");
@@ -3209,6 +3226,16 @@ public class AllForDealFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_btnSupprimerCommentaireActionPerformed
 
     private void bntMapActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bntMapActionPerformed
+        pShowMap.removeAll();
+        pShowMap.repaint();
+        pShowMap.revalidate();
+        int i = tblAllServices.getSelectedRow();
+        TableModel model = tblAllServices.getModel();
+        Object l = tblAllServices.getValueAt(i, 0);
+        service_id = (int) l;
+           browser.reload();
+        loadMap2();
+
 
 
     }//GEN-LAST:event_bntMapActionPerformed
@@ -3265,6 +3292,7 @@ public class AllForDealFrame extends javax.swing.JFrame {
             s.setDateAjout(date);
             s.setEtat(cbEtat.getSelectedItem().toString());
             ServiceDao sdao = new ServiceDao();
+             tblMesServices.setModel(new ServiceByUserIdModel());
             sdao.update(s);
             //jScrollPane1.setViewportView(tblService);
 
@@ -4142,6 +4170,17 @@ produitsLabel.setVisible(false);      }//GEN-LAST:event_btnProduitsMouseExited
         }
     }//GEN-LAST:event_btnSupprimerCommentaire1ActionPerformed
 
+    private void btnBackS3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackS3ActionPerformed
+        // TODO add your handling code here:
+        pShowMap.removeAll();
+        pShowMap.repaint();
+        pShowMap.revalidate();
+        ParentPanel2.removeAll();
+        ParentPanel2.add(pAllServices);
+        ParentPanel2.repaint();
+        ParentPanel2.revalidate();
+    }//GEN-LAST:event_btnBackS3ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -4267,10 +4306,29 @@ produitsLabel.setVisible(false);      }//GEN-LAST:event_btnProduitsMouseExited
             Logger.getLogger(AllForDealFrame.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+   private void loadMap2() {
 
-//    private void loadMap() {
-//
-//    }
+        Service s = sdao.findById(service_id);
+
+        System.out.println(s.getZone());
+
+        pShowMap.setLayout(new BorderLayout());
+        int i = 0;
+        pShowMap.add(view, BorderLayout.CENTER);
+        java.util.List<Zone> obj = sdao.findByZone(s.getZone());
+
+        double x;
+        double y;
+        for (Object o : obj) {
+            x = ((Zone) o).getLat();
+            y = ((Zone) o).getLon();
+            System.out.println(x + "dddddddddd" + y);
+            browser.loadURL("https://maps.googleapis.com/maps/api/staticmap?center=" + x + "," + y + "&zoom=12&size=700x500&maptype=roadmap&markers=icone%7Clabel:S%7C" + x + "," + y);
+    
+        }
+
+
+    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel AccueilPanel2;
     private javax.swing.JButton AjoutPanier;
@@ -4309,6 +4367,7 @@ produitsLabel.setVisible(false);      }//GEN-LAST:event_btnProduitsMouseExited
     private javax.swing.JButton btnBackP1;
     private javax.swing.JButton btnBackS;
     private javax.swing.JButton btnBackS2;
+    private javax.swing.JButton btnBackS3;
     private javax.swing.JButton btnCommenter1;
     private javax.swing.JButton btnCommenterP;
     private javax.swing.JButton btnConsulterProduit;

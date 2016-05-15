@@ -11,11 +11,14 @@ import com.restfb.FacebookClient;
 import com.restfb.Parameter;
 import com.restfb.types.FacebookType;
 import com.restfb.types.Page;
+import com.teamdev.jxbrowser.chromium.Browser;
+import com.teamdev.jxbrowser.chromium.swing.BrowserView;
 import dao.CommentDao;
 import dao.ProduitDao;
 import dao.ReclamationDao;
 import dao.ServiceDao;
 import dao.UserDao;
+import de.javasoft.plaf.synthetica.SyntheticaBlueLightLookAndFeel;
 import entite.Comment;
 import entite.Produit;
 import entite.Reclamation;
@@ -28,6 +31,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Properties;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.mail.Message;
 import javax.mail.MessagingException;
 import javax.mail.PasswordAuthentication;
@@ -36,7 +41,10 @@ import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 import javax.swing.JOptionPane;
+import javax.swing.UIManager;
+import javax.swing.UnsupportedLookAndFeelException;
 import javax.swing.table.TableModel;
+import org.apache.http.ParseException;
 import utils.CommentDPModel;
 import utils.CommentDSModel;
 import utils.CommentSModel;
@@ -49,11 +57,14 @@ import utils.ReclamationModel;
  * @author Lilya Thebti
  */
 public class DashbordAdminFrame extends javax.swing.JFrame {
- private static int service_id;
- private static int produit_id;
- 
+
+    private static int service_id;
+    private static int produit_id;
+
     ServiceDao sdao = new ServiceDao();
     ProduitDao pdao = new ProduitDao();
+    Browser browser = new Browser();
+    BrowserView view = new BrowserView(browser);
 
     public static int getService_id() {
         return service_id;
@@ -70,16 +81,12 @@ public class DashbordAdminFrame extends javax.swing.JFrame {
     public static void setProduit_id(int produit_id) {
         DashbordAdminFrame.produit_id = produit_id;
     }
-    
-    
-    
-    
-    
- 
+
     /**
      * Creates new form DashbordAdminFrame
      */
-    public DashbordAdminFrame() {
+    public DashbordAdminFrame() throws UnsupportedLookAndFeelException, ParseException, java.text.ParseException {
+        UIManager.setLookAndFeel(new SyntheticaBlueLightLookAndFeel());
         initComponents();
     }
 
@@ -152,7 +159,6 @@ public class DashbordAdminFrame extends javax.swing.JFrame {
         pShowMap = new javax.swing.JPanel();
         tfComment = new javax.swing.JTextField();
         btnCommenter1 = new javax.swing.JButton();
-        jLabel57 = new javax.swing.JLabel();
         pShowMap1 = new javax.swing.JPanel();
         jLabel56 = new javax.swing.JLabel();
         MailPanel = new javax.swing.JPanel();
@@ -597,36 +603,28 @@ public class DashbordAdminFrame extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pConsulterS2Layout.createSequentialGroup()
                 .addGroup(pConsulterS2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(pConsulterS2Layout.createSequentialGroup()
-                        .addGap(134, 134, 134)
-                        .addComponent(bntMap))
-                    .addGroup(pConsulterS2Layout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(pDetailS, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGroup(pConsulterS2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(pDetailS, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(pConsulterS2Layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGap(18, 18, 18)
                         .addComponent(btnBackS2)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(33, 33, 33)
+                        .addComponent(bntMap)))
+                .addGroup(pConsulterS2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(pConsulterS2Layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 162, Short.MAX_VALUE)
-                        .addGroup(pConsulterS2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pConsulterS2Layout.createSequentialGroup()
-                                .addComponent(jLabel57, javax.swing.GroupLayout.PREFERRED_SIZE, 424, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(42, 42, 42)
-                                .addGroup(pConsulterS2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(tfComment, javax.swing.GroupLayout.PREFERRED_SIZE, 419, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 480, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(31, 31, 31))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pConsulterS2Layout.createSequentialGroup()
-                                .addComponent(btnCommenter1, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(btnSupprimerCommentaire)
-                                .addGap(204, 204, 204))))))
-            .addGroup(pConsulterS2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(pConsulterS2Layout.createSequentialGroup()
-                    .addGap(432, 432, 432)
-                    .addComponent(pShowMap, javax.swing.GroupLayout.PREFERRED_SIZE, 430, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(526, Short.MAX_VALUE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 595, Short.MAX_VALUE)
+                        .addComponent(btnCommenter1, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnSupprimerCommentaire)
+                        .addGap(204, 204, 204))
+                    .addGroup(pConsulterS2Layout.createSequentialGroup()
+                        .addGap(28, 28, 28)
+                        .addComponent(pShowMap, javax.swing.GroupLayout.PREFERRED_SIZE, 430, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(pConsulterS2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(tfComment, javax.swing.GroupLayout.PREFERRED_SIZE, 419, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 480, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(31, 31, 31))))
         );
         pConsulterS2Layout.setVerticalGroup(
             pConsulterS2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -636,15 +634,18 @@ public class DashbordAdminFrame extends javax.swing.JFrame {
                         .addGap(23, 23, 23)
                         .addComponent(pDetailS, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(26, 26, 26)
-                        .addComponent(bntMap))
+                        .addGroup(pConsulterS2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(bntMap)
+                            .addComponent(btnBackS2)))
                     .addGroup(pConsulterS2Layout.createSequentialGroup()
                         .addContainerGap()
                         .addGroup(pConsulterS2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel57, javax.swing.GroupLayout.PREFERRED_SIZE, 437, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(pShowMap, javax.swing.GroupLayout.PREFERRED_SIZE, 339, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(pConsulterS2Layout.createSequentialGroup()
                                 .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 286, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
                                 .addComponent(tfComment, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                .addGap(87, 87, 87)
                 .addGroup(pConsulterS2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(pConsulterS2Layout.createSequentialGroup()
                         .addGap(18, 18, 18)
@@ -652,14 +653,7 @@ public class DashbordAdminFrame extends javax.swing.JFrame {
                     .addGroup(pConsulterS2Layout.createSequentialGroup()
                         .addGap(26, 26, 26)
                         .addComponent(btnCommenter1)))
-                .addGap(32, 32, 32)
-                .addComponent(btnBackS2)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(pConsulterS2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(pConsulterS2Layout.createSequentialGroup()
-                    .addGap(111, 111, 111)
-                    .addComponent(pShowMap, javax.swing.GroupLayout.PREFERRED_SIZE, 457, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(31, Short.MAX_VALUE)))
+                .addContainerGap(84, Short.MAX_VALUE))
         );
 
         ServicePanel.add(pConsulterS2, "card3");
@@ -821,7 +815,7 @@ public class DashbordAdminFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_btnGServiceActionPerformed
 
     private void btnMailActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMailActionPerformed
-       ContentPanel.removeAll();
+        ContentPanel.removeAll();
         ContentPanel.add(MailPanel);
         ContentPanel.repaint();
         ContentPanel.revalidate();
@@ -869,14 +863,12 @@ public class DashbordAdminFrame extends javax.swing.JFrame {
             System.out.println(x + "dddddddddd" + y);
             //browser.loadURL("https://maps.googleapis.com/maps/api/staticmap?center=" + x + "," + y + "&zoom=12&size=700x500&maptype=roadmap&markers=icone%7Clabel:S%7C" + x + "," + y);
         }
-  tbCommentairesService.setModel(new CommentDSModel());
+        tbCommentairesService.setModel(new CommentDSModel());
         tbCommentairesService.setVisible(true);
         tbCommentairesService.getColumnModel().getColumn(0).setMinWidth(0);
         tbCommentairesService.getColumnModel().getColumn(0).setMaxWidth(0);
         tbCommentairesService.getColumnModel().getColumn(0).setWidth(0);
-        
-        
-        
+
         ServicePanel.removeAll();
         ServicePanel.add(pConsulterS2);
         ServicePanel.repaint();
@@ -905,20 +897,30 @@ public class DashbordAdminFrame extends javax.swing.JFrame {
         String s = (String) tbCommentairesService.getValueAt(ligneSelectionne, 3);
         System.out.println(s);
         //if (FrameAccueil.getUserId() == c.getUser_id()) {
-            int i = JOptionPane.showConfirmDialog(null, "La suppression est irréversible. Êtes-vous sûr de vouloir continuer?",
+        int i = JOptionPane.showConfirmDialog(null, "La suppression est irréversible. Êtes-vous sûr de vouloir continuer?",
                 "Veuillez confirmer votre choix",
                 JOptionPane.YES_NO_OPTION);
 
-            if (i == 0) {
-                comm.removeById((int) l);
-                tbCommentairesService.setModel(new CommentSModel());
-            }
-            // } else {
-            //JOptionPane.showMessageDialog(ParentPanel, "Ce commentaire est ajouté par " + s + ". Vous ne pouvez pas le supprimer");
-            //}
+        if (i == 0) {
+            comm.removeById((int) l);
+            tbCommentairesService.setModel(new CommentSModel());
+        }
+        // } else {
+        //JOptionPane.showMessageDialog(ParentPanel, "Ce commentaire est ajouté par " + s + ". Vous ne pouvez pas le supprimer");
+        //}
     }//GEN-LAST:event_btnSupprimerCommentaireActionPerformed
 
     private void bntMapActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bntMapActionPerformed
+        pShowMap.removeAll();
+        pShowMap.repaint();
+        pShowMap.revalidate();
+        int i = tblAllServices.getSelectedRow();
+        TableModel model = tblAllServices.getModel();
+        Object l = tblAllServices.getValueAt(i, 0);
+        service_id = (int) l;
+        browser.reload();
+        loadMap2();
+
 
     }//GEN-LAST:event_bntMapActionPerformed
 
@@ -941,7 +943,6 @@ public class DashbordAdminFrame extends javax.swing.JFrame {
             sdao.removeById((int) l);
             tblAllServices.setModel(new ListeService());
             jScrollPane7.setViewportView(tblAllServices);
-          
 
         }
     }//GEN-LAST:event_bntSupprimerActionPerformed
@@ -977,9 +978,9 @@ public class DashbordAdminFrame extends javax.swing.JFrame {
         int rating = (int) tbProduits.getValueAt(ligneSelectionne, 11);
 
         fbClient.publish("10208045352675324" + "/feed", FacebookType.class, Parameter.with("message", "nom du produit : " + nom
-            + "\nCategorie : " + categorie + "\nQuantite : " + quantite + "\nDescription : " + description + "\nPrix : " + prix + "\nPoint Bonus: " + pointBonus + "\nGouvernorat : " + zone + "\n Date Ajout :" + dateAjout + "TVA : " + TVA + "\nRéduction : " + reduction + "\rating" + rating));
+                + "\nCategorie : " + categorie + "\nQuantite : " + quantite + "\nDescription : " + description + "\nPrix : " + prix + "\nPoint Bonus: " + pointBonus + "\nGouvernorat : " + zone + "\n Date Ajout :" + dateAjout + "TVA : " + TVA + "\nRéduction : " + reduction + "\rating" + rating));
 
-    JOptionPane.showMessageDialog(null, "Shared Succefully on Facebook!");
+        JOptionPane.showMessageDialog(null, "Shared Succefully on Facebook!");
     }//GEN-LAST:event_btnPartagerActionPerformed
 
     private void btnConsulterProduitMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnConsulterProduitMouseClicked
@@ -987,12 +988,12 @@ public class DashbordAdminFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_btnConsulterProduitMouseClicked
 
     private void btnConsulterProduitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConsulterProduitActionPerformed
- int i = tbProduits.getSelectedRow();
+        int i = tbProduits.getSelectedRow();
         TableModel model = tbProduits.getModel();
         Object l = tbProduits.getValueAt(i, 0);
         produit_id = (int) l;
         System.out.println(tbProduits);
-       
+
         lNomProduit.setText(model.getValueAt(i, 1).toString());
         lCategorie.setText(model.getValueAt(i, 2).toString());
         lQuantite.setText(model.getValueAt(i, 3).toString());
@@ -1001,7 +1002,7 @@ public class DashbordAdminFrame extends javax.swing.JFrame {
         lPointBonus.setText(model.getValueAt(i, 6).toString());
         lZone.setText(model.getValueAt(i, 7).toString());
         lTVA.setText(model.getValueAt(i, 9).toString());
-        lReduction.setText(model.getValueAt(i, 10).toString());   
+        lReduction.setText(model.getValueAt(i, 10).toString());
 
         Produit p = pdao.findById(produit_id);
         tbCommProd.setModel(new CommentDPModel());
@@ -1013,10 +1014,8 @@ public class DashbordAdminFrame extends javax.swing.JFrame {
         produitPanel.add(ConsultationPanel);
         produitPanel.repaint();
         produitPanel.revalidate();
-        
-        
-        
-        
+
+
     }//GEN-LAST:event_btnConsulterProduitActionPerformed
 
     private void btnBackPActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackPActionPerformed
@@ -1032,10 +1031,10 @@ public class DashbordAdminFrame extends javax.swing.JFrame {
 
     private void btnEnvMailActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEnvMailActionPerformed
         // TODO add your handling code here:
-        String to = null ;
+        String to = null;
         UserDao u = new UserDao();
-      List  listeTo = new ArrayList();
-      listeTo= u.findAllEmail();
+        List listeTo = new ArrayList();
+        listeTo = u.findAllEmail();
 
         String from = "allfordealpi@gmail.com";
         final String username = "allfordealpi@gmail.com";
@@ -1062,45 +1061,41 @@ public class DashbordAdminFrame extends javax.swing.JFrame {
             Message message = new MimeMessage(session);
 
             message.setFrom(new InternetAddress(from));
-            
-           for (Object o : listeTo) {
-                
-                   to = (String)o;
-                      System.out.println(to);
-            message.setRecipients(Message.RecipientType.TO,
-                    InternetAddress.parse(to));
-            
-                 
-          
-       
-           
-            message.setSubject(tfObjet.getText());
 
-            message.setText(taContenu.getText());
+            for (Object o : listeTo) {
 
-            // Send message
-            Transport.send(message);
-           }
+                to = (String) o;
+                System.out.println(to);
+                message.setRecipients(Message.RecipientType.TO,
+                        InternetAddress.parse(to));
+
+                message.setSubject(tfObjet.getText());
+
+                message.setText(taContenu.getText());
+
+                // Send message
+                Transport.send(message);
+            }
             System.out.println("Sent message successfully....");
 
         } catch (MessagingException e) {
             throw new RuntimeException(e);
         }
-        
+
     }//GEN-LAST:event_btnEnvMailActionPerformed
 
     private void btnReclamActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReclamActionPerformed
         // TODO add your handling code here:
-         ContentPanel.removeAll();
+        ContentPanel.removeAll();
         ContentPanel.add(ReclamPanel);
         ContentPanel.repaint();
         ContentPanel.revalidate();
         ReclamationDao rdao = new ReclamationDao();
         Reclamation r = new Reclamation();
-          int ligneSelectionne = tbReclam.getSelectedRow();
+        int ligneSelectionne = tbReclam.getSelectedRow();
         Object l = tbReclam.getValueAt(ligneSelectionne, 0);
         System.out.println(l);
-       //r = rdao.removeById((int) l);
+        //r = rdao.removeById((int) l);
     }//GEN-LAST:event_btnReclamActionPerformed
 
     private void btnSupprimerReclamActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSupprimerReclamActionPerformed
@@ -1138,9 +1133,40 @@ public class DashbordAdminFrame extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new DashbordAdminFrame().setVisible(true);
+                try {
+                    new DashbordAdminFrame().setVisible(true);
+                } catch (UnsupportedLookAndFeelException ex) {
+                    Logger.getLogger(DashbordAdminFrame.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (ParseException ex) {
+                    Logger.getLogger(DashbordAdminFrame.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (java.text.ParseException ex) {
+                    Logger.getLogger(DashbordAdminFrame.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         });
+    }
+
+    private void loadMap2() {
+
+        Service s = sdao.findById(service_id);
+
+        System.out.println(s.getZone());
+
+        pShowMap.setLayout(new BorderLayout());
+        int i = 0;
+        pShowMap.add(view, BorderLayout.CENTER);
+        java.util.List<Zone> obj = sdao.findByZone(s.getZone());
+
+        double x;
+        double y;
+        for (Object o : obj) {
+            x = ((Zone) o).getLat();
+            y = ((Zone) o).getLon();
+            System.out.println(x + "dddddddddd" + y);
+            browser.loadURL("https://maps.googleapis.com/maps/api/staticmap?center=" + x + "," + y + "&zoom=12&size=700x500&maptype=roadmap&markers=icone%7Clabel:S%7C" + x + "," + y);
+
+        }
+
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -1175,7 +1201,6 @@ public class DashbordAdminFrame extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel29;
     private javax.swing.JLabel jLabel30;
     private javax.swing.JLabel jLabel56;
-    private javax.swing.JLabel jLabel57;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel6;
